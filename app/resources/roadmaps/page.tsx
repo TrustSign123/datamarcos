@@ -1,0 +1,1 @@
+export default function RoadmapsPage() { return <section className="hero-simple"><div className="container"><p className="eyebrow">Resources</p><h1 className="section-title">Roadmaps</h1><p className="section-copy">Editable learning roadmaps and lead-generation resources.</p></div></section>; }

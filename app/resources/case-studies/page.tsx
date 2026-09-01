@@ -1,0 +1,1 @@
+export default function CaseStudiesPage() { return <section className="hero-simple"><div className="container"><p className="eyebrow">Resources</p><h1 className="section-title">Case Studies</h1><p className="section-copy">Verified case studies can be published here as written, PDF or video assets.</p></div></section>; }

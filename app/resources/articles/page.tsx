@@ -1,0 +1,1 @@
+export default function ArticlesPage() { return <section className="hero-simple"><div className="container"><p className="eyebrow">Resources</p><h1 className="section-title">Articles</h1><p className="section-copy">Editable article index placeholder.</p></div></section>; }

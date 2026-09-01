@@ -1,0 +1,1 @@
+export default function WebinarsPage() { return <section className="hero-simple"><div className="container"><p className="eyebrow">Resources</p><h1 className="section-title">Webinars</h1><p className="section-copy">Editable webinar index placeholder.</p></div></section>; }
