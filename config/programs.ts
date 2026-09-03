@@ -79,6 +79,43 @@ export const programs: Program[] = [
     }
   },
   {
+    id: "advance-data-engineering-genai",
+    slug: "advance-data-engineering-genai",
+    title: "Advance Data Engineering with Applied GenAI & Agentic AI",
+    shortTitle: "Advance Data Engineering + Agentic AI",
+    category: "Data Engineering / GenAI / Agentic AI",
+    description: "A mobile-first flagship program for IT professionals who want to move from traditional data pipelines into AI-ready data platforms, production RAG, tool-using agents and deployable AI applications.",
+    positioning: "Build the Data Foundation. Engineer the Intelligence. Deploy the Agents.",
+    audience: ["Professionals", "Data Engineers", "Software Engineers", "Cloud Engineers", "Analytics Engineers", "Working Technology Professionals"],
+    level: "Advanced",
+    duration: "4-Month Foundation + Advanced GenAI Track",
+    format: "Live cohort",
+    delivery: ["Remote", "Hybrid"],
+    status: "UPCOMING",
+    cohortDate: "Applications open",
+    seats: "Limited seats",
+    technologies: ["Azure Data Lake", "PySpark", "Spark Streaming", "Azure Data Factory", "AWS", "Databricks", "Snowflake", "LangChain", "LangGraph", "RAG Pipelines", "CrewAI", "MCP Agents", "Snowflake Cortex AI", "Databricks Mosaic AI"],
+    curriculum: [
+      { title: "Track 1 - 4-Month Foundation", topics: ["Data lakes", "Pipelines", "Orchestration", "Streaming", "Azure", "AWS", "Snowflake", "Databricks"] },
+      { title: "Track 2 - Advanced GenAI & Agentic AI", topics: ["LangChain", "LangGraph", "RAG", "CrewAI", "MCP", "Snowflake Cortex AI", "Databricks Mosaic AI"] },
+      { title: "Production AI Systems", topics: ["Tool-using agents", "Multi-agent workflows", "Evaluation", "Deployment", "Portfolio capstone"] }
+    ],
+    projects: ["AI-ready data platform", "Production RAG system", "Tool-using agent workflow", "Multi-agent data assistant", "Deployable AI application"],
+    instructors: ["Deepesh Mishra"],
+    testimonials: ["Raghul K", "Ansh Ranjan", "Kumar Gaurav"],
+    pricing: "Tap Download Brochure or Book a Consultation and Datamarcos will WhatsApp the fees and next batch dates.",
+    showPricing: false,
+    brochureUrl: "https://wa.me/918442032741?text=Hi%20Datamarcos!%20I'd%20like%20to%20get%20the%20brochure%20for%20the%20Advance%20Data%20Engineering%20with%20Applied%20GenAI%20%26%20Agentic%20AI%20program.%20Please%20share%20the%20details.",
+    programOgImage: "/images/programs/advance-data-engineering-genai-og.png",
+    featured: true,
+    seo: {
+      title: "Advance Data Engineering with Applied GenAI & Agentic AI | Datamarcos",
+      description: "Learn AI-ready data engineering, production RAG, LangChain, LangGraph, CrewAI, MCP agents, Snowflake Cortex AI and Databricks Mosaic AI with Datamarcos.",
+      keywords: ["Advance Data Engineering", "Applied GenAI", "Agentic AI", "RAG", "LangChain", "LangGraph", "CrewAI", "MCP", "Databricks", "Snowflake", "Azure Data Lake"],
+      ogImage: "/images/programs/advance-data-engineering-genai-og.png"
+    }
+  },
+  {
     id: "ai-engineering-agentic-ai",
     slug: "ai-engineering-agentic-ai",
     title: "AI Engineering & Agentic AI Architect",

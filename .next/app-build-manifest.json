@@ -21,25 +21,15 @@
       "static/chunks/main-app.js",
       "static/chunks/app/programs/page.js"
     ],
-    "/corporate-training/page": [
+    "/programs/[slug]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/corporate-training/page.js"
+      "static/chunks/app/programs/[slug]/page.js"
     ],
-    "/resources/page": [
+    "/programs/advance-data-engineering-genai/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/resources/page.js"
-    ],
-    "/contact/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/contact/page.js"
-    ],
-    "/about/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/about/page.js"
+      "static/chunks/app/programs/advance-data-engineering-genai/page.js"
     ]
   }
 }

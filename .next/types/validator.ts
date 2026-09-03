@@ -126,6 +126,15 @@ type LayoutConfig<Route extends LayoutRoutes = LayoutRoutes> = {
   type __Unused = __Check
 }
 
+// Validate ../../app/programs/advance-data-engineering-genai/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/programs/advance-data-engineering-genai">> = Specific
+  const handler = {} as typeof import("../../app/programs/advance-data-engineering-genai/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 // Validate ../../app/programs/page.tsx
 {
   type __IsExpected<Specific extends AppPageConfig<"/programs">> = Specific
