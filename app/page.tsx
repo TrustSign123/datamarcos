@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, BookOpen, BriefcaseBusiness, CheckCircle2, CircuitBoard, Globe2, GraduationCap, Network, ShieldCheck, Users } from "lucide-react";
 import { CorporateCTA } from "@/components/CTA";
 import { LeadCaptureForm } from "@/components/Forms";
@@ -49,6 +50,7 @@ export default function Home() {
             <div className="hero-actions">
               <Link className="button primary" href="/corporate-training#inquiry">Request Corporate Training <ArrowRight size={18} /></Link>
               <Link className="button secondary" href="/programs">Explore Programs</Link>
+              <Link className="button secondary" href="/lms"><GraduationCap size={18} /> Learning Hub</Link>
             </div>
             <div className="trust-line"><span>Enterprise Learning</span><span>Professional Upskilling</span><span>Expert-Led Training</span></div>
           </div>
@@ -171,8 +173,31 @@ export default function Home() {
 
       <section className="section alt">
         <div className="container grid two">
-          <div className="card founder-portrait" role="img" aria-label={site.founder.imageAlt}><span>DM</span><strong>{site.founder.name}</strong></div>
-          <div><p className="eyebrow">Leadership</p><h2 className="section-title">{site.founder.name}</h2><p className="section-copy">{site.founder.title}</p><p className="section-copy">{site.founder.bio}</p><div className="grid four">{site.stats.map((stat) => <div className="card" key={stat.label}><strong>{stat.value}</strong><p>{stat.label}</p></div>)}</div></div>
+          <div className="founder-portrait" aria-label={site.founder.imageAlt}>
+            <Image src={site.founder.image} alt={site.founder.imageAlt} width={700} height={875} priority={false} />
+          </div>
+          <div>
+            <p className="eyebrow">Leadership</p>
+            <h2 className="section-title">{site.founder.name}</h2>
+            <p className="section-copy">{site.founder.title}</p>
+            <p className="section-copy">{site.founder.bio}</p>
+            <div className="tech-list">{site.founder.capabilities.map((item) => <span className="tech-chip" key={item}>{item}</span>)}</div>
+            <div className="grid four founder-stats">{site.stats.map((stat) => <div className="card" key={stat.label}><strong>{stat.value}</strong><p>{stat.label}</p></div>)}</div>
+          </div>
+        </div>
+        <div className="container founder-proof-grid">
+          <div>
+            <p className="eyebrow">Worked with</p>
+            <div className="tech-list">{site.founder.workedWith.map((item) => <span className="tech-chip" key={item}>{item}</span>)}</div>
+          </div>
+          <div>
+            <p className="eyebrow">What he teaches</p>
+            <div className="tech-list">{site.founder.teaches.map((item) => <span className="tech-chip" key={item}>{item}</span>)}</div>
+          </div>
+          <div>
+            <p className="eyebrow">Teaching philosophy</p>
+            <div className="tech-list">{site.founder.philosophy.map((item) => <span className="tech-chip" key={item}>{item}</span>)}</div>
+          </div>
         </div>
       </section>
 

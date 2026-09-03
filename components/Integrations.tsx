@@ -1,4 +1,5 @@
 import { env } from "@/config/site";
+import { MessageCircle } from "lucide-react";
 
 export function CalendlyBooking({ url = env.calendlyUrl }: { url?: string }) {
   if (!url) {
@@ -13,6 +14,16 @@ export function PaymentButton({ url = env.razorpayCheckoutUrl }: { url?: string 
 }
 
 export function WhatsAppCTA() {
-  if (!env.whatsappUrl) return null;
-  return <a className="button primary whatsapp" href={env.whatsappUrl} target="_blank" rel="noreferrer"><span>Chat with Datamarcos</span></a>;
+  return (
+    <a
+      className="button primary whatsapp"
+      href={env.whatsappUrl}
+      target="_blank"
+      rel="noreferrer"
+      aria-label="Chat with Datamarcos on WhatsApp"
+    >
+      <MessageCircle size={20} />
+      <span>Contact Us</span>
+    </a>
+  );
 }

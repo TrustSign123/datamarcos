@@ -81,6 +81,15 @@ type LayoutConfig<Route extends LayoutRoutes = LayoutRoutes> = {
   type __Unused = __Check
 }
 
+// Validate ../../app/lms/[[...path]]/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/lms/[[...path]]">> = Specific
+  const handler = {} as typeof import("../../app/lms/[[...path]]/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 // Validate ../../app/lp/advanced-ai-data-engineering-agentic-ai/page.tsx
 {
   type __IsExpected<Specific extends AppPageConfig<"/lp/advanced-ai-data-engineering-agentic-ai">> = Specific

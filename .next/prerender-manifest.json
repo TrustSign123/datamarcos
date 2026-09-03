@@ -1,1 +1,11 @@
-{"version":4,"routes":{"/programs/advanced-ai-data-engineering-agentic-ai":{},"/programs/ai-engineering-agentic-ai":{},"/programs/forward-deployed-engineering":{},"/programs/data-engineering":{},"/programs/generative-ai-engineering":{},"/programs/cloud-devops-engineering":{},"/programs/platform-engineering":{},"/programs/devsecops":{},"/programs/mlops-llmops":{}},"dynamicRoutes":{"/programs/[slug]":{"dataRoute":null,"dataRouteRegex":null,"fallback":null,"fallbackRevalidate":false,"fallbackSourceRoute":"/programs/[slug]","routeRegex":"^\\/programs\\/([^/]+?)(?:\\/)?$","allowHeader":[]}},"notFoundRoutes":[],"preview":{"previewModeId":"c841da340fa20e0fb122e888c049849d","previewModeSigningKey":"3af9d526ee237b0d6fbcf50d0e33b7f11614d3f829caff79d7caaef88a37ca32","previewModeEncryptionKey":"1ad3afc768696873a3bdbae2263055226b18da235365613812e2006e220fc9f6"}}
+{
+  "version": 4,
+  "routes": {},
+  "dynamicRoutes": {},
+  "notFoundRoutes": [],
+  "preview": {
+    "previewModeId": "a8115402419292ccaffdfcc3153a1c78",
+    "previewModeSigningKey": "0c8afa7a5392ca80121cd5c69041008a950e9e8615489d6544b259acad7e4985",
+    "previewModeEncryptionKey": "2c9a990cfb7b01fcc0ae0acac71504d5c8e31e717e537fb9fd014b1fa604ea1e"
+  }
+}

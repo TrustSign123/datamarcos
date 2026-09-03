@@ -12,6 +12,7 @@ const columns = [
 
 export function Footer() {
   const socials = Object.entries(site.social).filter(([, url]) => Boolean(url));
+  const labelFor = (network: string) => network === "whatsapp" ? "WhatsApp" : network[0].toUpperCase() + network.slice(1);
 
   return (
     <footer className="footer">
@@ -20,9 +21,14 @@ export function Footer() {
           <div>
             <Logo />
             <p style={{ color: "rgba(255,255,255,.72)", lineHeight: 1.7 }}>{site.tagline}</p>
+            <div className="footer-contact">
+              <strong>Get in touch</strong>
+              <a href={`mailto:${site.email}`}>{site.email}</a>
+              <span>{site.location}</span>
+            </div>
             {socials.map(([network, url]) => (
               <a key={network} href={url} target="_blank" rel="noreferrer">
-                {network}
+                {labelFor(network)}
               </a>
             ))}
           </div>
