@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { FileText, ShieldCheck } from "lucide-react";
 import { Logo } from "@/components/Header";
 import { site } from "@/config/site";
 
@@ -7,7 +8,7 @@ const columns = [
   { title: "Programs", links: [["AI", "/programs?technology=AI"], ["Data", "/programs?technology=Data"], ["Cloud", "/programs?technology=Cloud"], ["DevOps", "/programs?technology=DevOps"], ["Software Engineering", "/programs?technology=Software"], ["Cybersecurity", "/programs?technology=Cybersecurity"]] },
   { title: "Resources", links: [["Articles", "/resources/articles"], ["Webinars", "/resources/webinars"], ["Case Studies", "/resources/case-studies"], ["Roadmaps", "/resources/roadmaps"]] },
   { title: "Company", links: [["About", "/about"], ["Contact", "/contact"], ["Become a Trainer", "/become-a-trainer"]] },
-  { title: "Legal", links: [["Privacy", "/privacy"], ["Terms", "/terms"], ["Refund Policy", "/refund-policy"]] }
+  { title: "Legal", links: [["Privacy", "/privacy"], ["Terms", "/terms"], ["Payment & Refund", "/payment-refund-policy"]] }
 ];
 
 export function Footer() {
@@ -37,6 +38,7 @@ export function Footer() {
               <h4>{column.title}</h4>
               {column.links.map(([label, href]) => (
                 <Link key={href} href={href}>
+                  {column.title === "Legal" && (label === "Privacy" ? <ShieldCheck size={15} aria-hidden="true" /> : <FileText size={15} aria-hidden="true" />)}
                   {label}
                 </Link>
               ))}

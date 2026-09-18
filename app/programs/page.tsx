@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { programs } from "@/config/programs";
 
 export default function ProgramsPage() {
@@ -12,6 +12,10 @@ export default function ProgramsPage() {
   const [audience, setAudience] = useState("");
   const [delivery, setDelivery] = useState("");
   const [status, setStatus] = useState("");
+
+  useEffect(() => {
+    setTechnology(new URLSearchParams(window.location.search).get("technology") || "");
+  }, []);
 
   const filtered = useMemo(() => programs.filter((program) => {
     const blob = `${program.title} ${program.description} ${program.technologies.join(" ")}`.toLowerCase();
