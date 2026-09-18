@@ -68,7 +68,7 @@ const learnerFeedback = "His deep understanding of the subject, combined with a 
 
 export default function AppliedAgenticAICertificationPage() {
   return (
-    <div className="agentic-course-page">
+    <div id="applied-agentic-ai-certification" className="agentic-course-page">
       <section className="agentic-hero-shell">
         <div className="container agentic-topbar">
           <Logo />
