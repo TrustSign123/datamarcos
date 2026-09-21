@@ -126,7 +126,7 @@ export default function AppliedAgenticAICertificationPage() {
                 </div>
               </div>
               <div className="agentic-mentor-box">
-                <img src="/images/applied-agentic-ai/deepesh-mishra.jpg" alt="Deepesh Mishra, Datamarcos mentor" className="agentic-mentor-avatar" />
+                <img src="/images/deepesh-mishra-founder.jpeg" alt="Deepesh Mishra, Datamarcos mentor" className="agentic-mentor-avatar" />
                 <div className="agentic-mentor-details"><span className="agentic-mentor-label">Mentored by</span><div className="agentic-mentor-name">Deepesh Mishra</div></div>
                 <span className="agentic-mentor-stat">18+ years<br />of experience</span>
               </div>
@@ -310,16 +310,16 @@ export default function AppliedAgenticAICertificationPage() {
       <section className="section">
         <div className="container agentic-showcase">
           <div className="agentic-image-panel">
-            <img src="/images/applied-agentic-ai/live-session.jpg" alt="Datamarcos live AI workshop" />
+            <img src="/images/applied-agentic-ai/classroom-live.webp" alt="Datamarcos live AI workshop" />
           </div>
 
           <div className="agentic-proof-stack">
             <div className="agentic-proof-card">
               <p className="eyebrow">Learner feedback</p>
-              <img src="/images/applied-agentic-ai/testimonial-1.jpg" alt="Learner testimonial" />
+              <img src="/images/applied-agentic-ai/classroom-sigmaoid.webp" alt="Learner testimonial" />
             </div>
             <div className="agentic-proof-card">
-              <img src="/images/applied-agentic-ai/testimonial-2.jpg" alt="Second learner testimonial" />
+              <img src="/images/applied-agentic-ai/classroom-novartis.webp" alt="Second learner testimonial" />
             </div>
           </div>
         </div>
