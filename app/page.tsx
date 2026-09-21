@@ -74,6 +74,32 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="agentic-home-banner">
+        <div className="container agentic-home-banner-inner">
+          <div className="agentic-home-banner-copy">
+            <span className="agentic-home-badge">New • Applied Agentic AI Certification</span>
+            <h2>Build AI systems that work in the real world.</h2>
+            <p>Master prompt engineering, RAG, agents, tool use, orchestration and production AI workflows with Datamarcos&apos; mentor-led certification.</p>
+            <div className="agentic-home-meta">
+              <span>8-week live program</span>
+              <span>Portfolio capstone</span>
+              <span>Mentor-led learning</span>
+            </div>
+            <div className="hero-actions agentic-banner-actions">
+              <Link className="button primary" href="/programs/applied-agentic-ai-certification">Explore the program <ArrowRight size={18} /></Link>
+              <Link className="button secondary" href="/programs">View all programs</Link>
+            </div>
+          </div>
+          <div className="agentic-home-banner-visual" aria-label="Agentic AI certification highlight">
+            <div className="agentic-home-spotlight">
+              <span className="agentic-home-mini">AI + Agents</span>
+              <strong>Applied Agentic AI</strong>
+              <small>From prompts to production-ready workflows.</small>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="section">
         <div className="container">
           <p className="eyebrow">Two learning paths</p>
