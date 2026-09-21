@@ -12,6 +12,14 @@ import { site } from "@/config/site";
 import { technologies, technologyCategories } from "@/config/technologies";
 import { testimonials } from "@/config/testimonials";
 
+const placements = [
+  { name: "Richard Leclézio", role: "Professional learner", company: "LinkedIn", short: "IN", image: "/images/student-placements/richard-leclezio.jpeg", link: "https://www.linkedin.com/in/richard-leclezio/" },
+  { name: "Lakshan J", role: "Software Engineer", company: "Hexaware Technologies", short: "HX", image: "/images/student-placements/lakshan-j.png", link: "https://www.linkedin.com/in/lakshan013/" },
+  { name: "Uphar Tandon", role: "Technology professional", company: "Microsoft", short: "MS", image: "/images/student-placements/uphar-tandon.png", link: "https://www.linkedin.com/in/uphar-tandon-2563a636/" },
+  { name: "Sharoz Farhan Afridi", role: "Technology professional", company: "Career Growth", short: "CG", image: "/images/student-placements/sharoz-farhan-afridi.jpeg", link: "https://www.linkedin.com/in/sharoz-farhan-afridi/" },
+  { name: "Gaurav Taneja", role: "Senior Azure Data Engineer", company: "PwC", short: "PwC", image: "/images/student-placements/gaurav-taneja.png", link: "https://www.linkedin.com/in/gaurav-t-a4a096158/" }
+];
+
 const process = [
   ["Discover", "Understand business goals and capability gaps."],
   ["Map", "Identify roles, skills and technology requirements."],
@@ -95,6 +103,36 @@ export default function Home() {
               <span className="agentic-home-mini">AI + Agents</span>
               <strong>Applied Agentic AI</strong>
               <small>From prompts to production-ready workflows.</small>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section student-placement-showcase">
+        <div className="container">
+          <div className="student-placement-header">
+            <div>
+              <p className="eyebrow">Student success stories</p>
+              <h2 className="section-title">Career-ready learners from our programs.</h2>
+            </div>
+          </div>
+
+          <div className="student-placement-marquee" aria-label="Student career placements">
+            <div className="student-placement-track">
+              {[...placements, ...placements].map((student, index) => (
+                <a key={`${student.name}-${index}`} href={student.link} target="_blank" rel="noreferrer" className="student-placement-card">
+                  <div className="student-placement-image-wrap">
+                    <img src={student.image} alt={student.name} />
+                    <span className="student-placement-badge">{student.short}</span>
+                  </div>
+                  <div className="student-placement-body">
+                    <div className="student-placement-company">{student.company}</div>
+                    <h3>{student.name}</h3>
+                    <p>{student.role}</p>
+                    <span className="student-placement-link">View LinkedIn <ArrowRight size={15} /></span>
+                  </div>
+                </a>
+              ))}
             </div>
           </div>
         </div>
