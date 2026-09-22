@@ -118,6 +118,7 @@ img, video { max-width: 100%; height: auto; }
 .student-placement-body p { margin: 0; color: var(--muted); line-height: 1.6; }
 .student-placement-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 16px; font-size: 0.8rem; font-weight: 800; color: var(--blue); }
 @keyframes studentPlacementSlide { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+.agentic-placement-section { background: linear-gradient(180deg, rgba(17, 175, 194, 0.04) 0%, rgba(255,255,255,1) 100%); }
 .agentic-home-banner {
   padding: 26px 0 12px;
 }
