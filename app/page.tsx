@@ -20,6 +20,15 @@ const learningSteps = [
 
 const programs = [
   {
+    title: "Generative AI & Agentic AI Engineer",
+    category: "18-week executive program · 130+ live hours",
+    description: "Build LLM apps, production RAG and governed multi-agent systems, then secure, deploy and defend them.",
+    image: "/images/genai-agentic-ai-engineer/classroom-cohort.jpg",
+    alt: "Datamarcos technology learners at an instructor-led cohort session",
+    href: "/programs/genai-agentic-ai-engineer",
+    link: "Explore the GenAI & Agentic AI program"
+  },
+  {
     title: "Advance Data Engineering with Applied GenAI & Agentic AI",
     category: "4-month foundation · advanced specialization",
     description: "Build modern cloud data engineering first, then advance into GenAI, production RAG, agent workflows and an integrated capstone.",

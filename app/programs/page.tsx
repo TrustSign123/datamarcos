@@ -43,6 +43,10 @@ export default function ProgramsPage() {
             <select aria-label="Status" value={status} onChange={(e) => setStatus(e.target.value)}><option value="">Status</option><option>LIVE</option><option>UPCOMING</option><option>COMING_SOON</option><option>CORPORATE_CUSTOM</option><option>WAITLIST</option></select>
           </div>
           <aside className="fde-catalog-callout">
+            <div><span className="badge">18-WEEK EXECUTIVE PROGRAM</span><h2>Generative AI & Agentic AI Engineer</h2><p>130+ live hours, three client-style projects, a capstone and weekly career preparation.</p></div>
+            <Link className="button primary" href="/programs/genai-agentic-ai-engineer">Explore the flagship</Link>
+          </aside>
+          <aside className="fde-catalog-callout">
             <div><span className="badge">5-MONTH EXECUTIVE PROGRAM</span><h2>Become a Forward Deployed AI Engineer</h2><p>Live online, hands-on learning across discovery, AI engineering, deployment and career support.</p></div>
             <Link className="button primary" href="/programs/forward-deployed-engineer">Explore this program</Link>
           </aside>
