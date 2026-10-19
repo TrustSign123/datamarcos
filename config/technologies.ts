@@ -32,6 +32,7 @@ export const technologies: Technology[] = [
   ...["DevOps", "DevSecOps", "Kubernetes", "Docker", "Terraform", "CI/CD", "GitHub Actions", "GitLab CI", "Platform Engineering", "Internal Developer Platforms", "SRE", "Observability", "Site Reliability Engineering"].map((name) => t(name, "DevOps / Platform", ["DevOps", "DevSecOps", "Platform Engineering"].includes(name) ? "LIVE" : "CUSTOM_CORPORATE", `/programs/${name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`)),
   ...["Python", "Java", "JavaScript", "TypeScript", "React", "Node.js", "APIs", "Microservices", "System Design", "Backend Engineering", "Software Architecture"].map((name) => t(name, "Software Engineering", "CUSTOM_CORPORATE")),
   ...["Cloud Security", "Application Security", "Identity & Access", "Security Engineering", "AI Security", "Cybersecurity Foundations"].map((name) => t(name, "Cybersecurity", "CUSTOM_CORPORATE")),
+  t("Forward Deployed AI Engineer", "Emerging / Specialized", "LIVE", "/programs/forward-deployed-ai-engineer"),
   ...["Forward Deployed Engineering", "AI Product Engineering", "AI Coding Agents", "Agentic Software Engineering", "AI Infrastructure", "Edge AI", "Data Governance"].map((name) => t(name, "Emerging / Specialized", name === "Forward Deployed Engineering" ? "LIVE" : "CUSTOM_CORPORATE", "/programs/forward-deployed-engineering"))
 ];
 

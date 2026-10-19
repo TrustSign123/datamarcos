@@ -42,6 +42,10 @@ export default function ProgramsPage() {
             <select aria-label="Delivery" value={delivery} onChange={(e) => setDelivery(e.target.value)}><option value="">Delivery</option><option>Remote</option><option>Onsite</option><option>Hybrid</option></select>
             <select aria-label="Status" value={status} onChange={(e) => setStatus(e.target.value)}><option value="">Status</option><option>LIVE</option><option>UPCOMING</option><option>COMING_SOON</option><option>CORPORATE_CUSTOM</option><option>WAITLIST</option></select>
           </div>
+          <aside className="fde-catalog-callout">
+            <div><span className="badge">5-MONTH EXECUTIVE PROGRAM</span><h2>Become a Forward Deployed AI Engineer</h2><p>Live online, hands-on learning across discovery, AI engineering, deployment and career support.</p></div>
+            <Link className="button primary" href="/programs/forward-deployed-engineer">Explore this program</Link>
+          </aside>
           <div className="grid three">{filtered.map((program) => <article className="card" key={program.id}><span className="badge">{program.status.replaceAll("_", " ")}</span><h2>{program.title}</h2><p>{program.description}</p><p><strong>Technology:</strong> {program.category}</p><p><strong>Duration:</strong> {program.duration}</p><p><strong>Level:</strong> {program.level}</p><p><strong>Format:</strong> {program.format}</p><Link className="button primary" href={`/programs/${program.slug}`}>View Program</Link></article>)}</div>
         </div>
       </section>

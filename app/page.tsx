@@ -1,18 +1,54 @@
-import Link from "next/link";
+import type { Metadata } from "next";
 import Image from "next/image";
-import { ArrowRight, BookOpen, BriefcaseBusiness, CheckCircle2, CircuitBoard, Globe2, GraduationCap, Network, ShieldCheck, Users } from "lucide-react";
-import { CorporateCTA } from "@/components/CTA";
-import { LeadCaptureForm } from "@/components/Forms";
-import { VideoCarousel } from "@/components/Video";
-import { caseStudies } from "@/config/case-studies";
-import { industries } from "@/config/industries";
-import { featuredPrograms } from "@/config/programs";
-import { resources } from "@/config/resources";
+import Link from "next/link";
+import { ArrowRight, ArrowUpRight, BookOpen, BriefcaseBusiness, CheckCircle2, CircuitBoard, Database, GraduationCap, Network, Users, Workflow } from "lucide-react";
 import { site } from "@/config/site";
-import { technologies, technologyCategories } from "@/config/technologies";
-import { testimonials } from "@/config/testimonials";
 
-const placements = [
+export const metadata: Metadata = {
+  title: "AI, Data Engineering & Agentic AI Upskilling | Datamarcos",
+  description: "Mentor-led learning for AI and data professionals, plus practical technology capability programs for teams. Build data engineering, GenAI, agentic AI and production skills with Datamarcos."
+};
+
+const skillAreas = ["AI & GenAI", "Data Engineering", "Cloud", "DevOps", "Cybersecurity", "Software Engineering", "Platform Engineering", "Machine Learning", "Analytics"];
+
+const learningSteps = [
+  ["Build the data foundation", "Pipelines, cloud data platforms, orchestration and quality."],
+  ["Engineer with language models", "RAG, evaluation, model integration and useful AI applications."],
+  ["Create agentic workflows", "Tool use, MCP, multi-step reasoning and human oversight."],
+  ["Take systems to production", "Security, deployment, monitoring and enterprise context."]
+];
+
+const programs = [
+  {
+    title: "Data Engineering with GenAI & Agentic AI",
+    category: "Data foundations · GenAI · Agents",
+    description: "Progress from modern data platforms into production RAG, tool-using agents and deployable AI applications.",
+    image: "/images/applied-agentic-ai/classroom-novartis.webp",
+    alt: "Technology learners in an instructor-led data and AI class",
+    href: "/programs/advance-data-engineering-genai",
+    link: "Explore the data + AI pathway"
+  },
+  {
+    title: "Applied Agentic AI",
+    category: "LLMs · RAG · Agent workflows",
+    description: "Learn to design, build and evaluate practical AI workflows with retrieval, tools and agent orchestration.",
+    image: "/images/applied-agentic-ai/classroom-sigmaoid.webp",
+    alt: "Learners collaborating during applied Agentic AI training",
+    href: "/programs/applied-agentic-ai-certification",
+    link: "Explore Applied Agentic AI"
+  },
+  {
+    title: "Forward Deployed AI Engineer",
+    category: "Enterprise AI · Field engineering",
+    description: "Scope, build, secure and deploy AI systems in enterprise environments, from discovery to handoff.",
+    image: "/images/forward-deployed-ai-engineer/field-engineer-hero.jpg",
+    alt: "Engineer designing a solution at a laptop",
+    href: "/programs/forward-deployed-ai-engineer",
+    link: "Explore the FDE program"
+  }
+];
+
+const learnerProfiles = [
   { name: "Richard Leclézio", role: "Professional learner", company: "LinkedIn", short: "IN", image: "/images/student-placements/richard-leclezio.jpeg", link: "https://www.linkedin.com/in/richard-leclezio/" },
   { name: "Lakshan J", role: "Software Engineer", company: "Hexaware Technologies", short: "HX", image: "/images/student-placements/lakshan-j.png", link: "https://www.linkedin.com/in/lakshan013/" },
   { name: "Uphar Tandon", role: "Technology professional", company: "Microsoft", short: "MS", image: "/images/student-placements/uphar-tandon.png", link: "https://www.linkedin.com/in/uphar-tandon-2563a636/" },
@@ -20,54 +56,34 @@ const placements = [
   { name: "Gaurav Taneja", role: "Senior Azure Data Engineer", company: "PwC", short: "PwC", image: "/images/student-placements/gaurav-taneja.png", link: "https://www.linkedin.com/in/gaurav-t-a4a096158/" }
 ];
 
-const process = [
-  ["Discover", "Understand business goals and capability gaps."],
-  ["Map", "Identify roles, skills and technology requirements."],
-  ["Design", "Build a customized learning journey."],
-  ["Match", "Deploy the right trainer or subject matter expert."],
-  ["Deliver", "Live, remote, onsite or hybrid training."],
-  ["Measure", "Assess learning, projects and capability outcomes."]
-];
-
-const solutions = [
-  "Technology Upskilling", "Reskilling Programs", "Role-Based Academies", "Custom Bootcamps", "Executive Technology Workshops", "Project-Based Learning", "Trainer-on-Demand", "Assessment & Skill Gap Analysis", "AI Transformation Learning", "Cloud & Data Transformation"
-];
-
-const why = [
-  ["Right Trainer", "Access specialized technology experts."],
-  ["Right Program", "Learning mapped to business roles."],
-  ["Right Delivery", "Remote, onsite or hybrid."],
-  ["Right Time", "Fast-moving technology capability requirements."],
-  ["Real Projects", "Hands-on, business-relevant learning."],
-  ["Measurable Learning", "Assessments and project outcomes."]
-];
-
-function StatusBadge({ status }: { status: string }) {
-  return <span className={`badge ${status === "LIVE" ? "live" : status === "UPCOMING" ? "upcoming" : "status-custom"}`}>{status.replaceAll("_", " ")}</span>;
-}
-
 export default function Home() {
   return (
     <>
       <section className="hero">
         <div className="container hero-inner">
           <div>
-            <p className="eyebrow">Global Technology Learning & Workforce Upskilling Partner</p>
-            <h1>Build the Technology Capabilities Your Business Needs.</h1>
-            <p>Datamarcos helps organizations identify skill gaps, design role-based learning programs and deliver high-impact training across Data, AI, Cloud, Software Engineering, DevOps and emerging technologies.</p>
+            <p className="eyebrow">Technology Learning · AI, Data & Workforce Upskilling</p>
+            <h1>Build the skills to shape what comes next.</h1>
+            <p>Mentor-led learning for professionals and practical capability programs for teams, across data engineering, generative AI and production agentic systems.</p>
             <div className="hero-actions">
-              <Link className="button primary" href="/corporate-training#inquiry">Request Corporate Training <ArrowRight size={18} /></Link>
-              <Link className="button secondary" href="/programs">Explore Programs</Link>
+              <Link className="button primary" href="/programs">Explore Learning Programs <ArrowRight size={18} /></Link>
+              <Link className="button secondary" href="/corporate-training">Upskill Your Team <ArrowUpRight size={17} /></Link>
               <Link className="button secondary" href="/lms"><GraduationCap size={18} /> Learning Hub</Link>
             </div>
-            <div className="trust-line"><span>Enterprise Learning</span><span>Professional Upskilling</span><span>Expert-Led Training</span></div>
+            <div className="trust-line"><span>18+ years of experience</span><span>25,000+ professionals trained</span><span>200+ clients</span></div>
           </div>
-          <div className="ecosystem" aria-label="Connected capability ecosystem visual">
+          <div className="ecosystem" aria-label="Learning path from data foundations to production AI">
             <div className="node-list">
-              {["Business", "Skill Gap", "Learning Path", "Expert Trainer", "Hands-On Labs", "Assessment", "Workforce Capability"].map((node, index) => (
-                <div className="node" key={node}>
-                  <span className="node-dot" style={{ animationDelay: `${index * 120}ms` }} />
-                  <div><strong>{node}</strong><small>Capability system layer {index + 1}</small></div>
+              {[
+                [Database, "Data systems", "Build the foundation"],
+                [BookOpen, "LLM applications", "Engineer useful AI"],
+                [Workflow, "Agentic workflows", "Connect tools and tasks"],
+                [Network, "Production AI", "Deploy in real contexts"]
+              ].map(([Icon, title, detail], index) => (
+                <div className="node" key={title as string}>
+                  <span className="node-dot" style={{ animationDelay: `${index * 160}ms` }} />
+                  <Icon size={19} aria-hidden="true" />
+                  <div><strong>{title as string}</strong><small>{detail as string}</small></div>
                 </div>
               ))}
             </div>
@@ -77,58 +93,97 @@ export default function Home() {
 
       <section className="capability-bar">
         <div className="container">
-          <strong>Technology capabilities across the modern enterprise</strong>
-          <div className="pill-row">{["AI & GenAI", "Data Engineering", "Cloud", "DevOps", "Cybersecurity", "Software Engineering", "Platform Engineering", "Machine Learning", "Analytics"].map((item) => <span className="badge" key={item}>{item}</span>)}</div>
+          <strong>Explore skills for the modern technology workplace</strong>
+          <div className="pill-row">{skillAreas.map((item) => <span className="badge" key={item}>{item}</span>)}</div>
         </div>
       </section>
 
-      <section className="agentic-home-banner">
-        <div className="container agentic-home-banner-inner">
-          <div className="agentic-home-banner-copy">
-            <span className="agentic-home-badge">New • Applied Agentic AI Certification</span>
-            <h2>Build AI systems that work in the real world.</h2>
-            <p>Master prompt engineering, RAG, agents, tool use, orchestration and production AI workflows with Datamarcos&apos; mentor-led certification.</p>
-            <div className="agentic-home-meta">
-              <span>8-week live program</span>
-              <span>Portfolio capstone</span>
-              <span>Mentor-led learning</span>
-            </div>
-            <div className="hero-actions agentic-banner-actions">
-              <Link className="button primary" href="/programs/applied-agentic-ai-certification">Explore the program <ArrowRight size={18} /></Link>
-              <Link className="button secondary" href="/programs">View all programs</Link>
-            </div>
-          </div>
-          <div className="agentic-home-banner-visual" aria-label="Agentic AI certification highlight">
-            <div className="agentic-home-spotlight">
-              <span className="agentic-home-mini">AI + Agents</span>
-              <strong>Applied Agentic AI</strong>
-              <small>From prompts to production-ready workflows.</small>
-            </div>
+      <section className="section">
+        <div className="container">
+          <p className="eyebrow">One learning partner · two ways forward</p>
+          <h2 className="section-title">Skills for people. Capability for teams.</h2>
+          <div className="grid two">
+            <article className="card"><GraduationCap /><p className="eyebrow">For technology professionals</p><h3>Make your next move in AI and data.</h3><p>Build practical skills through guided programs, applied projects and expert instruction, from data engineering foundations to agentic applications.</p><Link className="button primary" href="/programs">Find Your Learning Path <ArrowRight size={17} /></Link></article>
+            <article className="card"><BriefcaseBusiness /><p className="eyebrow">For organizations</p><h3>Turn technology change into team capability.</h3><p>Give teams role-based training in AI, data, cloud and software, designed around your goals, technology stack and delivery environment.</p><Link className="button primary" href="/corporate-training">Build a Team Learning Plan <ArrowRight size={17} /></Link></article>
           </div>
         </div>
       </section>
 
-      <section className="section student-placement-showcase">
+      <section className="section alt">
+        <div className="container">
+          <div className="student-placement-header">
+            <div><p className="eyebrow">Learn for the work ahead</p><h2 className="section-title">Choose your next skill path.</h2><p className="section-copy">Focused programs for the technologies changing how products and teams are built.</p></div>
+            <Link className="button secondary" href="/programs">Explore All Programs <ArrowRight size={17} /></Link>
+          </div>
+          <div className="grid three">
+            {programs.map((program) => (
+              <article className="card home-path-card" key={program.href}>
+                <Image className="home-path-image" src={program.image} alt={program.alt} width={1200} height={800} />
+                <p className="eyebrow">{program.category}</p>
+                <h3>{program.title}</h3>
+                <p>{program.description}</p>
+                <Link className="button ghost" href={program.href}>{program.link} <ArrowUpRight size={16} /></Link>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section home-trainer-showcase" aria-labelledby="home-trainers-title">
         <div className="container">
           <div className="student-placement-header">
             <div>
-              <p className="eyebrow">Student success stories</p>
-              <h2 className="section-title">Career-ready learners from our programs.</h2>
+              <p className="eyebrow">Trainers & industry experts</p>
+              <h2 className="section-title" id="home-trainers-title">Learn from people who do the work.</h2>
+              <p className="section-copy">Experienced practitioners bring technology, business context and hands-on teaching into every learning journey.</p>
             </div>
           </div>
+          <div className="grid two home-trainer-cards">
+            <article className="card home-trainer-card">
+              <div className="home-trainer-card-photo"><Image src={site.founder.image} alt={site.founder.imageAlt} width={420} height={420} sizes="(max-width: 700px) 120px, 160px" /></div>
+              <div className="home-trainer-card-content">
+                <p className="eyebrow">Founder · Datamarcos</p>
+                <h3>Deepesh Mishra</h3>
+                <p>Technology trainer and solution architect with 18+ years of experience. Has trained 25,000+ professionals across 200+ corporate and academic clients.</p>
+                <div className="home-trainer-tags"><span>AI & GenAI</span><span>Data Engineering</span><span>Cloud</span></div>
+                <Link href="/about" className="button ghost">Meet Deepesh <ArrowUpRight size={16} /></Link>
+              </div>
+            </article>
+            <article className="card home-trainer-card">
+              <div className="home-trainer-card-photo"><Image src="/images/trainers/eshank-agarwal.jpeg" alt="Eshank Agarwal, GenAI consultant and corporate trainer" width={603} height={603} sizes="(max-width: 700px) 96px, 150px" /></div>
+              <div className="home-trainer-card-content">
+                <p className="eyebrow">Industry expert · GenAI</p>
+                <h3>Eshank Agarwal</h3>
+                <p>Founder & CEO, GenAI consultant and Data Science corporate trainer. Also brings advisory, Six Sigma and Lean consulting experience.</p>
+                <div className="home-trainer-tags"><span>LEAN.AI</span><span>IIT Bombay</span><span>Six Sigma</span></div>
+                <a href="https://www.linkedin.com/in/eshankagarwal/" target="_blank" rel="noreferrer" className="button ghost">View LinkedIn profile <ArrowUpRight size={16} /></a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
 
-          <div className="student-placement-marquee" aria-label="Student career placements">
+      <section className="section student-placement-showcase" aria-labelledby="home-learners-title">
+        <div className="container">
+          <div className="student-placement-header">
+            <div>
+              <p className="eyebrow">Our learner community</p>
+              <h2 className="section-title" id="home-learners-title">Meet the learners behind the work.</h2>
+              <p className="section-copy">Technology professionals bringing new skills into their careers. Open a profile to learn more about each person.</p>
+            </div>
+          </div>
+          <div className="student-placement-marquee" aria-label="Datamarcos learner profiles">
             <div className="student-placement-track">
-              {[...placements, ...placements].map((student, index) => (
-                <a key={`${student.name}-${index}`} href={student.link} target="_blank" rel="noreferrer" className="student-placement-card">
+              {[...learnerProfiles, ...learnerProfiles].map((learner, index) => (
+                <a key={`${learner.name}-${index}`} href={learner.link} target="_blank" rel="noreferrer" className="student-placement-card" aria-hidden={index >= learnerProfiles.length} tabIndex={index >= learnerProfiles.length ? -1 : undefined}>
                   <div className="student-placement-image-wrap">
-                    <img src={student.image} alt={student.name} />
-                    <span className="student-placement-badge">{student.short}</span>
+                    <Image src={learner.image} alt={learner.name} width={500} height={420} sizes="250px" />
+                    <span className="student-placement-badge">{learner.short}</span>
                   </div>
                   <div className="student-placement-body">
-                    <div className="student-placement-company">{student.company}</div>
-                    <h3>{student.name}</h3>
-                    <p>{student.role}</p>
+                    <div className="student-placement-company">{learner.company}</div>
+                    <h3>{learner.name}</h3>
+                    <p>{learner.role}</p>
                     <span className="student-placement-link">View LinkedIn <ArrowRight size={15} /></span>
                   </div>
                 </a>
@@ -139,162 +194,38 @@ export default function Home() {
       </section>
 
       <section className="section">
-        <div className="container">
-          <p className="eyebrow">Two learning paths</p>
-          <h2 className="section-title">One Technology Partner. Two Learning Paths.</h2>
-          <div className="grid two">
-            <div className="card"><BriefcaseBusiness /><h3>For Organizations</h3><h2>Transform your workforce.</h2><p>Customized technology learning programs designed around your business, roles, technology stack and transformation priorities.</p><Link className="button primary" href="/corporate-training">Explore Corporate Learning</Link><div className="tech-list">{["Corporate Training", "Customized Bootcamps", "Technology Upskilling", "Reskilling", "Role-Based Academies", "Workshops", "Assessments", "Trainer-on-Demand"].map((item) => <span className="tech-chip" key={item}>{item}</span>)}</div></div>
-            <div className="card"><GraduationCap /><h3>For Professionals</h3><h2>Transform your career.</h2><p>Build modern technology skills through expert-led cohorts, practical projects and structured learning paths.</p><Link className="button primary" href="/programs">Explore Programs</Link><div className="tech-list">{["Live Cohorts", "Self-Paced Learning", "Workshops", "Mentorship", "Projects", "Career Guidance", "Technical Communities"].map((item) => <span className="tech-chip" key={item}>{item}</span>)}</div></div>
-          </div>
+        <div className="container grid two">
+          <div><p className="eyebrow">Beyond the buzzwords</p><h2 className="section-title">Understand the stack. Build what runs on it.</h2><p className="section-copy">Strong AI work starts with good data and ends with systems people can use. Our learning connects the layers in between.</p><Link className="button secondary" href="/programs/advance-data-engineering-genai">See the Data + AI Pathway <ArrowRight size={17} /></Link></div>
+          <div className="grid two home-journey-grid">{learningSteps.map(([title, detail], index) => <article className="card" key={title}><span className="badge status-custom">0{index + 1}</span><h3>{title}</h3><p>{detail}</p></article>)}</div>
         </div>
       </section>
 
       <section className="section alt">
-        <div className="container">
-          <p className="eyebrow">What Datamarcos does</p>
-          <h2 className="section-title">Identify. Design. Deliver. Measure. Transform.</h2>
-          <p className="section-copy">From capability assessment to expert-led delivery, Datamarcos combines technology expertise, learning design and practical execution.</p>
-          <div className="grid three process">{process.map(([title, copy]) => <div className="card" key={title}><h3>{title}</h3><p>{copy}</p></div>)}</div>
+        <div className="container grid two home-trainer-grid">
+          <div className="founder-portrait" aria-label={site.founder.imageAlt}><Image src={site.founder.image} alt={site.founder.imageAlt} width={700} height={875} /></div>
+          <div>
+            <p className="eyebrow">Learn with experienced practitioners</p>
+            <h2 className="section-title">Meet {site.founder.name}.</h2>
+            <p className="section-copy">{site.founder.title} · BITS Pilani alumnus · Technology trainer and solution architect.</p>
+            <p className="section-copy">Deepesh has 18+ years in technology and has trained 25,000+ professionals across 200+ corporate and academic clients. His teaching connects clear concepts with hands-on work and real-world examples.</p>
+            <div className="tech-list">{site.founder.teaches.slice(0, 6).map((item) => <span className="tech-chip" key={item}>{item}</span>)}</div>
+            <div className="grid three founder-stats">{site.stats.slice(0, 3).map((stat) => <div className="card" key={stat.label}><strong>{stat.value}</strong><p>{stat.label}</p></div>)}</div>
+          </div>
         </div>
       </section>
 
       <section className="section" id="solutions">
-        <div className="container">
-          <p className="eyebrow">Corporate solutions</p>
-          <h2 className="section-title">Training Built Around Your Business.</h2>
-          <div className="grid four">{solutions.map((item) => <div className="card" key={item}><CircuitBoard /><h3>{item}</h3><p>Role-specific technical learning designed for your teams, delivery model and transformation priorities.</p><Link className="button ghost" href="/corporate-training">Learn more</Link></div>)}</div>
-        </div>
-      </section>
-
-      <section className="section alt">
-        <div className="container">
-          <p className="eyebrow">Technology landscape</p>
-          <h2 className="section-title">Configurable capability catalog.</h2>
-          <div className="grid two">
-            {technologyCategories.map((category) => (
-              <div className="card" key={category}>
-                <h3>{category}</h3>
-                <div className="tech-list">{technologies.filter((tech) => tech.category === category).slice(0, 16).map((tech) => <span className="tech-chip" key={tech.id}>{tech.name}</span>)}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="container">
-          <p className="eyebrow">Programs</p>
-          <h2 className="section-title">Explore Our Programs</h2>
-          <div className="grid four">{featuredPrograms.map((program) => <article className="card" key={program.id}><StatusBadge status={program.status} /><p className="eyebrow">{program.category}</p><h3>{program.title}</h3><p>{program.description}</p><p><strong>{program.level}</strong> · {program.duration} · {program.format}</p><div className="tech-list">{program.technologies.slice(0, 4).map((tech) => <span className="tech-chip" key={tech}>{tech}</span>)}</div><Link className="button secondary" href={`/programs/${program.slug}`}>View Program</Link></article>)}</div>
-        </div>
-      </section>
-
-      <section className="section alt">
         <div className="container grid two">
-          <div><p className="eyebrow">Projects and outcomes</p><h2 className="section-title">Learning designed around applied work.</h2><p className="section-copy">Programs can include labs, capstone projects, assessments and measurable outcomes tied to the business or professional capability being built.</p></div>
-          <div className="grid">{["Hands-on labs", "Business-relevant projects", "Assessments", "Capability reports"].map((item) => <div className="card" key={item}><CheckCircle2 /> <strong>{item}</strong></div>)}</div>
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="container">
-          <p className="eyebrow">Industries</p>
-          <h2 className="section-title">Technology Learning Across Industries</h2>
-          <div className="grid three">{industries.map((industry) => <div className="card" key={industry}><Globe2 /><h3>{industry}</h3></div>)}</div>
+          <div><p className="eyebrow">For teams building what is next</p><h2 className="section-title">Make AI capability part of how your organization works.</h2><p className="section-copy">From a focused workshop to a role-based academy, shape learning around the people, systems and business problems you need to move forward.</p><Link className="button primary" href="/corporate-training#inquiry">Talk About Team Training <ArrowRight size={17} /></Link></div>
+          <div className="grid"><article className="card"><Users /><h3>Role-based learning</h3><p>Build skills around real responsibilities.</p></article><article className="card"><CheckCircle2 /><h3>Practical projects</h3><p>Connect learning to work that matters.</p></article><article className="card"><CircuitBoard /><h3>Flexible delivery</h3><p>Live online, onsite, hybrid or custom.</p></article></div>
         </div>
       </section>
 
       <section className="section alt">
-        <div className="container">
-          <p className="eyebrow">Why Datamarcos</p>
-          <h2 className="section-title">Why Organizations Choose Datamarcos</h2>
-          <div className="grid three">{why.map(([title, copy]) => <div className="card" key={title}><ShieldCheck /><h3>{title}</h3><p>{copy}</p></div>)}</div>
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="container">
-          <p className="eyebrow">Case studies</p>
-          <h2 className="section-title">Learning That Solves Business Problems.</h2>
-          <div className="grid three">{caseStudies.map((study) => <article className="card" key={study.id}><h3>{study.clientName}</h3><p><strong>Industry:</strong> {study.industry}</p><p><strong>Challenge:</strong> {study.challenge}</p><p><strong>Solution:</strong> {study.solution}</p><p><strong>Technology:</strong> {study.technology}</p><p><strong>Outcome:</strong> {study.outcome}</p><Link className="button secondary" href={study.href}>View Case Study</Link></article>)}</div>
-        </div>
-      </section>
-
-      <section className="section alt">
-        <div className="container">
-          <p className="eyebrow">Video testimonials</p>
-          <h2 className="section-title">Real stories, ready for verified uploads.</h2>
-          <VideoCarousel testimonials={testimonials} />
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="container grid two">
-          <div><p className="eyebrow">Trainer network</p><h2 className="section-title">Experts Who Know the Work.</h2><p className="section-copy">Datamarcos works with experienced technology professionals and subject matter experts to match the right trainer to the right learning requirement.</p><Link className="button primary" href="/become-a-trainer">Become a Datamarcos Expert</Link></div>
-          <div className="card"><Users /><h3>Right Capability. Right Trainer. Right Time. Right Delivery.</h3></div>
-        </div>
-      </section>
-
-      <section className="section alt">
-        <div className="container grid two">
-          <div className="founder-portrait" aria-label={site.founder.imageAlt}>
-            <Image src={site.founder.image} alt={site.founder.imageAlt} width={700} height={875} priority={false} />
-          </div>
-          <div>
-            <p className="eyebrow">Leadership</p>
-            <h2 className="section-title">{site.founder.name}</h2>
-            <p className="section-copy">{site.founder.title}</p>
-            <p className="section-copy">{site.founder.bio}</p>
-            <div className="tech-list">{site.founder.capabilities.map((item) => <span className="tech-chip" key={item}>{item}</span>)}</div>
-            <div className="grid four founder-stats">{site.stats.map((stat) => <div className="card" key={stat.label}><strong>{stat.value}</strong><p>{stat.label}</p></div>)}</div>
-          </div>
-        </div>
-        <div className="container founder-proof-grid">
-          <div>
-            <p className="eyebrow">Worked with</p>
-            <div className="tech-list">{site.founder.workedWith.map((item) => <span className="tech-chip" key={item}>{item}</span>)}</div>
-          </div>
-          <div>
-            <p className="eyebrow">What he teaches</p>
-            <div className="tech-list">{site.founder.teaches.map((item) => <span className="tech-chip" key={item}>{item}</span>)}</div>
-          </div>
-          <div>
-            <p className="eyebrow">Teaching philosophy</p>
-            <div className="tech-list">{site.founder.philosophy.map((item) => <span className="tech-chip" key={item}>{item}</span>)}</div>
-          </div>
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="container grid two">
-          <div><p className="eyebrow">Resources</p><h2 className="section-title">Technology learning content for serious teams.</h2><p className="section-copy">Articles, guides, webinars, events, reports, case studies, roadmaps and free resources for capability planning.</p></div>
-          <LeadCaptureForm />
-        </div>
-        <div className="container grid three" style={{ marginTop: 24 }}>{resources.slice(0, 3).map((resource) => <div className="card" key={resource.id}><BookOpen /><h3>{resource.title}</h3><p>{resource.category}</p></div>)}</div>
-      </section>
-
-      <CorporateCTA compact />
-
-      <section className="section">
-        <div className="container grid two">
-          <div><p className="eyebrow">Professional learning</p><h2 className="section-title">Build the skills the technology industry demands.</h2><p className="section-copy">Explore serious programs for AI, Data, Cloud, DevOps, Software Engineering and emerging technology roles.</p></div>
-          <Link className="button primary" href="/programs">Explore Programs</Link>
-        </div>
-      </section>
-
-      <section className="section alt">
-        <div className="container">
-          <p className="eyebrow">FAQ</p>
-          <h2 className="section-title">Common questions</h2>
-          <div className="grid two">{["Do you offer onsite training?", "Can programs be customized?", "Are public cohorts available?", "Can we add real testimonials later?"].map((q) => <details className="card" key={q}><summary><strong>{q}</strong></summary><p>Yes. Datamarcos is designed for configurable corporate, professional and content workflows without hardcoded claims.</p></details>)}</div>
-        </div>
-      </section>
-
-      <section className="section">
         <div className="container card" style={{ textAlign: "center" }}>
-          <Network size={42} />
-          <h2 className="section-title">Let&apos;s Build Your Next Technology Capability.</h2>
-          <div className="hero-actions" style={{ justifyContent: "center" }}><Link className="button primary" href="/corporate-training#inquiry">Request Corporate Training</Link><Link className="button secondary" href="/programs">Explore Programs</Link><Link className="button secondary" href="/contact">Talk to Datamarcos</Link></div>
+          <Network size={38} />
+          <h2 className="section-title">Build the capability your next chapter needs.</h2>
+          <div className="hero-actions" style={{ justifyContent: "center" }}><Link className="button primary" href="/programs">Explore Programs</Link><Link className="button secondary" href="/contact">Talk to Datamarcos</Link></div>
         </div>
       </section>
     </>
