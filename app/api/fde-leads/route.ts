@@ -21,6 +21,10 @@ const requiredFields: (keyof FDELead)[] = [
 ];
 
 const programs: Record<string, { slug: string; name: string }> = {
+  "advance-data-engineering-genai": {
+    slug: "advance-data-engineering-genai",
+    name: "Advance Data Engineering with Applied GenAI & Agentic AI"
+  },
   "forward-deployed-engineer": {
     slug: "forward-deployed-engineer",
     name: "Forward Deployed AI Engineer - 5-Month Executive Program"

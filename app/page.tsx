@@ -20,11 +20,11 @@ const learningSteps = [
 
 const programs = [
   {
-    title: "Data Engineering with GenAI & Agentic AI",
-    category: "Data foundations · GenAI · Agents",
-    description: "Progress from modern data platforms into production RAG, tool-using agents and deployable AI applications.",
-    image: "/images/applied-agentic-ai/classroom-novartis.webp",
-    alt: "Technology learners in an instructor-led data and AI class",
+    title: "Advance Data Engineering with Applied GenAI & Agentic AI",
+    category: "4-month foundation · advanced specialization",
+    description: "Build modern cloud data engineering first, then advance into GenAI, production RAG, agent workflows and an integrated capstone.",
+    image: "/images/advance-data-engineering-genai/classroom-live.jpg",
+    alt: "Datamarcos instructor leading a hands-on technology classroom",
     href: "/programs/advance-data-engineering-genai",
     link: "Explore the data + AI pathway"
   },

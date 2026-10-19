@@ -3983,6 +3983,152 @@ body:has(.agentic-course-page) > .whatsapp {
   .fde-page .fde-orbit-core-icon { height: 49px; }
 }
 
+  /* Brochure-based data engineering, GenAI and Agentic AI landing page */
+  .fde-genai-page {
+    --fde-night: #06121d;
+    --fde-deep: #0a1b2a;
+    --fde-ink: #f0f6fa;
+    --fde-muted: #aebdc8;
+    --fde-paper: #0a1a29;
+    --fde-line: rgba(156, 195, 219, .2);
+    --fde-orange: #48c8c0;
+    --fde-blue: #68b9f3;
+  }
+  .fde-genai-page .fde-hero { min-height: 700px; background-image: url("/images/advance-data-engineering-genai/classroom-live.jpg"); background-position: right center; background-size: min(64vw, 900px) auto; }
+  .fde-genai-page .fde-hero::before { opacity: .17; background-image: linear-gradient(rgba(93, 188, 222, .2) 1px, transparent 1px), linear-gradient(90deg, rgba(93, 188, 222, .2) 1px, transparent 1px); }
+  .fde-genai-page .fde-hero::after { background: linear-gradient(90deg, #06121d 0%, rgba(6,18,29,.97) 33%, rgba(6,18,29,.77) 60%, rgba(6,18,29,.45) 100%), linear-gradient(0deg, #06121d 0%, transparent 24%); }
+  .fde-genai-page .fde-hero-grid { min-height: 700px; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(330px, .8fr); gap: 42px; align-items: center; padding-top: 64px; padding-bottom: 58px; }
+  .fde-genai-page .fde-hero-copy { max-width: 650px; }
+  .fde-genai-page .fde-kicker span { background: #117c83; }
+  .fde-genai-page .fde-kicker span + span { background: #155176; }
+  .fde-genai-page .fde-hero h1 { font-size: clamp(3rem, 5.2vw, 5.3rem); }
+  .fde-genai-page .fde-hero h1 em { color: #70ddd4; }
+  .fde-genai-page .fde-hero-facts strong { color: #73ddd5; }
+  .fde-genai-page .fde-button-orange { color: #06202a; background: #70ddd4; box-shadow: 0 9px 24px rgba(48, 194, 184, .2); }
+  .fde-genai-page .fde-button-orange:hover { background: #91ebe4; }
+  .fde-genai-page .fde-note svg { color: #70ddd4; }
+  .fde-genai-hero-visual { position: relative; z-index: 2; max-width: 470px; justify-self: end; padding: 22px; border: 1px solid rgba(179, 215, 232, .19); border-radius: 8px; background: rgba(5, 21, 33, .89); box-shadow: 0 28px 78px rgba(0,0,0,.36); backdrop-filter: blur(12px); }
+  .fde-genai-hero-topline { display: flex; justify-content: space-between; gap: 12px; padding-bottom: 14px; border-bottom: 1px solid rgba(186, 214, 230, .16); color: #8ba8b8; font-size: .58rem; font-weight: 850; letter-spacing: .07em; }
+  .fde-genai-flow { position: relative; display: grid; gap: 10px; padding: 17px 0; }
+  .fde-genai-flow::before { content: ""; position: absolute; top: 44px; bottom: 44px; left: 19px; width: 1px; background: linear-gradient(#68d8d0, rgba(104,216,208,.08)); }
+  .fde-genai-flow-node { position: relative; display: grid; grid-template-columns: 40px 1fr 14px; gap: 12px; align-items: center; min-height: 65px; padding: 8px 11px; border: 1px solid rgba(178, 208, 225, .12); border-radius: 5px; background: rgba(255,255,255,.045); opacity: 0; animation: fdeStepIn 520ms var(--node-delay) both; }
+  .fde-genai-flow-node > span { width: 38px; height: 38px; display: grid; place-items: center; background: rgba(81, 154, 183, .12); border: 1px solid rgba(121, 202, 214, .2); border-radius: 5px; }
+  .fde-genai-flow-node small { display: block; margin-bottom: 2px; color: #79d4d0; font-size: .54rem; font-weight: 850; }
+  .fde-genai-flow-node strong { color: #f0f6fa; font-size: .81rem; }
+  .fde-genai-flow-node i { width: 6px; height: 6px; border-radius: 50%; background: #73dbd2; box-shadow: 0 0 14px rgba(115,219,210,.75); animation: fdeCorePulse 2.8s ease-in-out infinite; }
+  .fde-genai-flow-caption { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; color: #b1c2cd; font-size: .64rem; }
+  .fde-genai-flow-caption > span { width: 24px; height: 2px; background: #70ddd4; }
+  .fde-genai-flow-caption strong { color: #eaf5f7; }
+  .fde-genai-flow-caption strong:last-child { color: #75d8d2; }
+  .fde-genai-page .fde-proof-row strong { color: #70ddd4; }
+  .fde-genai-page .fde-orbit-showcase { background: radial-gradient(ellipse at 75% 48%, rgba(24, 124, 163, .22), transparent 38%), #04111b; }
+  .fde-genai-page .fde-orbit-copy h2 em { color: #70ddd4; }
+  .fde-genai-page .fde-orbit-caption span { background: #70ddd4; }
+  .fde-genai-page .fde-orbit-chip { background: linear-gradient(145deg, rgba(15,42,59,.97), rgba(5,18,29,.97)); }
+  .fde-genai-page .fde-orbit-core { border-color: rgba(107, 218, 211, .62); }
+  .fde-genai-page .fde-orbit-core-icon { color: #70ddd4; filter: drop-shadow(0 0 12px rgba(70, 210, 201, .35)); }
+  .fde-genai-page .fde-orbit-core::before { border-color: rgba(102, 211, 208, .35); }
+  .fde-genai-page .fde-orbit-path-two { border-color: rgba(112, 221, 212, .2); }
+  .fde-genai-page .fde-genai-tracks { background: #071522; }
+  .fde-genai-track-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 16px; }
+  .fde-genai-track { min-width: 0; padding: 25px; color: #eaf2f6; border: 1px solid rgba(157, 197, 222, .18); border-radius: 7px; background: linear-gradient(145deg, rgba(16,45,64,.82), rgba(7,22,35,.96)); }
+  .fde-genai-track:nth-child(2) { border-color: rgba(111, 221, 212, .37); background: linear-gradient(145deg, rgba(13,60,67,.64), rgba(7,22,35,.97)); }
+  .fde-genai-track-top { display: flex; justify-content: space-between; gap: 12px; align-items: center; padding-bottom: 14px; border-bottom: 1px solid rgba(179, 211, 229, .16); }
+  .fde-genai-track-top > span { color: #70ddd4; font-size: .7rem; font-weight: 900; }
+  .fde-genai-track-top small { color: #a7bac6; font-size: .67rem; font-weight: 750; }
+  .fde-genai-track h3 { margin: 18px 0 9px; color: #f5f9fb; font-size: 1.42rem; line-height: 1.16; }
+  .fde-genai-track > p { max-width: 590px; margin: 0; color: #afc1cc; font-size: .84rem; line-height: 1.62; }
+  .fde-genai-track-topics { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 19px; }
+  .fde-genai-track-topics span, .fde-genai-tool-list span { padding: 6px 9px; color: #c7d8e1; background: rgba(255,255,255,.055); border: 1px solid rgba(172, 204, 224, .15); border-radius: 4px; font-size: .64rem; font-weight: 730; }
+  .fde-genai-page .fde-day-section { background: linear-gradient(125deg, #061522, #0a2330 56%, #061321); }
+  .fde-genai-page .fde-day-rail::before { background: linear-gradient(90deg, #69c5f0, #70ddd4); }
+  .fde-genai-page .fde-day-time, .fde-genai-page .fde-day-dot { color: #70ddd4; background-color: #70ddd4; }
+  .fde-genai-page .fde-day-dot { border-color: #0b1e2d; }
+  .fde-genai-page .fde-engagements { background: #091a28; }
+  .fde-genai-page .fde-engagement-list, .fde-genai-page .fde-engagement { border-color: rgba(163, 198, 221, .18); }
+  .fde-genai-page .fde-engagement-number, .fde-genai-page .fde-engagement-arrow { color: #70ddd4; }
+  .fde-genai-page .fde-engagement > div > p { color: #84a5b7; }
+  .fde-genai-page .fde-engagement-description { color: #b4c3cd; }
+  .fde-genai-page .fde-curriculum { background: #06131f; }
+  .fde-genai-page .fde-phase-number, .fde-genai-page .fde-phase-content li svg { color: #70ddd4; }
+  .fde-genai-page .fde-phase-content > p { border-color: #70ddd4; }
+  .fde-genai-page .fde-phase[open] .fde-phase-toggle { color: #70ddd4; }
+  .fde-genai-page .fde-toolkit { background: linear-gradient(115deg, #071a28, #0a2532 54%, #071926); }
+  .fde-genai-tool-list { display: flex; flex-wrap: wrap; gap: 9px; padding-top: 22px; border-top: 1px solid rgba(173, 203, 225, .14); }
+  .fde-genai-tool-list span { min-height: 38px; display: inline-flex; align-items: center; padding-inline: 12px; color: #dce9ee; border-color: rgba(112, 221, 212, .2); background: rgba(26, 102, 111, .12); }
+  .fde-genai-page .fde-outcomes .fde-eyebrow, .fde-genai-page .fde-fit .fde-eyebrow, .fde-genai-page .fde-mentor .fde-eyebrow, .fde-genai-page .fde-apply .fde-eyebrow { color: #70ddd4; }
+  .fde-genai-page .fde-text-link, .fde-genai-page .fde-outcome-grid li svg, .fde-genai-page .fde-fit-checks > p svg { color: #70ddd4; }
+  .fde-genai-page .fde-fit { background: #0a1c2a; }
+  .fde-genai-page .fde-fit-checks { border-color: #70ddd4; }
+  .fde-genai-page .fde-admission strong { color: #eaf4f7; }
+  .fde-genai-page .fde-mentor { background: #04111c; }
+  .fde-genai-page .fde-mentor-role { color: #70ddd4; }
+  .fde-genai-page .fde-mentor-grid > img { object-position: center 18%; }
+  .fde-genai-mentor-links { display: grid; grid-template-columns: 48px minmax(0,1fr) auto; gap: 12px; align-items: center; margin-top: 24px; padding-top: 17px; border-top: 1px solid rgba(162, 199, 222, .17); }
+  .fde-genai-mentor-links img { width: 48px; height: 48px; object-fit: cover; object-position: center 24%; border: 1px solid rgba(112, 221, 212, .42); border-radius: 50%; }
+  .fde-genai-mentor-links strong, .fde-genai-mentor-links small { display: block; }
+  .fde-genai-mentor-links strong { color: #f1f6f8; font-size: .73rem; }
+  .fde-genai-mentor-links small { margin-top: 3px; color: #aab8c6; font-size: .65rem; line-height: 1.4; }
+  .fde-genai-mentor-links a { display: inline-flex; align-items: center; gap: 5px; color: #70ddd4; font-size: .69rem; font-weight: 800; }
+  .fde-genai-page .fde-genai-classroom { background: #081925; }
+  .fde-genai-photo-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 13px; }
+  .fde-genai-photo-grid figure { min-width: 0; margin: 0; padding: 8px; border: 1px solid rgba(160, 198, 221, .16); border-radius: 7px; background: rgba(255,255,255,.035); }
+  .fde-genai-photo-grid img { display: block; width: 100%; height: 205px; object-fit: cover; border-radius: 4px; }
+  .fde-genai-photo-grid figure:nth-child(2) img { object-position: center 44%; }
+  .fde-genai-photo-grid figcaption { padding: 10px 3px 3px; color: #b4c4ce; font-size: .68rem; line-height: 1.4; }
+  .fde-genai-feedback-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 13px; }
+  .fde-genai-feedback-grid article { min-width: 0; padding: 19px; border: 1px solid rgba(158, 196, 220, .17); border-radius: 7px; background: rgba(255,255,255,.035); }
+  .fde-genai-feedback-grid article > span { color: #79d9d2; font-size: .9rem; letter-spacing: .08em; }
+  .fde-genai-feedback-grid blockquote { margin: 12px 0 18px; color: #e4edf1; font-size: .83rem; line-height: 1.65; }
+  .fde-genai-feedback-grid strong, .fde-genai-feedback-grid small { display: block; }
+  .fde-genai-feedback-grid strong { color: #f6f9fa; font-size: .76rem; }
+  .fde-genai-feedback-grid small { margin-top: 4px; color: #9fb2bf; font-size: .65rem; line-height: 1.45; }
+  .fde-genai-page .fde-brochure { background: #081a27; }
+  .fde-genai-page .fde-pdf-frame { border-color: rgba(112, 221, 212, .3); }
+  .fde-genai-page .fde-apply { background: #020b13; }
+  .fde-genai-page .fde-apply .fde-form-consent input { accent-color: #177b82; }
+  .fde-genai-page .fde-apply .fde-brochure-submit { color: #06161f; background: #70ddd4; }
+  .fde-genai-page .fde-apply .fde-brochure-submit:hover { background: #92e9e3; }
+  .fde-genai-final { padding: 68px 0 78px; text-align: center; background: radial-gradient(ellipse at 50% 0%, rgba(45, 155, 170, .24), transparent 65%), #06121c; border-top: 1px solid rgba(162, 199, 222, .14); }
+  .fde-genai-final .container { display: grid; justify-items: center; }
+  .fde-genai-final .fde-eyebrow { color: #70ddd4; }
+  .fde-genai-final h2 { max-width: 760px; margin: 10px 0 23px; color: #f3f8fa; font-family: "Arial Black", "Avenir Next", sans-serif; font-size: clamp(2rem, 4vw, 3.35rem); line-height: 1.05; }
+  .fde-genai-final .container > div { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+  @keyframes genaiFlowIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  @media (max-width: 900px) {
+    .fde-genai-page .fde-hero-grid { grid-template-columns: minmax(0,1fr) minmax(300px,.82fr); gap: 25px; }
+    .fde-genai-page .fde-hero h1 { font-size: clamp(3rem, 5.7vw, 4.5rem); }
+    .fde-genai-track-grid { gap: 11px; }
+    .fde-genai-track { padding: 19px; }
+    .fde-genai-photo-grid img { height: 170px; }
+  }
+  @media (max-width: 640px) {
+    .fde-genai-page .fde-hero { background-position: 64% center; background-size: auto 100%; }
+    .fde-genai-page .fde-hero::after { background: linear-gradient(90deg, rgba(6,18,29,.97), rgba(6,18,29,.86) 55%, rgba(6,18,29,.62)), linear-gradient(0deg, #06121d, transparent 42%); }
+    .fde-genai-page .fde-hero-grid { grid-template-columns: 1fr; gap: 22px; padding-top: 44px; padding-bottom: 46px; }
+    .fde-genai-page .fde-hero h1 { font-size: clamp(2.75rem, 10.2vw, 3.9rem); line-height: .96; }
+    .fde-genai-page .fde-hero-facts { gap: 16px; }
+    .fde-genai-page .fde-genai-hero-visual { justify-self: stretch; max-width: none; padding: 15px; }
+    .fde-genai-flow { gap: 7px; padding: 12px 0; }
+    .fde-genai-flow-node { min-height: 54px; grid-template-columns: 35px 1fr 10px; gap: 9px; padding: 6px 8px; }
+    .fde-genai-flow-node > span { width: 33px; height: 33px; }
+    .fde-genai-track-grid { grid-template-columns: 1fr; }
+    .fde-genai-track { padding: 18px; }
+    .fde-genai-track h3 { font-size: 1.2rem; }
+    .fde-genai-photo-grid { grid-template-columns: 1fr; }
+    .fde-genai-photo-grid img { height: auto; aspect-ratio: 1.35; }
+    .fde-genai-feedback-grid { grid-template-columns: 1fr; }
+    .fde-genai-mentor-links { grid-template-columns: 43px minmax(0,1fr); }
+    .fde-genai-mentor-links img { width: 43px; height: 43px; }
+    .fde-genai-mentor-links a { grid-column: 2; }
+    .fde-genai-final .container > div { width: 100%; }
+    .fde-genai-final .fde-button { width: 100%; }
+    .fde-genai-page .fde-pdf-frame { height: 540px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .fde-genai-flow-node { opacity: 1; animation: none; }
+  }
+
 @media (prefers-reduced-motion: reduce) {
   .fde-page .fde-orbit-wheel, .fde-page .fde-orbit-chip, .fde-page .fde-orbit-core::before, .fde-page .fde-orbit-spark { animation: none; }
 }
