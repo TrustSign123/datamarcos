@@ -23,7 +23,7 @@ const programs = [
     title: "Generative AI & Agentic AI Engineer",
     category: "18-week executive program · 130+ live hours",
     description: "Build LLM apps, production RAG and governed multi-agent systems, then secure, deploy and defend them.",
-    image: "/images/genai-agentic-ai-engineer/classroom-cohort.jpg",
+    image: "/images/program-thumbnails/genai-agentic-ai-engineer.jpg",
     alt: "Datamarcos technology learners at an instructor-led cohort session",
     href: "/programs/genai-agentic-ai-engineer",
     link: "Explore the GenAI & Agentic AI program"
@@ -32,8 +32,8 @@ const programs = [
     title: "Advance Data Engineering with Applied GenAI & Agentic AI",
     category: "4-month foundation · advanced specialization",
     description: "Build modern cloud data engineering first, then advance into GenAI, production RAG, agent workflows and an integrated capstone.",
-    image: "/images/advance-data-engineering-genai/classroom-live.jpg",
-    alt: "Datamarcos instructor leading a hands-on technology classroom",
+    image: "/images/program-thumbnails/data-engineering-genai.png",
+    alt: "Advanced Data Engineering with GenAI and Agentic AI program thumbnail",
     href: "/programs/advance-data-engineering-genai",
     link: "Explore the data + AI pathway"
   },
@@ -41,8 +41,8 @@ const programs = [
     title: "Applied Agentic AI",
     category: "LLMs · RAG · Agent workflows",
     description: "Learn to design, build and evaluate practical AI workflows with retrieval, tools and agent orchestration.",
-    image: "/images/applied-agentic-ai/classroom-sigmaoid.webp",
-    alt: "Learners collaborating during applied Agentic AI training",
+    image: "/images/program-thumbnails/applied-agentic-ai.png",
+    alt: "Applied Agentic AI certification program thumbnail",
     href: "/programs/applied-agentic-ai-certification",
     link: "Explore Applied Agentic AI"
   },
@@ -50,8 +50,8 @@ const programs = [
     title: "Forward Deployed AI Engineer",
     category: "Enterprise AI · Field engineering",
     description: "Scope, build, secure and deploy AI systems in enterprise environments, from discovery to handoff.",
-    image: "/images/forward-deployed-ai-engineer/field-engineer-hero.jpg",
-    alt: "Engineer designing a solution at a laptop",
+    image: "/images/program-thumbnails/forward-deployed-ai-engineer.png",
+    alt: "Forward Deployed AI Engineer program thumbnail",
     href: "/programs/forward-deployed-ai-engineer",
     link: "Explore the FDE program"
   }
@@ -124,10 +124,10 @@ export default function Home() {
             <div><p className="eyebrow">Learn for the work ahead</p><h2 className="section-title">Choose your next skill path.</h2><p className="section-copy">Focused programs for the technologies changing how products and teams are built.</p></div>
             <Link className="button secondary" href="/programs">Explore All Programs <ArrowRight size={17} /></Link>
           </div>
-          <div className="grid three">
+          <div className="grid home-program-grid">
             {programs.map((program) => (
               <article className="card home-path-card" key={program.href}>
-                <Image className="home-path-image" src={program.image} alt={program.alt} width={1200} height={800} />
+                <div className="home-path-image-frame"><Image className="home-path-image" src={program.image} alt={program.alt} width={1200} height={800} sizes="(max-width: 640px) 90vw, (max-width: 1100px) 44vw, 24vw" /></div>
                 <p className="eyebrow">{program.category}</p>
                 <h3>{program.title}</h3>
                 <p>{program.description}</p>
