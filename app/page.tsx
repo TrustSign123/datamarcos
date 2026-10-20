@@ -23,8 +23,8 @@ const programs = [
     title: "Generative AI & Agentic AI Engineer",
     category: "18-week executive program · 130+ live hours",
     description: "Build LLM apps, production RAG and governed multi-agent systems, then secure, deploy and defend them.",
-    image: "/images/program-thumbnails/genai-agentic-ai-engineer.jpg",
-    alt: "Datamarcos technology learners at an instructor-led cohort session",
+    image: "/images/program-thumbnails/genai-agentic-ai-engineer.png",
+    alt: "Start your GenAI and Agentic AI career program poster",
     href: "/programs/genai-agentic-ai-engineer",
     link: "Explore the GenAI & Agentic AI program"
   },
