@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { ArrowDownToLine, ArrowRight, Check, ShieldCheck, Sparkles, Workflow } from "lucide-react";
 import { FDECallRequestForm } from "@/components/program/FDECallRequestForm";
-import { site } from "@/config/site";
 
 const brochureUrl = "/brochures/DataMarcos_GenAI_Agentic_AI_Engineer_Brochure.pdf";
 const videoUrl = "https://www.youtube-nocookie.com/embed/4eGgJmad5lY";
@@ -57,10 +56,6 @@ const faqs = [
   ["Can my company sponsor me or join as a team?", "Yes. Contact admissions to discuss corporate sponsorship and team cohorts."]
 ];
 
-function waLink(text: string) {
-  return `${(site.social.whatsapp || "https://wa.me/918442032741").split("?")[0]}?text=${encodeURIComponent(text)}`;
-}
-
 export default function GenAIAgenticEngineerPage() {
   return (
     <article className="fde-page fde-ga-page">
@@ -68,24 +63,21 @@ export default function GenAIAgenticEngineerPage() {
         <div className="container fde-hero-grid">
           <div className="fde-hero-copy">
             <p className="fde-kicker"><span>18-Week Executive Program</span><span>Application-Based Cohorts</span></p>
-            <h1><span className="fde-title-line">Generative AI &</span><span className="fde-title-line"><em>Agentic AI</em></span><span className="fde-title-line">Engineer.</span></h1>
+            <h1 aria-label="Generative AI and Agentic AI Engineer."><span className="fde-title-line fde-title-reveal" data-title="Generative AI &amp;">Generative AI &amp;</span><span className="fde-title-line fde-title-reveal fde-title-reveal-accent" data-title="Agentic AI Engineer">Agentic AI Engineer</span></h1>
             <p className="fde-deck">Build it. Ship it. Own the outcome.</p>
             <p className="fde-intro">Build LLM applications, RAG systems and multi-agent workflows, then secure, evaluate and deploy them on real enterprise stacks—with Deepesh Mishra.</p>
-            <div className="fde-hero-facts"><span><strong>18</strong> weeks</span><span><strong>130+</strong> live hours</span><span><strong>4</strong> real projects</span></div>
             <div className="fde-actions"><a className="fde-button fde-button-orange" href="#apply">Request a seat <ArrowRight size={17} /></a><a className="fde-button fde-button-light" href={brochureUrl} download><ArrowDownToLine size={17} /> Download brochure</a></div>
             <p className="fde-note"><Check size={15} /> Two live sessions weekly · Hands-on projects · 1:1 mentorship</p>
           </div>
-          <div className="fde-hero-form" id="apply">
-            <div className="fde-hero-form-banner">18 weeks · 130+ hours · 4 projects</div>
-            <div className="fde-hero-form-body"><p className="fde-eyebrow">Application-based admission</p><h2>Build GenAI systems teams can ship.</h2><p>Share your details to discuss fit, cohort dates and investment.</p><FDECallRequestForm programId="genai-agentic-ai-engineer" programSlug="genai-agentic-ai-engineer" programName="Generative AI and Agentic AI Engineer - 18-Week Executive Program" /></div>
+          <div className="fde-ga-hero-media">
+            <div className="fde-ga-hero-video-frame"><iframe src={videoUrl} title="Generative AI and Agentic AI Engineer program overview" loading="eager" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen /></div>
+            <div className="fde-ga-hero-mentor"><Image src="/images/deepesh-mishra-founder.jpeg" alt="Deepesh Mishra, founder and lead mentor at Datamarcos" width={160} height={160} priority /><div><span>YOUR LEAD MENTOR</span><strong>Deepesh Mishra</strong><small>Founder · Solution Architect · 18+ years</small></div><Sparkles size={19} /></div>
           </div>
         </div>
         <a className="fde-hero-scroll" href="#program-proof"><span /> Explore the program</a>
       </section>
 
       <section className="fde-ga-proof" id="program-proof" aria-label="Program facts"><div className="container fde-proof-row"><div><strong>18</strong><span>weeks</span></div><div><strong>130+</strong><span>live hours, labs and studio</span></div><div><strong>4</strong><span>projects including capstone</span></div><div><strong>1:1</strong><span>scheduled mentorship</span></div><p>Live architecture sessions.<br />Weekly labs. Demo Day.</p></div></section>
-
-      <section className="fde-ga-video" aria-labelledby="fde-ga-video-title"><div className="container fde-ga-video-grid"><div><p className="fde-eyebrow">See the program</p><h2 id="fde-ga-video-title">A closer look at the engineer you can become.</h2><p>Hear the story behind the program and how the learning connects engineering craft with real deployment work.</p><a className="fde-text-link" href={waLink("Hi Datamarcos, I'd like to discuss the Generative AI and Agentic AI Engineer program.")} target="_blank" rel="noreferrer">Talk with admissions <ArrowRight size={16} /></a></div><div className="fde-ga-video-frame"><iframe src={videoUrl} title="Generative AI and Agentic AI Engineer program overview" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen /></div></div></section>
 
       <section className="fde-orbit-showcase fde-ga-orbit"><div className="container fde-orbit-layout"><div className="fde-orbit-copy"><p className="fde-eyebrow">From prompt to production</p><h2>Engineers who can<br /><em>own the full system.</em></h2><p>Move from model calls to dependable products: connect data, retrieve the right context, give agents governed tools, measure what works and ship safely.</p><div className="fde-orbit-caption"><span /> Build · Evaluate · Secure · Deploy</div></div><div className="fde-ga-path" aria-label="Generative and agentic AI engineering path"><div className="fde-ga-path-orbit" /><div className="fde-ga-path-core"><Sparkles size={27} /><strong>AI systems</strong><small>built for real work</small></div>{[{label:"LLMs",icon:"01"},{label:"RAG",icon:"02"},{label:"Agents",icon:"03"},{label:"MCP",icon:"04"},{label:"Security",icon:"05"},{label:"Production",icon:"06"}].map((n,i)=><div className={`fde-ga-orbit-chip fde-ga-chip-${i+1}`} key={n.label}><span>{n.icon}</span><strong>{n.label}</strong></div>)}</div></div></section>
 
@@ -101,7 +93,7 @@ export default function GenAIAgenticEngineerPage() {
 
       <section className="fde-ga-outcomes"><div className="container"><div className="fde-section-heading"><div><p className="fde-eyebrow">What you can do by the end</p><h2>Evidence you can explain.<br />Systems you can defend.</h2></div><p>Build a practical portfolio around the capabilities the brochure targets, without promising a particular hiring result.</p></div><div className="fde-ga-outcome-list">{outcomes.map((item,i)=><div key={item}><span>0{i+1}</span><Check size={17}/><p>{item}</p></div>)}</div></div></section>
 
-      <section className="fde-ga-media"><div className="container"><div className="fde-section-heading"><div><p className="fde-eyebrow">The learning environment</p><h2>Work in the room.<br />Ship work that travels.</h2></div><p>Live cohorts, hands-on labs, client-style reviews and a final capstone defense make the work visible from week one.</p></div><div className="fde-ga-image-grid"><figure className="fde-ga-image-wide"><Image src="/images/genai-agentic-ai-engineer/classroom-training.jpg" alt="Datamarcos team and learners at an enterprise training session" width={805} height={459} /><figcaption>Enterprise cohort · instructor-led delivery</figcaption></figure><figure><Image src="/images/genai-agentic-ai-engineer/classroom-cohort.jpg" alt="Learners and mentor in a live hybrid training session" width={841} height={512} /><figcaption>Live hybrid cohort · real learners</figcaption></figure><figure><Image src="/images/genai-agentic-ai-engineer/classroom-mentor.jpg" alt="Deepesh Mishra with a hands-on learner cohort" width={1152} height={700} /><figcaption>Mentor-guided project work</figcaption></figure></div></div></section>
+      <section className="fde-ga-media"><div className="container"><div className="fde-section-heading"><div><p className="fde-eyebrow">The learning environment</p><h2>Work in the room.<br />Ship work that travels.</h2></div><p>Live cohorts, hands-on labs, client-style reviews and a final capstone defense make the work visible from week one.</p></div><div className="fde-ga-image-grid"><figure className="fde-ga-image-wide"><Image src="/images/genai-agentic-ai-engineer/classroom-training.jpg" alt="Datamarcos team and learners at an enterprise training session" width={805} height={459} /><figcaption>Enterprise cohort · instructor-led delivery</figcaption></figure><figure><Image src="/images/genai-agentic-ai-engineer/classroom-cohort.jpg" alt="Learners and mentor in a live hybrid training session" width={841} height={512} /><figcaption>Live hybrid cohort · real learners</figcaption></figure><figure><Image src="/images/genai-agentic-ai-engineer/classroom-mentor.jpg" alt="Datamarcos instructor guiding a small-group GenAI and data engineering session" width={1152} height={700} /><figcaption>Mentor-guided project work</figcaption></figure></div></div></section>
 
       <section className="fde-ga-career-support"><div className="container fde-outcome-grid"><div><p className="fde-eyebrow">Career launch · every week</p><h2>Career preparation built alongside your engineering work.</h2><p>Develop a portfolio and interview story from the systems you actually shipped—not a separate set of generic career exercises.</p><a className="fde-text-link" href="#apply">Ask about admissions <ArrowRight size={16} /></a></div><ul>{["Role targeting and a skills-gap audit", "GitHub portfolio setup and project documentation", "GenAI and Agentic AI resume, LinkedIn and Naukri reviews", "Technical and system-design interview question bank", "Two 1:1 mock interview loops with feedback", "Referral and outreach playbook"].map(x=><li key={x}><Check size={17} />{x}</li>)}</ul></div><div className="container fde-ga-no-guarantees"><ShieldCheck size={18} /><p>No placement, salary or hike is guaranteed. Admissions shares the current cohort dates, fees, instalments and scholarship details.</p></div></section>
 
