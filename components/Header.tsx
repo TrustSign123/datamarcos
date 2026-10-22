@@ -1,10 +1,18 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
-import { useState } from "react";
+import { ChevronDown, Menu, X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { mobileNavigation, navigation } from "@/config/navigation";
 import { trackEvent } from "@/lib/analytics";
+
+const flagshipPrograms = [
+  { title: "Generative AI & Agentic AI Engineer", href: "/programs/genai-agentic-ai-engineer", image: "/images/program-thumbnails/genai-agentic-ai-engineer.png" },
+  { title: "Advance Data Engineering with Applied GenAI & Agentic AI", href: "/programs/advance-data-engineering-genai", image: "/images/program-thumbnails/data-engineering-genai.png" },
+  { title: "Applied Agentic AI", href: "/programs/applied-agentic-ai-certification", image: "/images/program-thumbnails/applied-agentic-ai.png" },
+  { title: "Forward Deployed AI Engineer", href: "/programs/forward-deployed-ai-engineer", image: "/images/program-thumbnails/forward-deployed-ai-engineer.png" }
+];
 
 export function Logo() {
   return (
@@ -23,16 +31,46 @@ export function Logo() {
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const [programsOpen, setProgramsOpen] = useState(false);
+  const programsMenuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!programsOpen) return;
+
+    const closeOnOutsideClick = (event: PointerEvent) => {
+      if (!programsMenuRef.current?.contains(event.target as Node)) setProgramsOpen(false);
+    };
+
+    document.addEventListener("pointerdown", closeOnOutsideClick);
+    return () => document.removeEventListener("pointerdown", closeOnOutsideClick);
+  }, [programsOpen]);
 
   return (
     <header className="site-header">
       <div className="container nav">
         <Logo />
         <nav className="desktop-nav" aria-label="Primary navigation">
-          {navigation.map((item) => (
-            <Link key={item.href + item.label} href={item.href}>
-              {item.label}
-            </Link>
+          {navigation.map((item) => item.label === "Programs" ? (
+            <div className="program-nav-item" key="program-menu" ref={programsMenuRef} onKeyDown={(event) => { if (event.key === "Escape") setProgramsOpen(false); }}>
+              <button className="program-nav-trigger" type="button" aria-expanded={programsOpen} aria-controls="program-nav-menu" onClick={() => setProgramsOpen(!programsOpen)}>
+                Programs <ChevronDown size={16} aria-hidden="true" />
+              </button>
+              {programsOpen && (
+                <div className="program-nav-menu" id="program-nav-menu">
+                  <div className="program-nav-menu-heading"><strong>Flagship programs</strong><Link href="/programs" onClick={() => setProgramsOpen(false)}>All programs <span aria-hidden="true">&rarr;</span></Link></div>
+                  <div className="program-nav-grid">
+                    {flagshipPrograms.map((program) => (
+                      <Link className="program-nav-card" href={program.href} key={program.href} onClick={() => setProgramsOpen(false)}>
+                        <span className="program-nav-image"><Image src={program.image} alt="" fill priority sizes="76px" /></span>
+                        <strong>{program.title}</strong>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          ) : (
+            <Link key={item.href + item.label} href={item.href}>{item.label}</Link>
           ))}
         </nav>
         <div className="nav-actions">
@@ -52,8 +90,15 @@ export function Header() {
         </button>
       </div>
       <nav className={`mobile-menu ${open ? "open" : ""}`} aria-label="Mobile navigation">
-        {mobileNavigation.map((item) => (
-          <Link key={item.href + item.label} href={item.href} onClick={() => setOpen(false)}>
+        {mobileNavigation.map((item) => item.label === "Programs" ? (
+          <div className="mobile-program-group" key="mobile-programs">
+            <button className="mobile-program-trigger" type="button" aria-expanded={programsOpen} onClick={() => setProgramsOpen(!programsOpen)}>
+              Programs <ChevronDown size={17} aria-hidden="true" />
+            </button>
+            {programsOpen && <div className="mobile-program-links"><Link href="/programs" onClick={() => { setOpen(false); setProgramsOpen(false); }}>All programs</Link>{flagshipPrograms.map((program) => <Link href={program.href} key={program.href} onClick={() => { setOpen(false); setProgramsOpen(false); }}>{program.title}</Link>)}</div>}
+          </div>
+        ) : (
+          <Link key={item.href + item.label} href={item.href} onClick={() => { setOpen(false); setProgramsOpen(false); }}>
             {item.label}
           </Link>
         ))}
