@@ -4,6 +4,7 @@ import { FormEvent, type ReactNode, useRef, useState } from "react";
 import { LEAD_COURSES, LEAD_NOT_SURE, leadEndpoint } from "@/config/lead";
 import { env, site } from "@/config/site";
 import { readAttribution, trackEvent } from "@/lib/analytics";
+import { rememberLeadUnlock } from "./leadUnlock";
 
 /**
  * Shared lead form: fields, validation, submit to the Google Apps Script endpoint and
@@ -18,20 +19,25 @@ export type LeadFormProps = {
   course?: string;
   /** Hide the course dropdown and always submit `course` (e.g. on a single-program page). */
   lockCourse?: boolean;
-  /** Saved in the sheet's "Source Button/CTA" column. */
-  cta: string;
+  /** Saved in the sheet's "Source Button/CTA" column (a function gets the chosen course). */
+  cta: string | ((course: string) => string);
   submitLabel: string;
   trust?: string[];
   /** "{first}" is replaced by ", <first name>" (or nothing). */
   successTitle?: string;
   successBody?: string;
   /** Extra links shown next to WhatsApp on the success screen. */
-  successLinks?: { label: string; href: string; download?: boolean }[];
+  successLinks?: SuccessLink[];
+  /** Per-submission success content (e.g. the syllabus for the chosen course). Overrides the static props. */
+  successFor?: (info: LeadSuccess) => { title?: string; body?: string; links?: SuccessLink[] };
   /** Prefix for element ids, so several forms can live on one page. */
   idPrefix?: string;
   autoFocus?: boolean;
-  onSuccess?: () => void;
+  onSuccess?: (info: LeadSuccess) => void;
 };
+
+export type LeadSuccess = { name: string; course: string };
+export type SuccessLink = { label: string; href: string; download?: boolean; primary?: boolean };
 
 const COUNTRY_CODES = [
   ["+91", "🇮🇳 +91"], ["+1", "🇺🇸 +1"], ["+44", "🇬🇧 +44"], ["+971", "🇦🇪 +971"],
@@ -50,7 +56,7 @@ export function matchCourse(value?: string) {
 export function LeadForm({
   course: initialCourse, lockCourse = false, cta, submitLabel, trust = DEFAULT_TRUST,
   successTitle = "Thanks{first}! You’re all set.", successBody,
-  successLinks = [], idPrefix = "dml", autoFocus = false, onSuccess
+  successLinks = [], successFor, idPrefix = "dml", autoFocus = false, onSuccess
 }: LeadFormProps) {
   const [course, setCourse] = useState(matchCourse(initialCourse));
   const [errors, setErrors] = useState<FieldErrors>({});
@@ -83,6 +89,7 @@ export function LeadForm({
     if (Object.values(next).some(Boolean)) return;
     if (!leadEndpoint) { setBanner(NOT_CONNECTED); return; }
 
+    const ctaLabel = typeof cta === "function" ? cta(course) : cta;
     const attribution = readAttribution() as Record<string, string>;
     setLoading(true);
     try {
@@ -91,7 +98,7 @@ export function LeadForm({
         method: "POST",
         headers: { "Content-Type": "text/plain;charset=utf-8" },
         body: JSON.stringify({
-          name, email, phone: cc + phone, course, cta,
+          name, email, phone: cc + phone, course, cta: ctaLabel,
           page: window.location.href,
           utm_source: attribution.utm_source || "",
           utm_medium: attribution.utm_medium || "",
@@ -103,9 +110,10 @@ export function LeadForm({
       const result = (await response.json()) as { ok?: boolean; errors?: string[] };
       if (!result.ok) throw new Error(result.errors?.join(" ") || GENERIC_ERROR);
       formRef.current?.reset();
+      rememberLeadUnlock(course);
       setDone({ name, course });
-      onSuccess?.();
-      trackEvent("application_submit", { cta, course });
+      onSuccess?.({ name, course });
+      trackEvent("application_submit", { cta: ctaLabel, course });
       (window as Window & { fbq?: (...args: unknown[]) => void }).fbq?.("track", "Lead", { content_name: course });
     } catch (error) {
       const message = error instanceof Error ? error.message : "";
@@ -117,13 +125,16 @@ export function LeadForm({
 
   if (done) {
     const first = done.name.split(" ")[0];
+    const custom = done.course ? successFor?.(done) : undefined;
+    const title = custom?.title ?? successTitle;
+    const links = custom?.links ?? successLinks;
     return (
       <div className="lf done" aria-live="polite">
         <div className="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg></div>
-        <h3>{successTitle.replace("{first}", first ? `, ${first}` : "")}</h3>
-        <p>{successBody || `Our program advisor will call you shortly${done.course && done.course !== LEAD_NOT_SURE ? ` about ${done.course}` : ""}. Want a faster reply? Message us on WhatsApp.`}</p>
+        <h3>{title.replace("{first}", first ? `, ${first}` : "")}</h3>
+        <p>{custom?.body || successBody || `Our program advisor will call you shortly${done.course && done.course !== LEAD_NOT_SURE ? ` about ${done.course}` : ""}. Want a faster reply? Message us on WhatsApp.`}</p>
         <div className="links">
-          {successLinks.map((link) => <a key={link.href} className="ghost" href={link.href} download={link.download || undefined}>{link.label}</a>)}
+          {links.map((link) => <a key={link.href} className={link.primary ? "dl" : "ghost"} href={link.href} download={link.download || undefined}>{link.label}</a>)}
           <a className="ghost" target="_blank" rel="noopener noreferrer" href={env.whatsappUrl}>
             <svg viewBox="0 0 24 24" fill="#25d366"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .3-3.4-.7-2.9-1.2-4.7-4.1-4.9-4.3-.1-.2-1.2-1.5-1.2-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.7-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.2Z" /></svg>
             Chat on WhatsApp

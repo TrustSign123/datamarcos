@@ -47,6 +47,14 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.or
 .links{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
 .ghost{display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 20px;border-radius:999px;border:1.5px solid var(--line);color:var(--text);background:#fff;text-decoration:none;font-weight:750;font-size:.88rem;transition:border-color .15s}
 .ghost:hover{border-color:var(--focus)}
+.dl{display:inline-flex;align-items:center;gap:8px;height:46px;padding:0 22px;border-radius:999px;background:var(--btn-bg);color:#fff;text-decoration:none;font-weight:800;font-size:.92rem;box-shadow:var(--btn-shadow)}
+.dl:hover{box-shadow:var(--btn-shadow-hover)}
+.picks{display:grid;gap:10px;margin-top:4px}
+.picks a{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;border:1.5px solid var(--line);border-radius:var(--radius);color:var(--text);text-decoration:none;font-weight:750;font-size:.92rem;background:var(--field-bg);transition:border-color .15s}
+.picks a:hover{border-color:var(--focus)}
+.picks a span{color:var(--focus);font-size:.8rem;font-weight:800;white-space:nowrap}
+.picks a.inline{display:inline;padding:0;border:0;background:none;color:var(--focus)}
+.picks p{margin:6px 0 0;color:var(--muted);font-size:.85rem;line-height:1.5;text-align:center}
 .ghost svg{width:18px;height:18px}
 `;
 

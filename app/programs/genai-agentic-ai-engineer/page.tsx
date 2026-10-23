@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { ArrowDownToLine, ArrowRight, Check, ShieldCheck, Sparkles, Workflow } from "lucide-react";
 import { FDECallRequestForm } from "@/components/program/FDECallRequestForm";
+import { GatedBrochureFrame } from "@/components/lead/GatedBrochureFrame";
 
 const brochureUrl = "/brochures/DataMarcos_GenAI_Agentic_AI_Engineer_Brochure.pdf";
 const videoUrl = "https://www.youtube-nocookie.com/embed/4eGgJmad5lY";
@@ -103,7 +104,7 @@ export default function GenAIAgenticEngineerPage() {
 
       <section className="fde-ga-admission"><div className="container"><div className="fde-section-heading"><div><p className="fde-eyebrow">Application-based admissions</p><h2>A focused cohort, selected for the work.</h2></div><p>Move through a clear fit process before cohort allocation. The goal is to make sure the pace and practical format suit your starting point.</p></div><div className="fde-ga-admission-steps">{[{n:"01",title:"Apply",copy:"Share your background and the role you are working toward."},{n:"02",title:"Diagnostic",copy:"Technical and fit assessment: Python, APIs and problem-solving."},{n:"03",title:"Interview",copy:"Discuss your goals with an admissions mentor."},{n:"04",title:"Offer",copy:"Cohort allocation, bridge pre-work and onboarding."}].map(x=><article key={x.n}><span>{x.n}</span><h3>{x.title}</h3><p>{x.copy}</p></article>)}</div><p className="fde-ga-bridge">Bridge pre-work in Python, Linux, Git and SQL is provided before Day 1.</p></div></section>
 
-      <section className="fde-ga-brochure" id="brochure"><div className="container fde-brochure-head"><div><p className="fde-eyebrow">The full program guide</p><h2>Review the brochure.</h2></div><a className="fde-button fde-button-light" href={brochureUrl} download><ArrowDownToLine size={17} /> Download PDF</a></div><div className="container fde-pdf-frame"><iframe src={brochureUrl} title="Generative AI and Agentic AI Engineer program brochure" loading="lazy" /></div></section>
+      <section className="fde-ga-brochure" id="brochure"><div className="container fde-brochure-head"><div><p className="fde-eyebrow">The full program guide</p><h2>Review the brochure.</h2></div><a className="fde-button fde-button-light" href={brochureUrl} download><ArrowDownToLine size={17} /> Download PDF</a></div><div className="container fde-pdf-frame"><GatedBrochureFrame src={brochureUrl} title="Generative AI and Agentic AI Engineer program brochure" course="Generative AI & Agentic AI Engineer" cover="/images/program-thumbnails/genai-agentic-ai-engineer.png" /></div></section>
 
       <section className="fde-ga-faq"><div className="container"><div className="fde-section-heading"><div><p className="fde-eyebrow">FAQ</p><h2>Before you apply.</h2></div><p>Program details grounded in the current brochure. Admissions can confirm cohort-specific information.</p></div><div className="fde-phase-list">{faqs.map((f,i)=><details className="fde-phase" key={f[0]} open={i===0}><summary><span className="fde-phase-number">0{i+1}</span><span className="fde-phase-title"><strong>{f[0]}</strong></span><span className="fde-phase-summary">Read answer</span><span className="fde-phase-toggle" aria-hidden="true">+</span></summary><div className="fde-phase-content"><p>{f[1]}</p></div></details>)}</div></div></section>
 

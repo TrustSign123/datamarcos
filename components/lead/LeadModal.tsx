@@ -2,9 +2,11 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
-import { courseForPath } from "@/config/lead";
+import { LEAD_COURSES, LEAD_NOT_SURE, brochureForCourse, courseForBrochure, courseForPath } from "@/config/lead";
+import { env } from "@/config/site";
 import { readAttribution, trackEvent } from "@/lib/analytics";
-import { LeadForm, matchCourse } from "./LeadForm";
+import { LeadForm, matchCourse, type LeadSuccess } from "./LeadForm";
+import { isLeadUnlocked, startDownload } from "./leadUnlock";
 import { ShadowPortal } from "./ShadowPortal";
 import { leadFormStyles, leadModalStyles } from "./leadStyles";
 
@@ -16,9 +18,35 @@ import { leadFormStyles, leadModalStyles } from "./leadStyles";
  * - data-course preselects a course (otherwise inferred from /programs/<slug>)
  * - data-cta is saved as "Source Button/CTA" (defaults to the element's text)
  * The original href is kept as a no-JS fallback.
+ *
+ * Gated downloads: every link to a brochure PDF (a[href*="/brochures/"], a[href$=".pdf"]) and any
+ * [data-dm-download] element opens the same form in "download" mode. The file is released only after
+ * the endpoint returns ok (auto-download + a "Download now" button). A visitor who submitted in the
+ * last 30 days (localStorage) downloads straight away. data-course / data-file override the defaults.
  */
 
-type OpenOptions = { course?: string; cta?: string; title?: string };
+type Mode = "lead" | "download";
+type OpenOptions = { course?: string; cta?: string; title?: string; mode?: Mode; file?: string };
+
+const DOWNLOAD_SELECTOR = "[data-dm-download], a[href*='/brochures/'], a[href$='.pdf' i]";
+
+function downloadSuccess({ course }: LeadSuccess, file?: string) {
+  const href = file || brochureForCourse(course);
+  if (!href) {
+    return {
+      title: "Thanks{first}! We’ll send it over.",
+      body: course && course !== LEAD_NOT_SURE
+        ? `The ${course} syllabus is shared personally right now. Our team will WhatsApp or email it to you shortly.`
+        : "Our program advisor will WhatsApp or email you the syllabus for the program that fits you best.",
+      links: []
+    };
+  }
+  return {
+    title: "Thanks{first}! Your syllabus is downloading.",
+    body: `If the ${course} syllabus didn’t start downloading, use the button below. Our team will also reach out to answer your questions.`,
+    links: [{ label: "Download now ↓", href, download: true, primary: true }]
+  };
+}
 
 const LOGO = (
   <svg viewBox="0 0 64 64" aria-hidden="true">
@@ -31,7 +59,7 @@ const LOGO = (
 export function LeadModal() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const [session, setSession] = useState({ key: 0, course: "", cta: "Popup", title: "" });
+  const [session, setSession] = useState({ key: 0, course: "", cta: "Popup", title: "", mode: "lead" as Mode, file: "", unlocked: false });
   const [succeeded, setSucceeded] = useState(false);
   const prevOverflow = useRef("");
 
@@ -39,14 +67,23 @@ export function LeadModal() {
   useEffect(() => { readAttribution(); }, []);
 
   const openModal = useCallback((options: OpenOptions = {}) => {
-    const course = matchCourse(options.course || courseForPath(window.location.pathname));
-    const cta = options.cta || "Popup";
-    setSession((prev) => ({ key: prev.key + 1, course, cta, title: options.title || "" }));
+    const mode: Mode = options.mode || "lead";
+    const course = matchCourse(options.course || courseForBrochure(options.file) || courseForPath(window.location.pathname));
+    const cta = options.cta || (mode === "download" ? "Download Syllabus" : "Popup");
+    const file = options.file || "";
+    const unlocked = mode === "download" && isLeadUnlocked();
+    // Already submitted recently and we know the file: just download, no popup.
+    if (unlocked && (file || brochureForCourse(course))) {
+      startDownload(file || brochureForCourse(course)!);
+      trackEvent("resource_download", { course, cta, gated: "remembered" });
+      return;
+    }
+    setSession((prev) => ({ key: prev.key + 1, course, cta, title: options.title || "", mode, file, unlocked }));
     setSucceeded(false);
     prevOverflow.current = document.documentElement.style.overflow;
     document.documentElement.style.overflow = "hidden";
     setOpen(true);
-    trackEvent("program_apply", { cta, course });
+    trackEvent(mode === "download" ? "brochure_click" : "program_apply", { cta, course });
   }, []);
 
   const closeModal = useCallback(() => {
@@ -61,7 +98,23 @@ export function LeadModal() {
   useEffect(() => {
     function onClick(event: MouseEvent) {
       if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-      const target = (event.target as Element | null)?.closest?.("[data-dm-lead], .dm-apply");
+      const element = event.target as Element | null;
+      const download = element?.closest?.(DOWNLOAD_SELECTOR);
+      if (download && !download.closest("[data-dm-ungated]")) {
+        const file = download.getAttribute("data-file") || (download.tagName === "A" ? download.getAttribute("href") : "") || "";
+        const isFile = /\.pdf($|[?#])/i.test(file) || file.includes("/brochures/");
+        if (isLeadUnlocked() && isFile) return; // remembered visitor: let the link work normally
+        event.preventDefault();
+        openModal({
+          mode: "download",
+          file: isFile ? file : undefined,
+          course: download.getAttribute("data-course") || undefined,
+          cta: download.getAttribute("data-cta") || undefined,
+          title: download.getAttribute("data-title") || undefined
+        });
+        return;
+      }
+      const target = element?.closest?.("[data-dm-lead], .dm-apply");
       if (!target) return;
       event.preventDefault(); // stops next/link navigation and #anchor jumps
       openModal({
@@ -80,8 +133,23 @@ export function LeadModal() {
     };
   }, [openModal, closeModal]);
 
-  const isApply = /apply|application|seat|enrol/i.test(session.cta);
-  const heading = session.title || (isApply ? "Apply for the program" : "Talk to a program advisor");
+  const isDownload = session.mode === "download";
+  const isApply = !isDownload && /apply|application|seat|enrol/i.test(session.cta);
+  const heading = session.title || (isDownload ? "Get the syllabus" : isApply ? "Apply for the program" : "Talk to a program advisor");
+  const subtitle = isDownload
+    ? session.unlocked ? "Welcome back. Pick a program to download its syllabus." : "Share your details and the syllabus downloads instantly. Our team can also help with fees and batch dates."
+    : "Share your details and our team will call you to help you pick the right program, batch and fee plan.";
+  // A specific file (or a course on a program page) locks the course; otherwise show the picker.
+  const lockCourse = isDownload && Boolean(session.file && session.course);
+  const downloadCta = (course: string) => `Download Syllabus - ${course || "Not selected"}`;
+  const onDownloadSuccess = (info: LeadSuccess) => {
+    setSucceeded(true);
+    const href = session.file || brochureForCourse(info.course);
+    if (href) {
+      startDownload(href);
+      trackEvent("resource_download", { course: info.course, cta: downloadCta(info.course), gated: "form" });
+    }
+  };
 
   return (
     <ShadowPortal mount="body" id="dm-lead-modal" css={leadFormStyles + leadModalStyles}>
@@ -92,10 +160,33 @@ export function LeadModal() {
             <div className="brand"><span className="mark">{LOGO}</span><span className="bname"><b>DATAMARCOS</b><small>Technology Learning</small></span></div>
             <p className="eyebrow">Live online · Mentor-led</p>
             <h2 className="title" id="dml-title">{heading}</h2>
-            {!succeeded && <p className="sub">Share your details and our team will call you to help you pick the right program, batch and fee plan.</p>}
+            {!succeeded && <p className="sub">{subtitle}</p>}
           </div>
           <div className="body">
-            {open && (
+            {open && isDownload && session.unlocked && (
+              <div className="picks">
+                {LEAD_COURSES.filter((course) => brochureForCourse(course)).map((course) => (
+                  <a key={course} href={brochureForCourse(course)} download onClick={() => trackEvent("resource_download", { course, cta: downloadCta(course), gated: "remembered" })}>
+                    {course}<span>Download ↓</span>
+                  </a>
+                ))}
+                <p>Not sure which one fits? <a className="inline" href={env.whatsappUrl} target="_blank" rel="noopener noreferrer">Ask us on WhatsApp</a></p>
+              </div>
+            )}
+            {open && isDownload && !session.unlocked && (
+              <LeadForm
+                key={session.key}
+                course={session.course}
+                lockCourse={lockCourse}
+                cta={downloadCta}
+                submitLabel="Download Syllabus"
+                trust={["Instant download", "Live online", "Mentor-led"]}
+                successFor={(info) => downloadSuccess(info, session.file)}
+                autoFocus
+                onSuccess={onDownloadSuccess}
+              />
+            )}
+            {open && !isDownload && (
               <LeadForm
                 key={session.key}
                 course={session.course}

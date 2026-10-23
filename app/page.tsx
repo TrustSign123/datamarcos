@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, BookOpen, BriefcaseBusiness, CheckCircle2, CircuitBoard, Database, GraduationCap, Network, Users, Workflow } from "lucide-react";
+import { ArrowDownToLine, ArrowRight, ArrowUpRight, BriefcaseBusiness, CheckCircle2, CircuitBoard, GraduationCap, Network, Users } from "lucide-react";
+import { LearnerSpotlight } from "@/components/home/LearnerSpotlight";
 import { site } from "@/config/site";
 
 export const metadata: Metadata = {
@@ -65,37 +66,70 @@ const learnerProfiles = [
   { name: "Gaurav Taneja", role: "Senior Azure Data Engineer", company: "PwC", short: "PwC", image: "/images/student-placements/gaurav-taneja.png", link: "https://www.linkedin.com/in/gaurav-t-a4a096158/" }
 ];
 
+/** Employer shown only where the learner profile names a real employer. */
+const employers: Record<string, string> = { "Lakshan J": "Hexaware Technologies", "Uphar Tandon": "Microsoft", "Gaurav Taneja": "PwC" };
+
+const spotlightLearners = learnerProfiles.map(({ name, role, image, link }) => ({ name, role, image, link, employer: employers[name] }));
+
+/** Learner feedback already published on Datamarcos program pages. */
+const learnerQuotes = [
+  { initials: "RK", name: "Raghul K", role: "Learner, Data Engineering Track", quote: "Without you it wouldn't have been possible sir. Thank you so much for making me a Data Engineer." },
+  { initials: "AR", name: "Ansh Ranjan", role: "Data Engineer Trainee, Hexaware Technologies", quote: "Learning under Deepesh Sir has been a great opportunity. He is truly a great mentor." },
+  { initials: "KG", name: "Kumar Gaurav", role: "Senior Azure Data Engineer, PwC", quote: "His deep understanding, combined with a clear and engaging teaching style, made complex concepts easy to grasp." },
+  { initials: "GT", name: "Gourav Thadhani", role: "Data Science and AI, ZS Associates", quote: "Many thanks for the great Databricks training at ZS!" }
+];
+
+type MarqueeItem =
+  | ({ kind: "learner" } & (typeof spotlightLearners)[number])
+  | ({ kind: "quote" } & (typeof learnerQuotes)[number]);
+
+/** Alternate learner chips and feedback cards. */
+const marqueeItems: MarqueeItem[] = spotlightLearners.flatMap((learner, i) => {
+  const items: MarqueeItem[] = [{ kind: "learner", ...learner }];
+  if (learnerQuotes[i]) items.push({ kind: "quote", ...learnerQuotes[i] });
+  return items;
+});
+
 export default function Home() {
   return (
     <>
-      <section className="hero">
-        <div className="container hero-inner">
-          <div>
-            <p className="eyebrow">Technology Learning · AI, Data & Workforce Upskilling</p>
-            <h1>Build the skills to shape what comes next.</h1>
-            <p>Mentor-led learning for professionals and practical capability programs for teams, across data engineering, generative AI and production agentic systems.</p>
-            <div className="hero-actions">
-              <Link className="button primary" href="/programs">Explore Learning Programs <ArrowRight size={18} /></Link>
-              <Link className="button secondary" href="/corporate-training">Upskill Your Team <ArrowUpRight size={17} /></Link>
-              <Link className="button secondary" href="/lms"><GraduationCap size={18} /> Learning Hub</Link>
+      <section className="dmh-hero" aria-labelledby="home-hero-title">
+        <div className="container dmh-hero-grid">
+          <div className="dmh-hero-copy">
+            <p className="dmh-eyebrow">Technology Learning · AI, Data & Workforce Upskilling</p>
+            <h1 id="home-hero-title">Build the skills <span>to shape what comes next.</span></h1>
+            <p className="dmh-sub">Mentor-led learning for professionals across <b>data engineering, generative AI and production agentic systems</b>, with practical capability programs for teams.</p>
+            <div className="dmh-actions">
+              <Link className="button primary dmh-apply" href="/programs" data-dm-lead data-cta="Home hero - Apply Now">Apply Now <ArrowRight size={18} /></Link>
+              <Link className="dmh-syllabus" href="/programs" data-dm-download data-cta="Download Syllabus"><ArrowDownToLine size={18} /> Download Syllabus</Link>
             </div>
-            <div className="trust-line"><span>18+ years of experience</span><span>25,000+ professionals trained</span><span>200+ clients</span></div>
+            <p className="dmh-proof"><span>Live online</span><span>Mentor-led</span><span>Hands-on projects</span></p>
           </div>
-          <div className="ecosystem" aria-label="Learning path from data foundations to production AI">
-            <div className="node-list">
-              {[
-                [Database, "Data systems", "Build the foundation"],
-                [BookOpen, "LLM applications", "Engineer useful AI"],
-                [Workflow, "Agentic workflows", "Connect tools and tasks"],
-                [Network, "Production AI", "Deploy in real contexts"]
-              ].map(([Icon, title, detail], index) => (
-                <div className="node" key={title as string}>
-                  <span className="node-dot" style={{ animationDelay: `${index * 160}ms` }} />
-                  <Icon size={19} aria-hidden="true" />
-                  <div><strong>{title as string}</strong><small>{detail as string}</small></div>
-                </div>
-              ))}
-            </div>
+          <LearnerSpotlight learners={spotlightLearners} />
+        </div>
+        <div className="container dmh-stats">
+          {site.stats.map((stat) => <div key={stat.label}><strong>{stat.value}</strong><span>{stat.label}</span></div>)}
+        </div>
+      </section>
+
+      <section className="dmh-marquee" aria-labelledby="home-marquee-title">
+        <div className="container dmh-marquee-head"><span id="home-marquee-title">Learners from the Datamarcos community</span></div>
+        <div className="dmh-marquee-viewport">
+          <div className="dmh-marquee-track">
+            {[...marqueeItems, ...marqueeItems].map((item, index) => {
+              const clone = index >= marqueeItems.length;
+              return item.kind === "learner" ? (
+                <a key={`${item.name}-${index}`} className="dmh-chip" href={item.link} target="_blank" rel="noreferrer" aria-hidden={clone || undefined} tabIndex={clone ? -1 : undefined}>
+                  <Image src={item.image} alt={clone ? "" : item.name} width={52} height={52} sizes="52px" />
+                  <span><b>{item.name}</b><small>{item.employer ? `${item.role} · ${item.employer}` : item.role}</small></span>
+                </a>
+              ) : (
+                <figure key={`${item.name}-${index}`} className="dmh-quote" aria-hidden={clone || undefined}>
+                  <blockquote>“{item.quote}”</blockquote>
+                  <figcaption><span className="dmh-initials">{item.initials}</span><span><b>{item.name}</b><small>{item.role}</small></span></figcaption>
+                </figure>
+              );
+            })}
           </div>
         </div>
       </section>
