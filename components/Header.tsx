@@ -5,18 +5,17 @@ import Link from "next/link";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { mobileNavigation, navigation, resourceMenu } from "@/config/navigation";
-import { trackEvent } from "@/lib/analytics";
 
 const flagshipPrograms = [
   { title: "Generative AI & Agentic AI Engineer", href: "/programs/genai-agentic-ai-engineer", image: "/images/program-thumbnails/genai-agentic-ai-engineer.png" },
-  { title: "Advance Data Engineering with Applied GenAI & Agentic AI", href: "/programs/advance-data-engineering-genai", image: "/images/program-thumbnails/data-engineering-genai.png" },
+  { title: "Advanced Data Engineering with Applied GenAI & Agentic AI", href: "/programs/advance-data-engineering-genai", image: "/images/program-thumbnails/data-engineering-genai.png" },
   { title: "Applied Agentic AI", href: "/programs/applied-agentic-ai-certification", image: "/images/program-thumbnails/applied-agentic-ai.png" },
   { title: "Forward Deployed AI Engineer", href: "/programs/forward-deployed-ai-engineer", image: "/images/program-thumbnails/forward-deployed-ai-engineer.png" }
 ];
 
 export function Logo() {
   return (
-    <Link className="brand" href="/" aria-label="Datamarcos home">
+    <Link className="brand" href="/">
       <span className="brand-mark" aria-hidden="true">
         <svg viewBox="0 0 64 64" role="img" focusable="false">
           <path className="mark-blue" d="M12 41c0-8.8 5.6-14.6 13.5-14.6h7.1v8.1h-6.9c-3.5 0-5.7 2.4-5.7 6.2s2.2 6.2 5.7 6.2h5.8V14.5c0-6.2 4.1-10.5 10.3-10.5 6.1 0 10.1 3.8 11 9.2l-7.6 2.2c-.4-2.2-1.8-3.4-3.5-3.4-1.9 0-3.1 1.4-3.1 3.8v29.4c0 6.2-4.1 10-10.3 10h-3.2C17.4 55.2 12 49.6 12 41Z" />
@@ -97,12 +96,8 @@ export function Header() {
           <Link href="/contact" className="button secondary">
             Talk to Us
           </Link>
-          <Link
-            href="/corporate-training#inquiry"
-            className="button primary"
-            onClick={() => trackEvent("corporate_cta_click", { location: "header" })}
-          >
-            Request Corporate Training
+          <Link href="/programs" className="button primary" data-dm-lead data-cta="Header - Apply Now">
+            Apply Now
           </Link>
         </div>
         <button className="menu-button" type="button" aria-label="Toggle menu" aria-expanded={open} onClick={() => setOpen(!open)}>
@@ -129,7 +124,10 @@ export function Header() {
             {item.label}
           </Link>
         ))}
-        <Link className="button primary" href="/contact" onClick={() => setOpen(false)}>
+        <Link className="button primary" href="/programs" data-dm-lead data-cta="Mobile menu - Apply Now" onClick={() => setOpen(false)}>
+          Apply Now
+        </Link>
+        <Link className="button secondary" href="/contact" onClick={() => setOpen(false)}>
           Talk to Datamarcos
         </Link>
       </nav>

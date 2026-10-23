@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, type ReactNode, useRef, useState } from "react";
-import { LEAD_COURSES, LEAD_NOT_SURE, leadEndpoint } from "@/config/lead";
+import { LEAD_COURSES, LEAD_NOT_SURE, courseLabel, leadEndpoint } from "@/config/lead";
 import { env, site } from "@/config/site";
 import { readAttribution, trackEvent } from "@/lib/analytics";
 import { rememberLeadUnlock } from "./leadUnlock";
@@ -132,7 +132,7 @@ export function LeadForm({
       <div className="lf done" aria-live="polite">
         <div className="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg></div>
         <h3>{title.replace("{first}", first ? `, ${first}` : "")}</h3>
-        <p>{custom?.body || successBody || `Our program advisor will call you shortly${done.course && done.course !== LEAD_NOT_SURE ? ` about ${done.course}` : ""}. Want a faster reply? Message us on WhatsApp.`}</p>
+        <p>{custom?.body || successBody || `Our program advisor will call you shortly${done.course && done.course !== LEAD_NOT_SURE ? ` about ${courseLabel(done.course)}` : ""}. Want a faster reply? Message us on WhatsApp.`}</p>
         <div className="links">
           {links.map((link) => <a key={link.href} className={link.primary ? "dl" : "ghost"} href={link.href} download={link.download || undefined}>{link.label}</a>)}
           <a className="ghost" target="_blank" rel="noopener noreferrer" href={env.whatsappUrl}>
@@ -170,11 +170,11 @@ export function LeadForm({
             </div>
           ), "Please enter a valid 10-digit mobile number.")}
           {lockCourse && course ? (
-            <div className="f"><label>Program</label><div className="program"><b>{course}</b></div></div>
+            <div className="f"><label>Program</label><div className="program"><b>{courseLabel(course)}</b></div></div>
           ) : field("course", "Course interested in", (
             <select id={id("course")} name="course" value={course} onChange={(event) => { setCourse(event.target.value); clear("course"); }}>
               <option value="" disabled>Select a program</option>
-              {LEAD_COURSES.map((item) => <option key={item} value={item}>{item}</option>)}
+              {LEAD_COURSES.map((item) => <option key={item} value={item}>{courseLabel(item)}</option>)}
               <option value={LEAD_NOT_SURE}>{LEAD_NOT_SURE}</option>
             </select>
           ), "Please choose a program (or “Not sure yet”).")}

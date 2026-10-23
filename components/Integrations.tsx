@@ -20,7 +20,7 @@ export function WhatsAppCTA() {
       href={env.whatsappUrl}
       target="_blank"
       rel="noreferrer"
-      aria-label="Chat with Datamarcos on WhatsApp"
+      aria-label="Contact Us on WhatsApp"
     >
       <MessageCircle size={20} />
       <span>Contact Us</span>

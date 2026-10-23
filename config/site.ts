@@ -4,8 +4,9 @@ export const site = {
   title: "Datamarcos | Technology Learning & Corporate Training",
   description:
     "Datamarcos helps organizations and technology professionals build modern capabilities across AI, Data Engineering, Cloud, DevOps, Software Engineering and emerging technologies.",
-  url: process.env.NEXT_PUBLIC_SITE_URL || "https://datamarcos.com",
-  email: "Hello@datamarcos.com",
+  // Always the www host: the apex domain 308-redirects to www, so canonicals must point at www.
+  url: (process.env.NEXT_PUBLIC_SITE_URL || "https://www.datamarcos.com").replace("://datamarcos.com", "://www.datamarcos.com"),
+  email: "hello@datamarcos.com",
   phone: "+91 84420 32741",
   location: "KLJ NOIDA ONE, Noida, Uttar Pradesh - 201309, India",
   founder: {
@@ -47,14 +48,14 @@ export const site = {
     instagram: process.env.NEXT_PUBLIC_INSTAGRAM_URL,
     facebook: process.env.NEXT_PUBLIC_FACEBOOK_URL,
     x: process.env.NEXT_PUBLIC_X_URL,
-    whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_URL || "https://wa.me/918442032741?text=Hi%20Datamarcos%2C%20I%20want%20to%20talk%20about%20training."
+    whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_URL || "https://wa.me/918442032741?text=Hi%2C%20I%20want%20to%20know%20about%20the%20Datamarcos%20course%20batch%20and%20fees."
   }
 };
 
 export const env = {
   calendlyUrl: process.env.NEXT_PUBLIC_CALENDLY_URL,
   razorpayCheckoutUrl: process.env.NEXT_PUBLIC_RAZORPAY_CHECKOUT_URL,
-  whatsappUrl: process.env.NEXT_PUBLIC_WHATSAPP_URL || "https://wa.me/918442032741?text=Hi%20Datamarcos%2C%20I%20want%20to%20talk%20about%20training.",
+  whatsappUrl: process.env.NEXT_PUBLIC_WHATSAPP_URL || "https://wa.me/918442032741?text=Hi%2C%20I%20want%20to%20know%20about%20the%20Datamarcos%20course%20batch%20and%20fees.",
   corporateFormEndpoint: process.env.NEXT_PUBLIC_CORPORATE_FORM_ENDPOINT,
   leadEndpoint: process.env.NEXT_PUBLIC_LEAD_ENDPOINT
 };

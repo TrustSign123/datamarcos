@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { ArrowDownToLine, ArrowRight, Check, ShieldCheck, Sparkles, Workflow } from "lucide-react";
 import { FDECallRequestForm } from "@/components/program/FDECallRequestForm";
+import { ProgramFee } from "@/components/program/ProgramFee";
 import { GatedBrochureFrame } from "@/components/lead/GatedBrochureFrame";
 
 const brochureUrl = "/brochures/DataMarcos_GenAI_Agentic_AI_Engineer_Brochure.pdf";
@@ -53,7 +54,7 @@ const faqs = [
   ["How is the program delivered?", "It is an 18-week executive program with two live sessions each week, weekly delivery labs, project studio, scheduled 1:1 mentorship and a final Demo Day."],
   ["What projects will I build?", "Three client-style projects: a secure Knowledge Copilot, a Multi-Agent Ops Copilot and a Production Hardening project, followed by a domain-specific capstone."],
   ["Will I get a job after the program?", "No placement, salary or hike is guaranteed. The program includes deployed projects, portfolio support, interview preparation, mock loops and a referral/outreach playbook."],
-  ["What is the fee and next cohort date?", "Admissions shares current cohort dates, investment, instalment options and scholarship details after a fit conversation."],
+  ["What is the fee and next cohort date?", "The program fee is ₹60,000, and EMI options are available (ask our counsellor). Admissions shares current cohort dates and scholarship details after a fit conversation."],
   ["Can my company sponsor me or join as a team?", "Yes. Contact admissions to discuss corporate sponsorship and team cohorts."]
 ];
 
@@ -69,6 +70,7 @@ export default function GenAIAgenticEngineerPage() {
             <p className="fde-intro">Build LLM applications, RAG systems and multi-agent workflows, then secure, evaluate and deploy them on real enterprise stacks—with Deepesh Mishra.</p>
             <div className="fde-actions"><a className="fde-button fde-button-orange" href="#apply" data-dm-lead>Request a seat <ArrowRight size={17} /></a><a className="fde-button fde-button-light" href={brochureUrl} download><ArrowDownToLine size={17} /> Download brochure</a></div>
             <p className="fde-note"><Check size={15} /> Two live sessions weekly · Hands-on projects · 1:1 mentorship</p>
+            <ProgramFee slug="genai-agentic-ai-engineer" />
           </div>
           <div className="fde-ga-hero-media">
             <div className="fde-ga-hero-video-frame"><iframe src={videoUrl} title="Generative AI and Agentic AI Engineer program overview" loading="eager" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen /></div>

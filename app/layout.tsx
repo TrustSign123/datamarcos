@@ -12,8 +12,8 @@ export const metadata: Metadata = {
   description: site.description,
   metadataBase: new URL(site.url),
   alternates: { canonical: "/" },
-  openGraph: { title: site.title, description: site.description, url: site.url, siteName: site.name, type: "website" },
-  twitter: { card: "summary_large_image", title: site.title, description: site.description }
+  openGraph: { title: site.title, description: site.description, url: site.url, siteName: site.name, type: "website", images: [{ url: "/og/datamarcos-home.jpg", width: 1200, height: 630 }] },
+  twitter: { card: "summary_large_image", title: site.title, description: site.description, images: ["/og/datamarcos-home.jpg"] }
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

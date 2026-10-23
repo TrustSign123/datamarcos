@@ -1,75 +1,38 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowDownToLine, ArrowRight, ArrowUpRight, BriefcaseBusiness, CheckCircle2, CircuitBoard, GraduationCap, Network, Users } from "lucide-react";
+import { ArrowDownToLine, ArrowRight, ArrowUpRight, Building2, Check, ChevronDown, MessageCircle } from "lucide-react";
 import { LearnerSpotlight } from "@/components/home/LearnerSpotlight";
-import { site } from "@/config/site";
+import { LearnerVideoCard } from "@/components/home/LearnerVideoCard";
+import { EMI_NOTE, homeFaqs, homePrograms, learnerFeedback, learnerVideos } from "@/config/home";
+import { env, site } from "@/config/site";
+
+const ogTitle = "Live AI & Data Engineering Courses with Deepesh Mishra | Datamarcos";
+const ogDescription = "Live online GenAI, Agentic AI, Data Engineering and Forward Deployed AI programs for working professionals and graduates. Real projects, mentor-led by Deepesh Mishra.";
 
 export const metadata: Metadata = {
-  title: "AI, Data Engineering & Agentic AI Upskilling | Datamarcos",
-  description: "Mentor-led learning for AI and data professionals, plus practical technology capability programs for teams. Build data engineering, GenAI, agentic AI and production skills with Datamarcos."
+  title: "Live AI, GenAI & Data Engineering Courses Online | Datamarcos",
+  description: "Live online courses in Generative AI, Agentic AI, Data Engineering and Forward Deployed AI Engineering, mentor-led by Deepesh Mishra. Real projects, 4 programs, fees from ₹40,000 with EMI options.",
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: ogTitle,
+    description: ogDescription,
+    url: site.url,
+    siteName: site.name,
+    type: "website",
+    images: [{ url: "/og/datamarcos-home.jpg", width: 1200, height: 630, alt: "Datamarcos – live AI and data engineering programs with Deepesh Mishra" }]
+  },
+  twitter: { card: "summary_large_image", title: ogTitle, description: ogDescription, images: ["/og/datamarcos-home.jpg"] }
 };
 
-const skillAreas = ["AI & GenAI", "Data Engineering", "Cloud", "DevOps", "Cybersecurity", "Software Engineering", "Platform Engineering", "Machine Learning", "Analytics"];
-
-const learningSteps = [
-  ["Build the data foundation", "Pipelines, cloud data platforms, orchestration and quality."],
-  ["Engineer with language models", "RAG, evaluation, model integration and useful AI applications."],
-  ["Create agentic workflows", "Tool use, MCP, multi-step reasoning and human oversight."],
-  ["Take systems to production", "Security, deployment, monitoring and enterprise context."]
-];
-
-const programs = [
-  {
-    title: "Generative AI & Agentic AI Engineer",
-    category: "18-week executive program · 130+ live hours",
-    description: "Build LLM apps, production RAG and governed multi-agent systems, then secure, deploy and defend them.",
-    image: "/images/program-thumbnails/genai-agentic-ai-engineer.png",
-    alt: "Start your GenAI and Agentic AI career program poster",
-    href: "/programs/genai-agentic-ai-engineer",
-    link: "Explore the GenAI & Agentic AI program"
-  },
-  {
-    title: "Advance Data Engineering with Applied GenAI & Agentic AI",
-    category: "4-month foundation · advanced specialization",
-    description: "Build modern cloud data engineering first, then advance into GenAI, production RAG, agent workflows and an integrated capstone.",
-    image: "/images/program-thumbnails/data-engineering-genai.png",
-    alt: "Advanced Data Engineering with GenAI and Agentic AI program thumbnail",
-    href: "/programs/advance-data-engineering-genai",
-    link: "Explore the data + AI pathway"
-  },
-  {
-    title: "Applied Agentic AI",
-    category: "LLMs · RAG · Agent workflows",
-    description: "Learn to design, build and evaluate practical AI workflows with retrieval, tools and agent orchestration.",
-    image: "/images/program-thumbnails/applied-agentic-ai.png",
-    alt: "Applied Agentic AI certification program thumbnail",
-    href: "/programs/applied-agentic-ai-certification",
-    link: "Explore Applied Agentic AI"
-  },
-  {
-    title: "Forward Deployed AI Engineer",
-    category: "Enterprise AI · Field engineering",
-    description: "Scope, build, secure and deploy AI systems in enterprise environments, from discovery to handoff.",
-    image: "/images/program-thumbnails/forward-deployed-ai-engineer.png",
-    alt: "Forward Deployed AI Engineer program thumbnail",
-    href: "/programs/forward-deployed-ai-engineer",
-    link: "Explore the FDE program"
-  }
-];
-
+/** Real Datamarcos learners. Employer is shown only where the learner's profile names one. */
 const learnerProfiles = [
-  { name: "Richard Leclézio", role: "Professional learner", company: "LinkedIn", short: "IN", image: "/images/student-placements/richard-leclezio.jpeg", link: "https://www.linkedin.com/in/richard-leclezio/" },
-  { name: "Lakshan J", role: "Software Engineer", company: "Hexaware Technologies", short: "HX", image: "/images/student-placements/lakshan-j.png", link: "https://www.linkedin.com/in/lakshan013/" },
-  { name: "Uphar Tandon", role: "Technology professional", company: "Microsoft", short: "MS", image: "/images/student-placements/uphar-tandon.png", link: "https://www.linkedin.com/in/uphar-tandon-2563a636/" },
-  { name: "Sharoz Farhan Afridi", role: "Technology professional", company: "Career Growth", short: "CG", image: "/images/student-placements/sharoz-farhan-afridi.jpeg", link: "https://www.linkedin.com/in/sharoz-farhan-afridi/" },
-  { name: "Gaurav Taneja", role: "Senior Azure Data Engineer", company: "PwC", short: "PwC", image: "/images/student-placements/gaurav-taneja.png", link: "https://www.linkedin.com/in/gaurav-t-a4a096158/" }
+  { name: "Richard Leclézio", role: "Professional learner", image: "/images/student-placements/richard-leclezio.jpeg", link: "https://www.linkedin.com/in/richard-leclezio/" },
+  { name: "Lakshan J", role: "Software Engineer", employer: "Hexaware Technologies", image: "/images/student-placements/lakshan-j.png", link: "https://www.linkedin.com/in/lakshan013/" },
+  { name: "Uphar Tandon", role: "Technology professional", employer: "Microsoft", image: "/images/student-placements/uphar-tandon.png", link: "https://www.linkedin.com/in/uphar-tandon-2563a636/" },
+  { name: "Sharoz Farhan Afridi", role: "Technology professional", image: "/images/student-placements/sharoz-farhan-afridi.jpeg", link: "https://www.linkedin.com/in/sharoz-farhan-afridi/" },
+  { name: "Gaurav Taneja", role: "Senior Azure Data Engineer", employer: "PwC", image: "/images/student-placements/gaurav-taneja.png", link: "https://www.linkedin.com/in/gaurav-t-a4a096158/" }
 ];
-
-/** Employer shown only where the learner profile names a real employer. */
-const employers: Record<string, string> = { "Lakshan J": "Hexaware Technologies", "Uphar Tandon": "Microsoft", "Gaurav Taneja": "PwC" };
-
-const spotlightLearners = learnerProfiles.map(({ name, role, image, link }) => ({ name, role, image, link, employer: employers[name] }));
 
 /** Learner feedback already published on Datamarcos program pages. */
 const learnerQuotes = [
@@ -80,40 +43,65 @@ const learnerQuotes = [
 ];
 
 type MarqueeItem =
-  | ({ kind: "learner" } & (typeof spotlightLearners)[number])
+  | ({ kind: "learner" } & (typeof learnerProfiles)[number])
   | ({ kind: "quote" } & (typeof learnerQuotes)[number]);
 
-/** Alternate learner chips and feedback cards. */
-const marqueeItems: MarqueeItem[] = spotlightLearners.flatMap((learner, i) => {
+const marqueeItems: MarqueeItem[] = learnerProfiles.flatMap((learner, i) => {
   const items: MarqueeItem[] = [{ kind: "learner", ...learner }];
   if (learnerQuotes[i]) items.push({ kind: "quote", ...learnerQuotes[i] });
   return items;
 });
 
+/** Learner-relevant numbers that are already published on the site. */
+const heroStats = [
+  { value: "4", label: "Live online programs" },
+  { value: "25,000+", label: "Professionals trained" },
+  { value: "18+", label: "Years of industry experience" }
+];
+
+const learningSteps = [
+  ["Build the data foundation", "Pipelines, cloud data platforms, orchestration and quality."],
+  ["Engineer with language models", "RAG, evaluation, model integration and useful AI applications."],
+  ["Create agentic workflows", "Tool use, MCP, multi-step reasoning and human oversight."],
+  ["Take systems to production", "Security, deployment, monitoring and enterprise context."]
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: homeFaqs.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: { "@type": "Answer", text: item.link ? `${item.a} ${site.url.replace(/\/$/, "")}${item.link.href}` : item.a }
+  }))
+};
+
+const careerCallCta = "Not sure which program fits? Book a free 15-min career call";
+
 export default function Home() {
   return (
-    <>
+    <div className="dmh-page">
       <section className="dmh-hero" aria-labelledby="home-hero-title">
         <div className="container dmh-hero-grid">
           <div className="dmh-hero-copy">
-            <p className="dmh-eyebrow">Technology Learning · AI, Data & Workforce Upskilling</p>
-            <h1 id="home-hero-title">Build the skills <span>to shape what comes next.</span></h1>
-            <p className="dmh-sub">Mentor-led learning for professionals across <b>data engineering, generative AI and production agentic systems</b>, with practical capability programs for teams.</p>
+            <p className="dmh-eyebrow">Live online courses · For working professionals &amp; graduates</p>
+            <h1 id="home-hero-title">Become the engineer who <span>ships real AI &amp; data systems.</span></h1>
+            <p className="dmh-sub">Learn live with <b>Deepesh Mishra</b> (18+ years, 25,000+ professionals trained) and build real projects in one of <b>4 tracks</b>: GenAI &amp; Agentic AI, Data Engineering, Applied Agentic AI or Forward Deployed AI.</p>
             <div className="dmh-actions">
               <Link className="button primary dmh-apply" href="/programs" data-dm-lead data-cta="Home hero - Apply Now">Apply Now <ArrowRight size={18} /></Link>
               <Link className="dmh-syllabus" href="/programs" data-dm-download data-cta="Download Syllabus"><ArrowDownToLine size={18} /> Download Syllabus</Link>
             </div>
-            <p className="dmh-proof"><span>Live online</span><span>Mentor-led</span><span>Hands-on projects</span></p>
+            <p className="dmh-proof"><span>Live online classes</span><span>Real projects &amp; capstones</span><span>Fees from ₹40,000 · EMI options</span></p>
           </div>
-          <LearnerSpotlight learners={spotlightLearners} />
+          <LearnerSpotlight learners={learnerProfiles} />
         </div>
         <div className="container dmh-stats">
-          {site.stats.map((stat) => <div key={stat.label}><strong>{stat.value}</strong><span>{stat.label}</span></div>)}
+          {heroStats.map((stat) => <div key={stat.label}><strong>{stat.value}</strong><span>{stat.label}</span></div>)}
         </div>
       </section>
 
       <section className="dmh-marquee" aria-labelledby="home-marquee-title">
-        <div className="container dmh-marquee-head"><span id="home-marquee-title">Learners from the Datamarcos community</span></div>
+        <div className="container dmh-marquee-head"><h2 id="home-marquee-title">Learners from the Datamarcos community</h2></div>
         <div className="dmh-marquee-viewport">
           <div className="dmh-marquee-track">
             {[...marqueeItems, ...marqueeItems].map((item, index) => {
@@ -121,7 +109,7 @@ export default function Home() {
               return item.kind === "learner" ? (
                 <a key={`${item.name}-${index}`} className="dmh-chip" href={item.link} target="_blank" rel="noreferrer" aria-hidden={clone || undefined} tabIndex={clone ? -1 : undefined}>
                   <Image src={item.image} alt={clone ? "" : item.name} width={52} height={52} sizes="52px" />
-                  <span><b>{item.name}</b><small>{item.employer ? `${item.role} · ${item.employer}` : item.role}</small></span>
+                  <span><b>{item.name}</b><small>{item.employer ? `${item.role} · ${item.employer}` : `${item.role} · Datamarcos learner`}</small></span>
                 </a>
               ) : (
                 <figure key={`${item.name}-${index}`} className="dmh-quote" aria-hidden={clone || undefined}>
@@ -134,143 +122,175 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="capability-bar">
+      <nav className="dmh-tracks" aria-label="Our live programs">
         <div className="container">
-          <strong>Explore skills for the modern technology workplace</strong>
-          <div className="pill-row">{skillAreas.map((item) => <span className="badge" key={item}>{item}</span>)}</div>
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="container">
-          <p className="eyebrow">One learning partner · two ways forward</p>
-          <h2 className="section-title">Skills for people. Capability for teams.</h2>
-          <div className="grid two">
-            <article className="card"><GraduationCap /><p className="eyebrow">For technology professionals</p><h3>Make your next move in AI and data.</h3><p>Build practical skills through guided programs, applied projects and expert instruction, from data engineering foundations to agentic applications.</p><Link className="button primary" href="/programs">Find Your Learning Path <ArrowRight size={17} /></Link></article>
-            <article className="card"><BriefcaseBusiness /><p className="eyebrow">For organizations</p><h3>Turn technology change into team capability.</h3><p>Give teams role-based training in AI, data, cloud and software, designed around your goals, technology stack and delivery environment.</p><Link className="button primary" href="/corporate-training">Build a Team Learning Plan <ArrowRight size={17} /></Link></article>
+          <strong>Explore our 4 live programs</strong>
+          <div className="dmh-track-row">
+            {homePrograms.map((program) => <Link key={program.slug} href={`/programs/${program.slug}`}>{program.title}</Link>)}
           </div>
         </div>
-      </section>
+      </nav>
 
-      <section className="section alt">
+      <section className="dmh-section" id="programs" aria-labelledby="home-programs-title">
         <div className="container">
-          <div className="student-placement-header">
-            <div><p className="eyebrow">Learn for the work ahead</p><h2 className="section-title">Choose your next skill path.</h2><p className="section-copy">Focused programs for the technologies changing how products and teams are built.</p></div>
-            <Link className="button secondary" href="/programs">Explore All Programs <ArrowRight size={17} /></Link>
+          <div className="dmh-section-head">
+            <div>
+              <p className="dmh-kicker">Programs · live online · mentor-led</p>
+              <h2 id="home-programs-title">Choose your program.</h2>
+              <p>Four live programs mentor-led by Deepesh Mishra, each built around real projects. Download the syllabus or open the program for the full roadmap.</p>
+            </div>
+            <Link className="dmh-ghost" href="/programs">All programs <ArrowRight size={16} /></Link>
           </div>
-          <div className="grid home-program-grid">
-            {programs.map((program) => (
-              <article className="card home-path-card" key={program.href}>
-                <div className="home-path-image-frame"><Image className="home-path-image" src={program.image} alt={program.alt} width={1200} height={800} sizes="(max-width: 640px) 90vw, (max-width: 1100px) 44vw, 24vw" /></div>
-                <p className="eyebrow">{program.category}</p>
-                <h3>{program.title}</h3>
-                <p>{program.description}</p>
-                <Link className="button ghost" href={program.href}>{program.link} <ArrowUpRight size={16} /></Link>
+          <div className="dmh-prog-grid">
+            {homePrograms.map((program) => (
+              <article className="dmh-prog" key={program.slug}>
+                <Link className="dmh-prog-poster" href={`/programs/${program.slug}`} tabIndex={-1} aria-hidden="true">
+                  <Image src={program.image} alt="" width={720} height={720} sizes="(max-width: 640px) 92vw, (max-width: 1100px) 45vw, 290px" quality={70} />
+                  <span className="dmh-prog-tag">{program.tag}</span>
+                </Link>
+                <div className="dmh-prog-body">
+                  <h3><Link href={`/programs/${program.slug}`}>{program.title}</Link></h3>
+                  <ul className="dmh-prog-facts">{program.facts.map((fact) => <li key={fact}>{fact}</li>)}</ul>
+                  <p className="dmh-prog-summary">{program.summary}</p>
+                  <p className="dmh-prog-who"><b>Who it’s for:</b> {program.whoFor}</p>
+                  <div className="dmh-prog-fee">
+                    <span className="dmh-prog-fee-label">Program fee</span>
+                    <strong>{program.fee}</strong>
+                    <small>{EMI_NOTE}</small>
+                  </div>
+                  <div className="dmh-prog-actions">
+                    <a className="dmh-btn dmh-btn-solid" href={program.brochure} data-dm-download data-course={program.leadCourse} data-cta={`Home program card - Download Syllabus - ${program.leadCourse}`}><ArrowDownToLine size={16} /> Download Syllabus</a>
+                    <Link className="dmh-btn dmh-btn-line" href={`/programs/${program.slug}`}>View Program <ArrowUpRight size={16} /></Link>
+                  </div>
+                </div>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="section home-trainer-showcase" aria-labelledby="home-trainers-title">
+      <section className="dmh-section dmh-reels-section" id="learner-stories" aria-labelledby="home-reels-title">
         <div className="container">
-          <div className="student-placement-header">
+          <div className="dmh-section-head">
             <div>
-              <p className="eyebrow">Trainers & industry experts</p>
-              <h2 className="section-title" id="home-trainers-title">Learn from people who do the work.</h2>
-              <p className="section-copy">Experienced practitioners bring technology, business context and hands-on teaching into every learning journey.</p>
+              <p className="dmh-kicker">Learner stories</p>
+              <h2 id="home-reels-title">Hear from our learners.</h2>
+              <p>Real Datamarcos learners on what they built and how the live sessions helped. Tap a card to play; videos load only when you press play.</p>
             </div>
+            <a className="dmh-ghost" href="https://www.instagram.com/datamarcos_official/" target="_blank" rel="noreferrer">More on Instagram <ArrowUpRight size={16} /></a>
           </div>
-          <div className="grid two home-trainer-cards">
-            <article className="card home-trainer-card">
-              <div className="home-trainer-card-photo"><Image src={site.founder.image} alt={site.founder.imageAlt} width={420} height={420} sizes="(max-width: 700px) 120px, 160px" /></div>
-              <div className="home-trainer-card-content">
-                <p className="eyebrow">Founder · Datamarcos</p>
-                <h3>Deepesh Mishra</h3>
-                <p>Technology trainer and solution architect with 18+ years of experience. Has trained 25,000+ professionals across 200+ corporate and academic clients.</p>
-                <div className="home-trainer-tags"><span>AI & GenAI</span><span>Data Engineering</span><span>Cloud</span></div>
-                <Link href="/about" className="button ghost">Meet Deepesh <ArrowUpRight size={16} /></Link>
-              </div>
-            </article>
-            <article className="card home-trainer-card">
-              <div className="home-trainer-card-photo"><Image src="/images/trainers/eshank-agarwal.jpeg" alt="Eshank Agarwal, GenAI consultant and corporate trainer" width={603} height={603} sizes="(max-width: 700px) 96px, 150px" /></div>
-              <div className="home-trainer-card-content">
-                <p className="eyebrow">Industry expert · GenAI</p>
-                <h3>Eshank Agarwal</h3>
-                <p>Founder & CEO, GenAI consultant and Data Science corporate trainer. Also brings advisory, Six Sigma and Lean consulting experience.</p>
-                <div className="home-trainer-tags"><span>LEAN.AI</span><span>IIT Bombay</span><span>Six Sigma</span></div>
-                <a href="https://www.linkedin.com/in/eshankagarwal/" target="_blank" rel="noreferrer" className="button ghost">View LinkedIn profile <ArrowUpRight size={16} /></a>
-              </div>
-            </article>
+          <div className="dmh-reels">
+            {learnerVideos.map((video) => <LearnerVideoCard key={video.id} video={video} />)}
+          </div>
+          <div className="dmh-wall" aria-label="Written learner feedback">
+            {learnerFeedback.map((item) => (
+              <figure className="dmh-wall-card" key={item.id}>
+                <span className="dmh-wall-source">{item.source}</span>
+                <blockquote>“{item.quote}”</blockquote>
+                <figcaption>
+                  <span><b>{item.name}</b><small>{item.role}</small></span>
+                  {item.image && (
+                    <a className="dmh-wall-original" href={item.image} target="_blank" rel="noreferrer" aria-label={`See the original: ${item.imageAlt}`}>
+                      <Image src={item.image} alt="" width={56} height={56} sizes="56px" />
+                      <span>See original</span>
+                    </a>
+                  )}
+                </figcaption>
+              </figure>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="section student-placement-showcase" aria-labelledby="home-learners-title">
-        <div className="container">
-          <div className="student-placement-header">
-            <div>
-              <p className="eyebrow">Our learner community</p>
-              <h2 className="section-title" id="home-learners-title">Meet the learners behind the work.</h2>
-              <p className="section-copy">Technology professionals bringing new skills into their careers. Open a profile to learn more about each person.</p>
-            </div>
-          </div>
-          <div className="student-placement-marquee" aria-label="Datamarcos learner profiles">
-            <div className="student-placement-track">
-              {[...learnerProfiles, ...learnerProfiles].map((learner, index) => (
-                <a key={`${learner.name}-${index}`} href={learner.link} target="_blank" rel="noreferrer" className="student-placement-card" aria-hidden={index >= learnerProfiles.length} tabIndex={index >= learnerProfiles.length ? -1 : undefined}>
-                  <div className="student-placement-image-wrap">
-                    <Image src={learner.image} alt={learner.name} width={500} height={420} sizes="250px" />
-                    <span className="student-placement-badge">{learner.short}</span>
-                  </div>
-                  <div className="student-placement-body">
-                    <div className="student-placement-company">{learner.company}</div>
-                    <h3>{learner.name}</h3>
-                    <p>{learner.role}</p>
-                    <span className="student-placement-link">View LinkedIn <ArrowRight size={15} /></span>
-                  </div>
-                </a>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="container grid two">
-          <div><p className="eyebrow">Beyond the buzzwords</p><h2 className="section-title">Understand the stack. Build what runs on it.</h2><p className="section-copy">Strong AI work starts with good data and ends with systems people can use. Our learning connects the layers in between.</p><Link className="button secondary" href="/programs/advance-data-engineering-genai">See the Data + AI Pathway <ArrowRight size={17} /></Link></div>
-          <div className="grid two home-journey-grid">{learningSteps.map(([title, detail], index) => <article className="card" key={title}><span className="badge status-custom">0{index + 1}</span><h3>{title}</h3><p>{detail}</p></article>)}</div>
-        </div>
-      </section>
-
-      <section className="section alt">
-        <div className="container grid two home-trainer-grid">
-          <div className="founder-portrait" aria-label={site.founder.imageAlt}><Image src={site.founder.image} alt={site.founder.imageAlt} width={700} height={875} /></div>
+      <section className="dmh-section" aria-labelledby="home-stack-title">
+        <div className="container dmh-split">
           <div>
-            <p className="eyebrow">Learn with experienced practitioners</p>
-            <h2 className="section-title">Meet {site.founder.name}.</h2>
-            <p className="section-copy">{site.founder.title} · BITS Pilani alumnus · Technology trainer and solution architect.</p>
-            <p className="section-copy">Deepesh has 18+ years in technology and has trained 25,000+ professionals across 200+ corporate and academic clients. His teaching connects clear concepts with hands-on work and real-world examples.</p>
-            <div className="tech-list">{site.founder.teaches.slice(0, 6).map((item) => <span className="tech-chip" key={item}>{item}</span>)}</div>
-            <div className="grid three founder-stats">{site.stats.slice(0, 3).map((stat) => <div className="card" key={stat.label}><strong>{stat.value}</strong><p>{stat.label}</p></div>)}</div>
+            <p className="dmh-kicker">What you’ll learn to build</p>
+            <h2 id="home-stack-title">Understand the stack. Build what runs on it.</h2>
+            <p>Strong AI work starts with good data and ends with systems people can use. Our programs connect the layers in between.</p>
+            <Link className="dmh-ghost" href="/programs/advance-data-engineering-genai">See the Data + AI pathway <ArrowRight size={16} /></Link>
+          </div>
+          <div className="dmh-steps">
+            {learningSteps.map(([title, detail], index) => <article key={title}><span>0{index + 1}</span><h3>{title}</h3><p>{detail}</p></article>)}
           </div>
         </div>
       </section>
 
-      <section className="section" id="solutions">
-        <div className="container grid two">
-          <div><p className="eyebrow">For teams building what is next</p><h2 className="section-title">Make AI capability part of how your organization works.</h2><p className="section-copy">From a focused workshop to a role-based academy, shape learning around the people, systems and business problems you need to move forward.</p><Link className="button primary" href="/corporate-training#inquiry">Talk About Team Training <ArrowRight size={17} /></Link></div>
-          <div className="grid"><article className="card"><Users /><h3>Role-based learning</h3><p>Build skills around real responsibilities.</p></article><article className="card"><CheckCircle2 /><h3>Practical projects</h3><p>Connect learning to work that matters.</p></article><article className="card"><CircuitBoard /><h3>Flexible delivery</h3><p>Live online, onsite, hybrid or custom.</p></article></div>
+      <section className="dmh-section dmh-mentor-section" aria-labelledby="home-mentor-title">
+        <div className="container dmh-mentor">
+          <div className="dmh-mentor-photo"><Image src={site.founder.image} alt={site.founder.imageAlt} width={620} height={691} sizes="(max-width: 900px) 70vw, 420px" /></div>
+          <div className="dmh-mentor-copy">
+            <p className="dmh-kicker">Your mentor</p>
+            <h2 id="home-mentor-title">Learn live with Deepesh Mishra.</h2>
+            <p className="dmh-mentor-role">{site.founder.title} · BITS Pilani alumnus · Technology trainer and solution architect</p>
+            <p>Deepesh has 18+ years in technology and has trained 25,000+ professionals across 200+ corporate and academic clients. His teaching connects clear concepts with hands-on work and real-world examples.</p>
+            <div className="dmh-chips">{site.founder.teaches.slice(0, 6).map((item) => <span key={item}>{item}</span>)}</div>
+            <div className="dmh-mentor-stats">
+              <div><strong>18+</strong><span>Years of experience</span></div>
+              <div><strong>25,000+</strong><span>Professionals trained</span></div>
+              <div><strong>200+</strong><span>Corporate &amp; academic clients</span></div>
+            </div>
+            <Link href="/about" className="dmh-ghost">More about Deepesh <ArrowUpRight size={16} /></Link>
+            <div className="dmh-expert">
+              <Image src="/images/trainers/eshank-agarwal.jpeg" alt="Eshank Agarwal" width={72} height={72} sizes="72px" />
+              <div>
+                <p className="dmh-expert-label">Industry expert · GenAI</p>
+                <h3>Eshank Agarwal</h3>
+                <p>Founder &amp; CEO, GenAI consultant and Data Science corporate trainer.</p>
+              </div>
+              <a href="https://www.linkedin.com/in/eshankagarwal/" target="_blank" rel="noreferrer" className="dmh-ghost">LinkedIn <ArrowUpRight size={16} /></a>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section className="section alt">
-        <div className="container card" style={{ textAlign: "center" }}>
-          <Network size={38} />
-          <h2 className="section-title">Build the capability your next chapter needs.</h2>
-          <div className="hero-actions" style={{ justifyContent: "center" }}><Link className="button primary" href="/programs">Explore Programs</Link><Link className="button secondary" href="/contact" data-dm-lead>Talk to Datamarcos</Link></div>
+      <section className="dmh-section dmh-faq-section" id="faq" aria-labelledby="home-faq-title">
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+        <div className="container dmh-faq-grid">
+          <div>
+            <p className="dmh-kicker">FAQ</p>
+            <h2 id="home-faq-title">Questions learners ask before joining.</h2>
+            <p>Still unsure? Our counsellor can walk you through prerequisites, batch dates and EMI options.</p>
+            <a className="dmh-ghost" href={env.whatsappUrl} target="_blank" rel="noreferrer"><MessageCircle size={16} /> Ask on WhatsApp</a>
+          </div>
+          <div className="dmh-faq">
+            {homeFaqs.map((item) => (
+              <details key={item.q}>
+                <summary><span>{item.q}</span><ChevronDown size={18} aria-hidden="true" /></summary>
+                <p>{item.a}</p>
+                {item.link && <p><Link href={item.link.href}>{item.link.label} <ArrowRight size={14} /></Link></p>}
+              </details>
+            ))}
+          </div>
         </div>
       </section>
-    </>
+
+      <section className="dmh-final" aria-labelledby="home-final-title">
+        <div className="container dmh-final-card">
+          <h2 id="home-final-title">Not sure which program fits?</h2>
+          <p>Book a free 15-minute career call. We’ll look at your background and goals and suggest the right track.</p>
+          <div className="dmh-final-actions">
+            <button type="button" className="button primary dmh-apply" data-dm-lead data-cta={careerCallCta}>Book a free 15-min career call <ArrowRight size={18} /></button>
+            <a className="dmh-btn dmh-btn-wa" href={env.whatsappUrl} target="_blank" rel="noreferrer"><MessageCircle size={18} /> Chat on WhatsApp</a>
+          </div>
+          <ul className="dmh-final-points">
+            <li><Check size={15} /> Live online</li><li><Check size={15} /> Real projects</li><li><Check size={15} /> EMI options available</li>
+          </ul>
+        </div>
+      </section>
+
+      <aside className="dmh-team-strip" aria-label="Team training">
+        <div className="container">
+          <Building2 size={20} aria-hidden="true" />
+          <p><b>Training a team?</b> Role-based AI, data and cloud programs for organizations.</p>
+          <Link href="/corporate-training#inquiry">Talk to us <ArrowRight size={16} /></Link>
+        </div>
+      </aside>
+
+      <div className="dmh-mobilebar" role="region" aria-label="Quick actions">
+        <button type="button" className="dmh-mobilebar-apply" data-dm-lead data-cta="Mobile sticky bar - Apply Now">Apply Now <ArrowRight size={18} /></button>
+        <a className="dmh-mobilebar-wa" href={env.whatsappUrl} target="_blank" rel="noreferrer" aria-label="Chat on WhatsApp"><MessageCircle size={22} /></a>
+      </div>
+    </div>
   );
 }
