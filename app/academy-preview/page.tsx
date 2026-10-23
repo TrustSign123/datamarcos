@@ -121,7 +121,7 @@ export default function AcademyPreviewPage() {
               <p className="academy-hero-lede">Learn AI, Generative AI, Agentic AI, Forward Deployed Engineering and Data Engineering with experienced mentors and practical projects.</p>
               <div className="academy-hero-actions">
                 <Link className="academy-button academy-button-bright" href="#paths">Find your learning path <ArrowRight size={17} /></Link>
-                <Link className="academy-button academy-button-quiet" href="/contact">Talk to an advisor</Link>
+                <Link className="academy-button academy-button-quiet" href="/contact" data-dm-lead>Talk to an advisor</Link>
               </div>
               <div className="academy-hero-note"><span className="academy-note-dot" /> Expert-led learning · Practical work · Career-focused growth</div>
             </div>
@@ -181,7 +181,7 @@ export default function AcademyPreviewPage() {
         </section>
 
         <section className="academy-final-cta">
-          <div className="academy-wrap academy-final-inner"><div><p className="academy-overline"><span /> YOUR NEXT CHAPTER STARTS HERE</p><h2>Make learning your<br />career advantage.</h2><p>Explore a path in AI, GenAI, Agentic AI, FDE or Data Engineering.</p></div><div className="academy-final-actions"><Link className="academy-button academy-button-bright" href="#paths">Explore learning paths <ArrowRight size={17} /></Link><Link className="academy-button academy-button-outline" href="/contact">Ask us a question</Link></div><span className="academy-final-mark" aria-hidden="true">DM</span></div>
+          <div className="academy-wrap academy-final-inner"><div><p className="academy-overline"><span /> YOUR NEXT CHAPTER STARTS HERE</p><h2>Make learning your<br />career advantage.</h2><p>Explore a path in AI, GenAI, Agentic AI, FDE or Data Engineering.</p></div><div className="academy-final-actions"><Link className="academy-button academy-button-bright" href="#paths">Explore learning paths <ArrowRight size={17} /></Link><Link className="academy-button academy-button-outline" href="/contact" data-dm-lead>Ask us a question</Link></div><span className="academy-final-mark" aria-hidden="true">DM</span></div>
         </section>
       </main>
 

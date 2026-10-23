@@ -65,7 +65,7 @@ export function ProgramPageTemplate({ program, landingPage = false }: { program:
             <span className="badge">{program.status.replaceAll("_", " ")}</span>
             <h1 className="section-title">{program.title}</h1>
             <p className="section-copy">{program.description}</p>
-            <div className="hero-actions"><a className="button primary" href="#application">{statusCta(program.status)}</a><Link className="button secondary" href="/programs">All Programs</Link></div>
+            <div className="hero-actions"><a className="button primary" href="#application" data-dm-lead>{statusCta(program.status)}</a><Link className="button secondary" href="/programs">All Programs</Link></div>
           </div>
         </section>
         <section className="section">
@@ -96,7 +96,7 @@ export function ProgramPageTemplate({ program, landingPage = false }: { program:
             <p className="program-support">{detail.supportingLine}</p>
             <p>{detail.body}</p>
             <div className="hero-actions">
-              <a className="button primary" href="#booking">{primaryCta} <ArrowRight size={18} /></a>
+              <a className="button primary" href="#booking" data-dm-lead>{primaryCta} <ArrowRight size={18} /></a>
               <a className="button secondary" href="#curriculum">Explore the Curriculum</a>
               <LeadMagnetCTA programId={program.id} programSlug={program.slug} brochureUrl={program.brochureUrl || detail.brochureUrl} />
             </div>
@@ -151,7 +151,7 @@ export function ProgramPageTemplate({ program, landingPage = false }: { program:
       <section className="section alt" id="booking"><div className="container grid two"><div><p className="eyebrow">Book a consultation</p><h2 className="section-title">Book a Free 1:1 Program Call</h2><p className="section-copy">Understand your background, goals, program fit, curriculum, cohort and enrollment path. No payment is required for the consultation.</p><CalendlyBooking url={program.calendlyUrl} /></div><div id="application"><h2>Apply for the Program</h2><ProgramApplicationForm programId={program.id} programSlug={program.slug} />{program.status === "LIVE" && program.razorpayUrl ? <PaymentButton url={program.razorpayUrl} /> : <p className="muted-note">Enrollment checkout will be enabled soon.</p>}<p className="muted-note">{program.pricing}</p></div></div></section>
       <section className="section"><div className="container"><p className="eyebrow">Testimonials</p><h2 className="section-title">Professionals Who Have Experienced Datamarcos</h2><VideoCarousel testimonials={testimonials} /></div></section>
       <section className="section alt" id="faq"><div className="container"><p className="eyebrow">FAQ</p><h2 className="section-title">Questions before you apply.</h2><div className="grid two">{detail.faq.map((item) => <details className="card" key={item.question}><summary><strong>{item.question}</strong></summary><p>{item.answer}</p></details>)}</div></div></section>
-      <section className="section final-program-cta"><div className="container"><Network size={44} /><h2>Ready to Build Production AI Systems?</h2><p>Talk with Datamarcos about your background, goals and whether this advanced program is the right fit for you.</p><div className="roadmap compact">{["Data", "AI", "Agents", "Production"].map((step) => <span key={step}>{step}</span>)}</div><p>Do not just learn AI. Learn how to engineer the systems behind it.</p><div className="hero-actions"><a className="button primary" href="#booking">Book a Free 1:1 Call</a><a className="button secondary" href="#curriculum">Explore the Curriculum</a><Link className="button secondary" href="/corporate-training">Train Your Team</Link></div></div></section>
+      <section className="section final-program-cta"><div className="container"><Network size={44} /><h2>Ready to Build Production AI Systems?</h2><p>Talk with Datamarcos about your background, goals and whether this advanced program is the right fit for you.</p><div className="roadmap compact">{["Data", "AI", "Agents", "Production"].map((step) => <span key={step}>{step}</span>)}</div><p>Do not just learn AI. Learn how to engineer the systems behind it.</p><div className="hero-actions"><a className="button primary" href="#booking" data-dm-lead>Book a Free 1:1 Call</a><a className="button secondary" href="#curriculum">Explore the Curriculum</a><Link className="button secondary" href="/corporate-training">Train Your Team</Link></div></div></section>
     </>
   );
 }

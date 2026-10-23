@@ -234,7 +234,7 @@ export default function Home() {
         <div className="container card" style={{ textAlign: "center" }}>
           <Network size={38} />
           <h2 className="section-title">Build the capability your next chapter needs.</h2>
-          <div className="hero-actions" style={{ justifyContent: "center" }}><Link className="button primary" href="/programs">Explore Programs</Link><Link className="button secondary" href="/contact">Talk to Datamarcos</Link></div>
+          <div className="hero-actions" style={{ justifyContent: "center" }}><Link className="button primary" href="/programs">Explore Programs</Link><Link className="button secondary" href="/contact" data-dm-lead>Talk to Datamarcos</Link></div>
         </div>
       </section>
     </>

@@ -294,7 +294,7 @@ export default function ForwardDeployedAIEngineerPage() {
 
       <section className="fde-outcomes">
         <div className="container fde-outcome-grid">
-          <div><p className="fde-eyebrow">When you finish</p><h2>Ready for the messy, real-world part of AI.</h2><p>Leave with deployed systems, professional delivery artifacts and the ability to explain every design decision like an FDE.</p><a className="fde-text-link" href="#apply">Start an application <ArrowRight size={16} /></a></div>
+          <div><p className="fde-eyebrow">When you finish</p><h2>Ready for the messy, real-world part of AI.</h2><p>Leave with deployed systems, professional delivery artifacts and the ability to explain every design decision like an FDE.</p><a className="fde-text-link" href="#apply" data-dm-lead>Start an application <ArrowRight size={16} /></a></div>
           <ul>{outcomes.map((outcome) => <li key={outcome}><Check size={17} />{outcome}</li>)}</ul>
         </div>
       </section>

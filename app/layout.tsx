@@ -4,6 +4,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { WhatsAppCTA } from "@/components/Integrations";
 import { AnalyticsTags } from "@/components/AnalyticsTags";
+import { LeadModal } from "@/components/lead/LeadModal";
 import { site } from "@/config/site";
 
 export const metadata: Metadata = {
@@ -33,6 +34,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <main>{children}</main>
         <Footer />
         <WhatsAppCTA />
+        <LeadModal />
       </body>
     </html>
   );
