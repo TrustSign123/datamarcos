@@ -4,8 +4,19 @@ import { ProgramPageTemplate } from "@/components/program/ProgramPageTemplate";
 import { programs } from "@/config/programs";
 import { site } from "@/config/site";
 
+// Slugs served by their own app/programs/<slug>/page.tsx (or redirected in next.config.ts).
+// Excluding them stops this generic template from overwriting those pages at build time.
+const notGeneric = new Set([
+  "genai-agentic-ai-engineer",
+  "advance-data-engineering-genai",
+  "applied-agentic-ai-certification",
+  "forward-deployed-ai-engineer",
+  "forward-deployed-engineer",
+  "forward-deployed-engineering"
+]);
+
 export function generateStaticParams() {
-  return programs.map((program) => ({ slug: program.slug }));
+  return programs.filter((program) => !notGeneric.has(program.slug)).map((program) => ({ slug: program.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
