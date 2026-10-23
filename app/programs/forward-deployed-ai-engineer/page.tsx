@@ -2,6 +2,7 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { ArrowDownToLine, ArrowRight, Bot, BrainCircuit, Check, ChartNoAxesCombined, Clock3, Cloud, Code2, Database, GitBranch, Hand, MessageSquareText, ShieldCheck, UsersRound, Workflow, type LucideIcon } from "lucide-react";
 import { InlineLeadForm } from "@/components/lead/InlineLeadForm";
+import { GatedBrochureFrame } from "@/components/lead/GatedBrochureFrame";
 import {
   siAnthropic,
   siApachekafka,
@@ -322,7 +323,7 @@ export default function ForwardDeployedAIEngineerPage() {
 
       <section className="fde-brochure" id="brochure">
         <div className="container fde-brochure-head"><div><p className="fde-eyebrow">The full program guide</p><h2>Get the brochure.</h2></div><a className="fde-button fde-button-dark" href={brochureUrl} download><ArrowDownToLine size={17} /> Download PDF</a></div>
-        <div className="container fde-pdf-frame"><iframe src={brochureUrl} title="Forward Deployed AI Engineer program brochure" loading="lazy" /></div>
+        <div className="container fde-pdf-frame"><GatedBrochureFrame src={brochureUrl} title="Forward Deployed AI Engineer program brochure" course="Forward Deployed AI Engineer" cover="/images/forward-deployed-ai-engineer/brochure-cover.png" /></div>
       </section>
 
       <section className="fde-apply" id="apply">
