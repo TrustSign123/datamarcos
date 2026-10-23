@@ -107,7 +107,7 @@ export default function InterviewPrepPage() {
           </div>
           <div className="prep-actions">
             <Link className="button primary" href="/programs">Explore programs</Link>
-            <Link className="button secondary" href="/contact">Talk to admissions</Link>
+            <Link className="button secondary" href="/contact" data-dm-lead>Talk to admissions</Link>
           </div>
         </div>
       </section>

@@ -48,7 +48,7 @@ export function SkillAssessment({ programId, programSlug }: { programId: string;
         ))}
       </div>
       <p className="assessment-result">{result}</p>
-      <Link className="button secondary" href="#booking">Discuss Your Background With an Instructor</Link>
+      <Link className="button secondary" href="#booking" data-dm-lead>Discuss Your Background With an Instructor</Link>
     </div>
   );
 }
@@ -69,7 +69,7 @@ export function StickyProgramCTA({ programId, programSlug }: { programId: string
   return (
     <div className="program-sticky-cta" role="region" aria-label="Program booking shortcut">
       <span>Advanced AI Data Engineering & Agentic AI</span>
-      <Link className="button primary" href="#booking" onClick={() => trackEvent("hero_cta_click", { programId, programSlug })}>Book Free Call</Link>
+      <Link className="button primary" href="#booking" data-dm-lead onClick={() => trackEvent("hero_cta_click", { programId, programSlug })}>Book Free Call</Link>
       <button className="button secondary sticky-close" type="button" aria-label="Dismiss sticky call to action" onClick={() => setClosed(true)}><X size={16} /></button>
     </div>
   );

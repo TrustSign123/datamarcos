@@ -98,7 +98,7 @@ export default function AppliedAgenticAICertificationPage() {
             <div className="agentic-program-meta"><span>8 weeks</span><span>Live mentor support</span><span>Portfolio capstone</span></div>
 
             <div className="hero-actions">
-              <a className="button primary" href={whatsappConsultation} target="_blank" rel="noreferrer">
+              <a className="button primary" href={whatsappConsultation} target="_blank" rel="noreferrer" data-dm-lead>
                 Book a consultation <ArrowRight size={18} />
               </a>
               <a className="button secondary" href={brochurePath} download target="_blank" rel="noreferrer">
@@ -372,7 +372,7 @@ export default function AppliedAgenticAICertificationPage() {
           </p>
 
           <div className="hero-actions center-actions">
-            <a className="button primary" href={whatsappConsultation} target="_blank" rel="noreferrer">
+            <a className="button primary" href={whatsappConsultation} target="_blank" rel="noreferrer" data-dm-lead>
               Book your call <ArrowRight size={18} />
             </a>
             <a className="button secondary" href={brochurePath} download target="_blank" rel="noreferrer">
@@ -384,7 +384,7 @@ export default function AppliedAgenticAICertificationPage() {
             <a href={whatsappBrochure} target="_blank" rel="noreferrer">
               <MessageCircle size={16} /> WhatsApp brochure request
             </a>
-            <Link href="/contact">Talk to a program advisor</Link>
+            <Link href="/contact" data-dm-lead>Talk to a program advisor</Link>
           </div>
         </div>
       </section>
