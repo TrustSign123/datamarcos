@@ -2,16 +2,21 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronDown, Menu, X } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
-import { mobileNavigation, navigation, resourceMenu } from "@/config/navigation";
+import { usePathname } from "next/navigation";
+import { ArrowRight, ArrowUpRight, Building2, ChevronDown, Clock3, Menu, MessageCircle, Phone, X } from "lucide-react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { resourceMenu } from "@/config/navigation";
+import { EMI_NOTE, homePrograms } from "@/config/home";
+import { env, site } from "@/config/site";
 
-const flagshipPrograms = [
-  { title: "Generative AI & Agentic AI Engineer", href: "/programs/genai-agentic-ai-engineer", image: "/images/program-thumbnails/genai-agentic-ai-engineer.png" },
-  { title: "Advanced Data Engineering with Applied GenAI & Agentic AI", href: "/programs/advance-data-engineering-genai", image: "/images/program-thumbnails/data-engineering-genai.png" },
-  { title: "Applied Agentic AI", href: "/programs/applied-agentic-ai-certification", image: "/images/program-thumbnails/applied-agentic-ai.png" },
-  { title: "Forward Deployed AI Engineer", href: "/programs/forward-deployed-ai-engineer", image: "/images/program-thumbnails/forward-deployed-ai-engineer.png" }
+/** Learner-first navigation. Anchors point at homepage sections so they work from any page. */
+const sectionLinks = [
+  { label: "Learner Stories", href: "/#learner-stories" },
+  { label: "Mentor", href: "/#mentor" },
+  { label: "FAQ", href: "/#faq" }
 ];
+
+const phoneHref = `tel:${site.phone.replace(/\s+/g, "")}`;
 
 export function Logo() {
   return (
@@ -29,108 +34,151 @@ export function Logo() {
 }
 
 export function Header() {
-  const [open, setOpen] = useState(false);
-  const [openMenu, setOpenMenu] = useState<"programs" | "resources" | null>(null);
+  const pathname = usePathname();
+  const [drawer, setDrawer] = useState(false);
+  const [menu, setMenu] = useState<"programs" | "resources" | null>(null);
+  const [scrolled, setScrolled] = useState(false);
   const navRef = useRef<HTMLElement>(null);
-  const toggleMenu = (menu: "programs" | "resources") => setOpenMenu(openMenu === menu ? null : menu);
-  const closeAll = () => { setOpen(false); setOpenMenu(null); };
+  const closeTimer = useRef<number | undefined>(undefined);
 
+  const closeAll = useCallback(() => { setDrawer(false); setMenu(null); }, []);
+
+  // Solid + shadow once the page scrolls.
   useEffect(() => {
-    if (!openMenu) return;
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
-    const closeOnOutsideClick = (event: PointerEvent) => {
-      if (!navRef.current?.contains(event.target as Node)) setOpenMenu(null);
-    };
+  // Close menus on navigation.
+  useEffect(() => { closeAll(); }, [pathname, closeAll]);
 
-    document.addEventListener("pointerdown", closeOnOutsideClick);
-    return () => document.removeEventListener("pointerdown", closeOnOutsideClick);
-  }, [openMenu]);
+  // Outside click / Escape closes desktop dropdowns and the drawer.
+  useEffect(() => {
+    const onPointer = (event: PointerEvent) => { if (menu && !navRef.current?.contains(event.target as Node)) setMenu(null); };
+    const onKey = (event: KeyboardEvent) => { if (event.key === "Escape") closeAll(); };
+    document.addEventListener("pointerdown", onPointer);
+    document.addEventListener("keydown", onKey);
+    return () => { document.removeEventListener("pointerdown", onPointer); document.removeEventListener("keydown", onKey); };
+  }, [menu, closeAll]);
+
+  // Lock page scroll behind the mobile drawer.
+  useEffect(() => {
+    document.documentElement.classList.toggle("dmx-lock", drawer);
+    return () => document.documentElement.classList.remove("dmx-lock");
+  }, [drawer]);
+
+  const hoverOpen = (name: "programs" | "resources") => { window.clearTimeout(closeTimer.current); setMenu(name); };
+  const hoverClose = () => { window.clearTimeout(closeTimer.current); closeTimer.current = window.setTimeout(() => setMenu(null), 160); };
 
   return (
-    <header className="site-header">
-      <div className="container nav">
-        <Logo />
-        <nav className="desktop-nav" aria-label="Primary navigation" ref={navRef} onKeyDown={(event) => { if (event.key === "Escape") setOpenMenu(null); }}>
-          {navigation.map((item) => item.label === "Programs" ? (
-            <div className="program-nav-item" key="program-menu">
-              <button className="program-nav-trigger" type="button" aria-expanded={openMenu === "programs"} aria-controls="program-nav-menu" onClick={() => toggleMenu("programs")}>
+    <>
+      <div className="dmx-announce" role="note">
+        <div className="container">
+          <span className="dmx-announce-dot" aria-hidden="true" />
+          <span><b>Admissions open</b><span className="dmx-announce-text-extra"> for our live online programs</span><span className="dmx-announce-text-extra"> · Fees from ₹40,000 with EMI options</span></span>
+          <button type="button" data-dm-lead data-cta="Announcement bar - Talk to a counsellor">Talk to a counsellor <ArrowRight size={14} /></button>
+        </div>
+      </div>
+      <header className={`site-header dmx-header${scrolled ? " is-scrolled" : ""}${drawer ? " is-open" : ""}`}>
+        <div className="container dmx-bar">
+          <Logo />
+          <nav className="dmx-nav" aria-label="Primary navigation" ref={navRef}>
+            <div className="dmx-item" onMouseEnter={() => hoverOpen("programs")} onMouseLeave={hoverClose}>
+              <button type="button" className="dmx-link dmx-trigger" aria-expanded={menu === "programs"} aria-controls="dmx-programs" onClick={() => setMenu(menu === "programs" ? null : "programs")}>
                 Programs <ChevronDown size={16} aria-hidden="true" />
               </button>
-              {openMenu === "programs" && (
-                <div className="program-nav-menu" id="program-nav-menu">
-                  <div className="program-nav-menu-heading"><strong>Flagship programs</strong><Link href="/programs" onClick={closeAll}>All programs <span aria-hidden="true">&rarr;</span></Link></div>
-                  <div className="program-nav-grid">
-                    {flagshipPrograms.map((program) => (
-                      <Link className="program-nav-card" href={program.href} key={program.href} onClick={closeAll}>
-                        <span className="program-nav-image"><Image src={program.image} alt="" fill priority sizes="76px" /></span>
-                        <strong>{program.title}</strong>
+              {menu === "programs" && (
+                <div className="dmx-mega" id="dmx-programs">
+                  <div className="dmx-mega-grid">
+                    {homePrograms.map((program) => (
+                      <Link key={program.slug} className="dmx-course" href={`/programs/${program.slug}`} onClick={closeAll}>
+                        <span className="dmx-course-img"><Image src={program.image} alt="" width={72} height={72} sizes="72px" /></span>
+                        <span className="dmx-course-copy">
+                          <small>{program.tag}</small>
+                          <strong>{program.title}</strong>
+                          <span className="dmx-course-meta"><Clock3 size={13} aria-hidden="true" /> {program.facts[0]}<b>{program.fee}</b></span>
+                        </span>
                       </Link>
                     ))}
                   </div>
-                </div>
-              )}
-            </div>
-          ) : item.label === "Resources" ? (
-            <div className="program-nav-item" key="resources-menu">
-              <button className="program-nav-trigger" type="button" aria-expanded={openMenu === "resources"} aria-controls="resource-nav-menu" onClick={() => toggleMenu("resources")}>
-                Resources <ChevronDown size={16} aria-hidden="true" />
-              </button>
-              {openMenu === "resources" && (
-                <div className="program-nav-menu resource-nav-menu" id="resource-nav-menu">
-                  <div className="program-nav-menu-heading"><strong>Resources</strong></div>
-                  <div className="resource-nav-grid">
-                    {resourceMenu.map((entry) => entry.external ? (
-                      <a className="resource-nav-link" href={entry.href} key={entry.title} target="_blank" rel="noopener noreferrer" onClick={closeAll}><strong>{entry.title}</strong><span>{entry.description}</span></a>
-                    ) : (
-                      <Link className="resource-nav-link" href={entry.href} key={entry.title} onClick={closeAll}><strong>{entry.title}</strong><span>{entry.description}</span></Link>
-                    ))}
+                  <div className="dmx-mega-foot">
+                    <span>Live online · mentor-led by Deepesh Mishra · {EMI_NOTE}</span>
+                    <div>
+                      <Link href="/programs" onClick={closeAll}>All programs <ArrowRight size={14} /></Link>
+                      <button type="button" data-dm-lead data-cta="Header programs menu - Free career call" onClick={closeAll}>Not sure? Free career call <ArrowRight size={14} /></button>
+                    </div>
                   </div>
                 </div>
               )}
             </div>
-          ) : (
-            <Link key={item.href + item.label} href={item.href}>{item.label}</Link>
-          ))}
-        </nav>
-        <div className="nav-actions">
-          <Link href="/contact" className="button secondary">
-            Talk to Us
-          </Link>
-          <Link href="/programs" className="button primary" data-dm-lead data-cta="Header - Apply Now">
-            Apply Now
-          </Link>
+            {sectionLinks.map((link) => <Link key={link.href} className="dmx-link" href={link.href}>{link.label}</Link>)}
+            <div className="dmx-item" onMouseEnter={() => hoverOpen("resources")} onMouseLeave={hoverClose}>
+              <button type="button" className="dmx-link dmx-trigger" aria-expanded={menu === "resources"} aria-controls="dmx-resources" onClick={() => setMenu(menu === "resources" ? null : "resources")}>
+                Resources <ChevronDown size={16} aria-hidden="true" />
+              </button>
+              {menu === "resources" && (
+                <div className="dmx-mega dmx-mega-small" id="dmx-resources">
+                  {resourceMenu.map((entry) => entry.external ? (
+                    <a key={entry.title} className="dmx-res" href={entry.href} target="_blank" rel="noopener noreferrer" onClick={closeAll}><strong>{entry.title} <ArrowUpRight size={13} aria-hidden="true" /></strong><span>{entry.description}</span></a>
+                  ) : (
+                    <Link key={entry.title} className="dmx-res" href={entry.href} onClick={closeAll}><strong>{entry.title}</strong><span>{entry.description}</span></Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          </nav>
+          <div className="dmx-actions">
+            <Link className="dmx-teams" href="/corporate-training"><Building2 size={15} aria-hidden="true" /> For Teams</Link>
+            <a className="dmx-icon" href={env.whatsappUrl} target="_blank" rel="noreferrer" aria-label="Chat on WhatsApp" title="Chat on WhatsApp"><MessageCircle size={19} /></a>
+            <Link className="dmx-apply" href="/programs" data-dm-lead data-cta="Header - Apply Now">Apply Now <ArrowRight size={16} /></Link>
+          </div>
+          <div className="dmx-mobile-actions">
+            <Link className="dmx-apply dmx-apply-sm" href="/programs" data-dm-lead data-cta="Mobile header - Apply Now">Apply Now</Link>
+            <button className="dmx-burger" type="button" aria-label={drawer ? "Close menu" : "Open menu"} aria-expanded={drawer} aria-controls="dmx-drawer" onClick={() => setDrawer(!drawer)}>
+              {drawer ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
-        <button className="menu-button" type="button" aria-label="Toggle menu" aria-expanded={open} onClick={() => setOpen(!open)}>
-          {open ? <X size={26} /> : <Menu size={26} />}
-        </button>
-      </div>
-      <nav className={`mobile-menu ${open ? "open" : ""}`} aria-label="Mobile navigation">
-        {mobileNavigation.map((item) => item.label === "Programs" ? (
-          <div className="mobile-program-group" key="mobile-programs">
-            <button className="mobile-program-trigger" type="button" aria-expanded={openMenu === "programs"} onClick={() => toggleMenu("programs")}>
-              Programs <ChevronDown size={17} aria-hidden="true" />
-            </button>
-            {openMenu === "programs" && <div className="mobile-program-links"><Link href="/programs" onClick={closeAll}>All programs</Link>{flagshipPrograms.map((program) => <Link href={program.href} key={program.href} onClick={closeAll}>{program.title}</Link>)}</div>}
+      </header>
+      <div className={`dmx-scrim${drawer ? " open" : ""}`} onClick={closeAll} aria-hidden="true" />
+      <nav id="dmx-drawer" className={`dmx-drawer${drawer ? " open" : ""}`} aria-label="Mobile navigation" inert={!drawer}>
+        <div className="dmx-drawer-head">
+          <Logo />
+          <button type="button" className="dmx-burger" aria-label="Close menu" onClick={closeAll}><X size={24} /></button>
+        </div>
+        <div className="dmx-drawer-body">
+          <p className="dmx-drawer-label">Programs · live online</p>
+          {homePrograms.map((program) => (
+            <Link key={program.slug} className="dmx-drawer-course" href={`/programs/${program.slug}`} onClick={closeAll}>
+              <Image src={program.image} alt="" width={52} height={52} sizes="52px" />
+              <span><strong>{program.title}</strong><small>{program.facts[0]} · {program.fee}</small></span>
+              <ArrowRight size={16} aria-hidden="true" />
+            </Link>
+          ))}
+          <Link className="dmx-drawer-all" href="/programs" onClick={closeAll}>All programs <ArrowRight size={14} /></Link>
+          <div className="dmx-drawer-links">
+            {sectionLinks.map((link) => <Link key={link.href} href={link.href} onClick={closeAll}>{link.label}</Link>)}
+            <details>
+              <summary>Resources <ChevronDown size={16} aria-hidden="true" /></summary>
+              {resourceMenu.map((entry) => entry.external
+                ? <a key={entry.title} href={entry.href} target="_blank" rel="noopener noreferrer" onClick={closeAll}>{entry.title}</a>
+                : <Link key={entry.title} href={entry.href} onClick={closeAll}>{entry.title}</Link>)}
+            </details>
+            <Link href="/about" onClick={closeAll}>About</Link>
+            <Link href="/corporate-training" onClick={closeAll}>For Teams (corporate training)</Link>
+            <Link href="/contact" onClick={closeAll}>Contact</Link>
           </div>
-        ) : item.label === "Resources" ? (
-          <div className="mobile-program-group" key="mobile-resources">
-            <button className="mobile-program-trigger" type="button" aria-expanded={openMenu === "resources"} onClick={() => toggleMenu("resources")}>
-              Resources <ChevronDown size={17} aria-hidden="true" />
-            </button>
-            {openMenu === "resources" && <div className="mobile-program-links">{resourceMenu.map((entry) => entry.external ? <a href={entry.href} key={entry.title} target="_blank" rel="noopener noreferrer" onClick={closeAll}>{entry.title}</a> : <Link href={entry.href} key={entry.title} onClick={closeAll}>{entry.title}</Link>)}</div>}
+        </div>
+        <div className="dmx-drawer-foot">
+          <button type="button" className="dmx-apply dmx-apply-block" data-dm-lead data-cta="Mobile menu - Apply Now" onClick={closeAll}>Apply Now <ArrowRight size={17} /></button>
+          <div className="dmx-drawer-contact">
+            <a href={env.whatsappUrl} target="_blank" rel="noreferrer"><MessageCircle size={17} /> WhatsApp</a>
+            <a href={phoneHref}><Phone size={17} /> {site.phone}</a>
           </div>
-        ) : (
-          <Link key={item.href + item.label} href={item.href} onClick={closeAll}>
-            {item.label}
-          </Link>
-        ))}
-        <Link className="button primary" href="/programs" data-dm-lead data-cta="Mobile menu - Apply Now" onClick={() => setOpen(false)}>
-          Apply Now
-        </Link>
-        <Link className="button secondary" href="/contact" onClick={() => setOpen(false)}>
-          Talk to Datamarcos
-        </Link>
+        </div>
       </nav>
-    </header>
+    </>
   );
 }

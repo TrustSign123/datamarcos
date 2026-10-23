@@ -216,7 +216,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="dmh-section dmh-mentor-section" aria-labelledby="home-mentor-title">
+      <section className="dmh-section dmh-mentor-section" id="mentor" aria-labelledby="home-mentor-title">
         <div className="container dmh-mentor">
           <div className="dmh-mentor-photo"><Image src={site.founder.image} alt={site.founder.imageAlt} width={620} height={691} sizes="(max-width: 900px) 70vw, 420px" /></div>
           <div className="dmh-mentor-copy">
