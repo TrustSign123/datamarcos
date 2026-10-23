@@ -1,7 +1,7 @@
 import Image from "next/image";
 import type { Metadata } from "next";
 import { ArrowDownToLine, ArrowRight, Bot, BrainCircuit, Check, ChartNoAxesCombined, Clock3, Cloud, Code2, Database, GitBranch, Hand, MessageSquareText, ShieldCheck, UsersRound, Workflow, type LucideIcon } from "lucide-react";
-import { FDECallRequestForm } from "@/components/program/FDECallRequestForm";
+import { InlineLeadForm } from "@/components/lead/InlineLeadForm";
 import {
   siAnthropic,
   siApachekafka,
@@ -54,6 +54,11 @@ export const metadata: Metadata = {
     images: [{ url: "/images/forward-deployed-ai-engineer/brochure-cover.png", width: 1400, height: 1980 }]
   }
 };
+
+const fdeCourse = "Forward Deployed AI Engineer";
+const fdeSuccessLinks = [{ label: "Download the brochure", href: brochureUrl, download: true }];
+const fdeSuccessTitle = "Thanks{first}! Request received.";
+const fdeSuccessBody = "Our admissions team will contact you about cohort dates, fees, scholarships and program fit. Meanwhile, the brochure has the full 22-week roadmap.";
 
 const phases = [
   {
@@ -191,7 +196,7 @@ export default function ForwardDeployedAIEngineerPage() {
           </div>
           <div className="fde-hero-form" id="apply">
             <div className="fde-hero-form-banner">Small cohorts · Rolling admissions</div>
-            <div className="fde-hero-form-body"><p className="fde-eyebrow">Start a conversation</p><h2>See if the FDE path fits you.</h2><p>Ask about cohort dates, fees and scholarships.</p><FDECallRequestForm programId="forward-deployed-ai-engineer" programSlug="forward-deployed-ai-engineer" programName="Forward Deployed AI Engineer - GenAI & Agentic AI Program" /></div>
+            <div className="fde-hero-form-body"><p className="fde-eyebrow">Start a conversation</p><h2>See if the FDE path fits you.</h2><p>Ask about cohort dates, fees and scholarships.</p><InlineLeadForm variant="bare" idPrefix="fde-hero" course={fdeCourse} lockCourse cta="FDE inline form (hero)" submitLabel="Request a call" trust={["Admissions will share the next cohort date, fees and scholarship details on request."]} successTitle={fdeSuccessTitle} successBody={fdeSuccessBody} successLinks={fdeSuccessLinks} minHeight={430} /></div>
           </div>
         </div>
         <a className="fde-hero-scroll" href="#market"><span /> See why FDEs are in demand</a>
@@ -323,7 +328,27 @@ export default function ForwardDeployedAIEngineerPage() {
       <section className="fde-apply" id="apply">
         <div className="container fde-apply-grid">
           <div><p className="fde-eyebrow">Application-based admission</p><h2>Build for the field.</h2><p>Share a few details and our admissions team will discuss program fit, cohort dates, fees and scholarship options.</p><a className="fde-apply-brochure" href={brochureUrl} download><ArrowDownToLine size={16} /> Prefer to review first? Download the full brochure</a></div>
-          <FDECallRequestForm programId="forward-deployed-ai-engineer" programSlug="forward-deployed-ai-engineer" programName="Forward Deployed AI Engineer - GenAI & Agentic AI Program" />
+          <InlineLeadForm
+            idPrefix="fde-apply"
+            course={fdeCourse}
+            lockCourse
+            cta="FDE inline form (apply section)"
+            eyebrow="Forward Deployed AI Engineer"
+            title="Request your FDE fit call."
+            intro="Ask about cohort dates, fees and scholarships."
+            benefits={[
+              <><b>4 client-style engagements</b>: Sentinel, Atlas, Helix and your capstone. No toy projects.</>,
+              <><b>170+ live hours</b> over 22 weeks, live online.</>,
+              <><b>Lead mentor Deepesh Mishra</b>: 18+ years, 25,000+ professionals trained.</>,
+              <><b>Career track every week</b>: portfolio, resume, LinkedIn, interview loops, referrals.</>
+            ]}
+            submitLabel="Request my fit call"
+            trust={["Application-based", "Small cohorts", "Weekend-friendly"]}
+            successTitle={fdeSuccessTitle}
+            successBody={fdeSuccessBody}
+            successLinks={fdeSuccessLinks}
+            minHeight={640}
+          />
         </div>
       </section>
     </article>

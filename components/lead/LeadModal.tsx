@@ -1,12 +1,12 @@
 "use client";
 
-import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
-import { createPortal } from "react-dom";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
-import { LEAD_COURSES, LEAD_NOT_SURE, courseForPath, leadEndpoint } from "@/config/lead";
-import { site, env } from "@/config/site";
+import { courseForPath } from "@/config/lead";
 import { readAttribution, trackEvent } from "@/lib/analytics";
-import { leadModalStyles } from "./leadModalStyles";
+import { LeadForm, matchCourse } from "./LeadForm";
+import { ShadowPortal } from "./ShadowPortal";
+import { leadFormStyles, leadModalStyles } from "./leadStyles";
 
 /**
  * Site-wide lead-capture popup.
@@ -18,17 +18,7 @@ import { leadModalStyles } from "./leadModalStyles";
  * The original href is kept as a no-JS fallback.
  */
 
-type Status = "idle" | "loading" | "success";
-type FieldErrors = Partial<Record<"name" | "email" | "phone" | "course" | "consent", boolean>>;
 type OpenOptions = { course?: string; cta?: string; title?: string };
-
-const COUNTRY_CODES = [
-  ["+91", "🇮🇳 +91"], ["+1", "🇺🇸 +1"], ["+44", "🇬🇧 +44"], ["+971", "🇦🇪 +971"],
-  ["+65", "🇸🇬 +65"], ["+61", "🇦🇺 +61"], ["+966", "🇸🇦 +966"], ["+49", "🇩🇪 +49"]
-] as const;
-
-const NOT_CONNECTED = `Our enquiry form is being set up. Please WhatsApp us at ${site.phone} or email ${site.email} and we'll call you back.`;
-const GENERIC_ERROR = `We couldn't submit right now. Please try again, or WhatsApp us at ${site.phone}.`;
 
 const LOGO = (
   <svg viewBox="0 0 64 64" aria-hidden="true">
@@ -40,43 +30,23 @@ const LOGO = (
 
 export function LeadModal() {
   const pathname = usePathname();
-  const [shadow, setShadow] = useState<ShadowRoot | null>(null);
   const [open, setOpen] = useState(false);
-  const [status, setStatus] = useState<Status>("idle");
-  const [errors, setErrors] = useState<FieldErrors>({});
-  const [banner, setBanner] = useState("");
-  const [course, setCourse] = useState("");
-  const [cta, setCta] = useState("Popup");
-  const [title, setTitle] = useState("");
-  const [submitted, setSubmitted] = useState({ name: "", course: "" });
-  const formRef = useRef<HTMLFormElement>(null);
-  const nameRef = useRef<HTMLInputElement>(null);
+  const [session, setSession] = useState({ key: 0, course: "", cta: "Popup", title: "" });
+  const [succeeded, setSucceeded] = useState(false);
   const prevOverflow = useRef("");
 
-  // Mount an isolated shadow root so site CSS and popup CSS never collide.
-  useEffect(() => {
-    const host = document.createElement("div");
-    host.id = "dm-lead-modal";
-    document.body.appendChild(host);
-    setShadow(host.attachShadow({ mode: "open" }));
-    readAttribution(); // remember UTMs from the landing URL for this session
-    return () => host.remove();
-  }, []);
+  // Remember UTMs from the landing URL for the whole session.
+  useEffect(() => { readAttribution(); }, []);
 
   const openModal = useCallback((options: OpenOptions = {}) => {
-    const preset = options.course || courseForPath(window.location.pathname) || "";
-    const known = [...LEAD_COURSES, LEAD_NOT_SURE].find((item) => item.toLowerCase() === preset.toLowerCase());
-    setCourse(known || "");
-    setCta(options.cta || "Popup");
-    setTitle(options.title || "");
-    setErrors({});
-    setBanner("");
-    setStatus("idle");
+    const course = matchCourse(options.course || courseForPath(window.location.pathname));
+    const cta = options.cta || "Popup";
+    setSession((prev) => ({ key: prev.key + 1, course, cta, title: options.title || "" }));
+    setSucceeded(false);
     prevOverflow.current = document.documentElement.style.overflow;
     document.documentElement.style.overflow = "hidden";
     setOpen(true);
-    trackEvent("program_apply", { cta: options.cta || "Popup", course: known || "" });
-    window.setTimeout(() => nameRef.current?.focus({ preventScroll: true }), 60);
+    trackEvent("program_apply", { cta, course });
   }, []);
 
   const closeModal = useCallback(() => {
@@ -110,136 +80,34 @@ export function LeadModal() {
     };
   }, [openModal, closeModal]);
 
-  async function onSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setBanner("");
-    const data = new FormData(event.currentTarget);
-    if (String(data.get("website") || "")) { setStatus("success"); return; } // honeypot
+  const isApply = /apply|application|seat|enrol/i.test(session.cta);
+  const heading = session.title || (isApply ? "Apply for the program" : "Talk to a program advisor");
 
-    const name = String(data.get("name") || "").trim();
-    const email = String(data.get("email") || "").trim();
-    const cc = String(data.get("cc") || "+91");
-    let phone = String(data.get("phone") || "").replace(/\D/g, "");
-    if (cc === "+91" && phone.length === 11 && phone.startsWith("0")) phone = phone.slice(1);
-    const next: FieldErrors = {
-      name: !(name.length >= 2 && /[a-zA-Z\u0900-\u097F]/.test(name)),
-      email: !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email),
-      phone: cc === "+91" ? !/^[6-9]\d{9}$/.test(phone) : phone.length < 6 || phone.length > 13,
-      course: !course,
-      consent: data.get("consent") !== "on"
-    };
-    setErrors(next);
-    if (Object.values(next).some(Boolean)) return;
-
-    if (!leadEndpoint) { setBanner(NOT_CONNECTED); return; }
-
-    const attribution = readAttribution() as Record<string, string>;
-    setStatus("loading");
-    try {
-      // text/plain keeps this a "simple" CORS request (no preflight), which Apps Script requires.
-      const response = await fetch(leadEndpoint, {
-        method: "POST",
-        headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify({
-          name, email, phone: cc + phone, course, cta,
-          page: window.location.href,
-          utm_source: attribution.utm_source || "",
-          utm_medium: attribution.utm_medium || "",
-          utm_campaign: attribution.utm_campaign || "",
-          referrer: document.referrer || ""
-        }),
-        redirect: "follow"
-      });
-      const result = (await response.json()) as { ok?: boolean; errors?: string[] };
-      if (!result.ok) throw new Error(result.errors?.join(" ") || GENERIC_ERROR);
-      setSubmitted({ name, course });
-      setStatus("success");
-      formRef.current?.reset();
-      trackEvent("application_submit", { cta, course });
-      (window as Window & { fbq?: (...args: unknown[]) => void }).fbq?.("track", "Lead", { content_name: course });
-    } catch (error) {
-      const message = error instanceof Error ? error.message : "";
-      setBanner(message && !/fetch|network|json|unexpected/i.test(message) ? message : GENERIC_ERROR);
-      setStatus("idle");
-    }
-  }
-
-  if (!shadow) return null;
-
-  const isApply = /apply|application|seat|enrol/i.test(cta);
-  const heading = title || (isApply ? "Apply for the program" : "Talk to a program advisor");
-  const buttonLabel = isApply ? "Submit Application" : "Request a Call Back";
-  const clear = (field: keyof FieldErrors) => errors[field] && setErrors({ ...errors, [field]: false });
-  const firstName = submitted.name.split(" ")[0];
-
-  return createPortal(
-    <>
-      <style>{leadModalStyles}</style>
-      <div className={`overlay${open ? " open" : ""}${status === "success" ? " ok" : ""}`} onClick={(event) => { if (event.target === event.currentTarget) closeModal(); }} aria-hidden={!open}>
+  return (
+    <ShadowPortal mount="body" id="dm-lead-modal" css={leadFormStyles + leadModalStyles}>
+      <div className={`overlay${open ? " open" : ""}`} onClick={(event) => { if (event.target === event.currentTarget) closeModal(); }} aria-hidden={!open}>
         <div className="card" role="dialog" aria-modal="true" aria-labelledby="dml-title">
           <div className="head">
             <button className="close" type="button" aria-label="Close" onClick={closeModal}>&times;</button>
             <div className="brand"><span className="mark">{LOGO}</span><span className="bname"><b>DATAMARCOS</b><small>Technology Learning</small></span></div>
             <p className="eyebrow">Live online · Mentor-led</p>
             <h2 className="title" id="dml-title">{heading}</h2>
-            <p className="sub">Share your details and our team will call you to help you pick the right program, batch and fee plan.</p>
+            {!succeeded && <p className="sub">Share your details and our team will call you to help you pick the right program, batch and fee plan.</p>}
           </div>
-
-          <form ref={formRef} noValidate onSubmit={onSubmit}>
-            <div className={`f${errors.name ? " bad" : ""}`}>
-              <label htmlFor="dml-name">Full name <span className="req">*</span></label>
-              <input ref={nameRef} id="dml-name" name="name" type="text" autoComplete="name" placeholder="Your full name" maxLength={100} onInput={() => clear("name")} />
-              <span className="err">Please enter your full name.</span>
-            </div>
-            <div className={`f${errors.email ? " bad" : ""}`}>
-              <label htmlFor="dml-email">Email <span className="req">*</span></label>
-              <input id="dml-email" name="email" type="email" autoComplete="email" placeholder="you@example.com" maxLength={150} onInput={() => clear("email")} />
-              <span className="err">Please enter a valid email address.</span>
-            </div>
-            <div className={`f${errors.phone ? " bad" : ""}`}>
-              <label htmlFor="dml-phone">Phone number <span className="req">*</span></label>
-              <div className="phone">
-                <select name="cc" aria-label="Country code" defaultValue="+91">
-                  {COUNTRY_CODES.map(([value, label]) => <option key={value} value={value}>{label}</option>)}
-                </select>
-                <input id="dml-phone" name="phone" type="tel" inputMode="numeric" autoComplete="tel-national" placeholder="10-digit mobile number" maxLength={14}
-                  onInput={(event) => { event.currentTarget.value = event.currentTarget.value.replace(/\D/g, "").slice(0, 14); clear("phone"); }} />
-              </div>
-              <span className="err">Please enter a valid 10-digit mobile number.</span>
-            </div>
-            <div className={`f${errors.course ? " bad" : ""}`}>
-              <label htmlFor="dml-course">Course interested in <span className="req">*</span></label>
-              <select id="dml-course" name="course" value={course} onChange={(event) => { setCourse(event.target.value); clear("course"); }}>
-                <option value="" disabled>Select a program</option>
-                {LEAD_COURSES.map((item) => <option key={item} value={item}>{item}</option>)}
-                <option value={LEAD_NOT_SURE}>{LEAD_NOT_SURE}</option>
-              </select>
-              <span className="err">Please choose a program (or “Not sure yet”).</span>
-            </div>
-            <input className="hp" type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" />
-            <label className={`consent${errors.consent ? " bad" : ""}`}>
-              <input type="checkbox" name="consent" onChange={() => clear("consent")} />
-              <span>I agree to be contacted by Datamarcos via call, WhatsApp or email about programs. We never share your details.</span>
-            </label>
-            <div className={`banner${banner ? " show" : ""}`} role="alert">{banner}</div>
-            <button className={`btn${status === "loading" ? " loading" : ""}`} type="submit" disabled={status === "loading"}>
-              <span className="spin" /><span className="lbl">{buttonLabel}</span><span className="arrow">→</span>
-            </button>
-            <div className="trust"><span>18+ years experience</span><span>25,000+ professionals trained</span><span>200+ clients</span></div>
-          </form>
-
-          <div className="done" aria-live="polite">
-            <div className="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg></div>
-            <h3>Thanks{firstName ? `, ${firstName}` : ""}! You’re all set.</h3>
-            <p>Our program advisor will call you shortly{submitted.course && submitted.course !== LEAD_NOT_SURE ? ` about ${submitted.course}` : ""}. Want a faster reply? Message us on WhatsApp.</p>
-            <a className="ghost" target="_blank" rel="noopener noreferrer" href={env.whatsappUrl}>
-              <svg viewBox="0 0 24 24" fill="#25d366"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .3-3.4-.7-2.9-1.2-4.7-4.1-4.9-4.3-.1-.2-1.2-1.5-1.2-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.7-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.2Z" /></svg>
-              Chat on WhatsApp
-            </a>
+          <div className="body">
+            {open && (
+              <LeadForm
+                key={session.key}
+                course={session.course}
+                cta={session.cta}
+                submitLabel={isApply ? "Submit Application" : "Request a Call Back"}
+                autoFocus
+                onSuccess={() => setSucceeded(true)}
+              />
+            )}
           </div>
         </div>
       </div>
-    </>,
-    shadow
+    </ShadowPortal>
   );
 }
