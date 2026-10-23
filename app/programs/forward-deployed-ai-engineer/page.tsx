@@ -2,6 +2,7 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { ArrowDownToLine, ArrowRight, Bot, BrainCircuit, Check, ChartNoAxesCombined, Clock3, Cloud, Code2, Database, GitBranch, Hand, MessageSquareText, ShieldCheck, UsersRound, Workflow, type LucideIcon } from "lucide-react";
 import { InlineLeadForm } from "@/components/lead/InlineLeadForm";
+import { ProgramFee } from "@/components/program/ProgramFee";
 import { GatedBrochureFrame } from "@/components/lead/GatedBrochureFrame";
 import {
   siAnthropic,
@@ -189,6 +190,7 @@ export default function ForwardDeployedAIEngineerPage() {
             <p className="fde-deck">Ship AI into businesses. Own the result.</p>
             <p className="fde-intro">Learn to scope ambiguous problems, build secure AI systems, integrate with enterprise tools, and take deployments from discovery to handoff.</p>
             <div className="fde-hero-facts"><span><strong>22</strong> weeks · live online</span><span><strong>170+</strong> live hours</span><span><strong>4</strong> engagements</span></div>
+            <ProgramFee slug="forward-deployed-ai-engineer" />
             <div className="fde-actions">
               <a className="fde-button fde-button-orange" href="#apply">Check your fit <ArrowRight size={17} /></a>
               <a className="fde-button fde-button-light" href={brochureUrl} download><ArrowDownToLine size={17} /> Get the syllabus</a>

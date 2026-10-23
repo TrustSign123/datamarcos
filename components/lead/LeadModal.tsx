@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
-import { LEAD_COURSES, LEAD_NOT_SURE, brochureForCourse, courseForBrochure, courseForPath } from "@/config/lead";
+import { LEAD_COURSES, LEAD_NOT_SURE, brochureForCourse, courseForBrochure, courseForPath, courseLabel } from "@/config/lead";
 import { env } from "@/config/site";
 import { readAttribution, trackEvent } from "@/lib/analytics";
 import { LeadForm, matchCourse, type LeadSuccess } from "./LeadForm";
@@ -36,14 +36,14 @@ function downloadSuccess({ course }: LeadSuccess, file?: string) {
     return {
       title: "Thanks{first}! We’ll send it over.",
       body: course && course !== LEAD_NOT_SURE
-        ? `The ${course} syllabus is shared personally right now. Our team will WhatsApp or email it to you shortly.`
+        ? `The ${courseLabel(course)} syllabus is shared personally right now. Our team will WhatsApp or email it to you shortly.`
         : "Our program advisor will WhatsApp or email you the syllabus for the program that fits you best.",
       links: []
     };
   }
   return {
     title: "Thanks{first}! Your syllabus is downloading.",
-    body: `If the ${course} syllabus didn’t start downloading, use the button below. Our team will also reach out to answer your questions.`,
+    body: `If the ${courseLabel(course)} syllabus didn’t start downloading, use the button below. Our team will also reach out to answer your questions.`,
     links: [{ label: "Download now ↓", href, download: true, primary: true }]
   };
 }
@@ -153,7 +153,7 @@ export function LeadModal() {
 
   return (
     <ShadowPortal mount="body" id="dm-lead-modal" css={leadFormStyles + leadModalStyles}>
-      <div className={`overlay${open ? " open" : ""}`} onClick={(event) => { if (event.target === event.currentTarget) closeModal(); }} aria-hidden={!open}>
+      <div className={`overlay${open ? " open" : ""}`} onClick={(event) => { if (event.target === event.currentTarget) closeModal(); }} aria-hidden={!open} inert={!open}>
         <div className="card" role="dialog" aria-modal="true" aria-labelledby="dml-title">
           <div className="head">
             <button className="close" type="button" aria-label="Close" onClick={closeModal}>&times;</button>
@@ -167,7 +167,7 @@ export function LeadModal() {
               <div className="picks">
                 {LEAD_COURSES.filter((course) => brochureForCourse(course)).map((course) => (
                   <a key={course} href={brochureForCourse(course)} download onClick={() => trackEvent("resource_download", { course, cta: downloadCta(course), gated: "remembered" })}>
-                    {course}<span>Download ↓</span>
+                    {courseLabel(course)}<span>Download ↓</span>
                   </a>
                 ))}
                 <p>Not sure which one fits? <a className="inline" href={env.whatsappUrl} target="_blank" rel="noopener noreferrer">Ask us on WhatsApp</a></p>

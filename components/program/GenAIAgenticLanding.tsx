@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowDownToLine, ArrowRight, Braces, Check, Cloud, Code2, Database, GitBranch, Network, ShieldCheck, Sparkles, Workflow, type LucideIcon } from "lucide-react";
 import { FDECallRequestForm } from "@/components/program/FDECallRequestForm";
+import { ProgramFee } from "@/components/program/ProgramFee";
 import { GatedBrochureFrame } from "@/components/lead/GatedBrochureFrame";
 
 const brochureUrl = "/brochures/datamarcos-advance-data-engineering-genai-brochure.pdf";
@@ -61,11 +62,12 @@ export function GenAIAgenticLanding() {
           <div className="fde-hero-copy">
             <p className="fde-kicker"><span>Flagship certification program</span><span>Foundation + advanced AI track</span></p>
             <h1><span className="fde-title-line fde-title-line-one">Build the data</span><span className="fde-title-line fde-title-line-two">foundation.</span><span className="fde-title-line fde-title-line-three">Engineer the</span><span className="fde-title-line fde-title-line-four"><em>intelligence.</em></span></h1>
-            <p className="fde-deck">Advance Data Engineering with Applied GenAI & Agentic AI.</p>
+            <p className="fde-deck">Advanced Data Engineering with Applied GenAI & Agentic AI.</p>
             <p className="fde-intro">A structured, mentor-led journey from modern data engineering foundations to production-style RAG, agentic workflows and an integrated capstone, taught by Deepesh Mishra.</p>
             <div className="fde-hero-facts"><span><strong>4</strong> month foundation</span><span><strong>2</strong> connected tracks</span><span><strong>1</strong> integrated capstone</span></div>
             <div className="fde-actions"><a className="fde-button fde-button-orange" href="#apply" data-dm-lead>Discuss the program <ArrowRight size={17} /></a><a className="fde-button fde-button-light" href={brochureUrl} download><ArrowDownToLine size={17} /> Download brochure</a></div>
             <p className="fde-note"><Sparkles size={15} /> Live mentor-led learning · Weekend/evening sessions · Cohort dates shared by admissions</p>
+            <ProgramFee slug="advance-data-engineering-genai" />
           </div>
           <div className="fde-genai-hero-visual" aria-label="Data engineering to GenAI and agentic AI program progression">
             <div className="fde-genai-hero-topline"><span>THE ENGINEERING PATH</span><span>DATA → INTELLIGENCE → ACTION</span></div>
@@ -115,7 +117,7 @@ export function GenAIAgenticLanding() {
 
       <section className="fde-section fde-genai-testimonials"><div className="container"><div className="fde-section-heading"><div><p className="fde-eyebrow">Learner feedback</p><h2>What learners say about Deepesh’s training.</h2></div><p>Quotes reproduced from the supplied brochure, with each speaker and role identified there.</p></div><div className="fde-genai-feedback-grid">{feedback.map((item) => <article key={item.name}><span aria-label="5 out of 5 stars">★★★★★</span><blockquote>“{item.quote}”</blockquote><strong>{item.name}</strong><small>{item.role}</small></article>)}</div></div></section>
 
-      <section className="fde-brochure fde-genai-brochure" id="brochure"><div className="container fde-brochure-head"><div><p className="fde-eyebrow">Program guide · 2026</p><h2>Read the full brochure.</h2></div><a className="fde-button fde-button-dark" href={brochureUrl} download><ArrowDownToLine size={17} /> Download PDF</a></div><div className="container fde-pdf-frame"><GatedBrochureFrame src={brochureUrl} title="Advance Data Engineering with Applied GenAI and Agentic AI brochure" course="Advance Data Engineering with Applied GenAI & Agentic AI" cover="/images/program-thumbnails/data-engineering-genai.png" /></div></section>
+      <section className="fde-brochure fde-genai-brochure" id="brochure"><div className="container fde-brochure-head"><div><p className="fde-eyebrow">Program guide · 2026</p><h2>Read the full brochure.</h2></div><a className="fde-button fde-button-dark" href={brochureUrl} download><ArrowDownToLine size={17} /> Download PDF</a></div><div className="container fde-pdf-frame"><GatedBrochureFrame src={brochureUrl} title="Advanced Data Engineering with Applied GenAI and Agentic AI brochure" course="Advance Data Engineering with Applied GenAI & Agentic AI" cover="/images/program-thumbnails/data-engineering-genai.png" /></div></section>
 
       <section className="fde-apply fde-genai-apply" id="apply"><div className="container fde-apply-grid"><div><p className="fde-eyebrow">Take the next step</p><h2>Plan your data + AI learning path.</h2><p>Ask about foundation-track dates, advanced specialization scheduling, fees and admissions. The program brochure lists both tracks; the team can confirm the current cohort plan.</p><a className="fde-apply-brochure" href={brochureUrl} download><ArrowDownToLine size={16} /> Download the full program brochure</a></div><FDECallRequestForm programId="advance-data-engineering-genai" programSlug="advance-data-engineering-genai" programName="Advance Data Engineering with Applied GenAI & Agentic AI" /></div></section>
 

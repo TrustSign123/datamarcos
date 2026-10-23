@@ -5,7 +5,7 @@ import { site } from "@/config/site";
 
 const columns = [
   { title: "Solutions", links: [["Corporate Training", "/corporate-training"], ["Professional Learning", "/programs"], ["Custom Programs", "/corporate-training#solutions"], ["Trainer Network", "/become-a-trainer"]] },
-  { title: "Programs", links: [["AI", "/programs?technology=AI"], ["Data", "/programs?technology=Data"], ["Cloud", "/programs?technology=Cloud"], ["DevOps", "/programs?technology=DevOps"], ["Software Engineering", "/programs?technology=Software"], ["Cybersecurity", "/programs?technology=Cybersecurity"]] },
+  { title: "Programs", links: [["GenAI & Agentic AI Engineer", "/programs/genai-agentic-ai-engineer"], ["Advanced Data Engineering + GenAI", "/programs/advance-data-engineering-genai"], ["Applied Agentic AI", "/programs/applied-agentic-ai-certification"], ["Forward Deployed AI Engineer", "/programs/forward-deployed-ai-engineer"], ["All programs", "/programs"]] },
   { title: "Resources", links: [["Interview Prep", "/resources/interview-prep"], ["Articles", "/resources/articles"], ["Webinars", "/resources/webinars"], ["Case Studies", "/resources/case-studies"], ["Roadmaps", "/resources/roadmaps"]] },
   { title: "Company", links: [["About", "/about"], ["Contact", "/contact"], ["Become a Trainer", "/become-a-trainer"]] },
   { title: "Legal", links: [["Privacy", "/privacy"], ["Terms", "/terms"], ["Payment & Refund", "/payment-refund-policy"]] }
@@ -35,7 +35,7 @@ export function Footer() {
           </div>
           {columns.map((column) => (
             <div key={column.title}>
-              <h4>{column.title}</h4>
+              <h2 className="footer-heading">{column.title}</h2>
               {column.links.map(([label, href]) => (
                 <Link key={href} href={href}>
                   {column.title === "Legal" && (label === "Privacy" ? <ShieldCheck size={15} aria-hidden="true" /> : <FileText size={15} aria-hidden="true" />)}

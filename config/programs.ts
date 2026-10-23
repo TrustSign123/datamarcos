@@ -155,8 +155,8 @@ export const programs: Program[] = [
   {
     id: "advance-data-engineering-genai",
     slug: "advance-data-engineering-genai",
-    title: "Advance Data Engineering with Applied GenAI & Agentic AI",
-    shortTitle: "Advance Data Engineering + Agentic AI",
+    title: "Advanced Data Engineering with Applied GenAI & Agentic AI",
+    shortTitle: "Advanced Data Engineering + Agentic AI",
     category: "Data Engineering / GenAI / Agentic AI",
     description: "A structured, mentor-led path from a four-month data engineering foundation into advanced GenAI, production RAG, Agentic AI and an integrated data application capstone.",
     positioning: "Build the Data Foundation. Engineer the Intelligence. Deploy the Agents.",
@@ -186,7 +186,7 @@ export const programs: Program[] = [
     programOgImage: "/images/advance-data-engineering-genai/classroom-live.jpg",
     featured: true,
     seo: {
-      title: "Advance Data Engineering with Applied GenAI & Agentic AI | Datamarcos",
+      title: "Advanced Data Engineering with Applied GenAI & Agentic AI | Datamarcos",
       description: "Build modern data engineering foundations, then advance into production RAG, LangChain, LangGraph, CrewAI, MCP and platform-native AI with Datamarcos mentor Deepesh Mishra.",
       keywords: ["Advance Data Engineering", "Applied GenAI", "Agentic AI", "RAG", "LangChain", "LangGraph", "CrewAI", "MCP", "Databricks", "Snowflake", "Azure Data Lake"],
       ogImage: "/images/advance-data-engineering-genai/classroom-live.jpg"

@@ -20,6 +20,14 @@ export const LEAD_COURSES = [
 
 export const LEAD_NOT_SURE = "Not sure yet";
 
+/**
+ * Display label for a course. Stored values stay exactly as in LEAD_COURSES so existing sheet rows,
+ * filters and the CRM mapping keep matching; only the text shown to visitors is corrected.
+ */
+export function courseLabel(course: string) {
+  return course.replace(/^Advance Data Engineering/, "Advanced Data Engineering");
+}
+
 /** Program slug → course name, used to preselect the course on program pages. */
 const slugToCourse: Record<string, (typeof LEAD_COURSES)[number]> = {
   "genai-agentic-ai-engineer": "Generative AI & Agentic AI Engineer",

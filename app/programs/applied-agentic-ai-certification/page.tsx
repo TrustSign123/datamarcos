@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowDownToLine, ArrowRight, Check, MessageCircle, Sparkles, Star, Users } from "lucide-react";
 import { Logo } from "@/components/Header";
 import { site } from "@/config/site";
+import { ProgramFee } from "@/components/program/ProgramFee";
 
 const brochurePath = "/brochures/DataMarcos_Applied_Agentic_AI_Brochure.pdf";
 const whatsappBase = (site.social.whatsapp || "https://wa.me/918442032741").split("?")[0];
@@ -67,10 +68,10 @@ const classroomPreviews = [
 const learnerFeedback = "His deep understanding of the subject, combined with a clear and engaging teaching style, made complex concepts easy to grasp — even for those new to the field. What stood out most was his ability to connect real-world applications with theoretical concepts.";
 
 const studentPlacements = [
-  { name: "Richard Leclézio", role: "Professional learner", company: "LinkedIn", short: "IN", image: "/images/student-placements/richard-leclezio.jpeg", link: "https://www.linkedin.com/in/richard-leclezio/" },
+  { name: "Richard Leclézio", role: "Professional learner", company: "Datamarcos learner", short: "DM", image: "/images/student-placements/richard-leclezio.jpeg", link: "https://www.linkedin.com/in/richard-leclezio/" },
   { name: "Lakshan J", role: "Software Engineer", company: "Hexaware Technologies", short: "HX", image: "/images/student-placements/lakshan-j.png", link: "https://www.linkedin.com/in/lakshan013/" },
   { name: "Uphar Tandon", role: "Technology professional", company: "Microsoft", short: "MS", image: "/images/student-placements/uphar-tandon.png", link: "https://www.linkedin.com/in/uphar-tandon-2563a636/" },
-  { name: "Sharoz Farhan Afridi", role: "Technology professional", company: "Career Growth", short: "CG", image: "/images/student-placements/sharoz-farhan-afridi.jpeg", link: "https://www.linkedin.com/in/sharoz-farhan-afridi/" },
+  { name: "Sharoz Farhan Afridi", role: "Technology professional", company: "Datamarcos learner", short: "DM", image: "/images/student-placements/sharoz-farhan-afridi.jpeg", link: "https://www.linkedin.com/in/sharoz-farhan-afridi/" },
   { name: "Gaurav Taneja", role: "Senior Azure Data Engineer", company: "PwC", short: "PwC", image: "/images/student-placements/gaurav-taneja.png", link: "https://www.linkedin.com/in/gaurav-t-a4a096158/" }
 ];
 
@@ -96,6 +97,7 @@ export default function AppliedAgenticAICertificationPage() {
             </p>
 
             <div className="agentic-program-meta"><span>8 weeks</span><span>Live mentor support</span><span>Portfolio capstone</span></div>
+            <ProgramFee slug="applied-agentic-ai-certification" className="dm-program-fee-light" />
 
             <div className="hero-actions">
               <a className="button primary" href={whatsappConsultation} target="_blank" rel="noreferrer" data-dm-lead>
