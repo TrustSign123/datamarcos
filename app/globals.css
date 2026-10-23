@@ -4582,3 +4582,32 @@ body:has(.agentic-course-page) > .whatsapp {
   .fde-ga-project > p { font-size:.78rem; }
   .fde-ga-project-stack,.fde-ga-tool { font-size:.68rem; }
 }
+
+.resource-nav-menu { width: min(560px, calc(100vw - 40px)); }
+.resource-nav-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 14px; }
+.resource-nav-link { display: grid; gap: 3px; padding: 10px 11px; color: #17283d!important; border-radius: 6px; transition: background 150ms ease; }
+.resource-nav-link:hover,.resource-nav-link:focus-visible { background: #f2f8f9; }
+.resource-nav-link strong { color: #17283d; font-size: .82rem; font-weight: 800; }
+.resource-nav-link span { color: #5b6b7c; font-size: .72rem; font-style: italic; line-height: 1.4; }
+
+.prep-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+.prep-steps { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; padding: 0; margin: 26px 0 0; list-style: none; }
+.prep-steps li { padding: 16px; border: 1px solid var(--border); border-radius: 8px; background: #fff; }
+.prep-steps span { color: var(--blue); font-size: .72rem; font-weight: 900; }
+.prep-steps strong { display: block; margin: 6px 0 4px; color: var(--navy); font-size: .98rem; }
+.prep-steps p { margin: 0; color: var(--muted); font-size: .8rem; line-height: 1.55; }
+.prep-list { display: grid; gap: 10px; margin-top: 24px; max-width: 880px; }
+.prep-item { border: 1px solid var(--border); border-radius: 8px; background: #fff; }
+.prep-item summary { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 10px; align-items: baseline; padding: 15px 16px; color: var(--navy); font-weight: 800; line-height: 1.45; cursor: pointer; }
+.prep-item summary span { color: var(--blue); font-size: .75rem; font-weight: 900; }
+.prep-item p { margin: 0; padding: 0 16px 17px 60px; color: #475467; font-size: .92rem; line-height: 1.7; }
+.prep-cta { display: flex; align-items: center; justify-content: space-between; gap: 28px; }
+@media (max-width: 900px) {
+  .prep-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .prep-cta { flex-direction: column; align-items: flex-start; }
+}
+@media (max-width: 640px) {
+  .resource-nav-grid { grid-template-columns: 1fr; }
+  .prep-steps { grid-template-columns: 1fr; }
+  .prep-item p { padding-left: 16px; }
+}

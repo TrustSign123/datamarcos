@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { mobileNavigation, navigation } from "@/config/navigation";
+import { mobileNavigation, navigation, resourceMenu } from "@/config/navigation";
 import { trackEvent } from "@/lib/analytics";
 
 const flagshipPrograms = [
@@ -31,39 +31,59 @@ export function Logo() {
 
 export function Header() {
   const [open, setOpen] = useState(false);
-  const [programsOpen, setProgramsOpen] = useState(false);
-  const programsMenuRef = useRef<HTMLDivElement>(null);
+  const [openMenu, setOpenMenu] = useState<"programs" | "resources" | null>(null);
+  const navRef = useRef<HTMLElement>(null);
+  const toggleMenu = (menu: "programs" | "resources") => setOpenMenu(openMenu === menu ? null : menu);
+  const closeAll = () => { setOpen(false); setOpenMenu(null); };
 
   useEffect(() => {
-    if (!programsOpen) return;
+    if (!openMenu) return;
 
     const closeOnOutsideClick = (event: PointerEvent) => {
-      if (!programsMenuRef.current?.contains(event.target as Node)) setProgramsOpen(false);
+      if (!navRef.current?.contains(event.target as Node)) setOpenMenu(null);
     };
 
     document.addEventListener("pointerdown", closeOnOutsideClick);
     return () => document.removeEventListener("pointerdown", closeOnOutsideClick);
-  }, [programsOpen]);
+  }, [openMenu]);
 
   return (
     <header className="site-header">
       <div className="container nav">
         <Logo />
-        <nav className="desktop-nav" aria-label="Primary navigation">
+        <nav className="desktop-nav" aria-label="Primary navigation" ref={navRef} onKeyDown={(event) => { if (event.key === "Escape") setOpenMenu(null); }}>
           {navigation.map((item) => item.label === "Programs" ? (
-            <div className="program-nav-item" key="program-menu" ref={programsMenuRef} onKeyDown={(event) => { if (event.key === "Escape") setProgramsOpen(false); }}>
-              <button className="program-nav-trigger" type="button" aria-expanded={programsOpen} aria-controls="program-nav-menu" onClick={() => setProgramsOpen(!programsOpen)}>
+            <div className="program-nav-item" key="program-menu">
+              <button className="program-nav-trigger" type="button" aria-expanded={openMenu === "programs"} aria-controls="program-nav-menu" onClick={() => toggleMenu("programs")}>
                 Programs <ChevronDown size={16} aria-hidden="true" />
               </button>
-              {programsOpen && (
+              {openMenu === "programs" && (
                 <div className="program-nav-menu" id="program-nav-menu">
-                  <div className="program-nav-menu-heading"><strong>Flagship programs</strong><Link href="/programs" onClick={() => setProgramsOpen(false)}>All programs <span aria-hidden="true">&rarr;</span></Link></div>
+                  <div className="program-nav-menu-heading"><strong>Flagship programs</strong><Link href="/programs" onClick={closeAll}>All programs <span aria-hidden="true">&rarr;</span></Link></div>
                   <div className="program-nav-grid">
                     {flagshipPrograms.map((program) => (
-                      <Link className="program-nav-card" href={program.href} key={program.href} onClick={() => setProgramsOpen(false)}>
+                      <Link className="program-nav-card" href={program.href} key={program.href} onClick={closeAll}>
                         <span className="program-nav-image"><Image src={program.image} alt="" fill priority sizes="76px" /></span>
                         <strong>{program.title}</strong>
                       </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          ) : item.label === "Resources" ? (
+            <div className="program-nav-item" key="resources-menu">
+              <button className="program-nav-trigger" type="button" aria-expanded={openMenu === "resources"} aria-controls="resource-nav-menu" onClick={() => toggleMenu("resources")}>
+                Resources <ChevronDown size={16} aria-hidden="true" />
+              </button>
+              {openMenu === "resources" && (
+                <div className="program-nav-menu resource-nav-menu" id="resource-nav-menu">
+                  <div className="program-nav-menu-heading"><strong>Resources</strong></div>
+                  <div className="resource-nav-grid">
+                    {resourceMenu.map((entry) => entry.external ? (
+                      <a className="resource-nav-link" href={entry.href} key={entry.title} target="_blank" rel="noopener noreferrer" onClick={closeAll}><strong>{entry.title}</strong><span>{entry.description}</span></a>
+                    ) : (
+                      <Link className="resource-nav-link" href={entry.href} key={entry.title} onClick={closeAll}><strong>{entry.title}</strong><span>{entry.description}</span></Link>
                     ))}
                   </div>
                 </div>
@@ -92,13 +112,20 @@ export function Header() {
       <nav className={`mobile-menu ${open ? "open" : ""}`} aria-label="Mobile navigation">
         {mobileNavigation.map((item) => item.label === "Programs" ? (
           <div className="mobile-program-group" key="mobile-programs">
-            <button className="mobile-program-trigger" type="button" aria-expanded={programsOpen} onClick={() => setProgramsOpen(!programsOpen)}>
+            <button className="mobile-program-trigger" type="button" aria-expanded={openMenu === "programs"} onClick={() => toggleMenu("programs")}>
               Programs <ChevronDown size={17} aria-hidden="true" />
             </button>
-            {programsOpen && <div className="mobile-program-links"><Link href="/programs" onClick={() => { setOpen(false); setProgramsOpen(false); }}>All programs</Link>{flagshipPrograms.map((program) => <Link href={program.href} key={program.href} onClick={() => { setOpen(false); setProgramsOpen(false); }}>{program.title}</Link>)}</div>}
+            {openMenu === "programs" && <div className="mobile-program-links"><Link href="/programs" onClick={closeAll}>All programs</Link>{flagshipPrograms.map((program) => <Link href={program.href} key={program.href} onClick={closeAll}>{program.title}</Link>)}</div>}
+          </div>
+        ) : item.label === "Resources" ? (
+          <div className="mobile-program-group" key="mobile-resources">
+            <button className="mobile-program-trigger" type="button" aria-expanded={openMenu === "resources"} onClick={() => toggleMenu("resources")}>
+              Resources <ChevronDown size={17} aria-hidden="true" />
+            </button>
+            {openMenu === "resources" && <div className="mobile-program-links">{resourceMenu.map((entry) => entry.external ? <a href={entry.href} key={entry.title} target="_blank" rel="noopener noreferrer" onClick={closeAll}>{entry.title}</a> : <Link href={entry.href} key={entry.title} onClick={closeAll}>{entry.title}</Link>)}</div>}
           </div>
         ) : (
-          <Link key={item.href + item.label} href={item.href} onClick={() => { setOpen(false); setProgramsOpen(false); }}>
+          <Link key={item.href + item.label} href={item.href} onClick={closeAll}>
             {item.label}
           </Link>
         ))}

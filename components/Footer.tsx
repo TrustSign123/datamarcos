@@ -6,7 +6,7 @@ import { site } from "@/config/site";
 const columns = [
   { title: "Solutions", links: [["Corporate Training", "/corporate-training"], ["Professional Learning", "/programs"], ["Custom Programs", "/corporate-training#solutions"], ["Trainer Network", "/become-a-trainer"]] },
   { title: "Programs", links: [["AI", "/programs?technology=AI"], ["Data", "/programs?technology=Data"], ["Cloud", "/programs?technology=Cloud"], ["DevOps", "/programs?technology=DevOps"], ["Software Engineering", "/programs?technology=Software"], ["Cybersecurity", "/programs?technology=Cybersecurity"]] },
-  { title: "Resources", links: [["Articles", "/resources/articles"], ["Webinars", "/resources/webinars"], ["Case Studies", "/resources/case-studies"], ["Roadmaps", "/resources/roadmaps"]] },
+  { title: "Resources", links: [["Interview Prep", "/resources/interview-prep"], ["Articles", "/resources/articles"], ["Webinars", "/resources/webinars"], ["Case Studies", "/resources/case-studies"], ["Roadmaps", "/resources/roadmaps"]] },
   { title: "Company", links: [["About", "/about"], ["Contact", "/contact"], ["Become a Trainer", "/become-a-trainer"]] },
   { title: "Legal", links: [["Privacy", "/privacy"], ["Terms", "/terms"], ["Payment & Refund", "/payment-refund-policy"]] }
 ];
