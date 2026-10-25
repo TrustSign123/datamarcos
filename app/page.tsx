@@ -5,7 +5,6 @@ import { ArrowDownToLine, ArrowRight, ArrowUpRight, Building2, Check, ChevronDow
 import { LearnerSpotlight } from "@/components/home/LearnerSpotlight";
 import { LearnerVideoCard } from "@/components/home/LearnerVideoCard";
 import { AlumniOutcomes } from "@/components/home/AlumniOutcomes";
-import { FeeDetailsButton } from "@/components/program/ProgramFee";
 import { EMI_NOTE, homeFaqs, homePrograms, learnerFeedback, learnerVideos } from "@/config/home";
 import { env, site } from "@/config/site";
 
@@ -14,7 +13,7 @@ const ogDescription = "Live online GenAI, Agentic AI, Data Engineering and Forwa
 
 export const metadata: Metadata = {
   title: "Live AI, GenAI & Data Engineering Courses Online | Datamarcos",
-  description: "Live online courses in Generative AI, Agentic AI, Data Engineering and Forward Deployed AI Engineering, mentor-led by Deepesh Mishra. Real projects, 4 programs, EMI options.",
+  description: "Live online courses in Generative AI, Agentic AI, Data Engineering and Forward Deployed AI Engineering, mentor-led by Deepesh Mishra. Real projects, 4 programs, fees from ₹40,000 with EMI options.",
   alternates: { canonical: "/" },
   openGraph: {
     title: ogTitle,
@@ -89,7 +88,7 @@ export default function Home() {
               <Link className="button primary dmh-apply" href="/programs" data-dm-lead data-cta="Home hero - Apply Now">Apply Now <ArrowRight size={18} /></Link>
               <Link className="dmh-syllabus" href="/programs" data-dm-download data-cta="Download Syllabus"><ArrowDownToLine size={18} /> Download Syllabus</Link>
             </div>
-            <p className="dmh-proof"><span>Live online classes</span><span>Real projects &amp; capstones</span><span>EMI options available</span></p>
+            <p className="dmh-proof"><span>Live online classes</span><span>Real projects &amp; capstones</span><span>Fees from ₹40,000 · EMI options</span></p>
           </div>
           <LearnerSpotlight learners={learnerProfiles} />
         </div>
@@ -152,8 +151,9 @@ export default function Home() {
                   <p className="dmh-prog-summary">{program.summary}</p>
                   <p className="dmh-prog-who"><b>Who it’s for:</b> {program.whoFor}</p>
                   <div className="dmh-prog-fee">
+                    <span className="dmh-prog-fee-label">Program fee</span>
+                    <strong>{program.fee}</strong>
                     <small>{EMI_NOTE}</small>
-                    <FeeDetailsButton course={program.leadCourse} />
                   </div>
                   <div className="dmh-prog-actions">
                     <a className="dmh-btn dmh-btn-solid" href={program.brochure} data-dm-download data-course={program.leadCourse} data-cta={`Home program card - Download Syllabus - ${program.leadCourse}`}><ArrowDownToLine size={16} /> Download Syllabus</a>

@@ -1,12 +1,12 @@
-import { EMI_NOTE, FEE_FAQ_ANSWER, type FeeSlug } from "@/config/fees";
+import { EMI_NOTE, PROGRAM_FEES } from "@/config/fees";
 
 /**
  * Homepage content. Every fact below comes from the program pages / brochures already on the site
- * Do not add numbers that are not published elsewhere, and do not publish fees (they are shared on request).
+ * or from fees confirmed by Datamarcos. Do not add numbers that are not published elsewhere.
  */
 
 export type HomeProgram = {
-  slug: FeeSlug;
+  slug: keyof typeof PROGRAM_FEES;
   /** Display title. */
   title: string;
   /** Course value used by the lead form / sheet (keep in sync with LEAD_COURSES). */
@@ -14,6 +14,7 @@ export type HomeProgram = {
   brochure: string;
   image: string;
   imageAlt: string;
+  fee: string;
   facts: string[];
   whoFor: string;
   summary: string;
@@ -28,6 +29,7 @@ export const homePrograms: HomeProgram[] = [
     brochure: "/brochures/DataMarcos_GenAI_Agentic_AI_Engineer_Brochure.pdf",
     image: "/images/program-cards/genai-agentic-ai-engineer.webp",
     imageAlt: "Generative AI and Agentic AI Engineer program poster",
+    fee: PROGRAM_FEES["genai-agentic-ai-engineer"],
     facts: ["18 weeks", "130+ live hours", "Live online"],
     whoFor: "Developers, data/ML, QA and DevOps engineers, and career switchers with coding basics.",
     summary: "Build LLM apps, production RAG and multi-agent systems, then secure and deploy them.",
@@ -40,6 +42,7 @@ export const homePrograms: HomeProgram[] = [
     brochure: "/brochures/datamarcos-advance-data-engineering-genai-brochure.pdf",
     image: "/images/program-cards/data-engineering-genai.webp",
     imageAlt: "Advanced Data Engineering with GenAI and Agentic AI program poster",
+    fee: PROGRAM_FEES["advance-data-engineering-genai"],
     facts: ["4-month foundation", "+ advanced AI track", "Weekend/evening live"],
     whoFor: "People working with data, or moving from analytics, software or database roles (SQL required).",
     summary: "Modern cloud data engineering first, then GenAI, production RAG, agents and a capstone.",
@@ -52,6 +55,7 @@ export const homePrograms: HomeProgram[] = [
     brochure: "/brochures/DataMarcos_Applied_Agentic_AI_Brochure.pdf",
     image: "/images/program-cards/applied-agentic-ai.webp",
     imageAlt: "Applied Agentic AI certification program poster",
+    fee: PROGRAM_FEES["applied-agentic-ai-certification"],
     facts: ["8 weeks", "Live mentor support", "Portfolio capstone"],
     whoFor: "Professionals who want to move beyond prompts and build real AI workflows and agents.",
     summary: "Design, build and evaluate practical AI workflows with retrieval, tools and agent orchestration.",
@@ -64,6 +68,7 @@ export const homePrograms: HomeProgram[] = [
     brochure: "/brochures/Datamarcos_Forward_Deployed_AI_Engineer_Brochure.pdf",
     image: "/images/program-cards/forward-deployed-ai-engineer.webp",
     imageAlt: "Forward Deployed AI Engineer program poster",
+    fee: PROGRAM_FEES["forward-deployed-ai-engineer"],
     facts: ["22 weeks", "170+ live hours", "Live online"],
     whoFor: "Engineers comfortable in Python with 2+ years of experience, or strong shipped projects.",
     summary: "Scope, build, secure and deploy AI systems in enterprise environments, from discovery to handoff.",
@@ -187,7 +192,7 @@ export const homeFaqs: FaqItem[] = [
   },
   {
     q: "What are the fees?",
-    a: FEE_FAQ_ANSWER
+    a: `Forward Deployed AI Engineer: ${PROGRAM_FEES["forward-deployed-ai-engineer"]}. Generative AI & Agentic AI Engineer: ${PROGRAM_FEES["genai-agentic-ai-engineer"]}. Advanced Data Engineering with Applied GenAI & Agentic AI: ${PROGRAM_FEES["advance-data-engineering-genai"]}. Applied Agentic AI: ${PROGRAM_FEES["applied-agentic-ai-certification"]}.`
   },
   {
     q: "Is EMI available?",
