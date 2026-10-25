@@ -4,6 +4,8 @@ import Link from "next/link";
 import { ArrowDownToLine, ArrowRight, ArrowUpRight, Building2, Check, ChevronDown, MessageCircle } from "lucide-react";
 import { LearnerSpotlight } from "@/components/home/LearnerSpotlight";
 import { LearnerVideoCard } from "@/components/home/LearnerVideoCard";
+import { AlumniOutcomes } from "@/components/home/AlumniOutcomes";
+import { FeeDetailsButton } from "@/components/program/ProgramFee";
 import { EMI_NOTE, homeFaqs, homePrograms, learnerFeedback, learnerVideos } from "@/config/home";
 import { env, site } from "@/config/site";
 
@@ -12,7 +14,7 @@ const ogDescription = "Live online GenAI, Agentic AI, Data Engineering and Forwa
 
 export const metadata: Metadata = {
   title: "Live AI, GenAI & Data Engineering Courses Online | Datamarcos",
-  description: "Live online courses in Generative AI, Agentic AI, Data Engineering and Forward Deployed AI Engineering, mentor-led by Deepesh Mishra. Real projects, 4 programs, fees from ₹40,000 with EMI options.",
+  description: "Live online courses in Generative AI, Agentic AI, Data Engineering and Forward Deployed AI Engineering, mentor-led by Deepesh Mishra. Real projects, 4 programs, EMI options.",
   alternates: { canonical: "/" },
   openGraph: {
     title: ogTitle,
@@ -30,15 +32,11 @@ const learnerProfiles = [
   { name: "Richard Leclézio", role: "Professional learner", image: "/images/student-placements/richard-leclezio.jpeg", link: "https://www.linkedin.com/in/richard-leclezio/" },
   { name: "Lakshan J", role: "Software Engineer", employer: "Hexaware Technologies", image: "/images/student-placements/lakshan-j.png", link: "https://www.linkedin.com/in/lakshan013/" },
   { name: "Uphar Tandon", role: "Technology professional", employer: "Microsoft", image: "/images/student-placements/uphar-tandon.png", link: "https://www.linkedin.com/in/uphar-tandon-2563a636/" },
-  { name: "Sharoz Farhan Afridi", role: "Technology professional", image: "/images/student-placements/sharoz-farhan-afridi.jpeg", link: "https://www.linkedin.com/in/sharoz-farhan-afridi/" },
-  { name: "Gaurav Taneja", role: "Senior Azure Data Engineer", employer: "PwC", image: "/images/student-placements/gaurav-taneja.png", link: "https://www.linkedin.com/in/gaurav-t-a4a096158/" }
+  { name: "Sharoz Farhan Afridi", role: "Technology professional", image: "/images/student-placements/sharoz-farhan-afridi.jpeg", link: "https://www.linkedin.com/in/sharoz-farhan-afridi/" }
 ];
 
-/** Learner feedback already published on Datamarcos program pages. */
+/** Short quotes for the community strip. People featured in the learner report (AlumniOutcomes) are kept there only. */
 const learnerQuotes = [
-  { initials: "RK", name: "Raghul K", role: "Learner, Data Engineering Track", quote: "Without you it wouldn't have been possible sir. Thank you so much for making me a Data Engineer." },
-  { initials: "AR", name: "Ansh Ranjan", role: "Data Engineer Trainee, Hexaware Technologies", quote: "Learning under Deepesh Sir has been a great opportunity. He is truly a great mentor." },
-  { initials: "KG", name: "Kumar Gaurav", role: "Senior Azure Data Engineer, PwC", quote: "His deep understanding, combined with a clear and engaging teaching style, made complex concepts easy to grasp." },
   { initials: "GT", name: "Gourav Thadhani", role: "Data Science and AI, ZS Associates", quote: "Many thanks for the great Databricks training at ZS!" }
 ];
 
@@ -48,7 +46,7 @@ type MarqueeItem =
 
 const marqueeItems: MarqueeItem[] = learnerProfiles.flatMap((learner, i) => {
   const items: MarqueeItem[] = [{ kind: "learner", ...learner }];
-  if (learnerQuotes[i]) items.push({ kind: "quote", ...learnerQuotes[i] });
+  if (learnerQuotes[i - 1]) items.push({ kind: "quote", ...learnerQuotes[i - 1] });
   return items;
 });
 
@@ -91,7 +89,7 @@ export default function Home() {
               <Link className="button primary dmh-apply" href="/programs" data-dm-lead data-cta="Home hero - Apply Now">Apply Now <ArrowRight size={18} /></Link>
               <Link className="dmh-syllabus" href="/programs" data-dm-download data-cta="Download Syllabus"><ArrowDownToLine size={18} /> Download Syllabus</Link>
             </div>
-            <p className="dmh-proof"><span>Live online classes</span><span>Real projects &amp; capstones</span><span>Fees from ₹40,000 · EMI options</span></p>
+            <p className="dmh-proof"><span>Live online classes</span><span>Real projects &amp; capstones</span><span>EMI options available</span></p>
           </div>
           <LearnerSpotlight learners={learnerProfiles} />
         </div>
@@ -154,9 +152,8 @@ export default function Home() {
                   <p className="dmh-prog-summary">{program.summary}</p>
                   <p className="dmh-prog-who"><b>Who it’s for:</b> {program.whoFor}</p>
                   <div className="dmh-prog-fee">
-                    <span className="dmh-prog-fee-label">Program fee</span>
-                    <strong>{program.fee}</strong>
                     <small>{EMI_NOTE}</small>
+                    <FeeDetailsButton course={program.leadCourse} />
                   </div>
                   <div className="dmh-prog-actions">
                     <a className="dmh-btn dmh-btn-solid" href={program.brochure} data-dm-download data-course={program.leadCourse} data-cta={`Home program card - Download Syllabus - ${program.leadCourse}`}><ArrowDownToLine size={16} /> Download Syllabus</a>
@@ -173,8 +170,15 @@ export default function Home() {
         <div className="container">
           <div className="dmh-section-head">
             <div>
-              <p className="dmh-kicker">Learner stories</p>
-              <h2 id="home-reels-title">Hear from our learners.</h2>
+              <p className="dmh-kicker">Alumni outcomes · Learner report</p>
+              <h2 id="home-reels-title">Where our learners are now.</h2>
+              <p>Real learners and teams who trained with Deepesh Mishra, in their own words. Every story links to its source.</p>
+            </div>
+          </div>
+          <AlumniOutcomes />
+          <div className="dmh-section-head dmh-reels-head">
+            <div>
+              <h3 className="dmh-subhead">Hear from our learners.</h3>
               <p>Real Datamarcos learners on what they built and how the live sessions helped. Tap a card to play; videos load only when you press play.</p>
             </div>
             <a className="dmh-ghost" href="https://www.instagram.com/datamarcos_official/" target="_blank" rel="noreferrer">More on Instagram <ArrowUpRight size={16} /></a>
