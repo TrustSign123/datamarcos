@@ -13,7 +13,7 @@ export const metadata = pageMetadata({ path: PATH, title: TITLE, description: DE
 const courseSchema = courseJsonLd({ name: "Applied Agentic AI Certification", description: DESCRIPTION, path: PATH, duration: "P8W" });
 
 const brochurePath = "/brochures/DataMarcos_Applied_Agentic_AI_Brochure.pdf";
-const whatsappBase = (site.social.whatsapp || "https://wa.me/918442032741").split("?")[0];
+const whatsappBase = (site.social.whatsapp || "https://wa.me/918851930644").split("?")[0];
 const whatsappConsultation = `${whatsappBase}?text=${encodeURIComponent("Hi Datamarcos! I want to know more about the Applied Agentic AI Certification, the course details, fees, and next batch dates.")}`;
 const whatsappBrochure = `${whatsappBase}?text=${encodeURIComponent("Hi Datamarcos! Please send me the brochure and fee details for the Applied Agentic AI Certification.")}`;
 

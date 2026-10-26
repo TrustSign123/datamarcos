@@ -35,7 +35,7 @@ export default async function CorporateDomainPage({ params }: { params: Promise<
           <p className="eyebrow">Corporate training</p>
           <h1 className="section-title">{item.title}</h1>
           <p className="section-copy">{item.copy}</p>
-          <div className="hero-actions"><Link className="button secondary" href="/corporate-training">Corporate Training</Link><a className="button primary" href="#inquiry">Request Training</a></div>
+          <div className="hero-actions"><Link className="button secondary" href="/contact">Corporate Training</Link><a className="button primary" href="#inquiry">Request Training</a></div>
         </div>
       </section>
       <section className="section" id="inquiry"><div className="container grid two"><div><h2>Design the right learning intervention.</h2><p className="section-copy">Share your roles, technologies, learners and timeline. Datamarcos can shape the solution around your needs.</p></div><CorporateInquiryForm /></div></section>
