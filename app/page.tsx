@@ -11,9 +11,26 @@ import { env, site } from "@/config/site";
 const ogTitle = "Live AI & Data Engineering Courses with Deepesh Mishra | Datamarcos";
 const ogDescription = "Live online GenAI, Agentic AI, Data Engineering and Forward Deployed AI programs for working professionals and graduates. Real projects, mentor-led by Deepesh Mishra.";
 
+/** Organization JSON-LD: homepage only (moved out of the root layout). Facts come from config/site.ts. */
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": ["Organization", "EducationalOrganization"],
+  "@id": `${site.url}/#organization`,
+  name: site.name,
+  url: site.url,
+  logo: `${site.url}/apple-icon.png`,
+  description: "Datamarcos runs live, mentor-led online courses in Generative AI, Agentic AI, Data Engineering and Forward Deployed AI Engineering, plus technology training for teams.",
+  email: site.email,
+  telephone: site.phone,
+  address: { "@type": "PostalAddress", streetAddress: "KLJ NOIDA ONE", addressLocality: "Noida", addressRegion: "Uttar Pradesh", postalCode: "201309", addressCountry: "IN" },
+  contactPoint: [{ "@type": "ContactPoint", contactType: "admissions", telephone: site.phone, email: site.email, areaServed: "IN", availableLanguage: ["en", "hi"] }],
+  founder: { "@type": "Person", name: site.founder.name, jobTitle: site.founder.title, image: `${site.url}${site.founder.image}` },
+  sameAs: ["https://www.instagram.com/datamarcos_official/"]
+};
+
 export const metadata: Metadata = {
   title: "Live AI, GenAI & Data Engineering Courses Online | Datamarcos",
-  description: "Live online courses in Generative AI, Agentic AI, Data Engineering and Forward Deployed AI Engineering, mentor-led by Deepesh Mishra. Real projects, 4 programs, fees from ₹40,000 with EMI options.",
+  description: "Live online GenAI, Agentic AI, Data Engineering and Forward Deployed AI courses mentored by Deepesh Mishra. Real projects, fees from ₹40,000 with EMI options.",
   alternates: { canonical: "/" },
   openGraph: {
     title: ogTitle,
@@ -142,7 +159,7 @@ export default function Home() {
             {homePrograms.map((program) => (
               <article className="dmh-prog" key={program.slug}>
                 <Link className="dmh-prog-poster" href={`/programs/${program.slug}`} tabIndex={-1} aria-hidden="true">
-                  <Image src={program.image} alt="" width={720} height={720} sizes="(max-width: 640px) 92vw, (max-width: 1100px) 45vw, 290px" quality={70} />
+                  <Image src={program.image} alt={program.imageAlt} width={720} height={720} sizes="(max-width: 640px) 92vw, (max-width: 1100px) 45vw, 290px" quality={70} />
                   <span className="dmh-prog-tag">{program.tag}</span>
                 </Link>
                 <div className="dmh-prog-body">
@@ -195,7 +212,7 @@ export default function Home() {
                   <span><b>{item.name}</b><small>{item.role}</small></span>
                   {item.image && (
                     <a className="dmh-wall-original" href={item.image} target="_blank" rel="noreferrer" aria-label={`See the original: ${item.imageAlt}`}>
-                      <Image src={item.image} alt="" width={56} height={56} sizes="56px" />
+                      <Image src={item.image} alt={item.imageAlt || `Original feedback from ${item.name}`} width={56} height={56} sizes="56px" />
                       <span>See original</span>
                     </a>
                   )}
@@ -250,6 +267,7 @@ export default function Home() {
 
       <section className="dmh-section dmh-faq-section" id="faq" aria-labelledby="home-faq-title">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
         <div className="container dmh-faq-grid">
           <div>
             <p className="dmh-kicker">FAQ</p>
@@ -287,7 +305,7 @@ export default function Home() {
         <div className="container">
           <Building2 size={20} aria-hidden="true" />
           <p><b>Training a team?</b> Role-based AI, data and cloud programs for organizations.</p>
-          <Link href="/corporate-training#inquiry">Talk to us <ArrowRight size={16} /></Link>
+          <Link href="/contact">Talk to us <ArrowRight size={16} /></Link>
         </div>
       </aside>
 

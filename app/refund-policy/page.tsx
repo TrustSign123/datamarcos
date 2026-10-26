@@ -1,3 +1,10 @@
+import { pageMetadata } from "@/lib/seo";
+export const metadata = pageMetadata({
+  path: "/refund-policy",
+  title: "Cancellation & Refund Policy | Datamarcos Online Programs",
+  description: "Datamarcos cancellation and refund policy for its digital learning programs: merchant details, the no-cancellation and no-refund rule, shipping and contact."
+});
+
 export default function RefundPolicyPage() {
 	return (
 		<section className="hero-simple legal-page">

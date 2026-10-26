@@ -1,4 +1,11 @@
+import { pageMetadata } from "@/lib/seo";
 import { TrainerApplicationForm } from "@/components/Forms";
+
+export const metadata = pageMetadata({
+  path: "/become-a-trainer",
+  title: "Become a Datamarcos Trainer | Join Our Technology Expert Network",
+  description: "Experienced technology professional? Apply to join the Datamarcos trainer network by sharing your expertise, role, availability and delivery preferences."
+});
 
 export default function BecomeTrainerPage() {
   return (

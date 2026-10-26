@@ -96,7 +96,7 @@ export function Header() {
                   <div className="dmx-mega-grid">
                     {homePrograms.map((program) => (
                       <Link key={program.slug} className="dmx-course" href={`/programs/${program.slug}`} onClick={closeAll}>
-                        <span className="dmx-course-img"><Image src={program.image} alt="" width={72} height={72} sizes="72px" /></span>
+                        <span className="dmx-course-img"><Image src={program.image} alt={program.imageAlt} width={72} height={72} sizes="72px" /></span>
                         <span className="dmx-course-copy">
                           <small>{program.tag}</small>
                           <strong>{program.title}</strong>
@@ -132,7 +132,7 @@ export function Header() {
             </div>
           </nav>
           <div className="dmx-actions">
-            <Link className="dmx-teams" href="/corporate-training"><Building2 size={15} aria-hidden="true" /> For Teams</Link>
+            <Link className="dmx-teams" href="/contact"><Building2 size={15} aria-hidden="true" /> For Teams</Link>
             <a className="dmx-icon" href={env.whatsappUrl} target="_blank" rel="noreferrer" aria-label="Chat on WhatsApp" title="Chat on WhatsApp"><MessageCircle size={19} /></a>
             <Link className="dmx-apply" href="/programs" data-dm-lead data-cta="Header - Apply Now">Apply Now <ArrowRight size={16} /></Link>
           </div>
@@ -154,7 +154,7 @@ export function Header() {
           <p className="dmx-drawer-label">Programs · live online</p>
           {homePrograms.map((program) => (
             <Link key={program.slug} className="dmx-drawer-course" href={`/programs/${program.slug}`} onClick={closeAll}>
-              <Image src={program.image} alt="" width={52} height={52} sizes="52px" />
+              <Image src={program.image} alt={program.imageAlt} width={52} height={52} sizes="52px" />
               <span><strong>{program.title}</strong><small>{program.facts[0]} · {feeFree ? program.facts[1] : program.fee}</small></span>
               <ArrowRight size={16} aria-hidden="true" />
             </Link>
@@ -169,7 +169,7 @@ export function Header() {
                 : <Link key={entry.title} href={entry.href} onClick={closeAll}>{entry.title}</Link>)}
             </details>
             <Link href="/about" onClick={closeAll}>About</Link>
-            <Link href="/corporate-training" onClick={closeAll}>For Teams (corporate training)</Link>
+            <Link href="/contact" onClick={closeAll}>For Teams (corporate training)</Link>
             <Link href="/contact" onClick={closeAll}>Contact</Link>
           </div>
         </div>

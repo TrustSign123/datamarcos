@@ -30,7 +30,7 @@ export function LearnerVideoCard({ video }: { video: LearnerVideo }) {
           )
         ) : (
           <button type="button" className={`dmh-reel-poster${video.kind === "video" ? " is-video" : ""}`} onClick={() => setPlaying(true)} aria-label={`${video.course ? `${video.course}: ` : ""}play ${video.name}'s feedback video`}>
-            <Image src={video.poster} alt="" fill sizes="(max-width: 700px) 86vw, 300px" />
+            <Image src={video.poster} alt={`${video.name} feedback video thumbnail`} fill sizes="(max-width: 700px) 86vw, 300px" />
             <span className="dmh-reel-play" aria-hidden="true"><Play size={26} fill="currentColor" /></span>
             {video.course && <span className="dmh-reel-course">{video.course}</span>}
           </button>

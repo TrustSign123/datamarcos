@@ -31,6 +31,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     description,
     keywords: program.seo?.keywords,
     alternates: { canonical: `/programs/${program.slug}` },
+    // Legacy template pages are 301-redirected in next.config.ts; noindex is a backstop if a redirect is removed.
+    robots: { index: false, follow: true },
     openGraph: { title, description, url: `${site.url}/programs/${program.slug}`, images: image ? [{ url: image, width: 1200, height: 630 }] : undefined },
     twitter: { card: "summary_large_image", title, description, images: image ? [image] : undefined }
   };

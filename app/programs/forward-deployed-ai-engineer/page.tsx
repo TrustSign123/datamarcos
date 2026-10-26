@@ -23,12 +23,13 @@ import {
   siPython, siRedis, siSap, siSnowflake, siStripe, siTerraform
 } from "simple-icons";
 import type { LucideIcon } from "lucide-react";
+import { courseJsonLd } from "@/lib/seo";
 
 const PATH = "/programs/forward-deployed-ai-engineer";
 
 export const metadata: Metadata = {
-  title: "Forward Deployed AI Engineer Program (Live, 22 Weeks) | Datamarcos",
-  description: "Live, mentor-led 22-week program to become a Forward Deployed AI Engineer: scope, build, secure, deploy and own production AI (RAG, agents, MCP, LLMOps) across 4 client-style engagements.",
+  title: "Forward Deployed AI Engineer Program, Live 22 Weeks | Datamarcos",
+  description: "Live, mentor-led 22-week program to become a Forward Deployed AI Engineer: scope, build, secure and deploy production AI (RAG, agents, MCP, LLMOps) for clients.",
   alternates: { canonical: PATH },
   openGraph: {
     title: "Forward Deployed AI Engineer Program | Datamarcos",
@@ -123,16 +124,14 @@ const TOOL_SPRITE = "/images/forward-deployed-ai-engineer/tool-icons.svg";
 const accents = ["#f4511e", "#2f6bff", "#0e9f84", "#b04cff"];
 
 const jsonLd = [
-  {
-    "@context": "https://schema.org",
-    "@type": "Course",
+  courseJsonLd({
     name: "Forward Deployed AI Engineer Program",
-    description: metadata.description,
-    url: `https://www.datamarcos.com${PATH}`,
-    provider: { "@type": "Organization", name: "Datamarcos", sameAs: "https://www.datamarcos.com" },
-    educationalCredentialAwarded: "Datamarcos Executive Certificate in Forward Deployed AI Engineering",
-    hasCourseInstance: { "@type": "CourseInstance", courseMode: "online", courseWorkload: "PT170H", instructor: { "@type": "Person", name: "Deepesh Mishra" } }
-  },
+    description: metadata.description as string,
+    path: PATH,
+    duration: "P22W",
+    workloadHours: 170,
+    credential: "Datamarcos Executive Certificate in Forward Deployed AI Engineering"
+  }),
   {
     "@context": "https://schema.org",
     "@type": "FAQPage",

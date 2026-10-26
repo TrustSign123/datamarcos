@@ -77,43 +77,6 @@ export const programs: Program[] = [
     }
   },
   {
-    id: "genai-agentic-ai-engineer",
-    slug: "genai-agentic-ai-engineer",
-    title: "Generative AI and Agentic AI Engineer",
-    shortTitle: "GenAI & Agentic AI Engineer",
-    category: "Generative AI / Agentic AI Engineering",
-    description: "An 18-week executive program to build, evaluate, secure and deploy LLM applications, RAG systems, multi-agent workflows and production AI integrations.",
-    positioning: "Build it. Ship it. Own the outcome.",
-    audience: ["Backend and Full-Stack Developers", "Data, Analytics and ML Engineers", "IT-Services, QA and DevOps Engineers", "Career Switchers with Coding Basics", "Tech Leads and Architects"],
-    level: "Intermediate to advanced",
-    duration: "18 Weeks",
-    format: "Live mentor-led executive program",
-    delivery: ["Live Online", "Hybrid", "Corporate Sponsored"],
-    status: "LIVE",
-    technologies: ["Python", "FastAPI", "OpenAI", "Claude", "Gemini", "LangChain", "LangGraph", "CrewAI", "MCP", "A2A", "Qdrant", "Pinecone", "pgvector", "Neo4j", "RAGAS", "DeepEval", "Docker", "Terraform", "Kubernetes", "OpenTelemetry", "Grafana", "AWS Bedrock", "Azure AI Foundry", "Databricks", "Snowflake"],
-    curriculum: [
-      { title: "Foundations · Weeks 1-3", topics: ["LLM fundamentals", "Prompt engineering and structured outputs", "FastAPI GenAI services", "Python, Git and environment bridge track"] },
-      { title: "RAG Systems · Weeks 4-7", topics: ["Embeddings and vector databases", "Advanced retrieval and evaluation", "Knowledge graphs and GraphRAG", "Multimodal document intelligence"] },
-      { title: "Agentic AI · Weeks 8-12", topics: ["Agent design with LangGraph", "MCP and governed tool use", "Multi-agent orchestration", "Memory, human approval and enterprise integration"] },
-      { title: "Production and Security · Weeks 13-16", topics: ["AI security and guardrails", "LLMOps and observability", "Cost engineering", "Cloud deployment and governance"] },
-      { title: "Capstone · Weeks 17-18", topics: ["Build and harden a domain capstone", "Demo Day", "Interview preparation", "Portfolio and job-search plan"] }
-    ],
-    projects: ["P1 Knowledge Copilot", "P2 Multi-Agent Ops Copilot", "P3 Production Hardening", "Domain capstone and Demo Day"],
-    instructors: ["Deepesh Mishra"],
-    testimonials: ["Kumar Gaurav", "Ansh Ranjan", "Gourav Thadhani"],
-    pricing: "Admissions shares cohort dates, fees, instalment options and scholarship details after a fit conversation.",
-    showPricing: false,
-    brochureUrl: "/brochures/DataMarcos_GenAI_Agentic_AI_Engineer_Brochure.pdf",
-    programOgImage: "/images/genai-agentic-ai-engineer/classroom-cohort.jpg",
-    featured: true,
-    seo: {
-      title: "Generative AI and Agentic AI Engineer | Datamarcos",
-      description: "Build, evaluate, secure and deploy GenAI and Agentic AI systems in an 18-week, mentor-led executive program with three client-style projects and a capstone.",
-      keywords: ["Generative AI Engineer", "Agentic AI Engineer", "GenAI course", "RAG", "LangGraph", "MCP", "Multi-agent systems", "LLMOps", "Datamarcos"],
-      ogImage: "/images/genai-agentic-ai-engineer/classroom-cohort.jpg"
-    }
-  },
-  {
     id: "advanced-ai-data-engineering-agentic-ai",
     slug: "advanced-ai-data-engineering-agentic-ai",
     title: "Advanced AI Data Engineering & Agentic AI Engineering",

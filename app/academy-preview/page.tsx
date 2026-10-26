@@ -20,6 +20,8 @@ export const metadata: Metadata = {
   title: "Datamarcos Academy | Upskill for AI, Data & Engineering",
   description: "Build practical skills in AI, Generative AI, Agentic AI, Forward Deployed Engineering and Data Engineering with mentor-led learning at Datamarcos.",
   alternates: { canonical: "/academy-preview" },
+  // Design preview, not a live page: keep it out of search (SEO pass 2026-10-26).
+  robots: { index: false, follow: true },
   openGraph: {
     title: "Datamarcos Academy | Practical technology learning",
     description: "Learn the skills. Build real systems. Grow your technology career.",
@@ -50,7 +52,7 @@ const paths = [
     title: "Generative AI",
     description: "Design useful LLM applications with retrieval, evaluation, safety and production-minded engineering.",
     tags: ["LLMs", "RAG", "Evaluation"],
-    href: "/programs/generative-ai-engineering",
+    href: "/programs/genai-agentic-ai-engineer",
     tone: "coral"
   },
   {
@@ -77,7 +79,7 @@ const paths = [
     title: "Data Engineering",
     description: "Engineer modern batch, streaming and cloud data platforms that make analytics and AI possible.",
     tags: ["Python", "Cloud data", "Platforms"],
-    href: "/programs/data-engineering",
+    href: "/programs/advance-data-engineering-genai",
     tone: "gold"
   }
 ];
