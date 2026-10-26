@@ -3,6 +3,14 @@ import { ArrowDownToLine, ArrowRight, Check, MessageCircle, Sparkles, Star, User
 import { Logo } from "@/components/Header";
 import { site } from "@/config/site";
 import { ProgramFee } from "@/components/program/ProgramFee";
+import { courseJsonLd, pageMetadata } from "@/lib/seo";
+
+const PATH = "/programs/applied-agentic-ai-certification";
+const TITLE = "Applied Agentic AI Certification, 8 Weeks Live | Datamarcos";
+const DESCRIPTION = "An eight-week, mentor-led certification to build production-ready AI workflows, RAG systems, tool-using agents and automation, ending in a portfolio capstone.";
+
+export const metadata = pageMetadata({ path: PATH, title: TITLE, description: DESCRIPTION });
+const courseSchema = courseJsonLd({ name: "Applied Agentic AI Certification", description: DESCRIPTION, path: PATH, duration: "P8W" });
 
 const brochurePath = "/brochures/DataMarcos_Applied_Agentic_AI_Brochure.pdf";
 const whatsappBase = (site.social.whatsapp || "https://wa.me/918442032741").split("?")[0];
@@ -69,15 +77,16 @@ const learnerFeedback = "His deep understanding of the subject, combined with a 
 
 const studentPlacements = [
   { name: "Richard Leclézio", role: "Professional learner", company: "Datamarcos learner", short: "DM", image: "/images/student-placements/richard-leclezio.jpeg", link: "https://www.linkedin.com/in/richard-leclezio/" },
-  { name: "Lakshan J", role: "Software Engineer", company: "Hexaware Technologies", short: "HX", image: "/images/student-placements/lakshan-j.png", link: "https://www.linkedin.com/in/lakshan013/" },
-  { name: "Uphar Tandon", role: "Technology professional", company: "Microsoft", short: "MS", image: "/images/student-placements/uphar-tandon.png", link: "https://www.linkedin.com/in/uphar-tandon-2563a636/" },
+  { name: "Lakshan J", role: "Software Engineer", company: "Hexaware Technologies", short: "HX", image: "/images/student-placements/lakshan-j.webp", link: "https://www.linkedin.com/in/lakshan013/" },
+  { name: "Uphar Tandon", role: "Technology professional", company: "Microsoft", short: "MS", image: "/images/student-placements/uphar-tandon.webp", link: "https://www.linkedin.com/in/uphar-tandon-2563a636/" },
   { name: "Sharoz Farhan Afridi", role: "Technology professional", company: "Datamarcos learner", short: "DM", image: "/images/student-placements/sharoz-farhan-afridi.jpeg", link: "https://www.linkedin.com/in/sharoz-farhan-afridi/" },
-  { name: "Gaurav Taneja", role: "Senior Azure Data Engineer", company: "PwC", short: "PwC", image: "/images/student-placements/gaurav-taneja.png", link: "https://www.linkedin.com/in/gaurav-t-a4a096158/" }
+  { name: "Gaurav Taneja", role: "Senior Azure Data Engineer", company: "PwC", short: "PwC", image: "/images/student-placements/gaurav-taneja.webp", link: "https://www.linkedin.com/in/gaurav-t-a4a096158/" }
 ];
 
 export default function AppliedAgenticAICertificationPage() {
   return (
     <div id="applied-agentic-ai-certification" className="agentic-course-page">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(courseSchema) }} />
       <section className="agentic-hero-shell">
         <div className="container agentic-topbar">
           <Logo />
@@ -191,7 +200,7 @@ export default function AppliedAgenticAICertificationPage() {
           <div className="agentic-classroom-grid">
             {classroomPreviews.map((preview) => (
               <figure className="agentic-classroom-card" key={preview.image}>
-                <img src={preview.image} alt={preview.label} />
+                <img src={preview.image} alt={preview.label} loading="lazy" decoding="async" />
                 <figcaption><strong>{preview.label}</strong><span>{preview.copy}</span></figcaption>
               </figure>
             ))}
@@ -331,7 +340,7 @@ export default function AppliedAgenticAICertificationPage() {
               {[...studentPlacements, ...studentPlacements].map((student, index) => (
                 <a key={`${student.name}-${index}`} href={student.link} target="_blank" rel="noreferrer" className="student-placement-card">
                   <div className="student-placement-image-wrap">
-                    <img src={student.image} alt={student.name} />
+                    <img src={student.image} alt={student.name} decoding="async" />
                     <span className="student-placement-badge">{student.short}</span>
                   </div>
                   <div className="student-placement-body">
@@ -350,16 +359,16 @@ export default function AppliedAgenticAICertificationPage() {
       <section className="section">
         <div className="container agentic-showcase">
           <div className="agentic-image-panel">
-            <img src="/images/applied-agentic-ai/classroom-live.webp" alt="Datamarcos live AI workshop" />
+            <img src="/images/applied-agentic-ai/classroom-live.webp" alt="Learners working on laptops in a live Datamarcos classroom session" loading="lazy" decoding="async" />
           </div>
 
           <div className="agentic-proof-stack">
             <div className="agentic-proof-card">
               <p className="eyebrow">Learner feedback</p>
-              <img src="/images/applied-agentic-ai/classroom-sigmaoid.webp" alt="Learner testimonial" />
+              <img src="/images/applied-agentic-ai/classroom-sigmaoid.webp" alt="Group photo from a Datamarcos data engineering and GenAI training session at Sigmoid" loading="lazy" decoding="async" />
             </div>
             <div className="agentic-proof-card">
-              <img src="/images/applied-agentic-ai/classroom-novartis.webp" alt="Second learner testimonial" />
+              <img src="/images/applied-agentic-ai/classroom-novartis.webp" alt="Datamarcos analytics, Python and machine learning training for Novartis employees" loading="lazy" decoding="async" />
             </div>
           </div>
         </div>

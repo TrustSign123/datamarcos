@@ -1,6 +1,13 @@
+import { pageMetadata } from "@/lib/seo";
 import { CorporateInquiryForm } from "@/components/Forms";
 import { CalendlyBooking } from "@/components/Integrations";
 import { site } from "@/config/site";
+
+export const metadata = pageMetadata({
+  path: "/contact",
+  title: "Contact Datamarcos | Course, Workshop & Team Training Enquiry",
+  description: "Contact Datamarcos in Noida by email, phone or WhatsApp, send an enquiry form, or book a call about our AI and data courses, workshops and team training."
+});
 
 export default function ContactPage() {
   const socials = Object.entries(site.social).filter(([, url]) => Boolean(url));

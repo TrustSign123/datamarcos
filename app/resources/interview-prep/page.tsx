@@ -5,7 +5,7 @@ import { atsCheckUrl } from "@/config/navigation";
 
 export const metadata: Metadata = {
   title: "Interview Prep for Data, GenAI & Agentic AI Roles | Datamarcos",
-  description: "Scenario-based interview questions with practical answers for data engineering, GenAI, RAG and agentic AI roles.",
+  description: "Scenario-based interview questions with practical answers for data engineering, GenAI, RAG and agentic AI roles, from pipeline design to evals and agent safety.",
   alternates: { canonical: "/resources/interview-prep" }
 };
 

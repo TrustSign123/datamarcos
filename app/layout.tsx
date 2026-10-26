@@ -11,24 +11,16 @@ export const metadata: Metadata = {
   title: site.title,
   description: site.description,
   metadataBase: new URL(site.url),
-  alternates: { canonical: "/" },
-  openGraph: { title: site.title, description: site.description, url: site.url, siteName: site.name, type: "website", images: [{ url: "/og/datamarcos-home.jpg", width: 1200, height: 630 }] },
+  // No site-wide canonical here: each page sets its own self-referencing canonical (lib/seo.ts).
+  // A layout-level canonical is inherited by every page that lacks one and pointed them all at "/".
+  openGraph: { title: site.title, description: site.description, siteName: site.name, type: "website", images: [{ url: "/og/datamarcos-home.jpg", width: 1200, height: 630 }] },
   twitter: { card: "summary_large_image", title: site.title, description: site.description, images: ["/og/datamarcos-home.jpg"] }
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  const schema = {
-    "@context": "https://schema.org",
-    "@type": ["Organization", "EducationalOrganization"],
-    name: site.name,
-    url: site.url,
-    description: site.description
-  };
-
   return (
     <html lang="en">
       <body>
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
         <AnalyticsTags />
         <Header />
         <main>{children}</main>

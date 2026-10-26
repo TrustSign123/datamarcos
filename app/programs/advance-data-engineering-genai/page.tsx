@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { GenAIAgenticLanding } from "@/components/program/GenAIAgenticLanding";
 import { site } from "@/config/site";
+import { courseJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Advanced Data Engineering with Applied GenAI & Agentic AI | Datamarcos",
-  description: "A mentor-led program connecting a four-month data engineering foundation with advanced GenAI, production RAG, Agentic AI and an integrated capstone, taught by Deepesh Mishra.",
+  title: "Advance Data Engineering with GenAI & Agentic AI | Datamarcos",
+  description: "A 4+ month mentor-led program: a four-month data engineering foundation, then an advanced GenAI, RAG and Agentic AI track and a capstone, with Deepesh Mishra.",
   alternates: { canonical: "/programs/advance-data-engineering-genai" },
   openGraph: {
     title: "Advanced Data Engineering with Applied GenAI & Agentic AI | Datamarcos",
@@ -22,6 +23,13 @@ export const metadata: Metadata = {
   }
 };
 
+const courseSchema = courseJsonLd({ name: "Advance Data Engineering with Applied GenAI & Agentic AI", description: metadata.description as string, path: "/programs/advance-data-engineering-genai" });
+
 export default function AdvanceDataEngineeringGenAIPage() {
-  return <GenAIAgenticLanding />;
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(courseSchema) }} />
+      <GenAIAgenticLanding />
+    </>
+  );
 }

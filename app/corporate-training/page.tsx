@@ -1,7 +1,16 @@
+import { pageMetadata } from "@/lib/seo";
 import { CorporateCTA } from "@/components/CTA";
 import { CalendlyBooking } from "@/components/Integrations";
 import { CorporateInquiryForm } from "@/components/Forms";
 import { industries } from "@/config/industries";
+
+// Placeholder / not-for-search page: kept live, noindex, out of nav and sitemap (SEO pass 2026-10-26).
+export const metadata = pageMetadata({
+  path: "/corporate-training",
+  title: "Corporate Technology Training for Teams | Datamarcos",
+  description: "Datamarcos corporate training: customised technology training, assessments, workshops, bootcamps and trainer-on-demand support for teams and organisations.",
+  noindex: true
+});
 
 export default function CorporateTrainingPage() {
   return (

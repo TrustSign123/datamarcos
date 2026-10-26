@@ -1,5 +1,14 @@
+import { pageMetadata } from "@/lib/seo";
 import { LeadCaptureForm } from "@/components/Forms";
 import { resourceCategories, resources } from "@/config/resources";
+
+// Placeholder / not-for-search page: kept live, noindex, out of nav and sitemap (SEO pass 2026-10-26).
+export const metadata = pageMetadata({
+  path: "/resources",
+  title: "Free Learning Resources and Guides | Datamarcos Resources",
+  description: "Datamarcos resources hub for upcoming learning roadmaps, technology guides and checklists on AI, data engineering and DevOps. Request a resource by form.",
+  noindex: true
+});
 
 export default function ResourcesPage() {
   return (

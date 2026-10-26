@@ -1,5 +1,12 @@
+import { pageMetadata } from "@/lib/seo";
 import { site } from "@/config/site";
 import Image from "next/image";
+
+export const metadata = pageMetadata({
+  path: "/about",
+  title: "About Datamarcos | Founder Deepesh Mishra, Mission & Vision",
+  description: "Datamarcos is a technology learning company founded by Deepesh Mishra, BITS Pilani alumnus. Read our mission, vision and how we teach AI and data engineering."
+});
 
 export default function AboutPage() {
   return (

@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/seo";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { CorporateInquiryForm } from "@/components/Forms";
@@ -12,6 +13,14 @@ const domains: Record<string, { title: string; copy: string }> = {
 
 export function generateStaticParams() {
   return Object.keys(domains).map((domain) => ({ domain }));
+}
+
+// Corporate sub-pages follow /corporate-training: live but noindex and out of the sitemap (SEO pass 2026-10-26).
+export async function generateMetadata({ params }: { params: Promise<{ domain: string }> }) {
+  const { domain } = await params;
+  const item = domains[domain];
+  if (!item) return { title: "Not Found | Datamarcos", robots: { index: false, follow: true } };
+  return pageMetadata({ path: `/corporate-training/${domain}`, title: `${item.title} | Datamarcos`, description: `${item.copy} Datamarcos corporate training for teams.`, noindex: true });
 }
 
 export default async function CorporateDomainPage({ params }: { params: Promise<{ domain: string }> }) {

@@ -16,7 +16,7 @@ function StoryCard({ story }: { story: LearnerStory }) {
     <figure className={`dma-story dma-accent-${story.accent}`}>
       <figcaption className="dma-story-head">
         {story.image ? (
-          <Image className="dma-avatar" src={story.image} alt="" width={48} height={48} sizes="48px" />
+          <Image className="dma-avatar" src={story.image} alt={`${story.name}, Datamarcos learner`} width={48} height={48} sizes="48px" />
         ) : (
           <span className="dma-avatar dma-avatar-initials" aria-hidden="true">{story.initials}</span>
         )}

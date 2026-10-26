@@ -1,3 +1,10 @@
+import { pageMetadata } from "@/lib/seo";
+export const metadata = pageMetadata({
+  path: "/privacy",
+  title: "Privacy Policy | How Datamarcos Collects and Uses Your Data",
+  description: "Read the Datamarcos privacy policy: what data the website collects through comments, cookies and embeds, how long it is kept and the rights you have over it."
+});
+
 export default function PrivacyPage() {
 	return (
 		<section className="hero-simple legal-page">
