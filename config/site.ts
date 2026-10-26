@@ -7,8 +7,8 @@ export const site = {
   // Always the www host: the apex domain 308-redirects to www, so canonicals must point at www.
   url: (process.env.NEXT_PUBLIC_SITE_URL || "https://www.datamarcos.com").replace("://datamarcos.com", "://www.datamarcos.com"),
   email: "hello@datamarcos.com",
-  phone: "+91 84420 32741",
-  location: "KLJ NOIDA ONE, Noida, Uttar Pradesh - 201309, India",
+  phone: "+91 88519 30644",
+  location: "Noida One, 303-304, Rasoolpur Nawada, Industrial Area, Sector 62, Noida, Uttar Pradesh 201309, India",
   founder: {
     name: "Deepesh Mishra",
     title: "Founder, Datamarcos",
@@ -48,14 +48,14 @@ export const site = {
     instagram: process.env.NEXT_PUBLIC_INSTAGRAM_URL,
     facebook: process.env.NEXT_PUBLIC_FACEBOOK_URL,
     x: process.env.NEXT_PUBLIC_X_URL,
-    whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_URL || "https://wa.me/918442032741?text=Hi%2C%20I%20want%20to%20know%20about%20the%20Datamarcos%20course%20batch%20and%20fees."
+    whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_URL || "https://wa.me/918851930644?text=Hi%2C%20I%20want%20to%20know%20about%20the%20Datamarcos%20course%20batch%20and%20fees."
   }
 };
 
 export const env = {
   calendlyUrl: process.env.NEXT_PUBLIC_CALENDLY_URL,
   razorpayCheckoutUrl: process.env.NEXT_PUBLIC_RAZORPAY_CHECKOUT_URL,
-  whatsappUrl: process.env.NEXT_PUBLIC_WHATSAPP_URL || "https://wa.me/918442032741?text=Hi%2C%20I%20want%20to%20know%20about%20the%20Datamarcos%20course%20batch%20and%20fees.",
+  whatsappUrl: process.env.NEXT_PUBLIC_WHATSAPP_URL || "https://wa.me/918851930644?text=Hi%2C%20I%20want%20to%20know%20about%20the%20Datamarcos%20course%20batch%20and%20fees.",
   corporateFormEndpoint: process.env.NEXT_PUBLIC_CORPORATE_FORM_ENDPOINT,
   leadEndpoint: process.env.NEXT_PUBLIC_LEAD_ENDPOINT
 };

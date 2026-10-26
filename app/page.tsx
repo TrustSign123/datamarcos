@@ -21,9 +21,9 @@ const organizationSchema = {
   logo: `${site.url}/apple-icon.png`,
   description: "Datamarcos runs live, mentor-led online courses in Generative AI, Agentic AI, Data Engineering and Forward Deployed AI Engineering, plus technology training for teams.",
   email: site.email,
-  telephone: site.phone,
-  address: { "@type": "PostalAddress", streetAddress: "KLJ NOIDA ONE", addressLocality: "Noida", addressRegion: "Uttar Pradesh", postalCode: "201309", addressCountry: "IN" },
-  contactPoint: [{ "@type": "ContactPoint", contactType: "admissions", telephone: site.phone, email: site.email, areaServed: "IN", availableLanguage: ["en", "hi"] }],
+  telephone: "+91-88519-30644",
+  address: { "@type": "PostalAddress", streetAddress: "Noida One, 303-304, Rasoolpur Nawada, Industrial Area, Sector 62", addressLocality: "Noida", addressRegion: "Uttar Pradesh", postalCode: "201309", addressCountry: "IN" },
+  contactPoint: [{ "@type": "ContactPoint", contactType: "admissions", telephone: "+91-88519-30644", email: site.email, areaServed: "IN", availableLanguage: ["en", "hi"] }],
   founder: { "@type": "Person", name: site.founder.name, jobTitle: site.founder.title, image: `${site.url}${site.founder.image}` },
   sameAs: ["https://www.instagram.com/datamarcos_official/"]
 };
