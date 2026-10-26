@@ -4,10 +4,11 @@ import { ArrowDownToLine, ArrowRight, Check, ShieldCheck, Sparkles, Workflow } f
 import { FDECallRequestForm } from "@/components/program/FDECallRequestForm";
 import { ProgramFee } from "@/components/program/ProgramFee";
 import { GatedBrochureFrame } from "@/components/lead/GatedBrochureFrame";
+import { YouTubeFacade } from "@/components/YouTubeFacade";
 import { courseJsonLd } from "@/lib/seo";
 
 const brochureUrl = "/brochures/DataMarcos_GenAI_Agentic_AI_Engineer_Brochure.pdf";
-const videoUrl = "https://www.youtube-nocookie.com/embed/4eGgJmad5lY";
+const videoId = "4eGgJmad5lY";
 
 export const metadata: Metadata = {
   title: "GenAI & Agentic AI Engineer Course, Live 18 Weeks | Datamarcos",
@@ -77,7 +78,7 @@ export default function GenAIAgenticEngineerPage() {
             <ProgramFee slug="genai-agentic-ai-engineer" />
           </div>
           <div className="fde-ga-hero-media">
-            <div className="fde-ga-hero-video-frame"><iframe src={videoUrl} title="Generative AI and Agentic AI Engineer program overview" loading="eager" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen /></div>
+            <div className="fde-ga-hero-video-frame"><YouTubeFacade id={videoId} title="Generative AI and Agentic AI Engineer program overview" poster="/images/genai-agentic-ai-engineer/hero-video-poster.webp" posterSmall="/images/genai-agentic-ai-engineer/hero-video-poster-640.webp" priority /></div>
             <div className="fde-ga-hero-mentor"><Image src="/images/deepesh-mishra-founder.jpeg" alt="Deepesh Mishra, founder and lead mentor at Datamarcos" width={160} height={160} priority /><div><span>YOUR LEAD MENTOR</span><strong>Deepesh Mishra</strong><small>Founder · Solution Architect · 18+ years</small></div><Sparkles size={19} /></div>
           </div>
         </div>
