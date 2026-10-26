@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowDownToLine, ArrowRight, ArrowUpRight, Building2, Check, ChevronDown, MessageCircle } from "lucide-react";
 import { LearnerSpotlight } from "@/components/home/LearnerSpotlight";
 import { LearnerVideoCard } from "@/components/home/LearnerVideoCard";
+import { AlumniOutcomes } from "@/components/home/AlumniOutcomes";
 import { EMI_NOTE, homeFaqs, homePrograms, learnerFeedback, learnerVideos } from "@/config/home";
 import { env, site } from "@/config/site";
 
@@ -30,15 +31,11 @@ const learnerProfiles = [
   { name: "Richard Leclézio", role: "Professional learner", image: "/images/student-placements/richard-leclezio.jpeg", link: "https://www.linkedin.com/in/richard-leclezio/" },
   { name: "Lakshan J", role: "Software Engineer", employer: "Hexaware Technologies", image: "/images/student-placements/lakshan-j.png", link: "https://www.linkedin.com/in/lakshan013/" },
   { name: "Uphar Tandon", role: "Technology professional", employer: "Microsoft", image: "/images/student-placements/uphar-tandon.png", link: "https://www.linkedin.com/in/uphar-tandon-2563a636/" },
-  { name: "Sharoz Farhan Afridi", role: "Technology professional", image: "/images/student-placements/sharoz-farhan-afridi.jpeg", link: "https://www.linkedin.com/in/sharoz-farhan-afridi/" },
-  { name: "Gaurav Taneja", role: "Senior Azure Data Engineer", employer: "PwC", image: "/images/student-placements/gaurav-taneja.png", link: "https://www.linkedin.com/in/gaurav-t-a4a096158/" }
+  { name: "Sharoz Farhan Afridi", role: "Technology professional", image: "/images/student-placements/sharoz-farhan-afridi.jpeg", link: "https://www.linkedin.com/in/sharoz-farhan-afridi/" }
 ];
 
-/** Learner feedback already published on Datamarcos program pages. */
+/** Short quotes for the community strip. People featured in the learner report (AlumniOutcomes) are kept there only. */
 const learnerQuotes = [
-  { initials: "RK", name: "Raghul K", role: "Learner, Data Engineering Track", quote: "Without you it wouldn't have been possible sir. Thank you so much for making me a Data Engineer." },
-  { initials: "AR", name: "Ansh Ranjan", role: "Data Engineer Trainee, Hexaware Technologies", quote: "Learning under Deepesh Sir has been a great opportunity. He is truly a great mentor." },
-  { initials: "KG", name: "Kumar Gaurav", role: "Senior Azure Data Engineer, PwC", quote: "His deep understanding, combined with a clear and engaging teaching style, made complex concepts easy to grasp." },
   { initials: "GT", name: "Gourav Thadhani", role: "Data Science and AI, ZS Associates", quote: "Many thanks for the great Databricks training at ZS!" }
 ];
 
@@ -48,7 +45,7 @@ type MarqueeItem =
 
 const marqueeItems: MarqueeItem[] = learnerProfiles.flatMap((learner, i) => {
   const items: MarqueeItem[] = [{ kind: "learner", ...learner }];
-  if (learnerQuotes[i]) items.push({ kind: "quote", ...learnerQuotes[i] });
+  if (learnerQuotes[i - 1]) items.push({ kind: "quote", ...learnerQuotes[i - 1] });
   return items;
 });
 
@@ -173,8 +170,15 @@ export default function Home() {
         <div className="container">
           <div className="dmh-section-head">
             <div>
-              <p className="dmh-kicker">Learner stories</p>
-              <h2 id="home-reels-title">Hear from our learners.</h2>
+              <p className="dmh-kicker">Alumni outcomes · Learner report</p>
+              <h2 id="home-reels-title">Where our learners are now.</h2>
+              <p>Real learners and teams who trained with Deepesh Mishra, in their own words. Every story links to its source.</p>
+            </div>
+          </div>
+          <AlumniOutcomes />
+          <div className="dmh-section-head dmh-reels-head">
+            <div>
+              <h3 className="dmh-subhead">Hear from our learners.</h3>
               <p>Real Datamarcos learners on what they built and how the live sessions helped. Tap a card to play; videos load only when you press play.</p>
             </div>
             <a className="dmh-ghost" href="https://www.instagram.com/datamarcos_official/" target="_blank" rel="noreferrer">More on Instagram <ArrowUpRight size={16} /></a>

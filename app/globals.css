@@ -5018,3 +5018,112 @@ html.dmx-lock, html.dmx-lock body { overflow: hidden; }
 }
 body:has(.ade-page) > .dmx-announce,
 body:has(.agentic-course-page) > .dmx-announce { display: none; }
+
+/* Fee details prompts (fees are shared on request, not published). */
+.dm-fee-btn { display: inline-flex; align-items: center; gap: 6px; padding: 0; border: 0; background: none; color: #ff8a5b; font: inherit; font-size: .88rem; font-weight: 850; cursor: pointer; text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 3px; transition: text-decoration-color .15s ease, color .15s ease; }
+.dm-fee-btn:hover, .dm-fee-btn:focus-visible { color: #ffb38f; text-decoration-color: currentColor; }
+.dm-program-fee { align-items: center; }
+.dm-program-fee-light .dm-fee-btn { color: #e2552b; }
+.dmh-prog-fee { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 12px; }
+.dmh-prog-fee .dm-fee-btn { font-size: .86rem; }
+.dmx-drawer-fee { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 12px; margin: 4px 0 8px; padding: 10px 14px; border-radius: 14px; border: 1px dashed rgba(255,255,255,.16); color: rgba(255,255,255,.7); font-size: .82rem; font-weight: 650; }
+.dmx-drawer-fee button { display: inline-flex; align-items: center; gap: 6px; padding: 0; border: 0; background: none; color: #ffb38f; font: inherit; font-weight: 850; cursor: pointer; }
+
+/* ---------- Alumni outcomes / learner report (homepage) ---------- */
+.dmh-reels-head { margin-top: 72px; }
+.dmh-subhead { margin: 0 0 10px; font-size: clamp(1.5rem, 2.6vw, 2.1rem); font-weight: 850; letter-spacing: -.02em; }
+.dma { display: grid; gap: 56px; }
+.dma > * { min-width: 0; }
+.dma-report { position: relative; padding: 34px 28px 26px; border-radius: 24px; border: 1px solid rgba(255,255,255,.1); background: radial-gradient(ellipse at 0% 0%, rgba(255,138,210,.12), transparent 55%), radial-gradient(ellipse at 100% 100%, rgba(143,230,255,.1), transparent 55%), rgba(255,255,255,.025); text-align: center; }
+.dma-pill { display: inline-flex; align-items: center; gap: 7px; margin: 0 0 26px; padding: 6px 14px; border-radius: 999px; border: 1px solid rgba(143,230,255,.35); background: rgba(143,230,255,.08); color: #8fe6ff; font-size: .7rem; font-weight: 850; letter-spacing: .1em; text-transform: uppercase; }
+.dma-stats { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin: 0; }
+.dma-stat { display: flex; flex-direction: column-reverse; gap: 6px; padding: 6px 8px; }
+.dma-stat + .dma-stat { border-left: 1px solid rgba(255,255,255,.08); }
+.dma-stat dd { margin: 0; font-size: clamp(1.9rem, 3.2vw, 2.7rem); font-weight: 900; line-height: 1; letter-spacing: -.02em; background: linear-gradient(120deg, #ff8ad2, #ffb38f 55%, #8fe6ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.dma-stat dt { color: rgba(255,255,255,.64); font-size: .72rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; line-height: 1.35; }
+.dma-disclaimer { max-width: 760px; margin: 24px auto 0; color: rgba(255,255,255,.5); font-size: .78rem; line-height: 1.6; }
+
+.dma-network { text-align: center; }
+.dma-network-kicker { margin: 0 0 8px; color: rgba(255,255,255,.55); font-size: .72rem; font-weight: 850; letter-spacing: .14em; text-transform: uppercase; }
+.dma-network h3 { margin: 0 auto 26px; max-width: 640px; font-size: clamp(1.4rem, 2.6vw, 2rem); font-weight: 850; letter-spacing: -.02em; line-height: 1.2; }
+.dma-logos { overflow: hidden; padding: 6px 0; -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
+.dma-logos-track { display: flex; align-items: center; gap: 18px; width: max-content; animation: dmaLogos 38s linear infinite; }
+.dma-logos:hover .dma-logos-track { animation-play-state: paused; }
+.dma-logo { display: inline-flex; align-items: center; justify-content: center; min-width: 150px; height: 64px; padding: 0 26px; border-radius: 14px; border: 1px solid rgba(255,255,255,.08); background: rgba(255,255,255,.03); color: rgba(255,255,255,.5); font-size: 1.35rem; line-height: 1; white-space: nowrap; transition: color .25s ease, border-color .25s ease, background .25s ease; }
+.dma-logo:hover { color: #fff; border-color: rgba(255,255,255,.22); background: rgba(255,255,255,.06); }
+.dma-logo-img { min-width: 168px; height: 72px; padding: 0 26px; border-color: rgba(255,255,255,.7); background: #fff; box-shadow: 0 6px 22px rgba(0,0,0,.28); }
+.dma-logo-img:hover { background: #fff; border-color: #fff; transform: translateY(-2px); }
+.dma-logo { transition: transform .25s ease, color .25s ease, border-color .25s ease, background .25s ease; }
+.dma-logo-img img { display: block; width: auto; height: var(--logo-h, 30px); max-width: 170px; object-fit: contain; }
+.dma-logo-bold { font-weight: 800; letter-spacing: -.02em; }
+.dma-logo-lower { font-weight: 800; letter-spacing: -.03em; text-transform: lowercase; font-size: 1.5rem; }
+.dma-logo-caps { font-weight: 900; letter-spacing: .02em; font-size: 1.6rem; }
+.dma-logo-wide { font-weight: 900; letter-spacing: .28em; font-size: 1.5rem; padding-right: 18px; }
+.dma-logo-serif { font-family: Georgia, "Times New Roman", serif; font-weight: 700; font-style: italic; font-size: 1.5rem; }
+.dma-network-note { max-width: 640px; margin: 16px auto 0; color: rgba(255,255,255,.4); font-size: .72rem; line-height: 1.5; }
+@keyframes dmaLogos { from { transform: translateX(0); } to { transform: translateX(calc(-50% - 9px)); } }
+
+.dma-stories-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: -28px; }
+.dma-stories-head h3 { margin: 0; font-size: clamp(1.3rem, 2.3vw, 1.8rem); font-weight: 850; letter-spacing: -.02em; }
+.dma-stories { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 18px; align-items: start; }
+.dma-story { --acc: #ff8ad2; position: relative; display: grid; gap: 16px; margin: 0; padding: 22px 22px 18px 24px; border-radius: 20px; border: 1px solid rgba(255,255,255,.1); background: linear-gradient(160deg, rgba(255,255,255,.05), rgba(255,255,255,.015)); overflow: hidden; transition: transform .25s ease, border-color .25s ease; }
+.dma-story::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--acc); }
+.dma-story:hover { transform: translateY(-3px); border-color: rgba(255,255,255,.18); }
+.dma-accent-pink { --acc: #ff8ad2; } .dma-accent-cyan { --acc: #8fe6ff; } .dma-accent-green { --acc: #8cf7ad; } .dma-accent-amber { --acc: #ffb38f; } .dma-accent-violet { --acc: #b69bff; }
+.dma-story-head { display: flex; align-items: center; gap: 12px; padding-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,.08); }
+.dma-avatar { flex: none; width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid var(--acc); }
+.dma-avatar-initials { display: inline-grid; place-items: center; background: rgba(255,255,255,.06); color: var(--acc); font-size: .9rem; font-weight: 900; }
+.dma-story-who b { display: block; color: #fff; font-size: 1rem; }
+.dma-story-who small { display: block; margin-top: 2px; color: rgba(255,255,255,.62); font-size: .8rem; line-height: 1.4; }
+.dma-move { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 10px; padding: 14px; border-radius: 14px; border: 1px solid rgba(255,255,255,.1); background: rgba(0,0,0,.25); }
+.dma-move-side { display: grid; gap: 3px; min-width: 0; }
+.dma-move-after { text-align: right; }
+.dma-move-label { color: rgba(255,255,255,.45); font-size: .64rem; font-weight: 850; letter-spacing: .12em; text-transform: uppercase; }
+.dma-move-side strong { color: #fff; font-size: .9rem; line-height: 1.25; }
+.dma-move-side small { color: rgba(255,255,255,.5); font-size: .74rem; line-height: 1.3; }
+.dma-move-mid { display: grid; justify-items: center; gap: 6px; color: rgba(255,255,255,.5); }
+.dma-move-badge { padding: 4px 10px; border-radius: 999px; background: linear-gradient(120deg, #ff4ab8, #ff8a5c); color: #fff; font-size: .7rem; font-weight: 850; white-space: nowrap; }
+.dma-quote { margin: 0; color: rgba(255,255,255,.82); font-size: .92rem; font-style: italic; line-height: 1.65; }
+.dma-story-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 12px; padding-top: 4px; }
+.dma-context { color: rgba(255,255,255,.45); font-size: .72rem; font-weight: 700; }
+.dma-verify { display: inline-flex; align-items: center; gap: 6px; min-height: 32px; padding: 4px 11px; border-radius: 999px; border: 1px solid rgba(140,247,173,.3); background: rgba(140,247,173,.07); color: #8cf7ad; font-size: .74rem; font-weight: 800; transition: background .2s ease; }
+.dma-verify:hover { background: rgba(140,247,173,.16); }
+.dma-verify-all { min-height: 40px; }
+
+@media (max-width: 900px) {
+  .dma-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; }
+  .dma-stat { padding: 16px 8px; border-top: 1px solid rgba(255,255,255,.08); }
+  .dma-stat:first-child { grid-column: 1 / -1; border-top: 0; padding-top: 4px; }
+  .dma-stat:first-child dd { font-size: clamp(2.4rem, 11vw, 3.2rem); }
+  .dma-stat + .dma-stat { border-left: 0; }
+  .dma-stat:nth-child(odd):not(:first-child) { border-left: 1px solid rgba(255,255,255,.08); }
+}
+@media (max-width: 640px) {
+  .dma { gap: 44px; }
+  .dma-report { padding: 26px 16px 20px; border-radius: 20px; }
+  .dma-stat dd { font-size: 1.9rem; }
+  .dma-pill { font-size: .62rem; letter-spacing: .07em; padding: 6px 12px; }
+  .dma-stat dt { font-size: .62rem; letter-spacing: .05em; }
+  .dma-stories { grid-template-columns: 1fr; }
+  .dma-stories-head { flex-direction: column; align-items: flex-start; margin-bottom: -24px; }
+  .dma-logo { min-width: 120px; height: 54px; padding: 0 18px; font-size: 1.15rem; }
+  .dma-logo-img { min-width: 132px; height: 58px; padding: 0 18px; }
+  .dma-logo-img img { height: calc(var(--logo-h, 30px) * .8); max-width: 124px; }
+  .dma-story { padding: 18px 16px 16px 20px; }
+  .dmh-reels-head { margin-top: 56px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dma-logos-track { animation: none; flex-wrap: wrap; justify-content: center; width: auto; }
+  .dma-logos-track > [aria-hidden="true"] { display: none; }
+  .dma-logos { -webkit-mask-image: none; mask-image: none; }
+  .dma-logo-img:hover { transform: none; }
+  .dma-story, .dma-story:hover { transition: none; transform: none; }
+}
+
+.dma-peer { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-top: -32px; padding: 16px 20px; border-radius: 16px; border: 1px dashed rgba(255,255,255,.14); background: rgba(255,255,255,.02); }
+.dma-peer-label { padding: 4px 10px; border-radius: 999px; background: rgba(255,255,255,.06); color: rgba(255,255,255,.6); font-size: .66rem; font-weight: 850; letter-spacing: .1em; text-transform: uppercase; }
+.dma-peer blockquote { flex: 1 1 380px; margin: 0; color: rgba(255,255,255,.78); font-size: .9rem; font-style: italic; line-height: 1.55; }
+.dma-peer cite { color: rgba(255,255,255,.6); font-size: .8rem; font-style: normal; }
+.dma-peer cite b { color: #fff; }
+@media (max-width: 640px) { .dma-peer { margin-top: -28px; padding: 14px 16px; } }
+.dma-peer figcaption { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
