@@ -104,7 +104,11 @@ export function AlumniOutcomes() {
                       alt={clone ? "" : logo.name}
                       width={logo.logo.width}
                       height={logo.logo.height}
-                      loading="lazy"
+                      // Not loading="lazy": inside the clipped marquee, lazy images only start loading once they
+                      // slide into view and show up blank for a moment. All 11 SVGs are ~22 KB in total, so they
+                      // load eagerly at low priority instead (no effect on LCP).
+                      loading="eager"
+                      fetchPriority="low"
                       decoding="async"
                       style={{ "--logo-h": `${logo.logo.h}px` } as React.CSSProperties}
                     />
