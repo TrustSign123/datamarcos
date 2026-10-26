@@ -35,6 +35,8 @@ export function Logo() {
 
 export function Header() {
   const pathname = usePathname();
+  // The FDE program page carries no fee amounts (counsellors share them); other pages are unchanged.
+  const feeFree = pathname === "/programs/forward-deployed-ai-engineer";
   const [drawer, setDrawer] = useState(false);
   const [menu, setMenu] = useState<"programs" | "resources" | null>(null);
   const [scrolled, setScrolled] = useState(false);
@@ -77,7 +79,7 @@ export function Header() {
       <div className="dmx-announce" role="note">
         <div className="container">
           <span className="dmx-announce-dot" aria-hidden="true" />
-          <span><b>Admissions open</b><span className="dmx-announce-text-extra"> for our live online programs</span><span className="dmx-announce-text-extra"> · Fees from ₹40,000 with EMI options</span></span>
+          <span><b>Admissions open</b><span className="dmx-announce-text-extra"> for our live online programs</span><span className="dmx-announce-text-extra">{feeFree ? " · EMI options available" : " · Fees from ₹40,000 with EMI options"}</span></span>
           <button type="button" data-dm-lead data-cta="Announcement bar - Talk to a counsellor">Talk to a counsellor <ArrowRight size={14} /></button>
         </div>
       </div>
@@ -98,7 +100,7 @@ export function Header() {
                         <span className="dmx-course-copy">
                           <small>{program.tag}</small>
                           <strong>{program.title}</strong>
-                          <span className="dmx-course-meta"><Clock3 size={13} aria-hidden="true" /> {program.facts[0]}<b>{program.fee}</b></span>
+                          <span className="dmx-course-meta"><Clock3 size={13} aria-hidden="true" /> {program.facts[0]}<b>{feeFree ? program.facts[1] : program.fee}</b></span>
                         </span>
                       </Link>
                     ))}
@@ -153,7 +155,7 @@ export function Header() {
           {homePrograms.map((program) => (
             <Link key={program.slug} className="dmx-drawer-course" href={`/programs/${program.slug}`} onClick={closeAll}>
               <Image src={program.image} alt="" width={52} height={52} sizes="52px" />
-              <span><strong>{program.title}</strong><small>{program.facts[0]} · {program.fee}</small></span>
+              <span><strong>{program.title}</strong><small>{program.facts[0]} · {feeFree ? program.facts[1] : program.fee}</small></span>
               <ArrowRight size={16} aria-hidden="true" />
             </Link>
           ))}
