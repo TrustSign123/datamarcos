@@ -5051,6 +5051,10 @@ body:has(.agentic-course-page) > .dmx-announce { display: none; }
 .dma-logos:hover .dma-logos-track { animation-play-state: paused; }
 .dma-logo { display: inline-flex; align-items: center; justify-content: center; min-width: 150px; height: 64px; padding: 0 26px; border-radius: 14px; border: 1px solid rgba(255,255,255,.08); background: rgba(255,255,255,.03); color: rgba(255,255,255,.5); font-size: 1.35rem; line-height: 1; white-space: nowrap; transition: color .25s ease, border-color .25s ease, background .25s ease; }
 .dma-logo:hover { color: #fff; border-color: rgba(255,255,255,.22); background: rgba(255,255,255,.06); }
+.dma-logo-img { min-width: 168px; height: 72px; padding: 0 26px; border-color: rgba(255,255,255,.7); background: #fff; box-shadow: 0 6px 22px rgba(0,0,0,.28); }
+.dma-logo-img:hover { background: #fff; border-color: #fff; transform: translateY(-2px); }
+.dma-logo { transition: transform .25s ease, color .25s ease, border-color .25s ease, background .25s ease; }
+.dma-logo-img img { display: block; width: auto; height: var(--logo-h, 30px); max-width: 170px; object-fit: contain; }
 .dma-logo-bold { font-weight: 800; letter-spacing: -.02em; }
 .dma-logo-lower { font-weight: 800; letter-spacing: -.03em; text-transform: lowercase; font-size: 1.5rem; }
 .dma-logo-caps { font-weight: 900; letter-spacing: .02em; font-size: 1.6rem; }
@@ -5103,6 +5107,8 @@ body:has(.agentic-course-page) > .dmx-announce { display: none; }
   .dma-stories { grid-template-columns: 1fr; }
   .dma-stories-head { flex-direction: column; align-items: flex-start; margin-bottom: -24px; }
   .dma-logo { min-width: 120px; height: 54px; padding: 0 18px; font-size: 1.15rem; }
+  .dma-logo-img { min-width: 132px; height: 58px; padding: 0 18px; }
+  .dma-logo-img img { height: calc(var(--logo-h, 30px) * .8); max-width: 124px; }
   .dma-story { padding: 18px 16px 16px 20px; }
   .dmh-reels-head { margin-top: 56px; }
 }
@@ -5110,6 +5116,7 @@ body:has(.agentic-course-page) > .dmx-announce { display: none; }
   .dma-logos-track { animation: none; flex-wrap: wrap; justify-content: center; width: auto; }
   .dma-logos-track > [aria-hidden="true"] { display: none; }
   .dma-logos { -webkit-mask-image: none; mask-image: none; }
+  .dma-logo-img:hover { transform: none; }
   .dma-story, .dma-story:hover { transition: none; transform: none; }
 }
 

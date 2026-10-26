@@ -254,24 +254,31 @@ export const OUTCOMES_DISCLAIMER =
  */
 export type OrgLogo = {
   name: string;
-  /** Visual treatment for the text wordmark. */
+  /**
+   * Official logo file in /public/logos (original brand colours, sourced from Wikimedia Commons or the
+   * company's own site). width/height = intrinsic SVG size; `h` = display height in px on desktop
+   * (tuned per logo so wide wordmarks and square marks look optically balanced).
+   * Omit `logo` to fall back to a text wordmark (`style`).
+   */
+  logo?: { src: string; width: number; height: number; h: number };
+  /** Text-wordmark treatment, used only when there is no logo file. */
   style?: "bold" | "lower" | "caps" | "wide" | "serif";
   /** Why this organisation is listed (editor note, not rendered). */
   evidence: string;
 };
 
 export const orgLogos: OrgLogo[] = [
-  { name: "pwc", style: "lower", evidence: "Kumar Gaurav & Gaurav Taluja – LinkedIn headlines" },
-  { name: "Hexaware", style: "bold", evidence: "Ansh Ranjan – LinkedIn headline; Lakshan J – site student data" },
-  { name: "EY", style: "caps", evidence: "Kumar Gaurav – Ex-EY (LinkedIn headline)" },
-  { name: "Genpact", style: "bold", evidence: "Kumar Gaurav – Ex-Genpact (LinkedIn headline)" },
-  { name: "accenture", style: "lower", evidence: "Gaurav Taluja – Ex Accenture (LinkedIn headline)" },
-  { name: "ZS", style: "caps", evidence: "Databricks training at ZS (feedback folder)" },
-  { name: "IBM", style: "wide", evidence: "Corporate training (feedback folder)" },
-  { name: "Microsoft", style: "bold", evidence: "Uphar Tandon – existing site student data" },
-  { name: "Adobe", style: "bold", evidence: "Deepesh Mishra – LinkedIn experience" },
-  { name: "Yahoo!", style: "serif", evidence: "Deepesh Mishra – LinkedIn experience" },
-  { name: "eClerx", style: "bold", evidence: "Deepesh Mishra – LinkedIn experience" }
+  { name: "PwC", logo: { src: "/logos/pwc.svg", width: 243, height: 120, h: 36 }, evidence: "Kumar Gaurav & Gaurav Taluja – LinkedIn headlines" },
+  { name: "Hexaware", logo: { src: "/logos/hexaware.svg", width: 804, height: 120, h: 24 }, evidence: "Ansh Ranjan – LinkedIn headline; Lakshan J – site student data" },
+  { name: "EY", logo: { src: "/logos/ey.svg", width: 119, height: 120, h: 44 }, evidence: "Kumar Gaurav – Ex-EY (LinkedIn headline)" },
+  { name: "Genpact", logo: { src: "/logos/genpact.svg", width: 317, height: 120, h: 40 }, evidence: "Kumar Gaurav – Ex-Genpact (LinkedIn headline)" },
+  { name: "Accenture", logo: { src: "/logos/accenture.svg", width: 432, height: 120, h: 32 }, evidence: "Gaurav Taluja – Ex Accenture (LinkedIn headline)" },
+  { name: "ZS", logo: { src: "/logos/zs.svg", width: 151, height: 120, h: 46 }, evidence: "Databricks training at ZS (feedback folder)" },
+  { name: "IBM", logo: { src: "/logos/ibm.svg", width: 311, height: 120, h: 34 }, evidence: "Corporate training (feedback folder)" },
+  { name: "Microsoft", logo: { src: "/logos/microsoft.svg", width: 525, height: 120, h: 30 }, evidence: "Uphar Tandon – existing site student data" },
+  { name: "Adobe", logo: { src: "/logos/adobe.svg", width: 432, height: 120, h: 32 }, evidence: "Deepesh Mishra – LinkedIn experience" },
+  { name: "Yahoo!", logo: { src: "/logos/yahoo.svg", width: 412, height: 120, h: 32 }, evidence: "Deepesh Mishra – LinkedIn experience" },
+  { name: "eClerx", logo: { src: "/logos/eclerx.svg", width: 416, height: 120, h: 30 }, evidence: "Deepesh Mishra – LinkedIn experience" }
 ];
 
 export const DEEPESH_LINKEDIN = "https://www.linkedin.com/in/deepesh-kumar-mishra-523632a5/";

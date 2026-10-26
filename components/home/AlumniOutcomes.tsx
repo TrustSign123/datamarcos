@@ -1,3 +1,4 @@
+import type React from "react";
 import Image from "next/image";
 import { ArrowRight, BadgeCheck, ShieldCheck } from "lucide-react";
 import {
@@ -94,15 +95,28 @@ export function AlumniOutcomes() {
                   key={`${logo.name}-${index}`}
                   role={clone ? undefined : "listitem"}
                   aria-hidden={clone || undefined}
-                  className={`dma-logo dma-logo-${logo.style ?? "bold"}`}
+                  className={logo.logo ? "dma-logo dma-logo-img" : `dma-logo dma-logo-${logo.style ?? "bold"}`}
                 >
-                  {logo.name}
+                  {logo.logo ? (
+                    // eslint-disable-next-line @next/next/no-img-element -- static brand SVGs, no optimisation needed
+                    <img
+                      src={logo.logo.src}
+                      alt={clone ? "" : logo.name}
+                      width={logo.logo.width}
+                      height={logo.logo.height}
+                      loading="lazy"
+                      decoding="async"
+                      style={{ "--logo-h": `${logo.logo.h}px` } as React.CSSProperties}
+                    />
+                  ) : (
+                    logo.name
+                  )}
                 </span>
               );
             })}
           </div>
         </div>
-        <p className="dma-network-note">Based on learners’ own LinkedIn profiles, corporate trainings and Deepesh Mishra’s career. Names are trademarks of their owners and do not imply endorsement.</p>
+        <p className="dma-network-note">Based on learners’ own LinkedIn profiles, corporate trainings and Deepesh Mishra’s career. Logos and names are trademarks of their respective owners, shown only to indicate where learners and clients work; no endorsement is implied.</p>
       </div>
 
       <div className="dma-stories-head">
