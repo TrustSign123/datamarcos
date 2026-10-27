@@ -1,405 +1,427 @@
+import type React from "react";
+import Image from "next/image";
 import Link from "next/link";
-import { ArrowDownToLine, ArrowRight, Check, MessageCircle, Sparkles, Star, Users } from "lucide-react";
-import { Logo } from "@/components/Header";
+import { ArrowDownToLine, ArrowRight, ArrowUpRight, Award, BadgeCheck, Bot, CalendarClock, Check, Linkedin, Minus, PlayCircle, Rocket, ShieldCheck, Sparkles, UsersRound, Wrench, X, Zap } from "lucide-react";
+import { YouTubeFacade } from "@/components/YouTubeFacade";
+import { InlineLeadForm } from "@/components/lead/InlineLeadForm";
+import { GatedBrochureFrame } from "@/components/lead/GatedBrochureFrame";
+import { AlumniOutcomes } from "@/components/home/AlumniOutcomes";
+import { FdeSectionNav, type FdeNavItem } from "@/components/program/fde/FdeSectionNav";
+import { FdeCurriculum } from "@/components/program/fde/FdeCurriculum";
+import { ToolWall } from "@/components/program/ToolWall";
+import { DEEPESH_LINKEDIN } from "@/config/home";
+import {
+  APPLIED_BROCHURE, APPLIED_COURSE, APPLIED_TITLE, APPLIED_VIDEO_ID, appliedChooser, appliedFaqs, appliedFor, appliedNotFor, appliedPhases,
+  appliedPrereqs, appliedProjects, appliedRoles, appliedShifts, appliedToolGroups, appliedWhy, type AppliedFaq
+} from "@/config/applied";
 import { site } from "@/config/site";
-import { ProgramFee } from "@/components/program/ProgramFee";
-import { courseJsonLd, pageMetadata } from "@/lib/seo";
+import { pageMetadata } from "@/lib/seo";
 
 const PATH = "/programs/applied-agentic-ai-certification";
+const URL = `${site.url}${PATH}`;
 const TITLE = "Applied Agentic AI Certification, 8 Weeks Live | Datamarcos";
 const DESCRIPTION = "An eight-week, mentor-led certification to build production-ready AI workflows, RAG systems, tool-using agents and automation, ending in a portfolio capstone.";
 
 export const metadata = pageMetadata({ path: PATH, title: TITLE, description: DESCRIPTION });
-const courseSchema = courseJsonLd({ name: "Applied Agentic AI Certification", description: DESCRIPTION, path: PATH, duration: "P8W" });
 
-const brochurePath = "/brochures/DataMarcos_Applied_Agentic_AI_Brochure.pdf";
-const whatsappBase = (site.social.whatsapp || "https://wa.me/918851930644").split("?")[0];
-const whatsappConsultation = `${whatsappBase}?text=${encodeURIComponent("Hi Datamarcos! I want to know more about the Applied Agentic AI Certification, the course details, fees, and next batch dates.")}`;
-const whatsappBrochure = `${whatsappBase}?text=${encodeURIComponent("Hi Datamarcos! Please send me the brochure and fee details for the Applied Agentic AI Certification.")}`;
-
-const stats = [
-  { value: "25,000+", label: "Professionals trained" },
-  { value: "200+", label: "Corporate & academic clients" },
-  { value: "10+", label: "Countries reached" },
-  { value: "18+", label: "Years of industry experience" }
+const nav: FdeNavItem[] = [
+  { id: "why", label: "Why now" },
+  { id: "outcomes", label: "Outcomes" },
+  { id: "fit", label: "Who it's for" },
+  { id: "curriculum", label: "Curriculum" },
+  { id: "projects", label: "Projects" },
+  { id: "tools", label: "Tools" },
+  { id: "mentor", label: "Mentor" },
+  { id: "learners", label: "Learners" },
+  { id: "compare", label: "Compare" },
+  { id: "faq", label: "FAQ" }
 ];
 
-const pillars = [
-  { title: "Mentor-led learning", copy: "Practical instruction from Deepesh Mishra, a BITS Pilani alumnus and enterprise technology mentor." },
-  { title: "Hands-on AI workflows", copy: "Work through real prompts, tools, agents, retrieval patterns and production-grade AI use cases." },
-  { title: "Career growth focus", copy: "Built for professionals who want to move from passive AI usage to relevant, applied AI implementation." }
+const whyIcons = [Zap, Wrench, Rocket];
+const accents = ["#f4511e", "#2f6bff", "#0e9f84", "#b04cff"];
+const successLinks = [{ label: "Download the brochure", href: APPLIED_BROCHURE, download: true }];
+const successBody = "A Datamarcos counsellor will call you about program fit, the next batch date and EMI options. Meanwhile, the brochure has the full 8-week curriculum.";
+
+const ORG_ID = `${site.url}/#organization`;
+const MENTOR_ID = `${site.url}/#deepesh-mishra`;
+
+/** Course + mentor + breadcrumb + FAQ. Deliberately NO offers / price. */
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "@id": `${URL}#course`,
+    name: APPLIED_TITLE,
+    description: DESCRIPTION,
+    url: URL,
+    image: `${site.url}/images/applied-agentic-ai/hero-video-poster.webp`,
+    inLanguage: "en-IN",
+    educationalLevel: "Beginner",
+    timeRequired: "P8W",
+    coursePrerequisites: ["No prior AI experience required; beginner-friendly refreshers are provided", "Openness to learning basic Python programming"],
+    teaches: ["LLM foundations and prompt engineering", "Production RAG systems", "AI agents and tool calling", "Multi-agent orchestration with CrewAI and LangGraph", "Model Context Protocol (MCP) and enterprise integration", "Voice, multimodal agents and n8n automation", "Agent evaluation and reliability"],
+    syllabusSections: appliedPhases.flatMap((phase) => phase.items.map((w) => ({ "@type": "Syllabus", name: `Week ${w.week}: ${w.title}`, description: w.topics.join("; ") }))),
+    provider: { "@type": "Organization", "@id": ORG_ID, name: site.name, url: site.url },
+    educationalCredentialAwarded: { "@type": "EducationalOccupationalCredential", name: "Datamarcos Applied Agentic AI Certification", credentialCategory: "certificate" },
+    hasCourseInstance: {
+      "@type": "CourseInstance",
+      courseMode: "online",
+      courseSchedule: { "@type": "Schedule", repeatFrequency: "P1W", repeatCount: 8 },
+      instructor: { "@id": MENTOR_ID }
+    }
+  },
+  { "@context": "https://schema.org", "@type": "Person", "@id": MENTOR_ID, name: site.founder.name, jobTitle: "Founder and Lead Mentor", image: `${site.url}${site.founder.image}`, worksFor: { "@id": ORG_ID }, sameAs: [DEEPESH_LINKEDIN] },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: `${site.url}/` },
+      { "@type": "ListItem", position: 2, name: "Programs", item: `${site.url}/programs` },
+      { "@type": "ListItem", position: 3, name: APPLIED_TITLE, item: URL }
+    ]
+  },
+  { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: appliedFaqs.map((faq) => ({ "@type": "Question", name: faq.q, acceptedAnswer: { "@type": "Answer", text: faq.a } })) }
 ];
 
-const mentorLogos = ["Deloitte", "EY", "Adobe", "Yahoo", "HSBC", "Boeing", "Reliance", "Micro Focus"];
+function FaqAnswer({ faq }: { faq: AppliedFaq }) {
+  if (!faq.link || !faq.a.includes(faq.link.label)) return <p>{faq.a}</p>;
+  const [before, after] = faq.a.split(faq.link.label);
+  return <p>{before}<Link href={faq.link.href}>{faq.link.label}</Link>{after}</p>;
+}
 
-const orbitTechnologies = [
-  { name: "LangChain", mark: "LC", tone: "orange" },
-  { name: "LangGraph", mark: "LG", tone: "violet" },
-  { name: "Agentic AI", mark: "AI", tone: "cyan" },
-  { name: "Azure", mark: "AZ", tone: "blue" },
-  { name: "OpenAI", mark: "OAI", tone: "green" },
-  { name: "MCP", mark: "MCP", tone: "coral" }
-];
+function Cta({ label = "Talk to a counsellor", cta, variant = "primary" }: { label?: string; cta: string; variant?: "primary" | "ghost" | "dark" }) {
+  return <a className={`fx-btn fx-btn-${variant}`} href="#apply" data-dm-lead data-cta={cta} data-course={APPLIED_COURSE}>{label} <ArrowRight size={17} aria-hidden="true" /></a>;
+}
 
-const reasons = [
-  { title: "Practical execution", copy: "Every session is anchored in real AI system design, tooling and problem-solving instead of theory alone." },
-  { title: "Relevant for the market", copy: "You learn workflows, multi-step reasoning, tool use and AI orchestration that matter in real projects." },
-  { title: "Mentor guidance", copy: "It is built for professionals who want a clear path from experimentation to useful production outcomes." },
-  { title: "Career readiness", copy: "The program is designed to help you become fluent in modern AI engineering patterns and project execution." }
-];
+function Syllabus({ cta, variant = "ghost", label = "Download syllabus" }: { cta: string; variant?: "ghost" | "light" | "dark"; label?: string }) {
+  return <a className={`fx-btn fx-btn-${variant}`} href={APPLIED_BROCHURE} data-dm-download data-file={APPLIED_BROCHURE} data-course={APPLIED_COURSE} data-cta={cta}><ArrowDownToLine size={17} aria-hidden="true" /> {label}</a>;
+}
 
-const weeklyModules = [
-  { week: "Week 1", title: "LLM foundations & system thinking", copy: "Understand transformers, embeddings, context windows, multi-model workflows and evaluation strategy." },
-  { week: "Week 2", title: "Prompt engineering & structured output", copy: "Build reliable prompts, controlled responses and tool-calling patterns for production contexts." },
-  { week: "Week 3", title: "Production RAG systems", copy: "Create knowledge workflows with retrieval, chunking, vector stores, reranking and quality checks." },
-  { week: "Week 4", title: "AI agents & tool use", copy: "Connect your agent to APIs, internal systems and workflows with memory, guardrails and action loops." },
-  { week: "Week 5", title: "Multi-agent systems", copy: "Coordinate specialist agents, dispatch tasks, and design orchestration patterns for real projects." },
-  { week: "Week 6", title: "MCP & enterprise integration", copy: "Learn how agentic systems plug into business tools, databases and operational environments." },
-  { week: "Week 7", title: "Voice, multimodal & automation", copy: "Explore tool-based automation, multimodal flows and connected AI workflows that support business tasks." },
-  { week: "Week 8", title: "Capstone & deployment", copy: "Package your solution, evaluate performance, and present a portfolio-ready AI system." }
-];
-
-const outcomes = [
-  "Design and evaluate production-ready AI conversations and workflows",
-  "Build RAG systems that connect models to real business knowledge",
-  "Create agents that call tools, take action and operate across systems",
-  "Understand multi-agent orchestration, evaluation and reliability patterns",
-  "Ship a capstone project that demonstrates real-world AI engineering skills"
-];
-
-const classroomPreviews = [
-  { image: "/images/applied-agentic-ai/classroom-sigmaoid.webp", label: "Sigmaoid delivery session", copy: "Collaborative learning, technical discussion and applied problem-solving." },
-  { image: "/images/applied-agentic-ai/classroom-novartis.webp", label: "Novartis classroom training", copy: "Analytics, Python, forecasting and machine learning connected to a real domain." },
-  { image: "/images/applied-agentic-ai/classroom-live.webp", label: "Hands-on live classroom", copy: "Instructor-led practice where learners build, test and ask better questions together." }
-];
-
-const learnerFeedback = "His deep understanding of the subject, combined with a clear and engaging teaching style, made complex concepts easy to grasp — even for those new to the field. What stood out most was his ability to connect real-world applications with theoretical concepts.";
-
-const studentPlacements = [
-  { name: "Richard Leclézio", role: "Professional learner", company: "Datamarcos learner", short: "DM", image: "/images/student-placements/richard-leclezio.jpeg", link: "https://www.linkedin.com/in/richard-leclezio/" },
-  { name: "Lakshan J", role: "Software Engineer", company: "Hexaware Technologies", short: "HX", image: "/images/student-placements/lakshan-j.webp", link: "https://www.linkedin.com/in/lakshan013/" },
-  { name: "Uphar Tandon", role: "Technology professional", company: "Microsoft", short: "MS", image: "/images/student-placements/uphar-tandon.webp", link: "https://www.linkedin.com/in/uphar-tandon-2563a636/" },
-  { name: "Sharoz Farhan Afridi", role: "Technology professional", company: "Datamarcos learner", short: "DM", image: "/images/student-placements/sharoz-farhan-afridi.jpeg", link: "https://www.linkedin.com/in/sharoz-farhan-afridi/" },
-  { name: "Gaurav Taneja", role: "Senior Azure Data Engineer", company: "PwC", short: "PwC", image: "/images/student-placements/gaurav-taneja.webp", link: "https://www.linkedin.com/in/gaurav-t-a4a096158/" }
-];
+function Head({ eyebrow, title, body, id }: { eyebrow: string; title: React.ReactNode; body?: React.ReactNode; id: string }) {
+  return (
+    <header className="fx-head">
+      <p className="fx-eyebrow">{eyebrow}</p>
+      <h2 id={id}>{title}</h2>
+      {body && <p className="fx-head-body">{body}</p>}
+    </header>
+  );
+}
 
 export default function AppliedAgenticAICertificationPage() {
   return (
-    <div id="applied-agentic-ai-certification" className="agentic-course-page">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(courseSchema) }} />
-      <section className="agentic-hero-shell">
-        <div className="container agentic-topbar">
-          <Logo />
+    <article className="fde-page fx fx-applied">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-          <div className="agentic-top-actions">
-            <Link className="button secondary" href="/programs">Explore Programs</Link>
-            <a className="button primary" href={whatsappConsultation} target="_blank" rel="noreferrer">Enroll on WhatsApp</a>
+      {/* HERO */}
+      <section className="fx-hero" id="top" aria-labelledby="fx-title">
+        <div className="fx-hero-glow" aria-hidden="true" />
+        <div className="fx-wrap fx-hero-grid">
+          <div className="fx-hero-copy">
+            <nav className="fx-crumbs" aria-label="Breadcrumb">
+              <ol>
+                <li><Link href="/">Home</Link></li>
+                <li><Link href="/programs">Programs</Link></li>
+                <li aria-current="page">{APPLIED_TITLE}</li>
+              </ol>
+            </nav>
+            <p className="fx-hero-kicker"><span className="fx-dot" /> Applied Agentic AI Certification · Live online · 8 weeks · Mentor-led</p>
+            <h1 id="fx-title"><span>Applied Agentic AI</span> <em>Certification.</em></h1>
+            <p className="fx-hero-deck">Build agentic AI systems that actually work in the real world. An eight-week, mentor-led Datamarcos certification for professionals who want to move beyond prompts and build production-ready AI workflows, RAG systems, tool-using agents and automation.</p>
+            <ul className="fx-hero-promise">
+              <li><Check size={16} aria-hidden="true" /><span>Go beyond using ChatGPT, Claude or Copilot: <b>agent architecture, tool calling, APIs and agentic workflows</b></span></li>
+              <li><Check size={16} aria-hidden="true" /><span>Build a <b>project in every module</b>, ending in an integrated multi-agent capstone</span></li>
+              <li><Check size={16} aria-hidden="true" /><span>Hands-on with <b>n8n, LangChain, LangGraph, CrewAI and MCP</b>. No prior AI experience required</span></li>
+            </ul>
+            <div className="fx-hero-actions">
+              <Cta label="Talk to a counsellor" cta="Applied hero (counsellor)" />
+              <Syllabus cta="Applied hero (syllabus)" variant="light" />
+            </div>
+            <p className="fx-hero-note"><CalendarClock size={15} aria-hidden="true" /> Small-batch live cohorts · EMI options available, talk to a counsellor</p>
           </div>
+          <figure className="fx-hero-media">
+            <div className="fx-hero-video">
+              <YouTubeFacade id={APPLIED_VIDEO_ID} title="Applied Agentic AI Certification overview" poster="/images/applied-agentic-ai/hero-video-poster.webp" posterSmall="/images/applied-agentic-ai/hero-video-poster-640.webp" priority />
+            </div>
+            <figcaption>
+              <Image src="/images/deepesh-mishra-founder.jpeg" alt="" width={88} height={88} />
+              <span><b>Watch: Build. Automate. Deploy.</b>Program overview with mentor Deepesh Mishra <PlayCircle size={13} aria-hidden="true" /></span>
+            </figcaption>
+          </figure>
         </div>
-
-        <div className="container agentic-hero">
-          <div className="agentic-copy">
-            <span className="badge live">Applied Agentic AI Certification</span>
-            <h1>Build agentic AI systems that actually work in the real world.</h1>
-            <p>
-              An eight-week, mentor-led Datamarcos certification for professionals who want to move beyond prompts and build production-ready AI workflows, RAG systems, tool-using agents and automation that can stand up in the real world.
-            </p>
-
-            <div className="agentic-program-meta"><span>8 weeks</span><span>Live mentor support</span><span>Portfolio capstone</span></div>
-            <ProgramFee slug="applied-agentic-ai-certification" className="dm-program-fee-light" />
-
-            <div className="hero-actions">
-              <a className="button primary" href={whatsappConsultation} target="_blank" rel="noreferrer" data-dm-lead>
-                Book a consultation <ArrowRight size={18} />
-              </a>
-              <a className="button secondary" href={brochurePath} download target="_blank" rel="noreferrer">
-                Download brochure <ArrowDownToLine size={18} />
-              </a>
-            </div>
-
-            <div className="trust-line">
-              <span><Check size={14} /> BITS Pilani alumnus</span>
-              <span><Check size={14} /> AI tool power user</span>
-              <span><Check size={14} /> Live mentor support</span>
-            </div>
-          </div>
-
-          <div className="agentic-visual-wrap">
-            <div className="agentic-visual-card agentic-orbit-card">
-              <div className="agentic-orbit-copy">
-                <span className="agentic-orbit-kicker">Build with the modern AI stack</span>
-                <strong>From model to working agent.</strong>
-                <span>Learn the tools that turn ideas into useful systems.</span>
-              </div>
-              <div className="agentic-orbit" aria-label="Rotating technology stack">
-                <div className="agentic-orbit-ring agentic-orbit-ring-one" />
-                <div className="agentic-orbit-ring agentic-orbit-ring-two" />
-                <div className="agentic-orbit-core"><Sparkles size={24} /><span>Agentic<br />systems</span></div>
-                <div className="agentic-orbit-wheel">
-                  {orbitTechnologies.map((technology, index) => (
-                    <div key={technology.name} className={`agentic-orbit-item agentic-orbit-item-${index + 1}`}>
-                      <span className={`agentic-tech-mark ${technology.tone}`}>{technology.mark}</span>
-                      <span>{technology.name}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div className="agentic-mentor-box">
-                <img src="/images/deepesh-mishra-founder.jpeg" alt="Deepesh Mishra, Datamarcos mentor" className="agentic-mentor-avatar" />
-                <div className="agentic-mentor-details"><span className="agentic-mentor-label">Mentored by</span><div className="agentic-mentor-name">Deepesh Mishra</div></div>
-                <span className="agentic-mentor-stat">18+ years<br />of experience</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="container agentic-stat-grid">
-          {stats.map((item) => (
-            <div className="agentic-stat-card" key={item.label}>
-              <strong>{item.value}</strong>
-              <span>{item.label}</span>
-            </div>
-          ))}
+        <div className="fx-wrap">
+          <dl className="fx-facts fx-facts-4">
+            <div><dt>Duration</dt><dd>8 <small>weeks</small></dd></div>
+            <div><dt>Modules, one per week</dt><dd>8</dd></div>
+            <div><dt>Mentorship</dt><dd>1:1 <small>+ live Q&amp;A</small></dd></div>
+            <div><dt>Prior AI experience</dt><dd>None <small>needed</small></dd></div>
+          </dl>
         </div>
       </section>
 
-      <section className="section alt">
-        <div className="container agentic-two-col">
+      <FdeSectionNav items={nav} course={APPLIED_COURSE} brand={<>Applied<b>·</b>Agentic</>} ctaPrefix="Applied" />
+
+      {/* WHY NOW */}
+      <section className="fx-section fx-why" id="why" aria-labelledby="fx-why-title">
+        <div className="fx-wrap">
+          <div className="fx-split">
+            <Head id="fx-why-title" eyebrow="Why this, why now" title={<>The gap between using AI <em>and building with it.</em></>} />
+            <div className="fx-why-copy">
+              <p>Most professionals use ChatGPT, Claude or Copilot. Far fewer know how agentic systems are designed and built: agents that reason, call tools, work with software and take action.</p>
+              <p>This certification closes that gap in eight weeks, with a working project at every step.</p>
+            </div>
+          </div>
+          <ol className="fx-life fx-life-3" aria-label="Why agentic AI now">
+            {appliedWhy.map((item, index) => {
+              const Icon = whyIcons[index];
+              return (
+                <li key={item.step} style={{ "--d": `${index * 90}ms` } as React.CSSProperties}>
+                  <span className="fx-life-n">{String(index + 1).padStart(2, "0")}</span>
+                  <Icon size={22} aria-hidden="true" />
+                  <h3>{item.step}</h3>
+                  <p>{item.body}</p>
+                </li>
+              );
+            })}
+          </ol>
+        </div>
+      </section>
+
+      {/* OUTCOMES / ROLE SHIFT */}
+      <section className="fx-section fx-paper" id="outcomes" aria-labelledby="fx-out-title">
+        <div className="fx-wrap">
+          <Head id="fx-out-title" eyebrow="Career outcomes" title={<>Where Applied Agentic AI <em>takes you.</em></>} body="Whether you're in QA automation, backend development or product management, agentic AI skills change what you can build and own." />
+          <div className="fx-cmp" role="table" aria-label="Your starting point and what changes after this program">
+            <div className="fx-cmp-row fx-cmp-2 fx-cmp-head" role="row">
+              <span role="columnheader">Starting point</span>
+              <span role="columnheader" className="fx-cmp-dm">What changes after this program</span>
+            </div>
+            {appliedShifts.map((row) => (
+              <div className="fx-cmp-row fx-cmp-2" role="row" key={row.from}>
+                <span role="rowheader">{row.from}</span>
+                <span role="cell" className="fx-cmp-dm"><Check size={16} aria-hidden="true" />{row.to}</span>
+              </div>
+            ))}
+          </div>
+          <h3 className="fx-subhead">Roles you become ready for</h3>
+          <ul className="fx-tags fx-tags-roles" aria-label="Roles">{appliedRoles.map((r) => <li key={r}>{r}</li>)}</ul>
+          <p className="fx-fine">Titles vary by company. We don&apos;t guarantee placement, salary or hikes.</p>
+        </div>
+      </section>
+
+      {/* WHO IT'S FOR */}
+      <section className="fx-section" id="fit" aria-labelledby="fx-fit-title">
+        <div className="fx-wrap">
+          <Head id="fx-fit-title" eyebrow="Who it's for" title={<>Built for professionals <em>ready to build.</em></>} body="You don't need to be an AI expert. You do need curiosity and the willingness to code along." />
+          <div className="fx-fitgrid">
+            <div className="fx-fitbox fx-fit-yes">
+              <h3>Who this course is for</h3>
+              <ul>{appliedFor.map((f) => <li key={f}><Check size={16} aria-hidden="true" />{f}</li>)}</ul>
+            </div>
+            <div className="fx-fitbox fx-fit-yes">
+              <h3>Prerequisites &amp; eligibility</h3>
+              <ul>{appliedPrereqs.map((f) => <li key={f}><Check size={16} aria-hidden="true" />{f}</li>)}</ul>
+            </div>
+            <div className="fx-fitbox fx-fit-no">
+              <h3>Not the right fit if</h3>
+              <ul>{appliedNotFor.map((f) => <li key={f}><X size={16} aria-hidden="true" />{f}</li>)}</ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CURRICULUM */}
+      <section className="fx-section fx-paper" id="curriculum" aria-labelledby="fx-curr-title">
+        <div className="fx-wrap">
+          <div className="fx-split fx-split-end">
+            <Head id="fx-curr-title" eyebrow="Curriculum · 8 weeks · 2 months" title={<>From LLM foundations <em>to a multi-agent capstone.</em></>} body="One module a week, each with a hands-on project. Pick a month, then open any week for topics, the project and tools." />
+            <Syllabus cta="Applied curriculum (full syllabus)" variant="dark" label="Get the full syllabus PDF" />
+          </div>
+          <FdeCurriculum phases={appliedPhases} />
+        </div>
+      </section>
+
+      {/* PROJECTS */}
+      <section className="fx-section fx-ink" id="projects" aria-labelledby="fx-proj-title">
+        <div className="fx-wrap">
+          <Head id="fx-proj-title" eyebrow="What you'll build" title={<>Live projects, <em>not theory slides.</em></>} body="Every module ends in something that runs. By Week 8 they come together in one integrated agentic AI application." />
+          <ul className="fx-projects">
+            {appliedProjects.map((p, index) => (
+              <li key={p.code} className="fx-project" style={{ "--acc": accents[index % accents.length] } as React.CSSProperties}>
+                <div className="fx-project-art" aria-hidden="true"><span>{p.code}</span><i /><i /><i /></div>
+                <div className="fx-project-body">
+                  <p className="fx-project-meta">{p.client}</p>
+                  <h3>{p.name}</h3>
+                  <p className="fx-project-brief">{p.brief}</p>
+                  <ul className="fx-tags" aria-label="Stack">{p.stack.map((s) => <li key={s}>{s}</li>)}</ul>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* TOOLS */}
+      <section className="fde-toolkit fx-tools" id="tools" aria-labelledby="fx-tools-title">
+        <div className="container">
+          <div className="fde-toolkit-heading">
+            <div><p className="fde-eyebrow">Every tool you will learn and use</p><h2 id="fx-tools-title">The SDKs and frameworks agentic AI teams use.</h2></div>
+            <p>Hands-on with the exact SDKs, frameworks and platforms, not just theory slides.</p>
+          </div>
+          <ToolWall groups={appliedToolGroups} />
+          <p className="fx-fine fx-fine-dark">Product and company names are trademarks of their respective owners and are shown for identification only; no affiliation is implied.</p>
+        </div>
+      </section>
+
+      {/* MENTOR */}
+      <section className="fx-section" id="mentor" aria-labelledby="fx-mentor-title">
+        <div className="fx-wrap fx-mentor">
+          <div className="fx-mentor-photo">
+            <Image src="/images/deepesh-mishra-founder.jpeg" alt="Deepesh Mishra, founder and lead mentor at Datamarcos" width={600} height={720} sizes="(max-width: 760px) 90vw, 420px" />
+            <span className="fx-mentor-badge"><BadgeCheck size={15} aria-hidden="true" /> Lead mentor</span>
+          </div>
           <div>
-            <p className="eyebrow">Why this program</p>
-            <h2 className="section-title">Real-world AI learning for professionals who want to keep growing.</h2>
-            <p className="section-copy">
-              Datamarcos blends technical depth with practical delivery so you learn the systems, workflows and reasoning behind modern AI engineering without getting lost in hype.
-            </p>
-          </div>
-
-          <div className="agentic-feature-list">
-            {pillars.map((item) => (
-              <article key={item.title} className="agentic-feature-card">
-                <div className="agentic-icon-wrap">
-                  <Star size={20} />
-                </div>
-                <div>
-                  <h3>{item.title}</h3>
-                  <p>{item.copy}</p>
-                </div>
-              </article>
-            ))}
+            <p className="fx-eyebrow">Know your mentor</p>
+            <h2 id="fx-mentor-title">Deepesh Mishra</h2>
+            <p className="fx-mentor-role">Founder, Datamarcos · Solution Architect · Corporate Trainer · BITS Pilani alumnus</p>
+            <p>Deepesh is a Solution Architect and Corporate Trainer with 18+ years of industry experience who has trained 25,000+ professionals across 200+ organizations. In this certification he goes beyond using AI tools to how agentic systems are designed and built, with practical work on agent architecture, tool calling, APIs and agentic workflows.</p>
+            <dl className="fx-mentor-stats">
+              <div><dt>Professionals trained</dt><dd>25,000+</dd></div>
+              <div><dt>Organizations</dt><dd>200+</dd></div>
+              <div><dt>Years in industry</dt><dd>18+</dd></div>
+              <div><dt>Countries</dt><dd>10+</dd></div>
+            </dl>
+            <div className="fx-mentor-actions">
+              <a className="fx-link" href={DEEPESH_LINKEDIN} target="_blank" rel="noreferrer"><Linkedin size={16} aria-hidden="true" /> Recommendations on LinkedIn <ArrowUpRight size={14} aria-hidden="true" /></a>
+              <Link className="fx-link" href="/corporate-training">Teams he has trained <ArrowRight size={14} aria-hidden="true" /></Link>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="section agentic-proof-section">
-        <div className="container">
-          <div className="agentic-heading-center">
-            <p className="eyebrow">Learning in the room</p>
-            <h2 className="section-title">Real delivery. Real people. Real momentum.</h2>
-            <p className="section-copy">The certification brings the same practical energy found in Deepesh&apos;s enterprise classrooms into a focused, hands-on AI learning path.</p>
-          </div>
-
-          <div className="agentic-classroom-grid">
-            {classroomPreviews.map((preview) => (
-              <figure className="agentic-classroom-card" key={preview.image}>
-                <img src={preview.image} alt={preview.label} loading="lazy" decoding="async" />
-                <figcaption><strong>{preview.label}</strong><span>{preview.copy}</span></figcaption>
-              </figure>
-            ))}
-          </div>
-
-          <blockquote className="agentic-feedback-card">
-            <div className="agentic-feedback-mark">“</div>
-            <p>{learnerFeedback}</p>
-            <footer>Kumar Gaurav <span>Senior Azure Data Engineer @ PwC · Ex-EY · Ex-Genpact</span></footer>
-          </blockquote>
+      {/* LEARNERS */}
+      <section className="fx-section fx-learners" id="learners" aria-labelledby="fx-learn-title">
+        <div className="fx-wrap">
+          <Head id="fx-learn-title" eyebrow="Learner proof" title={<>Where our learners <em>are now.</em></>} body="Real learners and teams who trained with Deepesh Mishra, in their own words. Every story links to its source." />
+          <AlumniOutcomes />
         </div>
       </section>
 
-      <section className="section">
-        <div className="container">
-          <div className="agentic-heading-center">
-            <p className="eyebrow">What sets it apart</p>
-            <h2 className="section-title">From AI curiosity to applied implementation.</h2>
-          </div>
-
-          <div className="agentic-grid-two">
-            <div className="agentic-focus-card">
-              <div className="agentic-card-icon"><Sparkles size={20} /></div>
-              <h3>What you’ll learn</h3>
-              <div className="tech-list">
-                {[
-                  "LLM Foundations",
-                  "Prompt design & structured output",
-                  "RAG & retrieval systems",
-                  "Agentic workflows",
-                  "Tool calling & orchestration",
-                  "Multi-agent patterns",
-                  "MCP & automation",
-                  "Production AI evaluation"
-                ].map((item) => (
-                  <span className="tech-chip" key={item}>{item}</span>
-                ))}
+      {/* COMPARE */}
+      <section className="fx-section fx-paper" id="compare" aria-labelledby="fx-cmp-title">
+        <div className="fx-wrap">
+          <Head id="fx-cmp-title" eyebrow="Choose your course" title={<>Applied Agentic AI <em>or a longer program?</em></>} body="How the three Datamarcos AI courses compare, so you can start at the right depth." />
+          <div className="fx-cmp" role="table" aria-label="Applied Agentic AI compared with the GenAI & Agentic AI Engineer and Forward Deployed AI Engineer programs">
+            <div className="fx-cmp-row fx-cmp-3 fx-cmp-head" role="row">
+              <span role="columnheader"><span className="fx-sr">Feature</span></span>
+              <span role="columnheader" className="fx-cmp-dm">Applied Agentic AI</span>
+              <span role="columnheader">GenAI &amp; Agentic AI Engineer</span>
+              <span role="columnheader">Forward Deployed AI Engineer</span>
+            </div>
+            {appliedChooser.map((row) => (
+              <div className="fx-cmp-row fx-cmp-3" role="row" key={row.label}>
+                <span role="rowheader">{row.label}</span>
+                <span role="cell" className="fx-cmp-dm"><Check size={16} aria-hidden="true" />{row.applied}</span>
+                <span role="cell" data-label="GenAI & Agentic AI"><Minus size={14} aria-hidden="true" />{row.genai}</span>
+                <span role="cell" data-label="FDE"><Minus size={14} aria-hidden="true" />{row.fde}</span>
               </div>
-            </div>
-
-            <div className="agentic-focus-card agentic-focus-highlight">
-              <div className="agentic-card-icon"><Users size={20} /></div>
-              <h3>Who it is built for</h3>
-              <ul className="agentic-check-list">
-                {[
-                  "Data engineers and analytics professionals",
-                  "Software engineers exploring AI implementation",
-                  "Technical leaders and product-minded teams",
-                  "Working professionals ready to upskill fast"
-                ].map((item) => (
-                  <li key={item}><Check size={16} /> {item}</li>
-                ))}
-              </ul>
-            </div>
+            ))}
+          </div>
+          <p className="fx-fine">Explore the <Link href="/programs/genai-agentic-ai-engineer">GenAI &amp; Agentic AI Engineer</Link> and <Link href="/programs/forward-deployed-ai-engineer">Forward Deployed AI Engineer</Link> programs.</p>
+          <div className="fx-cta-band">
+            <p><b>Not sure which fits?</b> A counsellor can walk you through the syllabus, batch dates and EMI options in 15 minutes.</p>
+            <Cta cta="Applied compare (counsellor)" />
           </div>
         </div>
       </section>
 
-      <section className="section alt">
-        <div className="container agentic-two-col">
+      {/* CERTIFICATE */}
+      <section className="fx-section" id="certificate" aria-labelledby="fx-cert-title">
+        <div className="fx-wrap fx-cert">
+          <div className="fx-cert-card" aria-hidden="true">
+            <div className="fx-cert-inner">
+              <span className="fx-cert-logo">DATAMARCOS</span>
+              <small>Certificate of completion</small>
+              <strong>Applied Agentic AI Certification</strong>
+              <span className="fx-cert-line" />
+              <small>LLMs · RAG · agents · multi-agent · MCP</small>
+              <Award className="fx-cert-seal" size={44} />
+            </div>
+          </div>
           <div>
-            <p className="eyebrow">Mentor footprint</p>
-            <h2 className="section-title">Trusted by leading teams and organizations.</h2>
-            <div className="agentic-logo-row">
-              {mentorLogos.map((mentor) => (
-                <span key={mentor}>{mentor}</span>
-              ))}
-            </div>
+            <Head id="fx-cert-title" eyebrow="Certificate & support" title={<>A certificate backed by <em>projects you can show.</em></>} body="Every learner who completes the program receives the Datamarcos Applied Agentic AI Certification, validating hands-on proficiency across LLMs, RAG, agents, multi-agent orchestration and MCP." />
+            <ul className="fx-career">
+              <li><Check size={16} aria-hidden="true" />Small-batch, interactive live sessions led directly by Deepesh Mishra</li>
+              <li><Check size={16} aria-hidden="true" />Real-time Q&amp;A and doubt resolution</li>
+              <li><Check size={16} aria-hidden="true" />1:1 mentorship and career support</li>
+              <li><Check size={16} aria-hidden="true" />Continued mentorship as you apply these skills at work</li>
+            </ul>
+            <p className="fx-fine">We do not guarantee placement, salary or hikes. Outcomes depend on each learner.</p>
           </div>
+        </div>
+      </section>
 
-          <div className="agentic-side-stack">
-            {reasons.map((reason) => (
-              <div key={reason.title} className="agentic-reason-item">
-                <div className="agentic-check-bullet"><Check size={15} /></div>
-                <div>
-                  <h3>{reason.title}</h3>
-                  <p>{reason.copy}</p>
-                </div>
-              </div>
+      {/* FAQ */}
+      <section className="fx-section fx-paper" id="faq" aria-labelledby="fx-faq-title">
+        <div className="fx-wrap fx-faq">
+          <div>
+            <Head id="fx-faq-title" eyebrow="FAQ" title={<>Questions, <em>answered.</em></>} body="Can't find yours? A counsellor will answer it on a short call." />
+            <Cta cta="Applied FAQ (counsellor)" variant="dark" label="Ask a counsellor" />
+          </div>
+          <div className="fx-faq-list">
+            {appliedFaqs.map((faq, index) => (
+              <details key={faq.q} open={index === 0}>
+                <summary>{faq.q}<span aria-hidden="true" /></summary>
+                <FaqAnswer faq={faq} />
+              </details>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="section">
-        <div className="container">
-          <div className="agentic-heading-center">
-            <p className="eyebrow">Curriculum build path</p>
-            <h2 className="section-title">A structured eight-week path from AI fundamentals to agentic execution.</h2>
+      {/* BROCHURE */}
+      <section className="fx-section fx-brochure" id="brochure" aria-labelledby="fx-bro-title">
+        <div className="fx-wrap">
+          <div className="fx-split fx-split-end">
+            <Head id="fx-bro-title" eyebrow="The full program guide" title={<>Read the 8-week <em>curriculum.</em></>} body="Modules, projects, tools and mentor details in one PDF." />
+            <Syllabus cta="Applied brochure section" variant="dark" label="Download PDF" />
           </div>
-
-          <div className="agentic-learning-path">
-            <div className="agentic-path-line" aria-hidden="true" />
-            {weeklyModules.map((module) => (
-              <article key={module.week} className="agentic-path-item">
-                <div className="agentic-path-marker"><span>{module.week.replace("Week ", "")}</span></div>
-                <div className="agentic-module-card">
-                  <span>{module.week}</span>
-                  <h3>{module.title}</h3>
-                  <p>{module.copy}</p>
-                </div>
-              </article>
-            ))}
-          </div>
+          <div className="fx-pdf"><GatedBrochureFrame src={APPLIED_BROCHURE} title="Applied Agentic AI Certification brochure" course={APPLIED_COURSE} cover="/images/applied-agentic-ai/hero-video-poster.webp" /></div>
         </div>
       </section>
 
-      <section className="section alt">
-        <div className="container">
-          <div className="agentic-heading-center">
-            <p className="eyebrow">What you can do by the end</p>
-            <h2 className="section-title">Build useful AI systems, not just demos.</h2>
+      {/* APPLY */}
+      <section className="fx-apply" id="apply" aria-labelledby="fx-apply-title">
+        <div className="fx-hero-glow" aria-hidden="true" />
+        <div className="fx-wrap fx-apply-grid">
+          <div>
+            <p className="fx-eyebrow">Small-batch live cohorts</p>
+            <h2 id="fx-apply-title">Six months from now, <em>you could be shipping agents.</em></h2>
+            <p>Share a few details. A counsellor will talk through your background, the next batch date, EMI options and enrollment steps.</p>
+            <ul className="fx-apply-list">
+              <li><Rocket size={17} aria-hidden="true" /> A project every module + an integrated multi-agent capstone</li>
+              <li><UsersRound size={17} aria-hidden="true" /> Live, mentor-led sessions with Deepesh Mishra</li>
+              <li><Bot size={17} aria-hidden="true" /> RAG, agents, multi-agent, MCP, voice and n8n automation</li>
+              <li><ShieldCheck size={17} aria-hidden="true" /> Honest outcomes: no placement or salary guarantees</li>
+            </ul>
+            <Syllabus cta="Applied apply (syllabus)" variant="light" label="Prefer to read first? Get the syllabus" />
           </div>
-
-          <div className="agentic-outcome-grid">
-            {outcomes.map((item) => (
-              <div className="agentic-outcome-item" key={item}>
-                <Check size={16} />
-                <span>{item}</span>
-              </div>
-            ))}
-          </div>
+          <InlineLeadForm
+            idPrefix="applied-apply"
+            course={APPLIED_COURSE}
+            lockCourse
+            cta="Applied inline form (apply section)"
+            eyebrow={APPLIED_TITLE}
+            title="Request a call back."
+            intro="EMI options available, talk to a counsellor."
+            submitLabel="Request my call"
+            trust={["8 weeks", "Live & mentor-led", "No prior AI needed"]}
+            successTitle="Thanks{first}! Request received."
+            successBody={successBody}
+            successLinks={successLinks}
+            minHeight={560}
+          />
         </div>
       </section>
-
-      <section className="section student-placement-showcase agentic-placement-section">
-        <div className="container">
-          <div className="student-placement-header">
-            <div>
-              <p className="eyebrow">Student success stories</p>
-              <h2 className="section-title">Career-ready learners from our AI programs.</h2>
-            </div>
-          </div>
-
-          <div className="student-placement-marquee" aria-label="Student career placements">
-            <div className="student-placement-track">
-              {[...studentPlacements, ...studentPlacements].map((student, index) => (
-                <a key={`${student.name}-${index}`} href={student.link} target="_blank" rel="noreferrer" className="student-placement-card">
-                  <div className="student-placement-image-wrap">
-                    <img src={student.image} alt={student.name} decoding="async" />
-                    <span className="student-placement-badge">{student.short}</span>
-                  </div>
-                  <div className="student-placement-body">
-                    <div className="student-placement-company">{student.company}</div>
-                    <h3>{student.name}</h3>
-                    <p>{student.role}</p>
-                    <span className="student-placement-link">View LinkedIn <ArrowRight size={15} /></span>
-                  </div>
-                </a>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="container agentic-showcase">
-          <div className="agentic-image-panel">
-            <img src="/images/applied-agentic-ai/classroom-live.webp" alt="Learners working on laptops in a live Datamarcos classroom session" loading="lazy" decoding="async" />
-          </div>
-
-          <div className="agentic-proof-stack">
-            <div className="agentic-proof-card">
-              <p className="eyebrow">Learner feedback</p>
-              <img src="/images/applied-agentic-ai/classroom-sigmaoid.webp" alt="Group photo from a Datamarcos data engineering and GenAI training session at Sigmoid" loading="lazy" decoding="async" />
-            </div>
-            <div className="agentic-proof-card">
-              <img src="/images/applied-agentic-ai/classroom-novartis.webp" alt="Datamarcos analytics, Python and machine learning training for Novartis employees" loading="lazy" decoding="async" />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="section final-program-cta">
-        <div className="container">
-          <span className="badge live">Learn. Apply. Grow. Succeed.</span>
-          <h2>Take the next step in your AI journey with Datamarcos.</h2>
-          <p>
-            This certification is designed for professionals who want to become confident with modern AI systems, not just learn isolated prompts or surface-level tools.
-          </p>
-
-          <div className="hero-actions center-actions">
-            <a className="button primary" href={whatsappConsultation} target="_blank" rel="noreferrer" data-dm-lead>
-              Book your call <ArrowRight size={18} />
-            </a>
-            <a className="button secondary" href={brochurePath} download target="_blank" rel="noreferrer">
-              Download brochure <ArrowDownToLine size={18} />
-            </a>
-          </div>
-
-          <div className="agentic-footer-links">
-            <a href={whatsappBrochure} target="_blank" rel="noreferrer">
-              <MessageCircle size={16} /> WhatsApp brochure request
-            </a>
-            <Link href="/contact" data-dm-lead>Talk to a program advisor</Link>
-          </div>
-          <p className="agentic-go-further">Go further: <Link href="/programs/forward-deployed-ai-engineer">Forward Deployed AI Engineer program</Link></p>
-        </div>
-      </section>
-    </div>
+    </article>
   );
 }
