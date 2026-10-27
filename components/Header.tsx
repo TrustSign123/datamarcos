@@ -130,7 +130,7 @@ export function Header() {
                     <Link key={entry.title} className="dmx-res" href={entry.href} onClick={closeAll}><strong>{entry.title}</strong><span>{entry.description}</span></Link>
                   ))}
                   {/* Corporate training is secondary (B2C positioning): moved here from the header action bar. */}
-                  <Link className="dmx-res" href="/contact" onClick={closeAll}><strong><Building2 size={13} aria-hidden="true" /> For Teams</strong><span>Corporate technology training for your team.</span></Link>
+                  <Link className="dmx-res" href="/corporate-training" onClick={closeAll}><strong><Building2 size={13} aria-hidden="true" /> For Teams</strong><span>Corporate technology training for your team.</span></Link>
                 </div>
               )}
             </div>
@@ -172,7 +172,7 @@ export function Header() {
                 : <Link key={entry.title} href={entry.href} onClick={closeAll}>{entry.title}</Link>)}
             </details>
             <Link href="/about" onClick={closeAll}>About</Link>
-            <Link href="/contact" onClick={closeAll}>For Teams (corporate training)</Link>
+            <Link href="/corporate-training" onClick={closeAll}>For Teams (corporate training)</Link>
             <Link href="/contact" onClick={closeAll}>Contact</Link>
           </div>
         </div>

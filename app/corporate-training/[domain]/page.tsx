@@ -15,7 +15,7 @@ export function generateStaticParams() {
   return Object.keys(domains).map((domain) => ({ domain }));
 }
 
-// Corporate sub-pages follow /corporate-training: live but noindex and out of the sitemap (SEO pass 2026-10-26).
+// Dormant since 2026-10-27: next.config.ts 301s /corporate-training/:domain to /corporate-training. Kept noindex in case the redirect is removed.
 export async function generateMetadata({ params }: { params: Promise<{ domain: string }> }) {
   const { domain } = await params;
   const item = domains[domain];

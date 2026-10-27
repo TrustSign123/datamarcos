@@ -7,6 +7,7 @@ import { LearnerVideoCard } from "@/components/home/LearnerVideoCard";
 import { AlumniOutcomes } from "@/components/home/AlumniOutcomes";
 import { EMI_NOTE, homeFaqs, homePrograms, learnerFeedback, learnerVideos } from "@/config/home";
 import { env, site } from "@/config/site";
+import { corporateProgrammes, programmeLabel } from "@/config/corporate";
 
 const ogTitle = "4 Live Online AI & Data Engineering Courses with Deepesh Mishra | Datamarcos";
 const ogDescription = "Forward Deployed AI Engineer, Generative AI & Agentic AI Engineer, Applied Agentic AI Certification and Advance Data Engineering with Applied GenAI & Agentic AI. Live online courses for students and working professionals, mentor-led by Deepesh Mishra.";
@@ -183,6 +184,15 @@ export default function Home() {
         </div>
       </section>
 
+      {/* B2B, secondary to the four courses above: plain-text names only, no logos (facts: config/corporate.ts). */}
+      <aside className="dmh-teams-trained" aria-labelledby="home-teams-title">
+        <div className="container">
+          <p className="dmh-teams-head"><b id="home-teams-title">Teams we&apos;ve trained</b> Our founder-led team has trained teams across 200+ organizations, including:</p>
+          <ul>{corporateProgrammes.filter((p) => p.strip).map((p) => <li key={p.org}>{programmeLabel(p)}</li>)}</ul>
+          <Link href="/corporate-training">Corporate training for your team <ArrowRight size={15} /></Link>
+        </div>
+      </aside>
+
       <section className="dmh-section dmh-reels-section" id="learner-stories" aria-labelledby="home-reels-title">
         <div className="container">
           <div className="dmh-section-head">
@@ -244,12 +254,12 @@ export default function Home() {
             <p className="dmh-kicker">Your mentor</p>
             <h2 id="home-mentor-title">Learn live with Deepesh Mishra.</h2>
             <p className="dmh-mentor-role">{site.founder.title} · BITS Pilani alumnus · Technology trainer and solution architect</p>
-            <p>Deepesh has 18+ years in technology and has trained 25,000+ professionals across 200+ corporate and academic clients. His teaching connects clear concepts with hands-on work and real-world examples.</p>
+            <p>Deepesh has 18+ years in technology and has trained 25,000+ professionals across 200+ organizations. His teaching connects clear concepts with hands-on work and real-world examples.</p>
             <div className="dmh-chips">{site.founder.teaches.slice(0, 6).map((item) => <span key={item}>{item}</span>)}</div>
             <div className="dmh-mentor-stats">
               <div><strong>18+</strong><span>Years of experience</span></div>
               <div><strong>25,000+</strong><span>Professionals trained</span></div>
-              <div><strong>200+</strong><span>Corporate &amp; academic clients</span></div>
+              <div><strong>200+</strong><span>Organizations</span></div>
             </div>
             <Link href="/about" className="dmh-ghost">More about Deepesh <ArrowUpRight size={16} /></Link>
             <div className="dmh-expert">
@@ -305,7 +315,7 @@ export default function Home() {
         <div className="container">
           <Building2 size={20} aria-hidden="true" />
           <p><b>Training a team?</b> Role-based AI, data and cloud programs for organizations.</p>
-          <Link href="/contact">Talk to us <ArrowRight size={16} /></Link>
+          <Link href="/corporate-training">Corporate training <ArrowRight size={16} /></Link>
         </div>
       </aside>
 
