@@ -2,12 +2,15 @@
 
 import { useState } from "react";
 import { Flag } from "lucide-react";
-import type { Phase } from "@/config/fde";
+/** Loose shape so other programs can reuse the roadmap; FDE's Phase/Week types satisfy it. */
+export type CurriculumWeek = { week: number; title: string; topics: string[]; lab?: string; ship?: string; tools?: string };
+export type CurriculumPhase = { id: string; number: string; title: string; weeks: string; summary: string; checkpoint?: string; after?: string; items: CurriculumWeek[] };
+type Phase = CurriculumPhase;
 
-/** Interactive 22-week roadmap: phase timeline tabs + week accordions. All content stays in the HTML for SEO. */
+/** Interactive week-by-week roadmap: phase timeline tabs + week accordions. All content stays in the HTML for SEO. */
 export function FdeCurriculum({ phases }: { phases: Phase[] }) {
   const [phaseId, setPhaseId] = useState(phases[0].id);
-  const [openWeeks, setOpenWeeks] = useState<number[]>([1]);
+  const [openWeeks, setOpenWeeks] = useState<number[]>([phases[0].items[0].week]);
   const total = phases.reduce((sum, phase) => sum + phase.items.length, 0);
 
   const toggle = (week: number) => setOpenWeeks((current) => (current.includes(week) ? current.filter((w) => w !== week) : [...current, week]));
@@ -43,8 +46,8 @@ export function FdeCurriculum({ phases }: { phases: Phase[] }) {
             <p className="fx-eyebrow">Phase {phase.number} · {phase.weeks}</p>
             <h3>{phase.title}</h3>
             <p>{phase.summary}</p>
-            <div className="fx-curr-check"><Flag size={16} aria-hidden="true" /><span>{phase.checkpoint}</span></div>
-            <div className="fx-curr-after"><strong>After this phase you can</strong><p>{phase.after}</p></div>
+            {phase.checkpoint && <div className="fx-curr-check"><Flag size={16} aria-hidden="true" /><span>{phase.checkpoint}</span></div>}
+            {phase.after && <div className="fx-curr-after"><strong>After this phase you can</strong><p>{phase.after}</p></div>}
           </aside>
           <ol className="fx-weeks">
             {phase.items.map((week) => {
@@ -60,9 +63,9 @@ export function FdeCurriculum({ phases }: { phases: Phase[] }) {
                   </h4>
                   {open && <div id={`fx-week-${week.week}`} className="fx-week-body">
                     <ul>{week.topics.map((topic) => <li key={topic}>{topic}</li>)}</ul>
-                    <p className="fx-week-meta"><b>Lab</b>{week.lab}</p>
-                    <p className="fx-week-meta"><b>You ship</b>{week.ship}</p>
-                    <p className="fx-week-meta"><b>Tools</b>{week.tools}</p>
+                    {week.lab && <p className="fx-week-meta"><b>Lab</b>{week.lab}</p>}
+                    {week.ship && <p className="fx-week-meta"><b>You ship</b>{week.ship}</p>}
+                    {week.tools && <p className="fx-week-meta"><b>Tools</b>{week.tools}</p>}
                   </div>}
                 </li>
               );

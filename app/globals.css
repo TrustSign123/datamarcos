@@ -5720,3 +5720,43 @@ body:has(.agentic-course-page) > .dmx-announce { display: none; }
 .guide-surface .guide-program p { color: rgba(255,255,255,.82); }
 .guide-surface .guide-card, .guide-surface .guide-table-wrap, .guide-surface .guide-faq details { border-color: #e3ddcf; }
 .guide-surface .guide-table th, .guide-surface .guide-table td { border-top-color: #ece7db; }
+
+/* ===== GenAI + Applied Agentic AI pages on the FDE (fx) design system, Oct 2026 ===== */
+/* Modifiers only: nothing here changes the FDE page. */
+.fx-life.fx-life-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.fx-life.fx-life-3::before { left: 17%; right: 17%; }
+.fx-stats.fx-stats-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.fx-stats.fx-stats-num strong { font-size: 1rem; letter-spacing: .08em; }
+.fx-stats.fx-stats-num p { margin-bottom: 0; }
+.fx-stats.fx-stats-num p b { display: block; margin-bottom: 6px; color: var(--ink); font-size: 1.02rem; }
+.fx-jobmap.fx-jobmap-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.fx-cmp-row.fx-cmp-2 { grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); }
+.fx-cmp-row.fx-cmp-3 { grid-template-columns: minmax(0, .8fr) repeat(3, minmax(0, 1fr)); }
+.fx-tool-text { padding-left: 14px; }
+.fx-hero-video { position: relative; overflow: hidden; width: 100%; aspect-ratio: 16 / 9; border: 1px solid rgba(255,255,255,.16); border-radius: 22px; background: #0a0b0b; box-shadow: 0 30px 80px rgba(0,0,0,.45); }
+.fx-hero-media { display: grid; gap: 14px; margin: 0; }
+.fx-hero-media figcaption { display: flex; align-items: center; gap: 12px; color: rgba(255,255,255,.7); font-size: .86rem; }
+.fx-hero-media figcaption img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; }
+.fx-hero-media figcaption b { display: block; color: #fff; font-size: .92rem; }
+.fx-facts.fx-facts-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+@media (max-width: 1080px) {
+  .fx-stats.fx-stats-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .fx-jobmap.fx-jobmap-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+  .fx-life.fx-life-3 { grid-template-columns: 1fr; }
+  .fx-stats.fx-stats-3 { grid-template-columns: 1fr; }
+  .fx-cmp-row.fx-cmp-2, .fx-cmp-row.fx-cmp-3 { grid-template-columns: 1fr; }
+  .fx-facts.fx-facts-4 { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 560px) { .fx-jobmap.fx-jobmap-4 { grid-template-columns: 1fr; } }
+@media (max-width: 760px) { .fx-facts.fx-facts-4 div:last-child { grid-column: auto; border-left: 1px solid rgba(255,255,255,.08); } }
+.fx-crumbs.fx-crumbs-bar { margin: 0 auto; padding-top: 14px; padding-bottom: 14px; }
+.fx-crumbs.fx-crumbs-bar ol, .fx-crumbs.fx-crumbs-bar [aria-current] { color: #5f625d; }
+.fx-crumbs.fx-crumbs-bar li + li::before { color: #9a9c97; }
+.fx-crumbs.fx-crumbs-bar a { color: #2b2e2a; text-decoration-color: #cfcbc2; }
+.fx-subhead { margin: 48px 0 0; font-size: 1.3rem; line-height: 1.2; }
+.fx-learners .fx-fine, .fx-fine.fx-fine-dark { color: rgba(255,255,255,.62); }
+.fde-ga-page .fx-mentor-actions, .fx-applied .fx-mentor-actions { display: flex; flex-wrap: wrap; gap: 18px; }
+.fx-tags.fx-tags-roles { margin-top: 14px; }
+.fx-tags.fx-tags-roles li { padding: 8px 14px; background: #fff; border-color: var(--line); color: var(--ink); font-size: .86rem; font-weight: 800; }

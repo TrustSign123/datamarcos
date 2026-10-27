@@ -1,20 +1,36 @@
+import type React from "react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowDownToLine, ArrowRight, Check, ShieldCheck, Sparkles, Workflow } from "lucide-react";
-import { FDECallRequestForm } from "@/components/program/FDECallRequestForm";
+import {
+  ArrowDownToLine, ArrowRight, ArrowUpRight, Award, BadgeCheck, Bot, Boxes, Check, Hammer, Linkedin, Presentation, Rocket, ShieldCheck,
+  Sparkles, UsersRound, Workflow, X
+} from "lucide-react";
 import { ProgramFee } from "@/components/program/ProgramFee";
-import { GatedBrochureFrame } from "@/components/lead/GatedBrochureFrame";
 import { YouTubeFacade } from "@/components/YouTubeFacade";
-import { courseJsonLd } from "@/lib/seo";
+import { InlineLeadForm } from "@/components/lead/InlineLeadForm";
+import { GatedBrochureFrame } from "@/components/lead/GatedBrochureFrame";
+import { AlumniOutcomes } from "@/components/home/AlumniOutcomes";
+import { FdeSectionNav, type FdeNavItem } from "@/components/program/fde/FdeSectionNav";
+import { FdeCurriculum } from "@/components/program/fde/FdeCurriculum";
+import { ToolWall } from "@/components/program/ToolWall";
+import { DEEPESH_LINKEDIN } from "@/config/home";
+import {
+  GENAI_BROCHURE, GENAI_COURSE, genaiAdmission, genaiCareer, genaiFaqs, genaiFitFor, genaiJourneys, genaiNotFor, genaiOpportunity,
+  genaiPhases, genaiProjects, genaiQuestions, genaiRhythm, genaiRoles, genaiSignals, genaiToolGroups, genaiToolkit,
+  type GenaiFaq
+} from "@/config/genai";
+import { site } from "@/config/site";
 
-const brochureUrl = "/brochures/DataMarcos_GenAI_Agentic_AI_Engineer_Brochure.pdf";
+const PATH = "/programs/genai-agentic-ai-engineer";
+const URL = `${site.url}${PATH}`;
+const brochureUrl = GENAI_BROCHURE;
 const videoId = "4eGgJmad5lY";
 
 export const metadata: Metadata = {
   title: "GenAI & Agentic AI Engineer Course, Live 18 Weeks | Datamarcos",
   description: "An 18-week, mentor-led live program to build, evaluate, secure and deploy GenAI and Agentic AI systems: 130+ hours, three client-style projects and a capstone.",
-  alternates: { canonical: "/programs/genai-agentic-ai-engineer" },
+  alternates: { canonical: PATH },
   openGraph: {
     title: "Generative AI & Agentic AI Engineer | Datamarcos",
     description: "Build it. Ship it. Own the outcome. Learn GenAI and Agentic AI engineering with Deepesh Mishra.",
@@ -22,51 +38,94 @@ export const metadata: Metadata = {
   }
 };
 
-const phases = [
-  { number: "01", weeks: "Weeks 1-3", title: "Foundations", subtitle: "Understand LLMs. Build like an engineer.", summary: "LLM fundamentals, prompt design, structured outputs and deployable GenAI APIs.", topics: ["Transformers, tokens, embeddings and context", "Compare OpenAI, Claude, Gemini and open models", "Structured JSON, Pydantic, tool calling and eval-first prompts", "Async Python, FastAPI, auth, retries, caching and Docker"], lab: "Compare three model providers, then build a tested GenAI API.", ship: "Prompt and evaluation kit · tested API service" },
-  { number: "02", weeks: "Weeks 4-7", title: "RAG systems", subtitle: "Build AI that survives real data.", summary: "Retrieval, knowledge graphs, multimodal documents and measurable answer quality.", topics: ["Embeddings, chunking, metadata and vector stores", "Hybrid search, reranking, query rewriting and multi-hop retrieval", "Knowledge graphs and GraphRAG with Neo4j", "Multimodal documents, OCR-free parsing and secure text-to-SQL"], lab: "Build and evaluate RAG over messy documents, tables and business data.", ship: "Project 1 · Knowledge Copilot with hybrid RAG, RBAC and stakeholder demo" },
-  { number: "03", weeks: "Weeks 8-12", title: "Agentic AI", subtitle: "Systems that plan, act and connect safely.", summary: "Stateful agents, MCP, multi-agent orchestration, approvals and enterprise integrations.", topics: ["ReAct, plan-and-execute, routers and LangGraph state", "Tool registries, MCP servers, scopes and audit trails", "Supervisor, parallel and hierarchical multi-agent patterns", "Human approval, memory, agent evaluation, Jira, Slack and ServiceNow"], lab: "Build a supervisor-based operations copilot with governed tools and approvals.", ship: "Project 2 · Multi-Agent Ops Copilot with traces, integrations and cost dashboard" },
-  { number: "04", weeks: "Weeks 13-16", title: "Production & security", subtitle: "Ship systems enterprises can approve.", summary: "Guardrails, identity, observability, cost engineering, cloud deployment and governance.", topics: ["Prompt injection, PII masking, OAuth, SSO and RBAC", "Threat models, red-teaming and blast-radius controls", "LLMOps, tracing, CI evaluation gates, canaries and rollback", "Docker, Terraform, cloud deployment, SLOs and compliance essentials"], lab: "Red-team the system, harden it, deploy it and run an incident drill.", ship: "Project 3 · Production hardening, compliance pack, UAT and handoff" },
-  { number: "05", weeks: "Weeks 17-18", title: "Capstone & Demo Day", subtitle: "Run the full lifecycle. Defend your decisions.", summary: "Choose BFSI, healthcare, enterprise operations or a domain of your choice.", topics: ["Discovery, scoping and architecture decision records", "Build with RAG, agents and integrations", "Add evaluation, security controls and CI/CD", "Present to an industry-style review panel and prepare for interview loops"], lab: "Weekly mentor reviews, Demo Day, two mock interview loops.", ship: "Deployed capstone · portfolio · interview and job-search plan" }
+const nav: FdeNavItem[] = [
+  { id: "why", label: "Why now" },
+  { id: "roles", label: "Roles" },
+  { id: "fit", label: "Who it's for" },
+  { id: "curriculum", label: "Curriculum" },
+  { id: "projects", label: "Projects" },
+  { id: "tools", label: "Tools" },
+  { id: "mentor", label: "Mentor" },
+  { id: "learners", label: "Learners" },
+  { id: "compare", label: "Compare" },
+  { id: "faq", label: "FAQ" }
 ];
 
-const projects = [
-  { number: "P1", name: "Knowledge Copilot", domain: "BFSI · secure enterprise knowledge", body: "Hybrid RAG, secure text-to-SQL, role-based access, PII masking and guardrails. Deliver discovery notes, architecture and a stakeholder demo.", stack: "Python · FastAPI · PostgreSQL · Docker" },
-  { number: "P2", name: "Multi-Agent Ops Copilot", domain: "Enterprise operations · governed agents", body: "LangGraph supervisor, MCP tools, Jira and ServiceNow integrations, human approval and a cost-and-trace dashboard.", stack: "LangGraph · MCP · Jira · Slack · Kafka" },
-  { number: "P3", name: "Production Hardening", domain: "Regulated deployment · secure delivery", body: "Security review, compliance pack, red-team report, UAT, runbooks and client handoff for a regulated deployment.", stack: "Okta · OpenTelemetry · Grafana · Terraform" },
-  { number: "CAPSTONE", name: "Your domain. Your client.", domain: "BFSI · healthcare · enterprise operations", body: "Take a full project from discovery to handoff, then defend your decisions at Demo Day.", stack: "Databricks · Snowflake · CI/CD · Kubernetes" }
+const opportunityIcons = [Hammer, Workflow, ShieldCheck];
+const accents = ["#f4511e", "#2f6bff", "#0e9f84", "#b04cff"];
+const successLinks = [{ label: "Download the brochure", href: GENAI_BROCHURE, download: true }];
+const successBody = "A Datamarcos counsellor will call you about program fit, the next cohort date, EMI options and scholarships. Meanwhile, the brochure has the full 18-week roadmap.";
+
+const ORG_ID = `${site.url}/#organization`;
+const MENTOR_ID = `${site.url}/#deepesh-mishra`;
+
+/** Course + mentor + breadcrumb + FAQ. Deliberately NO offers / price. */
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "@id": `${URL}#course`,
+    name: "Generative AI & Agentic AI Engineer",
+    description: metadata.description,
+    url: URL,
+    image: `${site.url}/images/program-thumbnails/genai-agentic-ai-engineer.webp`,
+    inLanguage: "en-IN",
+    timeRequired: "P18W",
+    coursePrerequisites: ["Python basics and working engineering fundamentals, or strong shipped projects", "Bridge pre-work in Python, Linux, Git and SQL is provided before Day 1"],
+    teaches: ["LLM fundamentals, prompting and structured outputs", "RAG, knowledge graphs and multimodal document intelligence", "Agents, LangGraph, MCP and multi-agent orchestration", "AI security, guardrails and governance", "LLMOps, evaluation and observability", "Cloud deployment with Docker, Terraform and CI/CD"],
+    syllabusSections: genaiPhases.map((phase) => ({ "@type": "Syllabus", name: `${phase.title} (${phase.weeks})`, description: phase.summary })),
+    provider: { "@type": "Organization", "@id": ORG_ID, name: site.name, url: site.url },
+    educationalCredentialAwarded: { "@type": "EducationalOccupationalCredential", name: "Datamarcos Executive Certificate in Generative AI and Agentic AI Engineering", credentialCategory: "certificate" },
+    hasCourseInstance: {
+      "@type": "CourseInstance",
+      courseMode: "online",
+      courseWorkload: "PT130H",
+      courseSchedule: { "@type": "Schedule", repeatFrequency: "P1W", repeatCount: 18 },
+      instructor: { "@id": MENTOR_ID }
+    }
+  },
+  { "@context": "https://schema.org", "@type": "Person", "@id": MENTOR_ID, name: site.founder.name, jobTitle: "Founder and Lead Mentor", image: `${site.url}${site.founder.image}`, worksFor: { "@id": ORG_ID }, sameAs: [DEEPESH_LINKEDIN] },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: `${site.url}/` },
+      { "@type": "ListItem", position: 2, name: "Programs", item: `${site.url}/programs` },
+      { "@type": "ListItem", position: 3, name: "Generative AI & Agentic AI Engineer", item: URL }
+    ]
+  },
+  { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: genaiFaqs.map((faq) => ({ "@type": "Question", name: faq.q, acceptedAnswer: { "@type": "Answer", text: faq.a } })) }
 ];
 
-const outcomes = [
-  "Build reliable LLM applications with prompts, structured outputs and tools.",
-  "Design secure RAG, graph and multimodal systems over messy data.",
-  "Connect agents to databases, Jira, Slack and enterprise APIs with human approval.",
-  "Measure quality, cost and latency with repeatable evaluation.",
-  "Defend systems against prompt injection, data leakage and excessive agency.",
-  "Deploy on AWS, Azure or GCP using Docker, Terraform and CI/CD.",
-  "Explain and defend engineering decisions in GenAI and Agentic AI interviews."
-];
+function FaqAnswer({ faq }: { faq: GenaiFaq }) {
+  if (!faq.link || !faq.a.includes(faq.link.label)) return <p>{faq.a}</p>;
+  const [before, after] = faq.a.split(faq.link.label);
+  return <p>{before}<Link href={faq.link.href}>{faq.link.label}</Link>{after}</p>;
+}
 
-const tools = ["OpenAI", "Claude", "Gemini", "Hugging Face", "LangChain", "LangGraph", "CrewAI", "OpenAI Agents SDK", "Google ADK", "MCP", "A2A", "Python", "FastAPI", "Pydantic", "Qdrant", "Pinecone", "pgvector", "Neo4j", "RAGAS", "DeepEval", "Langfuse", "Databricks", "Snowflake", "AWS Bedrock", "Azure AI Foundry", "Docker", "Terraform", "Kubernetes", "OpenTelemetry", "Grafana", "Jira", "Slack", "ServiceNow", "Salesforce"];
+function Cta({ label = "Talk to a counsellor", cta, variant = "primary" }: { label?: string; cta: string; variant?: "primary" | "ghost" | "dark" }) {
+  return <a className={`fx-btn fx-btn-${variant}`} href="#apply" data-dm-lead data-cta={cta} data-course={GENAI_COURSE}>{label} <ArrowRight size={17} aria-hidden="true" /></a>;
+}
 
-const roles = ["GenAI / LLM Application Engineer", "RAG and Knowledge Engineer", "AI Agent Developer", "AI Solutions / Forward Deployed Engineer", "LLMOps / AI Platform Engineer", "AI Security and Governance Engineer"];
+function Syllabus({ cta, variant = "ghost", label = "Download syllabus" }: { cta: string; variant?: "ghost" | "light" | "dark"; label?: string }) {
+  return <a className={`fx-btn fx-btn-${variant}`} href={GENAI_BROCHURE} data-dm-download data-file={GENAI_BROCHURE} data-course={GENAI_COURSE} data-cta={cta}><ArrowDownToLine size={17} aria-hidden="true" /> {label}</a>;
+}
 
-const faqs = [
-  ["Do I need prior AI experience?", "No. The brochure expects Python basics and working engineering fundamentals or strong shipped projects. Bridge pre-work in Python, Linux, Git and SQL is provided before Day 1."],
-  ["How much time should I plan for each week?", "Plan for about 8-12 hours per week, including two live sessions, a weekday lab and project work."],
-  ["How is the program delivered?", "It is an 18-week executive program with two live sessions each week, weekly delivery labs, project studio, scheduled 1:1 mentorship and a final Demo Day."],
-  ["What projects will I build?", "Three client-style projects: a secure Knowledge Copilot, a Multi-Agent Ops Copilot and a Production Hardening project, followed by a domain-specific capstone."],
-  ["Will I get a job after the program?", "No placement, salary or hike is guaranteed. The program includes deployed projects, portfolio support, interview preparation, mock loops and a referral/outreach playbook."],
-  ["What is the fee and next cohort date?", "The program fee is ₹60,000, and EMI options are available (ask our counsellor). Admissions shares current cohort dates and scholarship details after a fit conversation."],
-  ["Can my company sponsor me or join as a team?", "Yes. Contact admissions to discuss corporate sponsorship and team cohorts."]
-];
-
-const courseSchema = courseJsonLd({ name: "Generative AI & Agentic AI Engineer", description: metadata.description as string, path: "/programs/genai-agentic-ai-engineer", duration: "P18W", workloadHours: 130 });
+function Head({ eyebrow, title, body, id }: { eyebrow: string; title: React.ReactNode; body?: React.ReactNode; id: string }) {
+  return (
+    <header className="fx-head">
+      <p className="fx-eyebrow">{eyebrow}</p>
+      <h2 id={id}>{title}</h2>
+      {body && <p className="fx-head-body">{body}</p>}
+    </header>
+  );
+}
 
 export default function GenAIAgenticEngineerPage() {
   return (
     <article className="fde-page fde-ga-page">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(courseSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      {/* HERO: unchanged from the previous page (kept exactly, including the YouTube facade). */}
       <section className="fde-hero fde-ga-hero" id="top">
         <div className="container fde-hero-grid">
           <div className="fde-hero-copy">
@@ -88,37 +147,295 @@ export default function GenAIAgenticEngineerPage() {
 
       <section className="fde-ga-proof" id="program-proof" aria-label="Program facts"><div className="container fde-proof-row"><div><strong>18</strong><span>weeks</span></div><div><strong>130+</strong><span>live hours, labs and studio</span></div><div><strong>4</strong><span>projects including capstone</span></div><div><strong>1:1</strong><span>scheduled mentorship</span></div><p>Live architecture sessions.<br />Weekly labs. Demo Day.</p></div></section>
 
-      <section className="fde-orbit-showcase fde-ga-orbit"><div className="container fde-orbit-layout"><div className="fde-orbit-copy"><p className="fde-eyebrow">From prompt to production</p><h2>Engineers who can<br /><em>own the full system.</em></h2><p>Move from model calls to dependable products: connect data, retrieve the right context, give agents governed tools, measure what works and ship safely.</p><div className="fde-orbit-caption"><span /> Build · Evaluate · Secure · Deploy</div></div><div className="fde-ga-path" aria-label="Generative and agentic AI engineering path"><div className="fde-ga-path-orbit" /><div className="fde-ga-path-core"><Sparkles size={27} /><strong>AI systems</strong><small>built for real work</small></div>{[{label:"LLMs",icon:"01"},{label:"RAG",icon:"02"},{label:"Agents",icon:"03"},{label:"MCP",icon:"04"},{label:"Security",icon:"05"},{label:"Production",icon:"06"}].map((n,i)=><div className={`fde-ga-orbit-chip fde-ga-chip-${i+1}`} key={n.label}><span>{n.icon}</span><strong>{n.label}</strong></div>)}</div></div></section>
+      <div className="fx">
+        <nav className="fx-crumbs fx-crumbs-bar fx-wrap" aria-label="Breadcrumb">
+          <ol>
+            <li><Link href="/">Home</Link></li>
+            <li><Link href="/programs">Programs</Link></li>
+            <li aria-current="page">Generative AI &amp; Agentic AI Engineer</li>
+          </ol>
+        </nav>
 
-      <section className="fde-ga-opportunity"><div className="container"><div className="fde-section-heading"><div><p className="fde-eyebrow">The engineering gap</p><h2>From AI demos to systems<br />teams can trust.</h2></div><p>Teams need engineers who can build LLM applications, integrate models with real data and tools, and stay accountable for quality, security and operation.</p></div><div className="fde-ga-role-grid">{[{title:"Builder",copy:"Builds LLM applications, RAG pipelines and agents that work on real, messy data."},{title:"Integrator",copy:"Connects models to databases, APIs, Jira, Slack and cloud so AI fits real workflows."},{title:"Owner",copy:"Evaluates, secures and operates AI in production, staying responsible for the outcome."}].map((x,i)=><article className="fde-ga-role" key={x.title}><span>0{i+1}</span><h3>{x.title}</h3><p>{x.copy}</p></article>)}</div><p className="fde-ga-caution">A career-focused program, not a placement guarantee. Hiring outcomes depend on your effort and the market.</p></div></section>
+        <FdeSectionNav items={nav} course={GENAI_COURSE} brand={<>GenAI<b>·</b>Agentic</>} ctaPrefix="GenAI" />
 
-      <section className="fde-ga-careers fde-section"><div className="container"><div className="fde-section-heading"><div><p className="fde-eyebrow">Career directions</p><h2>Build toward the work<br />you want to do.</h2></div><p>Choose a path where your existing engineering, data, QA, operations or domain experience can meet applied AI delivery.</p></div><div className="fde-ga-career-grid">{roles.map((role,i)=><article key={role}><span>0{i+1}</span><h3>{role}</h3><ArrowRight size={17} /></article>)}</div></div></section>
+        {/* WHY NOW */}
+        <section className="fx-section fx-why" id="why" aria-labelledby="fx-why-title">
+          <div className="fx-wrap">
+            <div className="fx-split">
+              <Head id="fx-why-title" eyebrow="The opportunity" title={<>From AI demos <em>to AI in production.</em></>} />
+              <div className="fx-why-copy">
+                <p>Companies have moved from AI demos to AI in production. They now need people who can build LLM apps and agents, and the secure, measured systems around them.</p>
+                <p>This program trains all three halves of that job, from the first model call to a system an enterprise will approve.</p>
+              </div>
+            </div>
+            <ol className="fx-life fx-life-3" aria-label="The three halves of a GenAI engineer's job">
+              {genaiOpportunity.map((item, index) => {
+                const Icon = opportunityIcons[index];
+                return (
+                  <li key={item.step} style={{ "--d": `${index * 90}ms` } as React.CSSProperties}>
+                    <span className="fx-life-n">{String(index + 1).padStart(2, "0")}</span>
+                    <Icon size={22} aria-hidden="true" />
+                    <h3>{item.step}</h3>
+                    <p>{item.body}</p>
+                  </li>
+                );
+              })}
+            </ol>
+          </div>
+        </section>
 
-      <section className="fde-ga-projects"><div className="container"><div className="fde-section-heading"><div><p className="fde-eyebrow">Project studio</p><h2>Four client-style projects.<br />No toy apps.</h2></div><p>Each project has a client brief, stakeholders, constraints, security requirements and a panel review. The deliverables are deployed, documented and portfolio-ready.</p></div><div className="fde-ga-project-list">{projects.map(p=><article className="fde-ga-project" key={p.number}><span className="fde-ga-project-number">{p.number}</span><div><small>{p.domain}</small><h3>{p.name}</h3></div><p>{p.body}</p><span className="fde-ga-project-stack">{p.stack}</span><ArrowRight className="fde-ga-project-arrow" size={18} /></article>)}</div></div></section>
+        {/* ROLES + SIGNALS */}
+        <section className="fx-section fx-paper" id="roles" aria-labelledby="fx-roles-title">
+          <div className="fx-wrap">
+            <Head id="fx-roles-title" eyebrow="Roles you can target" title={<>Six roles. <em>One skill stack.</em></>} body="The program is built around the roles AI teams hire for, and around what their hiring managers actually check." />
+            <ul className="fx-journeys">
+              {genaiRoles.map((r, index) => (
+                <li key={r.role}>
+                  <span className="fx-journey-n">{String(index + 1).padStart(2, "0")}</span>
+                  <p className="fx-journey-from"><b>{r.role}</b></p>
+                  <p className="fx-journey-why">{r.body}</p>
+                </li>
+              ))}
+            </ul>
+            <h3 className="fx-subhead">The six signals hiring managers screen for</h3>
+            <ul className="fx-stats fx-stats-3 fx-stats-num">
+              {genaiSignals.map((s, index) => (
+                <li key={s.k}><strong>{String(index + 1).padStart(2, "0")}</strong><p><b>{s.k}</b>{s.v}</p></li>
+              ))}
+            </ul>
+            <p className="fx-fine">Titles vary by company. We don&apos;t guarantee placement, salary or hikes.</p>
+          </div>
+        </section>
 
-      <section className="fde-section fde-ga-roadmap" id="curriculum"><div className="container"><div className="fde-section-heading"><div><p className="fde-eyebrow">The roadmap · 18 weeks</p><h2>Five phases. Four builds.<br />One engineer who can ship.</h2></div><p>Each week pairs live architecture sessions with a lab, a deliverable and tools used by production AI teams. Open a phase to see the details.</p></div><div className="fde-phase-list">{phases.map((phase,i)=><details className="fde-phase" key={phase.number} open={i===0}><summary><span className="fde-phase-number">{phase.number}</span><span className="fde-phase-title"><small>{phase.weeks}</small><strong>{phase.title}<br /><em>{phase.subtitle}</em></strong></span><span className="fde-phase-summary">{phase.summary}</span><span className="fde-phase-toggle" aria-hidden="true">+</span></summary><div className="fde-phase-content"><ul>{phase.topics.map(t=><li key={t}><Check size={15} />{t}</li>)}</ul><div className="fde-ga-lab"><p><strong>Hands-on lab</strong>{phase.lab}</p><p><strong>You ship</strong>{phase.ship}</p></div></div></details>)}</div><div className="fde-ga-career-rail"><span>Career track runs every week</span><p>Portfolio · Resume · LinkedIn · Interview loops · Referrals</p><Workflow size={19} /></div></div></section>
+        {/* WHO IT'S FOR */}
+        <section className="fx-section" id="fit" aria-labelledby="fx-fit-title">
+          <div className="fx-wrap">
+            <Head id="fx-fit-title" eyebrow="Who it's for" title={<>Six career journeys, <em>one destination.</em></>} body="Application-based admission keeps every cohort focused, practical and peer-strong." />
+            <ul className="fx-journeys">
+              {genaiJourneys.map((j, index) => (
+                <li key={j.from}>
+                  <span className="fx-journey-n">{String(index + 1).padStart(2, "0")}</span>
+                  <p className="fx-journey-from"><b>{j.from}</b><small>{j.detail}</small></p>
+                  <p className="fx-journey-to"><ArrowRight size={15} aria-hidden="true" /> {j.to}</p>
+                  <p className="fx-journey-why">{j.why}</p>
+                </li>
+              ))}
+            </ul>
+            <div className="fx-fitgrid">
+              <div className="fx-fitbox fx-fit-yes">
+                <h3>You will thrive if</h3>
+                <ul>{genaiFitFor.map((f) => <li key={f}><Check size={16} aria-hidden="true" />{f}</li>)}</ul>
+              </div>
+              <div className="fx-fitbox fx-fit-no">
+                <h3>Probably not for you if</h3>
+                <ul>{genaiNotFor.map((f) => <li key={f}><X size={16} aria-hidden="true" />{f}</li>)}</ul>
+              </div>
+              <div className="fx-fitbox fx-admit">
+                <h3>How admission works</h3>
+                <ol>{genaiAdmission.map((a, i) => <li key={a.step}><span>{i + 1}</span><b>{a.step}</b><small>{a.body}</small></li>)}</ol>
+                <p>Bridge pre-work in Python, Linux, Git and SQL is provided before Day 1.</p>
+              </div>
+            </div>
+          </div>
+        </section>
 
-      <section className="fde-ga-stack"><div className="container"><div className="fde-section-heading"><div><p className="fde-eyebrow">The technology</p><h2>Learn the trade-offs.<br />Not just the tool names.</h2></div><p>Work across models, orchestration, retrieval, integrations and production operations. Tool choices follow the job each system needs to do.</p></div><div className="fde-ga-tools">{tools.map(tool=><span className="fde-ga-tool" key={tool}>{tool}</span>)}</div></div></section>
+        {/* CURRICULUM */}
+        <section className="fx-section fx-paper" id="curriculum" aria-labelledby="fx-curr-title">
+          <div className="fx-wrap">
+            <div className="fx-split fx-split-end">
+              <Head id="fx-curr-title" eyebrow="Curriculum · 18 weeks · 5 phases" title={<>From your first model call <em>to Demo Day.</em></>} body="Every week combines live architecture sessions, a hands-on lab, a shipped deliverable and the tools used. Pick a phase, then open any week." />
+              <Syllabus cta="GenAI curriculum (full syllabus)" variant="dark" label="Get the full syllabus PDF" />
+            </div>
+            <ul className="fx-rhythm" aria-label="Weekly rhythm">{genaiRhythm.map((r) => <li key={r.k}><b>{r.k}</b><span>{r.v}</span></li>)}</ul>
+            <FdeCurriculum phases={genaiPhases} />
+            <p className="fx-career-strip"><Presentation size={18} aria-hidden="true" /> <b>Career track runs every week:</b> portfolio · resume · LinkedIn · interview loops · referrals</p>
+          </div>
+        </section>
 
-      <section className="fde-ga-outcomes"><div className="container"><div className="fde-section-heading"><div><p className="fde-eyebrow">What you can do by the end</p><h2>Evidence you can explain.<br />Systems you can defend.</h2></div><p>Build a practical portfolio around the capabilities the brochure targets, without promising a particular hiring result.</p></div><div className="fde-ga-outcome-list">{outcomes.map((item,i)=><div key={item}><span>0{i+1}</span><Check size={17}/><p>{item}</p></div>)}</div></div></section>
+        {/* PROJECTS */}
+        <section className="fx-section fx-ink" id="projects" aria-labelledby="fx-proj-title">
+          <div className="fx-wrap">
+            <Head id="fx-proj-title" eyebrow="Project studio" title={<>Four client-style projects. <em>Not toy apps.</em></>} body="Each project comes with a client brief, stakeholders, constraints, security requirements and a panel review. Everything is deployed, documented and portfolio-ready." />
+            <ul className="fx-projects">
+              {genaiProjects.map((p, index) => (
+                <li key={p.code} className="fx-project" style={{ "--acc": accents[index % accents.length] } as React.CSSProperties}>
+                  <div className="fx-project-art" aria-hidden="true"><span>{p.code}</span><i /><i /><i /></div>
+                  <div className="fx-project-body">
+                    <p className="fx-project-meta">{p.weeks} · {p.client}</p>
+                    <h3>{p.name}</h3>
+                    <p className="fx-project-brief">{p.brief}</p>
+                    <ul className="fx-tags" aria-label="Stack">{p.stack.map((s) => <li key={s}>{s}</li>)}</ul>
+                    <p className="fx-project-deliv"><b>You deliver</b>{p.deliverables.join(" · ")}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+            <div className="fx-kit">
+              <div>
+                <p className="fx-eyebrow">The AI toolkit</p>
+                <h3>Professional artifacts you will produce.</h3>
+                <p>Templates, runbooks and packs you build once and keep using.</p>
+              </div>
+              <ul>{genaiToolkit.map((k) => <li key={k.name}><b>{k.name}</b><span>{k.items}</span></li>)}</ul>
+            </div>
+          </div>
+        </section>
 
-      <section className="fde-ga-media"><div className="container"><div className="fde-section-heading"><div><p className="fde-eyebrow">The learning environment</p><h2>Work in the room.<br />Ship work that travels.</h2></div><p>Live cohorts, hands-on labs, client-style reviews and a final capstone defense make the work visible from week one.</p></div><div className="fde-ga-image-grid"><figure className="fde-ga-image-wide"><Image src="/images/genai-agentic-ai-engineer/classroom-training.jpg" alt="Datamarcos team and learners at an enterprise training session" width={805} height={459} /><figcaption>Enterprise cohort · instructor-led delivery</figcaption></figure><figure><Image src="/images/genai-agentic-ai-engineer/classroom-cohort.jpg" alt="Learners and mentor in a live hybrid training session" width={841} height={512} /><figcaption>Live hybrid cohort · real learners</figcaption></figure><figure><Image src="/images/genai-agentic-ai-engineer/classroom-mentor.jpg" alt="Datamarcos instructor guiding a small-group GenAI and data engineering session" width={1152} height={700} /><figcaption>Mentor-guided project work</figcaption></figure></div></div></section>
+        {/* TOOLS */}
+        <section className="fde-toolkit fx-tools" id="tools" aria-labelledby="fx-tools-title">
+          <div className="container">
+            <div className="fde-toolkit-heading">
+              <div><p className="fde-eyebrow">The technology</p><h2 id="fx-tools-title">The stack production AI teams use.</h2></div>
+              <p>Learn the trade-offs, not just the tool names: models, orchestration, retrieval, security, evals and the enterprise systems agents connect to.</p>
+            </div>
+            <ToolWall groups={genaiToolGroups} />
+            <p className="fx-fine fx-fine-dark">Product and company names are trademarks of their respective owners and are shown for identification only; no affiliation is implied.</p>
+          </div>
+        </section>
 
-      <section className="fde-ga-career-support"><div className="container fde-outcome-grid"><div><p className="fde-eyebrow">Career launch · every week</p><h2>Career preparation built alongside your engineering work.</h2><p>Develop a portfolio and interview story from the systems you actually shipped—not a separate set of generic career exercises.</p><a className="fde-text-link" href="#apply" data-dm-lead>Ask about admissions <ArrowRight size={16} /></a><p className="fde-ga-next-step"><b>Next step</b><Link href="/programs/forward-deployed-ai-engineer">Already an engineer? Explore the Forward Deployed Engineer course</Link></p></div><ul>{["Role targeting and a skills-gap audit", "GitHub portfolio setup and project documentation", "GenAI and Agentic AI resume, LinkedIn and Naukri reviews", "Technical and system-design interview question bank", "Two 1:1 mock interview loops with feedback", "Referral and outreach playbook"].map(x=><li key={x}><Check size={17} />{x}</li>)}</ul></div><div className="container fde-ga-no-guarantees"><ShieldCheck size={18} /><p>No placement, salary or hike is guaranteed. Admissions shares the current cohort dates, fees, instalments and scholarship details.</p></div></section>
+        {/* MENTOR */}
+        <section className="fx-section" id="mentor" aria-labelledby="fx-mentor-title">
+          <div className="fx-wrap fx-mentor">
+            <div className="fx-mentor-photo">
+              <Image src="/images/deepesh-mishra-founder.jpeg" alt="Deepesh Mishra, founder and lead mentor at Datamarcos" width={600} height={720} sizes="(max-width: 760px) 90vw, 420px" />
+              <span className="fx-mentor-badge"><BadgeCheck size={15} aria-hidden="true" /> Lead mentor</span>
+            </div>
+            <div>
+              <p className="fx-eyebrow">Learn from a practitioner</p>
+              <h2 id="fx-mentor-title">Deepesh Mishra</h2>
+              <p className="fx-mentor-role">Founder, Datamarcos · Solution Architect · Corporate Trainer · BITS Pilani alumnus</p>
+              <p>Deepesh has spent 18+ years building and teaching data and AI systems, and has delivered GenAI and Forward Deployed Engineer programs for enterprise teams. He has trained 25,000+ professionals across 200+ organizations. He teaches the way engineers work: scope first, then build, secure, deploy and hand over.</p>
+              <dl className="fx-mentor-stats">
+                <div><dt>Professionals trained</dt><dd>25,000+</dd></div>
+                <div><dt>Organizations</dt><dd>200+</dd></div>
+                <div><dt>Years in industry</dt><dd>18+</dd></div>
+                <div><dt>Countries</dt><dd>10+</dd></div>
+              </dl>
+              <div className="fx-mentor-actions">
+                <a className="fx-link" href={DEEPESH_LINKEDIN} target="_blank" rel="noreferrer"><Linkedin size={16} aria-hidden="true" /> Recommendations on LinkedIn <ArrowUpRight size={14} aria-hidden="true" /></a>
+                <Link className="fx-link" href="/corporate-training">Teams he has trained <ArrowRight size={14} aria-hidden="true" /></Link>
+              </div>
+            </div>
+          </div>
+        </section>
 
-      <section className="fde-mentor fde-ga-mentor"><div className="container fde-mentor-grid"><Image src="/images/genai-agentic-ai-engineer/page-1-FormXob.ff612cbd36d382c93a1fd9e4371ab4fd.jpeg" alt="Deepesh Mishra, founder and lead mentor at Datamarcos" width={620} height={508} /><div><p className="fde-eyebrow">Your lead mentor</p><h2>Deepesh Mishra</h2><p className="fde-mentor-role">Founder, Datamarcos · Solution Architect · Corporate Trainer · M.Tech, BITS Pilani</p><p>18+ years of industry experience and 25,000+ professionals trained across 200+ organisations in 10+ countries. Deepesh teaches the way engineers work: scope first, then build, secure, deploy and hand over.</p><div className="fde-mentor-stats"><span><strong>25,000+</strong> trained</span><span><strong>200+</strong> organisations</span><span><strong>18+</strong> years</span></div><div className="fde-ga-mentor-link"><Image src="/images/trainers/eshank-agarwal.jpeg" alt="Eshank Agarwal, GenAI consultant and corporate trainer" width={96} height={96} /><div><strong>Industry expert contributor</strong><small>Eshank Agarwal · GenAI consultant and corporate trainer</small></div><a href="https://www.linkedin.com/in/eshankagarwal/" target="_blank" rel="noreferrer">LinkedIn <ArrowRight size={15} /></a></div></div></div></section>
+        {/* LEARNERS */}
+        <section className="fx-section fx-learners" id="learners" aria-labelledby="fx-learn-title">
+          <div className="fx-wrap">
+            <Head id="fx-learn-title" eyebrow="Learner proof" title={<>Where our learners <em>are now.</em></>} body="Real learners and teams who trained with Deepesh Mishra, in their own words. Every story links to its source." />
+            <AlumniOutcomes />
+          </div>
+        </section>
 
-      <section className="fde-ga-testimonials"><div className="container"><div className="fde-section-heading"><div><p className="fde-eyebrow">Learner feedback</p><h2>What learners say about learning with Deepesh.</h2></div><p>Feedback shown here comes from the brochure and spans Datamarcos data and AI learning programs.</p></div><div className="fde-ga-quote-grid">{[{quote:"His deep understanding of the subject, combined with a clear and engaging teaching style, made complex concepts easy to grasp, even for those new to the field.",name:"Kumar Gaurav",role:"Senior Azure Data Engineer @ PwC"},{quote:"Learning under Deepesh Sir has been a great opportunity. All my doubts were dispelled and I was able to hone my skills with great hands-on activities and projects.",name:"Ansh Ranjan",role:"Data Engineer Trainee @ Hexaware"},{quote:"Many thanks for the great Databricks training at ZS! Let's stay connected.",name:"Gourav Thadhani",role:"Data Science and AI @ ZS Associates"}].map(q=><blockquote key={q.name}><span>“</span><p>{q.quote}</p><footer><strong>{q.name}</strong><small>{q.role}</small></footer></blockquote>)}</div></div></section>
+        {/* COMPARE */}
+        <section className="fx-section fx-paper" id="compare" aria-labelledby="fx-cmp-title">
+          <div className="fx-wrap">
+            <Head id="fx-cmp-title" eyebrow="Compare before you choose" title={<>Eight questions to ask <em>any GenAI program.</em></>} body="And how this one answers. Use the same list on every program you shortlist." />
+            <div className="fx-cmp" role="table" aria-label="Eight questions to ask any GenAI program, with this program's answers">
+              <div className="fx-cmp-row fx-cmp-2 fx-cmp-head" role="row">
+                <span role="columnheader">Question</span>
+                <span role="columnheader" className="fx-cmp-dm">Datamarcos GenAI &amp; Agentic AI Engineer</span>
+              </div>
+              {genaiQuestions.map((row) => (
+                <div className="fx-cmp-row fx-cmp-2" role="row" key={row.q}>
+                  <span role="rowheader">{row.q}</span>
+                  <span role="cell" className="fx-cmp-dm"><Check size={16} aria-hidden="true" />{row.a}</span>
+                </div>
+              ))}
+            </div>
+            <div className="fx-cta-band">
+              <p><b>Still comparing?</b> A counsellor can walk you through the syllabus, cohort dates and EMI options in 15 minutes.</p>
+              <Cta cta="GenAI compare (counsellor)" />
+            </div>
+          </div>
+        </section>
 
-      <section className="fde-ga-admission"><div className="container"><div className="fde-section-heading"><div><p className="fde-eyebrow">Application-based admissions</p><h2>A focused cohort, selected for the work.</h2></div><p>Move through a clear fit process before cohort allocation. The goal is to make sure the pace and practical format suit your starting point.</p></div><div className="fde-ga-admission-steps">{[{n:"01",title:"Apply",copy:"Share your background and the role you are working toward."},{n:"02",title:"Diagnostic",copy:"Technical and fit assessment: Python, APIs and problem-solving."},{n:"03",title:"Interview",copy:"Discuss your goals with an admissions mentor."},{n:"04",title:"Offer",copy:"Cohort allocation, bridge pre-work and onboarding."}].map(x=><article key={x.n}><span>{x.n}</span><h3>{x.title}</h3><p>{x.copy}</p></article>)}</div><p className="fde-ga-bridge">Bridge pre-work in Python, Linux, Git and SQL is provided before Day 1.</p></div></section>
+        {/* CERTIFICATE + CAREER */}
+        <section className="fx-section" id="certificate" aria-labelledby="fx-cert-title">
+          <div className="fx-wrap fx-cert">
+            <div className="fx-cert-card" aria-hidden="true">
+              <div className="fx-cert-inner">
+                <span className="fx-cert-logo">DATAMARCOS</span>
+                <small>Executive Certificate in</small>
+                <strong>Generative AI and Agentic AI Engineering</strong>
+                <span className="fx-cert-line" />
+                <small>Awarded on completion and capstone defence</small>
+                <Award className="fx-cert-seal" size={44} />
+              </div>
+            </div>
+            <div>
+              <Head id="fx-cert-title" eyebrow="Certificate & career launch" title={<>A certificate backed by <em>work you can show.</em></>} body="The Datamarcos Executive Certificate in Generative AI and Agentic AI Engineering is awarded on completing the program and defending your capstone. Career support runs in parallel with the technical modules, so your profile is ready when your skills are." />
+              <ul className="fx-jobmap fx-jobmap-4" aria-label="Career launch milestones">
+                {genaiCareer.map((c) => <li key={c.weeks}><b>{c.milestone}</b><span>{c.weeks}</span></li>)}
+              </ul>
+              <p className="fx-fine">We do not promise placements, salaries or hikes. Hiring outcomes depend on your effort and the market.</p>
+            </div>
+          </div>
+        </section>
 
-      <section className="fde-ga-brochure" id="brochure"><div className="container fde-brochure-head"><div><p className="fde-eyebrow">The full program guide</p><h2>Review the brochure.</h2></div><a className="fde-button fde-button-light" href={brochureUrl} download><ArrowDownToLine size={17} /> Download PDF</a></div><div className="container fde-pdf-frame"><GatedBrochureFrame src={brochureUrl} title="Generative AI and Agentic AI Engineer program brochure" course="Generative AI & Agentic AI Engineer" cover="/images/program-thumbnails/genai-agentic-ai-engineer.webp" /></div></section>
+        {/* FAQ */}
+        <section className="fx-section fx-paper" id="faq" aria-labelledby="fx-faq-title">
+          <div className="fx-wrap fx-faq">
+            <div>
+              <Head id="fx-faq-title" eyebrow="FAQ" title={<>Before you <em>apply.</em></>} body="Can't find yours? A counsellor will answer it on a short call." />
+              <Cta cta="GenAI FAQ (counsellor)" variant="dark" label="Ask a counsellor" />
+            </div>
+            <div className="fx-faq-list">
+              {genaiFaqs.map((faq, index) => (
+                <details key={faq.q} open={index === 0}>
+                  <summary>{faq.q}<span aria-hidden="true" /></summary>
+                  <FaqAnswer faq={faq} />
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
 
-      <section className="fde-ga-faq"><div className="container"><div className="fde-section-heading"><div><p className="fde-eyebrow">FAQ</p><h2>Before you apply.</h2></div><p>Program details grounded in the current brochure. Admissions can confirm cohort-specific information.</p></div><div className="fde-phase-list">{faqs.map((f,i)=><details className="fde-phase" key={f[0]} open={i===0}><summary><span className="fde-phase-number">0{i+1}</span><span className="fde-phase-title"><strong>{f[0]}</strong></span><span className="fde-phase-summary">Read answer</span><span className="fde-phase-toggle" aria-hidden="true">+</span></summary><div className="fde-phase-content"><p>{f[1]}</p></div></details>)}</div></div></section>
+        {/* BROCHURE */}
+        <section className="fx-section fx-brochure" id="brochure" aria-labelledby="fx-bro-title">
+          <div className="fx-wrap">
+            <div className="fx-split fx-split-end">
+              <Head id="fx-bro-title" eyebrow="The full program guide" title={<>Read the 18-week <em>syllabus.</em></>} body="Week-by-week topics, labs, tools, projects and admission details in one PDF." />
+              <Syllabus cta="GenAI brochure section" variant="dark" label="Download PDF" />
+            </div>
+            <div className="fx-pdf"><GatedBrochureFrame src={GENAI_BROCHURE} title="Generative AI and Agentic AI Engineer program brochure" course={GENAI_COURSE} cover="/images/program-thumbnails/genai-agentic-ai-engineer.webp" /></div>
+          </div>
+        </section>
 
-      <section className="fde-apply fde-ga-apply" id="apply"><div className="container fde-apply-grid"><div><p className="fde-eyebrow">Generative AI & Agentic AI Engineer</p><h2>Become the engineer every AI team wants.</h2><p>Request a conversation about fit, cohort dates, fees, instalments and scholarship options.</p><a className="fde-apply-brochure" href={brochureUrl} download><ArrowDownToLine size={16} /> Download the brochure first</a><p className="fde-ga-guarantee">The program does not promise placements, salaries or hikes.</p></div><FDECallRequestForm programId="genai-agentic-ai-engineer" programSlug="genai-agentic-ai-engineer" programName="Generative AI and Agentic AI Engineer - 18-Week Executive Program" /></div></section>
-
-      <a className="fde-hero-scroll fde-ga-backtop" href="#top"><ArrowRight size={14} /> Back to top</a>
+        {/* APPLY */}
+        <section className="fx-apply" id="apply" aria-labelledby="fx-apply-title">
+          <div className="fx-hero-glow" aria-hidden="true" />
+          <div className="fx-wrap fx-apply-grid">
+            <div>
+              <p className="fx-eyebrow">Application-based admission · small cohorts</p>
+              <h2 id="fx-apply-title">Become the engineer <em>every AI team wants.</em></h2>
+              <p>Share a few details. A counsellor will talk through your background, program fit, the next cohort date, EMI options and scholarships.</p>
+              <ul className="fx-apply-list">
+                <li><Rocket size={17} aria-hidden="true" /> 3 client-style projects + a capstone, deployed and portfolio-ready</li>
+                <li><UsersRound size={17} aria-hidden="true" /> 130+ hours of live sessions, labs and studio with Deepesh Mishra</li>
+                <li><Bot size={17} aria-hidden="true" /> LLMs, RAG, agents, MCP, security and LLMOps</li>
+                <li><ShieldCheck size={17} aria-hidden="true" /> Honest outcomes: no placement or salary guarantees</li>
+              </ul>
+              <Syllabus cta="GenAI apply (syllabus)" variant="light" label="Prefer to read first? Get the syllabus" />
+            </div>
+            <InlineLeadForm
+              idPrefix="genai-apply"
+              course={GENAI_COURSE}
+              lockCourse
+              cta="GenAI inline form (apply section)"
+              eyebrow="Generative AI & Agentic AI Engineer"
+              title="Request your fit call."
+              intro="EMI options available, talk to a counsellor."
+              submitLabel="Request my fit call"
+              trust={["Application-based", "Small cohorts", "Live online"]}
+              successTitle="Thanks{first}! Request received."
+              successBody={successBody}
+              successLinks={successLinks}
+              minHeight={560}
+            />
+          </div>
+        </section>
+      </div>
     </article>
   );
 }
