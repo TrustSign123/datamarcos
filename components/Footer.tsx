@@ -6,7 +6,7 @@ import { site } from "@/config/site";
 const columns = [
   { title: "Solutions", links: [["Corporate Training", "/contact"], ["Professional Learning", "/programs"], ["Trainer Network", "/become-a-trainer"]] },
   { title: "Programs", links: [["GenAI & Agentic AI Engineer", "/programs/genai-agentic-ai-engineer"], ["Advanced Data Engineering + GenAI", "/programs/advance-data-engineering-genai"], ["Applied Agentic AI", "/programs/applied-agentic-ai-certification"], ["Forward Deployed AI Engineer", "/programs/forward-deployed-ai-engineer"], ["All programs", "/programs"]] },
-  { title: "Resources", links: [["Interview Prep", "/resources/interview-prep"]] },
+  { title: "Resources", links: [["Guides", "/guides"], ["Interview Prep", "/resources/interview-prep"]] },
   { title: "Company", links: [["About", "/about"], ["Contact", "/contact"], ["Become a Trainer", "/become-a-trainer"]] },
   { title: "Legal", links: [["Privacy", "/privacy"], ["Terms", "/terms"], ["Payment & Refund", "/refund-policy"]] }
 ];
