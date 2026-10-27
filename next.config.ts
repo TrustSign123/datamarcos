@@ -31,11 +31,13 @@ const nextConfig: NextConfig = {
       ["/about-us", "/about"],
       ["/course-detail-1", "/programs"],
       ["/best-data-knowledge-institute", "/programs"],
-      ["/corporate-training", "/programs"],
       ["/data-engineering-4-0-with-aws-live-classes", "/programs/advance-data-engineering-genai"],
       ["/generative-ai-projects", "/programs/genai-agentic-ai-engineer"]
     ];
-    return [...fde, ...legacy.map(([source, destination]) => ({ source, destination, statusCode: 301 as const }))];
+    // /corporate-training is a real page again (2026-10-27). Its old placeholder sub-pages (ai, data, cloud, devops,
+    // custom-programs) now point at it; the [domain] route file stays in the repo, dormant.
+    const corporate = [{ source: "/corporate-training/:domain", destination: "/corporate-training", statusCode: 301 as const }];
+    return [...fde, ...corporate, ...legacy.map(([source, destination]) => ({ source, destination, statusCode: 301 as const }))];
   }
 };
 

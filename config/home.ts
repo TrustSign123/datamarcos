@@ -241,7 +241,7 @@ export type OutcomeStat = {
 
 export const outcomeStats: OutcomeStat[] = [
   { value: "25,000+", label: "Professionals trained", kind: "reach", source: "Deepesh Mishra's published training record" },
-  { value: "200+", label: "Corporate & academic clients", kind: "reach" },
+  { value: "200+", label: "Organizations", kind: "reach" },
   { value: "18+", label: "Years in industry & training", kind: "reach" },
   { value: "10+", label: "Countries reached", kind: "reach" },
   { value: "4", label: "Live online programs", kind: "reach" }

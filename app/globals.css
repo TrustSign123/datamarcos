@@ -5637,3 +5637,29 @@ body:has(.agentic-course-page) > .dmx-announce { display: none; }
 /* B2C positioning (2026-10-27): label above the four flagship courses in the header menu; demoted For Teams entry. */
 .dmx-mega-label { margin: 2px 4px 12px; color: #8cf7ad; font-size: .7rem; font-weight: 850; letter-spacing: .12em; text-transform: uppercase; }
 .dmx-res strong svg { display: inline-block; vertical-align: -2px; margin-right: 2px; }
+
+/* /corporate-training (2026-10-27) */
+.ct-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-top: 24px; }
+.ct-card { display: flex; flex-direction: column; gap: 8px; }
+.ct-card h3 { margin: 0; font-size: 1.05rem; line-height: 1.35; }
+.ct-card p { margin: 0; }
+.ct-when { font-size: .82rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; opacity: .75; }
+.ct-source { margin-top: auto; padding-top: 6px; display: inline-flex; align-items: center; gap: 4px; font-size: .85rem; text-decoration: underline; text-underline-offset: 3px; }
+.ct-fine { margin-top: 18px; font-size: .85rem; opacity: .8; }
+.ct-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin: 24px 0 0; padding: 0; list-style: none; }
+.ct-steps li { display: flex; gap: 14px; }
+.ct-steps li > span { flex: none; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; font-weight: 900; background: rgba(244,81,30,.15); color: #ff8a5c; }
+.ct-steps h3 { margin: 4px 0 6px; font-size: 1.05rem; }
+.ct-creds { margin: 8px 0 0; padding-left: 1.2em; line-height: 1.7; }
+.ct-cta { text-align: center; }
+.ct-cta .section-copy { margin-left: auto; margin-right: auto; }
+.ct-cta .hero-actions { justify-content: center; }
+@media (max-width: 860px) { .ct-steps { grid-template-columns: 1fr; } }
+/* Homepage "Teams we've trained" strip (2026-10-27): text only, below the four courses. */
+.dmh-teams-trained { padding: 8px 0 40px; }
+.dmh-teams-trained .container { padding-top: 22px; padding-bottom: 22px; border-top: 1px solid rgba(255,255,255,.1); border-bottom: 1px solid rgba(255,255,255,.1); }
+.dmh-teams-head { margin: 0 0 12px; color: rgba(255,255,255,.75); font-size: .95rem; }
+.dmh-teams-head b { display: block; margin-bottom: 4px; color: #fff; font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; }
+.dmh-teams-trained ul { display: flex; flex-wrap: wrap; gap: 8px 10px; margin: 0 0 14px; padding: 0; list-style: none; }
+.dmh-teams-trained li { padding: 6px 12px; border: 1px solid rgba(255,255,255,.14); border-radius: 999px; color: rgba(255,255,255,.88); font-size: .86rem; font-weight: 600; }
+.dmh-teams-trained a { display: inline-flex; align-items: center; gap: 6px; color: #8cf7ad; font-weight: 750; font-size: .92rem; }

@@ -12,7 +12,7 @@ export const site = {
   founder: {
     name: "Deepesh Mishra",
     title: "Founder, Datamarcos",
-    bio: "Deepesh Mishra is a BITS Pilani alumnus, AI tool power user, corporate trainer, solution architect and technology expert with 18+ years of experience. He has trained 25,000+ professionals across 200+ corporate and academic clients.",
+    bio: "Deepesh Mishra is a BITS Pilani alumnus, AI tool power user, corporate trainer, solution architect and technology expert with 18+ years of experience. He has trained 25,000+ professionals across 200+ organizations.",
     image: "/images/deepesh-mishra-founder.jpeg",
     imageAlt: "Deepesh Mishra, Founder of Datamarcos",
     capabilities: [
@@ -21,7 +21,7 @@ export const site = {
       "18+ years of experience",
       "Corporate trainer, solution architect and technology expert",
       "Trained 25,000+ professionals",
-      "Worked with 200+ corporate and academic clients"
+      "Trained teams across 200+ organizations"
     ],
     workedWith: ["Deloitte", "EY", "Adobe", "Yahoo", "HSBC", "Boeing", "Reliance", "Micro Focus"],
     teaches: ["GenAI", "Data Engineering", "Azure", "AWS", "Snowflake", "Databricks", "Python", "Spark"],
@@ -39,7 +39,7 @@ export const site = {
   stats: [
     { label: "Years of experience", value: "18+" },
     { label: "Professionals trained", value: "25,000+" },
-    { label: "Corporate and academic clients", value: "200+" },
+    { label: "Organizations", value: "200+" },
     { label: "Countries worldwide", value: "10+" }
   ],
   social: {

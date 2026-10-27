@@ -9,7 +9,7 @@ const columns = [
   { title: "Courses", links: [...homePrograms.map((p) => [p.title, `/programs/${p.slug}`]), ["All courses", "/programs"]] },
   { title: "Resources", links: [["Interview Prep", "/resources/interview-prep"]] },
   { title: "Company", links: [["About", "/about"], ["Contact", "/contact"], ["Become a Trainer", "/become-a-trainer"]] },
-  { title: "For Teams", links: [["Corporate Training", "/contact"], ["Trainer Network", "/become-a-trainer"]] },
+  { title: "For Teams", links: [["Corporate Training", "/corporate-training"], ["Trainer Network", "/become-a-trainer"]] },
   { title: "Legal", links: [["Privacy", "/privacy"], ["Terms", "/terms"], ["Payment & Refund", "/refund-policy"]] }
 ];
 
