@@ -32,7 +32,10 @@ const nextConfig: NextConfig = {
       ["/course-detail-1", "/programs"],
       ["/best-data-knowledge-institute", "/programs"],
       ["/data-engineering-4-0-with-aws-live-classes", "/programs/advance-data-engineering-genai"],
-      ["/generative-ai-projects", "/programs/genai-agentic-ai-engineer"]
+      ["/generative-ai-projects", "/programs/genai-agentic-ai-engineer"],
+      // Old Instagram bio links that now 404 (2026-10-27).
+      ["/ai-tools-chatgpt-page", "/programs/genai-agentic-ai-engineer"],
+      ["/data-engineering-course-page", "/programs/advance-data-engineering-genai"]
     ];
     // /corporate-training is a real page again (2026-10-27). Its old placeholder sub-pages (ai, data, cloud, devops,
     // custom-programs) now point at it; the [domain] route file stays in the repo, dormant.

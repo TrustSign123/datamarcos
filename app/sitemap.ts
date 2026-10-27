@@ -1,5 +1,6 @@
 import { MetadataRoute } from "next";
 import { site } from "@/config/site";
+import { approvedGuides } from "@/lib/guides";
 
 // Only live pages that should be indexed. Placeholder, noindex, duplicate and redirected URLs are left out on
 // purpose (SEO pass 2026-10-26): /corporate-training/* sub-pages (301 to /corporate-training since 2026-10-27), /resources (hub + placeholders), /payment-refund-policy
@@ -24,5 +25,13 @@ const pages: { path: string; priority: number }[] = [
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return pages.map(({ path, priority }) => ({ url: `${site.url}${path}`, lastModified: LAST_UPDATED, priority }));
+  const core = pages.map(({ path, priority }) => ({ url: `${site.url}${path}`, lastModified: LAST_UPDATED, priority }));
+  // Guides: approved only, lastmod from each guide's dateModified (the index uses the newest one).
+  if (approvedGuides.length === 0) return core;
+  const newest = approvedGuides.map((g) => g.dateModified).sort().at(-1)!;
+  return [
+    ...core,
+    { url: `${site.url}/guides`, lastModified: new Date(newest), priority: 0.6 },
+    ...approvedGuides.map((g) => ({ url: `${site.url}/guides/${g.slug}`, lastModified: new Date(g.dateModified), priority: 0.6 }))
+  ];
 }

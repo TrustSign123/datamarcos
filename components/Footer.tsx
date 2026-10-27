@@ -7,7 +7,7 @@ import { homePrograms } from "@/config/home";
 // B2C positioning (27 Oct 2026): the four flagship courses lead; corporate training is kept but listed last.
 const columns = [
   { title: "Courses", links: [...homePrograms.map((p) => [p.title, `/programs/${p.slug}`]), ["All courses", "/programs"]] },
-  { title: "Resources", links: [["Interview Prep", "/resources/interview-prep"]] },
+  { title: "Resources", links: [["Guides", "/guides"], ["Interview Prep", "/resources/interview-prep"]] },
   { title: "Company", links: [["About", "/about"], ["Contact", "/contact"], ["Become a Trainer", "/become-a-trainer"]] },
   { title: "For Teams", links: [["Corporate Training", "/corporate-training"], ["Trainer Network", "/become-a-trainer"]] },
   { title: "Legal", links: [["Privacy", "/privacy"], ["Terms", "/terms"], ["Payment & Refund", "/refund-policy"]] }
