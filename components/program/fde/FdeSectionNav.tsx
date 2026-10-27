@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { ArrowRight } from "lucide-react";
 
 export type FdeNavItem = { id: string; label: string };
@@ -9,7 +9,14 @@ export type FdeNavItem = { id: string; label: string };
  * Sticky in-page section nav with scroll-spy, plus the mobile bottom CTA bar.
  * Both CTAs open the site-wide lead form (data-dm-lead), so leads land in the same Sheet.
  */
-export function FdeSectionNav({ items, course }: { items: FdeNavItem[]; course: string }) {
+export function FdeSectionNav({ items, course, brand, ctaPrefix = "FDE" }: {
+  items: FdeNavItem[];
+  course: string;
+  /** Short label at the left of the sticky nav. Defaults to "FDE·Program". */
+  brand?: ReactNode;
+  /** Prefix for data-cta values, so leads show which program page they came from. */
+  ctaPrefix?: string;
+}) {
   const [active, setActive] = useState(items[0]?.id ?? "");
   const [showBar, setShowBar] = useState(false);
   const listRef = useRef<HTMLUListElement>(null);
@@ -67,7 +74,7 @@ export function FdeSectionNav({ items, course }: { items: FdeNavItem[]; course: 
     <>
       <nav className="fx-nav" aria-label="On this page">
         <div className="fx-wrap fx-nav-inner">
-          <span className="fx-nav-brand" aria-hidden="true">FDE<b>·</b>Program</span>
+          <span className="fx-nav-brand" aria-hidden="true">{brand ?? <>FDE<b>·</b>Program</>}</span>
           <ul ref={listRef}>
             {items.map((item) => (
               <li key={item.id}>
@@ -75,12 +82,12 @@ export function FdeSectionNav({ items, course }: { items: FdeNavItem[]; course: 
               </li>
             ))}
           </ul>
-          <a className="fx-nav-cta" href="#apply" data-dm-lead data-cta="FDE section nav (apply)" data-course={course}>Apply <ArrowRight size={15} aria-hidden="true" /></a>
+          <a className="fx-nav-cta" href="#apply" data-dm-lead data-cta={`${ctaPrefix} section nav (apply)`} data-course={course}>Apply <ArrowRight size={15} aria-hidden="true" /></a>
         </div>
       </nav>
       <div className={`fx-mbar${showBar ? " is-on" : ""}`} aria-hidden={!showBar}>
-        <a href="#brochure" data-dm-download data-course={course} data-cta="FDE mobile bar (syllabus)" tabIndex={showBar ? 0 : -1}>Syllabus</a>
-        <a className="fx-mbar-main" href="#apply" data-dm-lead data-cta="FDE mobile bar (counsellor)" data-course={course} tabIndex={showBar ? 0 : -1}>Talk to a counsellor <ArrowRight size={16} aria-hidden="true" /></a>
+        <a href="#brochure" data-dm-download data-course={course} data-cta={`${ctaPrefix} mobile bar (syllabus)`} tabIndex={showBar ? 0 : -1}>Syllabus</a>
+        <a className="fx-mbar-main" href="#apply" data-dm-lead data-cta={`${ctaPrefix} mobile bar (counsellor)`} data-course={course} tabIndex={showBar ? 0 : -1}>Talk to a counsellor <ArrowRight size={16} aria-hidden="true" /></a>
       </div>
     </>
   );
