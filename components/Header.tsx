@@ -89,10 +89,11 @@ export function Header() {
           <nav className="dmx-nav" aria-label="Primary navigation" ref={navRef}>
             <div className="dmx-item" onMouseEnter={() => hoverOpen("programs")} onMouseLeave={hoverClose}>
               <button type="button" className="dmx-link dmx-trigger" aria-expanded={menu === "programs"} aria-controls="dmx-programs" onClick={() => setMenu(menu === "programs" ? null : "programs")}>
-                Programs <ChevronDown size={16} aria-hidden="true" />
+                Courses <ChevronDown size={16} aria-hidden="true" />
               </button>
               {menu === "programs" && (
                 <div className="dmx-mega" id="dmx-programs">
+                  <p className="dmx-mega-label">Our 4 flagship courses · live online, for students &amp; working professionals</p>
                   <div className="dmx-mega-grid">
                     {homePrograms.map((program) => (
                       <Link key={program.slug} className="dmx-course" href={`/programs/${program.slug}`} onClick={closeAll}>
@@ -108,7 +109,7 @@ export function Header() {
                   <div className="dmx-mega-foot">
                     <span>Live online · mentor-led by Deepesh Mishra · {EMI_NOTE}</span>
                     <div>
-                      <Link href="/programs" onClick={closeAll}>All programs <ArrowRight size={14} /></Link>
+                      <Link href="/programs" onClick={closeAll}>All courses <ArrowRight size={14} /></Link>
                       <button type="button" data-dm-lead data-cta="Header programs menu - Free career call" onClick={closeAll}>Not sure? Free career call <ArrowRight size={14} /></button>
                     </div>
                   </div>
@@ -127,12 +128,13 @@ export function Header() {
                   ) : (
                     <Link key={entry.title} className="dmx-res" href={entry.href} onClick={closeAll}><strong>{entry.title}</strong><span>{entry.description}</span></Link>
                   ))}
+                  {/* Corporate training is secondary (B2C positioning): moved here from the header action bar. */}
+                  <Link className="dmx-res" href="/contact" onClick={closeAll}><strong><Building2 size={13} aria-hidden="true" /> For Teams</strong><span>Corporate technology training for your team.</span></Link>
                 </div>
               )}
             </div>
           </nav>
           <div className="dmx-actions">
-            <Link className="dmx-teams" href="/contact"><Building2 size={15} aria-hidden="true" /> For Teams</Link>
             <a className="dmx-icon" href={env.whatsappUrl} target="_blank" rel="noreferrer" aria-label="Chat on WhatsApp" title="Chat on WhatsApp"><MessageCircle size={19} /></a>
             <Link className="dmx-apply" href="/programs" data-dm-lead data-cta="Header - Apply Now">Apply Now <ArrowRight size={16} /></Link>
           </div>
@@ -151,7 +153,7 @@ export function Header() {
           <button type="button" className="dmx-burger" aria-label="Close menu" onClick={closeAll}><X size={24} /></button>
         </div>
         <div className="dmx-drawer-body">
-          <p className="dmx-drawer-label">Programs · live online</p>
+          <p className="dmx-drawer-label">Our 4 flagship courses · live online</p>
           {homePrograms.map((program) => (
             <Link key={program.slug} className="dmx-drawer-course" href={`/programs/${program.slug}`} onClick={closeAll}>
               <Image src={program.image} alt={program.imageAlt} width={52} height={52} sizes="52px" />
@@ -159,7 +161,7 @@ export function Header() {
               <ArrowRight size={16} aria-hidden="true" />
             </Link>
           ))}
-          <Link className="dmx-drawer-all" href="/programs" onClick={closeAll}>All programs <ArrowRight size={14} /></Link>
+          <Link className="dmx-drawer-all" href="/programs" onClick={closeAll}>All courses <ArrowRight size={14} /></Link>
           <div className="dmx-drawer-links">
             {sectionLinks.map((link) => <Link key={link.href} href={link.href} onClick={closeAll}>{link.label}</Link>)}
             <details>

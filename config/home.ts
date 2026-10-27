@@ -24,6 +24,21 @@ export type HomeProgram = {
 };
 
 export const homePrograms: HomeProgram[] = [
+  // Order and titles follow Deepesh's four flagship courses (B2C positioning, 27 Oct 2026). leadCourse values are unchanged.
+  {
+    slug: "forward-deployed-ai-engineer",
+    title: "Forward Deployed AI Engineer",
+    leadCourse: "Forward Deployed AI Engineer",
+    brochure: "/brochures/Datamarcos_Forward_Deployed_AI_Engineer_Brochure.pdf",
+    image: "/images/program-cards/forward-deployed-ai-engineer.webp",
+    imageAlt: "Forward Deployed AI Engineer program poster",
+    fee: PROGRAM_FEES["forward-deployed-ai-engineer"],
+    facts: ["22 weeks", "170+ live hours", "Live online"],
+    whoFor: "Engineers comfortable in Python with 2+ years of experience, or strong shipped projects.",
+    summary: "Scope, build, secure and deploy AI systems in enterprise environments, from discovery to handoff.",
+    tag: "Enterprise AI",
+    ctaLabel: "Forward Deployed Engineer (FDE) course"
+  },
   {
     slug: "genai-agentic-ai-engineer",
     title: "Generative AI & Agentic AI Engineer",
@@ -38,21 +53,8 @@ export const homePrograms: HomeProgram[] = [
     tag: "GenAI · Agents"
   },
   {
-    slug: "advance-data-engineering-genai",
-    title: "Advanced Data Engineering with Applied GenAI & Agentic AI",
-    leadCourse: "Advance Data Engineering with Applied GenAI & Agentic AI",
-    brochure: "/brochures/datamarcos-advance-data-engineering-genai-brochure.pdf",
-    image: "/images/program-cards/data-engineering-genai.webp",
-    imageAlt: "Advanced Data Engineering with GenAI and Agentic AI program poster",
-    fee: PROGRAM_FEES["advance-data-engineering-genai"],
-    facts: ["4-month foundation", "+ advanced AI track", "Weekend/evening live"],
-    whoFor: "People working with data, or moving from analytics, software or database roles (SQL required).",
-    summary: "Modern cloud data engineering first, then GenAI, production RAG, agents and a capstone.",
-    tag: "Data Engineering · GenAI"
-  },
-  {
     slug: "applied-agentic-ai-certification",
-    title: "Applied Agentic AI",
+    title: "Applied Agentic AI Certification",
     leadCourse: "Applied Agentic AI",
     brochure: "/brochures/DataMarcos_Applied_Agentic_AI_Brochure.pdf",
     image: "/images/program-cards/applied-agentic-ai.webp",
@@ -64,18 +66,17 @@ export const homePrograms: HomeProgram[] = [
     tag: "Certification"
   },
   {
-    slug: "forward-deployed-ai-engineer",
-    title: "Forward Deployed AI Engineer",
-    leadCourse: "Forward Deployed AI Engineer",
-    brochure: "/brochures/Datamarcos_Forward_Deployed_AI_Engineer_Brochure.pdf",
-    image: "/images/program-cards/forward-deployed-ai-engineer.webp",
-    imageAlt: "Forward Deployed AI Engineer program poster",
-    fee: PROGRAM_FEES["forward-deployed-ai-engineer"],
-    facts: ["22 weeks", "170+ live hours", "Live online"],
-    whoFor: "Engineers comfortable in Python with 2+ years of experience, or strong shipped projects.",
-    summary: "Scope, build, secure and deploy AI systems in enterprise environments, from discovery to handoff.",
-    tag: "Enterprise AI",
-    ctaLabel: "Forward Deployed Engineer (FDE) course"
+    slug: "advance-data-engineering-genai",
+    title: "Advance Data Engineering with Applied GenAI & Agentic AI",
+    leadCourse: "Advance Data Engineering with Applied GenAI & Agentic AI",
+    brochure: "/brochures/datamarcos-advance-data-engineering-genai-brochure.pdf",
+    image: "/images/program-cards/data-engineering-genai.webp",
+    imageAlt: "Advanced Data Engineering with GenAI and Agentic AI program poster",
+    fee: PROGRAM_FEES["advance-data-engineering-genai"],
+    facts: ["4-month foundation", "+ advanced AI track", "Weekend/evening live"],
+    whoFor: "People working with data, or moving from analytics, software or database roles (SQL required).",
+    summary: "Modern cloud data engineering first, then GenAI, production RAG, agents and a capstone.",
+    tag: "Data Engineering · GenAI"
   }
 ];
 
