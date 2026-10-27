@@ -2,14 +2,18 @@ import Link from "next/link";
 import { FileText, ShieldCheck } from "lucide-react";
 import { Logo } from "@/components/Header";
 import { site } from "@/config/site";
+import { homePrograms } from "@/config/home";
 
+// B2C positioning (27 Oct 2026): the four flagship courses lead; corporate training is kept but listed last.
 const columns = [
-  { title: "Solutions", links: [["Corporate Training", "/contact"], ["Professional Learning", "/programs"], ["Trainer Network", "/become-a-trainer"]] },
-  { title: "Programs", links: [["GenAI & Agentic AI Engineer", "/programs/genai-agentic-ai-engineer"], ["Advanced Data Engineering + GenAI", "/programs/advance-data-engineering-genai"], ["Applied Agentic AI", "/programs/applied-agentic-ai-certification"], ["Forward Deployed AI Engineer", "/programs/forward-deployed-ai-engineer"], ["All programs", "/programs"]] },
+  { title: "Courses", links: [...homePrograms.map((p) => [p.title, `/programs/${p.slug}`]), ["All courses", "/programs"]] },
   { title: "Resources", links: [["Guides", "/guides"], ["Interview Prep", "/resources/interview-prep"]] },
   { title: "Company", links: [["About", "/about"], ["Contact", "/contact"], ["Become a Trainer", "/become-a-trainer"]] },
+  { title: "For Teams", links: [["Corporate Training", "/contact"], ["Trainer Network", "/become-a-trainer"]] },
   { title: "Legal", links: [["Privacy", "/privacy"], ["Terms", "/terms"], ["Payment & Refund", "/refund-policy"]] }
 ];
+
+const footerTagline = "Live, mentor-led online courses in Forward Deployed AI, Generative & Agentic AI and Data Engineering for students and working professionals.";
 
 export function Footer() {
   const socials = Object.entries(site.social).filter(([, url]) => Boolean(url));
@@ -21,7 +25,7 @@ export function Footer() {
         <div className="grid footer-grid">
           <div>
             <Logo />
-            <p style={{ color: "rgba(255,255,255,.72)", lineHeight: 1.7 }}>{site.tagline}</p>
+            <p style={{ color: "rgba(255,255,255,.72)", lineHeight: 1.7 }}>{footerTagline}</p>
             <div className="footer-contact">
               <strong>Get in touch</strong>
               <a href={`mailto:${site.email}`}>{site.email}</a>

@@ -5634,6 +5634,9 @@ body:has(.agentic-course-page) > .dmx-announce { display: none; }
 .agentic-go-further a { color: #fff; font-weight: 750; text-decoration: underline; text-underline-offset: 3px; }
 .fde-catalog-callout p a { font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
 
+/* B2C positioning (2026-10-27): label above the four flagship courses in the header menu; demoted For Teams entry. */
+.dmx-mega-label { margin: 2px 4px 12px; color: #8cf7ad; font-size: .7rem; font-weight: 850; letter-spacing: .12em; text-transform: uppercase; }
+.dmx-res strong svg { display: inline-block; vertical-align: -2px; margin-right: 2px; }
 /* Guides section (/guides, /guides/[slug]) — added 2026-10-27. New class names only. */
 .guide-hero { padding: 72px 0 32px; background: linear-gradient(180deg, var(--cream), #fff); }
 .guide-hero h1 { margin: 6px 0 14px; font-size: clamp(2rem, 4.4vw, 3.1rem); line-height: 1.1; letter-spacing: -.02em; }

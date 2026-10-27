@@ -8,8 +8,8 @@ import { AlumniOutcomes } from "@/components/home/AlumniOutcomes";
 import { EMI_NOTE, homeFaqs, homePrograms, learnerFeedback, learnerVideos } from "@/config/home";
 import { env, site } from "@/config/site";
 
-const ogTitle = "Live AI & Data Engineering Courses with Deepesh Mishra | Datamarcos";
-const ogDescription = "Live online GenAI, Agentic AI, Data Engineering and Forward Deployed AI programs for working professionals and graduates. Real projects, mentor-led by Deepesh Mishra.";
+const ogTitle = "4 Live Online AI & Data Engineering Courses with Deepesh Mishra | Datamarcos";
+const ogDescription = "Forward Deployed AI Engineer, Generative AI & Agentic AI Engineer, Applied Agentic AI Certification and Advance Data Engineering with Applied GenAI & Agentic AI. Live online courses for students and working professionals, mentor-led by Deepesh Mishra.";
 
 /** Organization JSON-LD: homepage only (moved out of the root layout). Facts come from config/site.ts. */
 const organizationSchema = {
@@ -19,7 +19,7 @@ const organizationSchema = {
   name: site.name,
   url: site.url,
   logo: `${site.url}/apple-icon.png`,
-  description: "Datamarcos runs live, mentor-led online courses in Generative AI, Agentic AI, Data Engineering and Forward Deployed AI Engineering, plus technology training for teams.",
+  description: "Datamarcos runs four live, mentor-led online courses for students and working professionals: Forward Deployed AI Engineer, Generative AI & Agentic AI Engineer, Applied Agentic AI Certification, and Advance Data Engineering with Applied GenAI & Agentic AI. It also offers technology training for teams.",
   email: site.email,
   telephone: "+91-88519-30644",
   address: { "@type": "PostalAddress", streetAddress: "Noida One, 303-304, Rasoolpur Nawada, Industrial Area, Sector 62", addressLocality: "Noida", addressRegion: "Uttar Pradesh", postalCode: "201309", addressCountry: "IN" },
@@ -29,8 +29,8 @@ const organizationSchema = {
 };
 
 export const metadata: Metadata = {
-  title: "Live AI, GenAI & Data Engineering Courses Online | Datamarcos",
-  description: "Live online GenAI, Agentic AI, Data Engineering and Forward Deployed AI courses mentored by Deepesh Mishra. Real projects, fees from ₹40,000 with EMI options.",
+  title: "FDE, GenAI, Agentic AI & Data Engineering Courses | Datamarcos",
+  description: "4 live online courses for students and working professionals: FDE, GenAI & Agentic AI, Applied Agentic AI and Data Engineering. Fees from ₹40,000 with EMI options.",
   alternates: { canonical: "/" },
   openGraph: {
     title: ogTitle,
@@ -68,7 +68,7 @@ const marqueeItems: MarqueeItem[] = learnerProfiles.flatMap((learner, i) => {
 
 /** Learner-relevant numbers that are already published on the site. */
 const heroStats = [
-  { value: "4", label: "Live online programs" },
+  { value: "4", label: "Flagship live online courses" },
   { value: "25,000+", label: "Professionals trained" },
   { value: "18+", label: "Years of industry experience" }
 ];
@@ -98,12 +98,12 @@ export default function Home() {
       <section className="dmh-hero" aria-labelledby="home-hero-title">
         <div className="container dmh-hero-grid">
           <div className="dmh-hero-copy">
-            <p className="dmh-eyebrow">Live online courses · For working professionals &amp; graduates</p>
+            <p className="dmh-eyebrow">4 flagship live online courses · For students &amp; working professionals</p>
             <h1 id="home-hero-title">Become the engineer who <span>ships real AI &amp; data systems.</span></h1>
-            <p className="dmh-sub">Learn live with <b>Deepesh Mishra</b> (18+ years, 25,000+ professionals trained) and build real projects in one of <b>4 tracks</b>: GenAI &amp; Agentic AI, Data Engineering, Applied Agentic AI or Forward Deployed AI.</p>
+            <p className="dmh-sub">Pick one of our <b>4 flagship courses</b>: <b>Forward Deployed AI Engineer</b>, <b>Generative AI &amp; Agentic AI Engineer</b>, <b>Applied Agentic AI Certification</b> or <b>Advance Data Engineering with Applied GenAI &amp; Agentic AI</b>. Learn live with Deepesh Mishra (18+ years, 25,000+ professionals trained across 200+ organizations) and build real projects.</p>
             <div className="dmh-actions">
               <Link className="button primary dmh-apply" href="/programs" data-dm-lead data-cta="Home hero - Apply Now">Apply Now <ArrowRight size={18} /></Link>
-              <Link className="dmh-syllabus" href="/programs" data-dm-download data-cta="Download Syllabus"><ArrowDownToLine size={18} /> Download Syllabus</Link>
+              <Link className="dmh-syllabus" href="/programs" data-dm-download data-dm-lead data-cta="Download Syllabus"><ArrowDownToLine size={18} /> Download Syllabus</Link>
             </div>
             <p className="dmh-proof"><span>Live online classes</span><span>Real projects &amp; capstones</span><span>Fees from ₹40,000 · EMI options</span></p>
           </div>
