@@ -1,7 +1,11 @@
 import Script from "next/script";
+import { GA_ID } from "@/lib/analytics";
 
 export function AnalyticsTags() {
-  const ga = process.env.NEXT_PUBLIC_GA_ID;
+  // GA4 loads on production builds only. Vercel preview/development deployments are skipped so test traffic stays
+  // out of the property. Local `next build && next start` has no VERCEL_ENV, so it loads (for verification).
+  const vercelEnv = process.env.VERCEL_ENV;
+  const ga = vercelEnv === "preview" || vercelEnv === "development" ? undefined : GA_ID;
   const gtm = process.env.NEXT_PUBLIC_GTM_ID;
   const meta = process.env.NEXT_PUBLIC_META_PIXEL_ID;
   const linkedin = process.env.NEXT_PUBLIC_LINKEDIN_PARTNER_ID;

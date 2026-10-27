@@ -16,18 +16,26 @@ const ogDescription = "Forward Deployed AI Engineer, Generative AI & Agentic AI 
 /** Organization JSON-LD: homepage only (moved out of the root layout). Facts come from config/site.ts. */
 const organizationSchema = {
   "@context": "https://schema.org",
-  "@type": ["Organization", "EducationalOrganization"],
+  "@type": ["Organization", "EducationalOrganization", "LocalBusiness"],
   "@id": `${site.url}/#organization`,
   name: site.name,
   url: site.url,
   logo: `${site.url}/apple-icon.png`,
+  image: `${site.url}/apple-icon.png`,
   description: "Datamarcos runs four live, mentor-led online courses for students and working professionals: Forward Deployed AI Engineer, Generative AI & Agentic AI Engineer, Applied Agentic AI Certification, and Advance Data Engineering with Applied GenAI & Agentic AI. It also offers technology training for teams.",
   email: site.email,
   telephone: "+91-88519-30644",
   address: { "@type": "PostalAddress", streetAddress: "Noida One, 303-304, Rasoolpur Nawada, Industrial Area, Sector 62", addressLocality: "Noida", addressRegion: "Uttar Pradesh", postalCode: "201309", addressCountry: "IN" },
+  openingHoursSpecification: [{ "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], opens: "09:00", closes: "21:00" }],
+  areaServed: "IN",
   contactPoint: [{ "@type": "ContactPoint", contactType: "admissions", telephone: "+91-88519-30644", email: site.email, areaServed: "IN", availableLanguage: ["en", "hi"] }],
   founder: { "@type": "Person", name: site.founder.name, jobTitle: site.founder.title, image: `${site.url}${site.founder.image}` },
-  sameAs: ["https://www.instagram.com/datamarcos_official/"]
+  sameAs: [
+    "https://www.linkedin.com/company/90980108/",
+    "https://www.instagram.com/datamarcos_official/",
+    "https://www.quora.com/profile/Deepesh-Mishra-125",
+    "https://www.slideshare.net/deepeshdatamarcos"
+  ]
 };
 
 export const metadata: Metadata = {

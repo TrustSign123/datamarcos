@@ -2,7 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import { env } from "@/config/site";
-import { readAttribution, trackEvent } from "@/lib/analytics";
+import { readAttribution, gaEvent, trackEvent } from "@/lib/analytics";
 
 type FormState = "idle" | "loading" | "success" | "error";
 
@@ -48,6 +48,7 @@ export function CorporateInquiryForm() {
       await submitForm(env.corporateFormEndpoint, new FormData(event.currentTarget));
       setState("success");
       trackEvent("corporate_form_submit");
+      gaEvent("generate_lead", { form_id: "corporate_inquiry", course: "Corporate training" });
       event.currentTarget.reset();
     } catch {
       setState("error");
@@ -139,6 +140,7 @@ export function ProgramApplicationForm({ programId, programSlug }: { programId: 
       await submitForm(env.leadEndpoint, data);
       setState("success");
       trackEvent("application_submit", { programId, programSlug });
+      gaEvent("generate_lead", { form_id: "program_application", course: programSlug });
       form.reset();
     } catch {
       setState("error");

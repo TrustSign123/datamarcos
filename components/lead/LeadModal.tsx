@@ -186,6 +186,7 @@ export function LeadModal() {
                 lockCourse={lockCourse}
                 cta={downloadCta}
                 submitLabel="Download Syllabus"
+                formId="lead_modal_brochure"
                 trust={["Instant download", "Live online", "Mentor-led"]}
                 successFor={(info) => downloadSuccess(info, session.file)}
                 autoFocus
@@ -198,6 +199,7 @@ export function LeadModal() {
                 course={session.course}
                 cta={session.cta}
                 submitLabel={isApply ? "Submit Application" : "Request a Call Back"}
+                formId={isApply ? "lead_modal_apply" : "lead_modal_callback"}
                 autoFocus
                 onSuccess={() => setSucceeded(true)}
               />
