@@ -12,8 +12,11 @@ export type MarketFact = { value: string; label: string; source: string; href: s
 
 export const fdeMarketFacts: MarketFact[] = [
   {
-    value: "+729%",
-    label: "Year-over-year growth in Forward Deployed Engineer postings on Indeed (643 in Apr 2025 → 5,330 in Apr 2026).",
+    // Business Insider (16 May 2026, corrected): Indeed FDE postings were indexed values vs a
+    // January 2025 baseline (+543% in Apr 2025, +5,230% in Apr 2026), not posting counts. Only the
+    // year-over-year growth ("more than 700%") is quoted here; do not reintroduce absolute counts.
+    value: "700%+",
+    label: "Growth in Forward Deployed Engineer job postings on Indeed year over year, April 2025 to April 2026.",
     source: "Indeed data via Business Insider",
     href: "https://www.businessinsider.com/forward-deployed-engineer-jobs-in-demand-2026-5",
     date: "May 2026"
