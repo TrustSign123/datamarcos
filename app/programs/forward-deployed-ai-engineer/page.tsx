@@ -1,5 +1,6 @@
 import type React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import type { Metadata } from "next";
 import {
   ArrowDownToLine, ArrowRight, ArrowUpRight, Award, BadgeCheck, Bot, CalendarClock, Check, Cloud, Compass, FileCheck2,
@@ -14,7 +15,8 @@ import { FdeCurriculum } from "@/components/program/fde/FdeCurriculum";
 import { FdeHeroVisual } from "@/components/program/fde/FdeHeroVisual";
 import { DEEPESH_LINKEDIN } from "@/config/home";
 import {
-  FDE_BROCHURE, FDE_COURSE, fdeCompare, fdeEngagements, fdeFaqs, fdeHirers, fdeJourneys, fdeMarketFacts, fdePhases, fdeRoleRows, fdeToolkit
+  FDE_BROCHURE, FDE_COURSE, fdeAdjacentRoleRows, fdeCompare, fdeEngagements, fdeFaqs, fdeHirers, fdeJobSkillMap, fdeJourneys, fdeMarketFacts,
+  fdePhases, fdeRoleRows, fdeToolkit, type FdeFaq
 } from "@/config/fde";
 import {
   siAnthropic, siApachekafka, siAuth0, siDatabricks, siDocker, siCrewai, siElasticsearch, siFastapi, siGithub, siGithubactions,
@@ -23,24 +25,27 @@ import {
   siPython, siRedis, siSap, siSnowflake, siStripe, siTerraform
 } from "simple-icons";
 import type { LucideIcon } from "lucide-react";
-import { courseJsonLd } from "@/lib/seo";
+import { site } from "@/config/site";
 
 const PATH = "/programs/forward-deployed-ai-engineer";
 
+const URL = `${site.url}${PATH}`;
+const OG_IMAGE = { url: "/og/forward-deployed-ai-engineer.jpg", width: 1200, height: 630, alt: "Datamarcos Forward Deployed AI Engineer program: 22 weeks live online, 4 client-style engagements" };
+const OG_TITLE = "Forward Deployed Engineer (FDE) Course, Live Online | Datamarcos";
+const OG_DESCRIPTION = "Ship AI into real enterprises. 22 weeks, 170+ live hours, 4 client-style engagements, mentor-led.";
+
 export const metadata: Metadata = {
-  title: "Forward Deployed AI Engineer Program, Live 22 Weeks | Datamarcos",
-  description: "Live, mentor-led 22-week program to become a Forward Deployed AI Engineer: scope, build, secure and deploy production AI (RAG, agents, MCP, LLMOps) for clients.",
+  title: "Forward Deployed Engineer (FDE) Course Online | Datamarcos",
+  description: "Live 22-week Forward Deployed Engineer (FDE) course for working engineers in India. Ship 4 client-style AI deployments: RAG, agents, MCP, security and LLMOps.",
   alternates: { canonical: PATH },
-  openGraph: {
-    title: "Forward Deployed AI Engineer Program | Datamarcos",
-    description: "Ship AI into real enterprises. 22 weeks, 170+ live hours, 4 client-style engagements, mentor-led.",
-    images: [{ url: "/images/forward-deployed-ai-engineer/brochure-cover.png", width: 1400, height: 1980 }]
-  }
+  openGraph: { title: OG_TITLE, description: OG_DESCRIPTION, url: URL, siteName: site.name, type: "website", images: [OG_IMAGE] },
+  twitter: { card: "summary_large_image", title: OG_TITLE, description: OG_DESCRIPTION, images: [OG_IMAGE.url] }
 };
 
 const nav: FdeNavItem[] = [
   { id: "why", label: "Why FDE" },
   { id: "role", label: "The role" },
+  { id: "jobs", label: "FDE jobs" },
   { id: "fit", label: "Who it's for" },
   { id: "curriculum", label: "Curriculum" },
   { id: "projects", label: "Projects" },
@@ -88,6 +93,21 @@ const careerSupport = [
   "Offer evaluation and negotiation"
 ];
 
+const adjacentRoles = [
+  { key: "se", label: "Solutions / sales engineer" },
+  { key: "aie", label: "AI engineer" },
+  { key: "con", label: "Consultant" }
+];
+
+const HINDU_BL = "https://www.thehindubusinessline.com/info-tech/gccs-outpace-indian-it-services-firms-in-hiring-forward-deployed-engineers/article71336534.ece";
+
+/** FAQ answer with an optional inline link; JSON-LD gets the identical plain text. */
+function FaqAnswer({ faq }: { faq: FdeFaq }) {
+  if (!faq.link || !faq.a.includes(faq.link.label)) return <p>{faq.a}</p>;
+  const [before, after] = faq.a.split(faq.link.label);
+  return <p>{before}<Link href={faq.link.href}>{faq.link.label}</Link>{after}</p>;
+}
+
 type ToolIcon = { title: string; slug: string; hex: string; path: string };
 type Tool = { name: string; icon?: ToolIcon; fallback?: LucideIcon };
 type ToolGroup = { category: string; direction: "left" | "right"; tools: Tool[] };
@@ -123,15 +143,61 @@ const toolGroups: ToolGroup[] = [
 const TOOL_SPRITE = "/images/forward-deployed-ai-engineer/tool-icons.svg";
 const accents = ["#f4511e", "#2f6bff", "#0e9f84", "#b04cff"];
 
+const ORG_ID = `${site.url}/#organization`;
+const MENTOR_ID = `${site.url}/#deepesh-mishra`;
+
+/** Course + mentor + breadcrumb + FAQ. Deliberately NO offers / price (no-fee rule). */
 const jsonLd = [
-  courseJsonLd({
+  {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "@id": `${URL}#course`,
     name: "Forward Deployed AI Engineer Program",
-    description: metadata.description as string,
-    path: PATH,
-    duration: "P22W",
-    workloadHours: 170,
-    credential: "Datamarcos Executive Certificate in Forward Deployed AI Engineering"
-  }),
+    alternateName: ["Forward Deployed Engineer (FDE) Course", "AI FDE course"],
+    description: "Live, mentor-led 22-week Forward Deployed Engineer (FDE) course for working engineers: scope, build, secure and deploy production AI (RAG, agents, MCP, LLMOps) through four client-style engagements.",
+    url: URL,
+    image: `${site.url}/images/program-cards/forward-deployed-ai-engineer.webp`,
+    inLanguage: "en-IN",
+    educationalLevel: "Intermediate",
+    timeRequired: "P22W",
+    coursePrerequisites: ["Comfortable Python with about 2+ years of engineering experience, or strong shipped projects", "Git, Linux and SQL basics (a bridge pre-work track is provided)"],
+    teaches: ["Customer discovery and scoping (SOW, ROI, UAT)", "Production RAG and evaluation", "Agents, LangGraph and Model Context Protocol (MCP)", "Enterprise and data-platform integration (Databricks, Snowflake)", "AI security and governance (OWASP LLM Top 10, PII, DPDP)", "LLMOps, CI/CD and observability", "Deployment and handover"],
+    syllabusSections: [
+      { "@type": "Syllabus", name: "Foundation (Weeks 1-4)", description: "FDE craft, APIs, cloud networking, containers and CI/CD." },
+      { "@type": "Syllabus", name: "GenAI Systems (Weeks 5-9)", description: "LLM engineering, retrieval, knowledge graphs, multimodal documents and cost control. Engagement 1: Project Sentinel." },
+      { "@type": "Syllabus", name: "Agents & Integration (Weeks 10-14)", description: "Agent design, multi-agent orchestration, MCP, legacy and data-platform integration. Engagement 2: Project Atlas." },
+      { "@type": "Syllabus", name: "Production & Security (Weeks 15-19)", description: "AI security, governance and compliance, LLMOps and handover. Engagement 3: Project Helix." },
+      { "@type": "Syllabus", name: "Capstone & Launch (Weeks 20-22)", description: "Your capstone engagement, Demo Day and FDE interview loops." }
+    ],
+    provider: { "@type": "Organization", "@id": ORG_ID, name: site.name, url: site.url },
+    educationalCredentialAwarded: { "@type": "EducationalOccupationalCredential", name: "Datamarcos Executive Certificate in Forward Deployed AI Engineering", credentialCategory: "certificate" },
+    hasCourseInstance: {
+      "@type": "CourseInstance",
+      courseMode: "online",
+      courseWorkload: "PT170H",
+      courseSchedule: { "@type": "Schedule", repeatFrequency: "P1W", repeatCount: 22 },
+      instructor: { "@id": MENTOR_ID }
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": MENTOR_ID,
+    name: site.founder.name,
+    jobTitle: "Founder and Lead Mentor",
+    image: `${site.url}${site.founder.image}`,
+    worksFor: { "@id": ORG_ID },
+    sameAs: [DEEPESH_LINKEDIN]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: `${site.url}/` },
+      { "@type": "ListItem", position: 2, name: "Programs", item: `${site.url}/programs` },
+      { "@type": "ListItem", position: 3, name: "Forward Deployed AI Engineer", item: URL }
+    ]
+  },
   {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -167,7 +233,14 @@ export default function ForwardDeployedAIEngineerPage() {
         <div className="fx-hero-glow" aria-hidden="true" />
         <div className="fx-wrap fx-hero-grid">
           <div className="fx-hero-copy">
-            <p className="fx-hero-kicker"><span className="fx-dot" /> Live online · 22-week executive program · Application-based</p>
+            <nav className="fx-crumbs" aria-label="Breadcrumb">
+              <ol>
+                <li><Link href="/">Home</Link></li>
+                <li><Link href="/programs">Programs</Link></li>
+                <li aria-current="page">Forward Deployed AI Engineer</li>
+              </ol>
+            </nav>
+            <p className="fx-hero-kicker"><span className="fx-dot" /> Forward Deployed Engineer (FDE) course · Live online · 22 weeks · Application-based</p>
             <h1 id="fx-title">Become a <span>Forward Deployed</span> <em>AI Engineer.</em></h1>
             <p className="fx-hero-deck">The engineer companies send in to make AI actually work. Learn to scope a messy customer problem, ship a secure AI system into their real environment, and own the result.</p>
             <ul className="fx-hero-promise">
@@ -243,6 +316,15 @@ export default function ForwardDeployedAIEngineerPage() {
         <div className="fx-wrap">
           <Head id="fx-role-title" eyebrow="FDE vs ML engineer vs software engineer" title={<>Same code. <em>Very different job.</em></>} body="FDEs write production code like software engineers and work with models like ML engineers, but they do it embedded with one customer, and they own the outcome." />
           <FdeRoleExplainer rows={fdeRoleRows} />
+        </div>
+      </section>
+
+      {/* FDE VS ADJACENT ROLES */}
+      <section className="fx-section" id="vs-roles" aria-labelledby="fx-vs-title">
+        <div className="fx-wrap">
+          <Head id="fx-vs-title" eyebrow="Titles that sound similar" title={<>FDE vs solutions engineer, <em>AI engineer and consultant.</em></>} body="The roles overlap, but the job after the contract is signed is very different." />
+          <FdeRoleExplainer rows={fdeAdjacentRoleRows} roles={adjacentRoles} label="FDE compared with solutions engineer, AI engineer and consultant" />
+          <p className="fx-fine">Titles vary by company. Read the job description, not just the title.</p>
         </div>
       </section>
 
@@ -341,6 +423,23 @@ export default function ForwardDeployedAIEngineerPage() {
         </div>
       </section>
 
+      {/* FDE JOBS IN INDIA */}
+      <section className="fx-section fx-paper" id="jobs" aria-labelledby="fx-jobs-title">
+        <div className="fx-wrap">
+          <div className="fx-split">
+            <Head id="fx-jobs-title" eyebrow="The job market" title={<>Forward deployed engineer jobs in India: <em>what employers ask for.</em></>} />
+            <div className="fx-why-copy">
+              <p>In India, FDE roles are opening at global capability centres (GCCs), at IT-services firms building AI practices, and at frontier AI, enterprise-software and cloud companies. Employers describe the same mix: strong engineering skills, RAG and agentic AI, and the business fluency to run a customer conversation and get a solution deployed.</p>
+              <p>The program maps to that mix week by week:</p>
+            </div>
+          </div>
+          <ul className="fx-jobmap">
+            {fdeJobSkillMap.map((row) => <li key={row.weeks}><b>{row.skill}</b><span>{row.weeks}</span></li>)}
+          </ul>
+          <p className="fx-fine">Source on India hiring: <a href={HINDU_BL} target="_blank" rel="noreferrer">The Hindu BusinessLine, “GCCs outpace Indian IT services firms in hiring Forward Deployed Engineers” (12 Aug 2026) <ArrowUpRight size={12} aria-hidden="true" /></a>. Market reports differ, and we don&apos;t guarantee placement, salary or hikes.</p>
+        </div>
+      </section>
+
       {/* MENTOR */}
       <section className="fx-section" id="mentor" aria-labelledby="fx-mentor-title">
         <div className="fx-wrap fx-mentor">
@@ -418,6 +517,7 @@ export default function ForwardDeployedAIEngineerPage() {
           <div>
             <Head id="fx-cert-title" eyebrow="Certificate & career support" title={<>A certificate backed by <em>work you can show.</em></>} body="The Datamarcos Executive Certificate in Forward Deployed AI Engineering is awarded after you complete the program and defend your capstone at Demo Day. Your strongest credential is the portfolio: four deployed engagements and the artifacts behind them." />
             <ul className="fx-career">{careerSupport.map((c) => <li key={c}><Check size={16} aria-hidden="true" />{c}</li>)}</ul>
+            <p className="fx-career-more"><Link className="fx-link" href="/resources/interview-prep">FDE interview prep resources <ArrowRight size={14} aria-hidden="true" /></Link></p>
             <p className="fx-fine">We do not guarantee placement, salary or hikes. Outcomes depend on each learner.</p>
           </div>
         </div>
@@ -434,7 +534,7 @@ export default function ForwardDeployedAIEngineerPage() {
             {fdeFaqs.map((faq, index) => (
               <details key={faq.q} open={index === 0}>
                 <summary>{faq.q}<span aria-hidden="true" /></summary>
-                <p>{faq.a}</p>
+                <FaqAnswer faq={faq} />
               </details>
             ))}
           </div>

@@ -174,7 +174,7 @@ export default function Home() {
                   </div>
                   <div className="dmh-prog-actions">
                     <a className="dmh-btn dmh-btn-solid" href={program.brochure} data-dm-download data-course={program.leadCourse} data-cta={`Home program card - Download Syllabus - ${program.leadCourse}`}><ArrowDownToLine size={16} /> Download Syllabus</a>
-                    <Link className="dmh-btn dmh-btn-line" href={`/programs/${program.slug}`}>View Program <ArrowUpRight size={16} /></Link>
+                    <Link className="dmh-btn dmh-btn-line" href={`/programs/${program.slug}`}>{program.ctaLabel ?? "View Program"} <ArrowUpRight size={16} /></Link>
                   </div>
                 </div>
               </article>

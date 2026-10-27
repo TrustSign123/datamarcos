@@ -168,7 +168,8 @@ export const fdeCompare: CompareRow[] = [
   { label: "Honest outcomes", dm: "No placement or salary guarantees", selfPaced: "Varies", bootcamp: "Varies" }
 ];
 
-export type FdeFaq = { q: string; a: string };
+/** `link.label` must appear verbatim in `a`; it is rendered as a link and the plain text goes to FAQPage JSON-LD. */
+export type FdeFaq = { q: string; a: string; link?: { href: string; label: string } };
 
 export const fdeFaqs: FdeFaq[] = [
   { q: "What does a Forward Deployed AI Engineer actually do?", a: "An FDE embeds with a customer, turns a vague business problem into working software inside the customer's real environment, and stays accountable until it creates value. The day mixes stakeholder discovery, production coding (integrations, RAG, agents, pipelines), debugging in locked-down environments, security reviews and handover." },
@@ -182,5 +183,31 @@ export const fdeFaqs: FdeFaq[] = [
   { q: "Will I get a job after this?", a: "We do not guarantee placements, salaries or hikes. You get deployed projects, a weekly career track, FDE-specific mock interview loops, resume and LinkedIn teardowns, and a referral and outreach playbook." },
   { q: "Will I get a certificate?", a: "Yes. The Datamarcos Executive Certificate in Forward Deployed AI Engineering is awarded on completing the program and defending your capstone." },
   { q: "What is the fee? Are EMI options available?", a: "EMI options are available. Our counsellor shares the fee, instalment options, scholarships and the next cohort date after a short call. Request a call and we will get back to you." },
-  { q: "Can my company sponsor me?", a: "Yes. Talk to admissions about corporate sponsorship and team cohorts." }
+  { q: "Can my company sponsor me?", a: "Yes. Talk to admissions about corporate sponsorship and team cohorts." },
+  // Added 27 Oct 2026 (SEO brief, section 4). Facts match the page: ~2+ years, certificate, 4 engagements, weekly rhythm, career track.
+  { q: "Can a fresher join the Forward Deployed Engineer course?", a: "Most FDE roles expect real engineering experience, so the program is built for engineers with about 2+ years, or strong shipped projects. If you are earlier in your career, a counsellor may suggest starting with the Generative AI & Agentic AI Engineer program and moving to FDE later.", link: { href: "/programs/genai-agentic-ai-engineer", label: "Generative AI & Agentic AI Engineer program" } },
+  { q: "What is the difference between a forward deployed engineer and a solutions engineer?", a: "A solutions engineer mostly supports the sale with demos and proofs of concept. A forward deployed engineer builds, deploys and supports the real system in the customer's environment after the sale, and owns the result." },
+  { q: "Is this an IIT or university certificate?", a: "No. You earn the Datamarcos Executive Certificate in Forward Deployed AI Engineering after completing the program and defending your capstone. We focus on the portfolio you can show: four deployed, client-style engagements." },
+  { q: "Is the course available in Bangalore, Hyderabad, Pune or Delhi NCR?", a: "Yes. It's live online, so you can join from anywhere in India (and abroad), with live weekend sessions and a weekday evening lab." },
+  { q: "Do you prepare me for FDE interviews?", a: "Yes. A weekly career track includes FDE-style mock interview loops (system design with ambiguity, live debugging and customer scenarios), plus resume, LinkedIn and portfolio reviews. We don't guarantee interviews or offers." },
+  { q: "How is the FDE program different from the GenAI & Agentic AI Engineer program?", a: "The GenAI program builds LLM, RAG and agent engineering skills. The FDE program assumes engineering experience and adds the customer-facing half of the job: discovery, scoping, SOWs, security reviews, enterprise integration, deployment and handover, practised through four client-style engagements." }
+];
+
+/** Second role comparison (SEO brief 3a). Copy from the brief; generic role descriptions, no company names. */
+export type AdjacentRoleRow = { label: string; se: string; aie: string; con: string; fde: string };
+
+export const fdeAdjacentRoleRows: AdjacentRoleRow[] = [
+  { label: "Main focus", se: "Technical demos and proofs of concept before the deal", aie: "Building AI features and systems for a product or platform", con: "Recommendations and plans", fde: "Making one customer's system work in production" },
+  { label: "Writes production code", se: "Sometimes, mostly demos", aie: "Yes", con: "Rarely", fde: "Yes, in the customer's environment" },
+  { label: "After the contract is signed", se: "Usually hands over", aie: "Not customer-specific", con: "Report or roadmap", fde: "Stays until it's adopted and handed over" },
+  { label: "Judged on", se: "Deals won", aie: "Feature quality, model metrics", con: "Quality of advice", fde: "Working software and measured business value" }
+];
+
+/** "What employers ask for" mapping (SEO brief 3b). Week ranges match fdePhases. */
+export const fdeJobSkillMap = [
+  { skill: "Python, APIs, cloud networking, containers and CI/CD", weeks: "Weeks 1-4" },
+  { skill: "RAG, evaluation, multimodal documents, cost control", weeks: "Weeks 5-9" },
+  { skill: "Agents, MCP, enterprise and data-platform integration", weeks: "Weeks 10-14" },
+  { skill: "AI security, governance, LLMOps and handover", weeks: "Weeks 15-19" },
+  { skill: "Capstone engagement and FDE interview loops", weeks: "Weeks 20-22 + weekly career track" }
 ];

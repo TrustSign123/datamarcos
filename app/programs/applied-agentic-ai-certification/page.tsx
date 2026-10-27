@@ -397,6 +397,7 @@ export default function AppliedAgenticAICertificationPage() {
             </a>
             <Link href="/contact" data-dm-lead>Talk to a program advisor</Link>
           </div>
+          <p className="agentic-go-further">Go further: <Link href="/programs/forward-deployed-ai-engineer">Forward Deployed AI Engineer program</Link></p>
         </div>
       </section>
     </div>

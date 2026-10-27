@@ -56,7 +56,7 @@ export function ProgramsCatalog() {
             <Link className="button primary" href="/programs/applied-agentic-ai-certification">Explore this program</Link>
           </aside>
           <aside className="fde-catalog-callout">
-            <div><span className="badge">5-MONTH EXECUTIVE PROGRAM</span><h2>Become a Forward Deployed AI Engineer</h2><p>Live online, hands-on learning across discovery, AI engineering, deployment and career support.</p></div>
+            <div><span className="badge">5-MONTH EXECUTIVE PROGRAM</span><h2>Become a Forward Deployed AI Engineer</h2><p>Live online, hands-on learning across discovery, AI engineering, deployment and career support.</p><p><Link href="/programs/forward-deployed-ai-engineer">Forward Deployed Engineer course for working engineers: 22 weeks live</Link></p></div>
             <Link className="button primary" href="/programs/forward-deployed-ai-engineer">Explore this program</Link>
           </aside>
           <div className="grid three">{filtered.map((program) => <article className="card" key={program.id}><span className="badge">{program.status.replaceAll("_", " ")}</span><h2>{program.title}</h2><p>{program.description}</p><p><strong>Technology:</strong> {program.category}</p><p><strong>Duration:</strong> {program.duration}</p><p><strong>Level:</strong> {program.level}</p><p><strong>Format:</strong> {program.format}</p><Link className="button primary" href={`/programs/${program.slug}`}>View Program</Link></article>)}</div>
