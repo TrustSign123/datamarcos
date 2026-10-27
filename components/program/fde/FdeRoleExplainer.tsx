@@ -1,19 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import type { RoleRow } from "@/config/fde";
 
-const roles = [
+export type RoleOption = { key: string; label: string };
+type Row = { label: string; fde: string } & Record<string, string>;
+
+const defaultRoles: RoleOption[] = [
   { key: "swe", label: "Software engineer" },
   { key: "mle", label: "ML engineer" },
   { key: "sa", label: "Solutions architect" }
-] as const;
+];
 
-type RoleKey = (typeof roles)[number]["key"];
-
-/** FDE vs SWE vs ML engineer vs SA. Desktop shows every column; mobile compares one role against FDE at a time. */
-export function FdeRoleExplainer({ rows }: { rows: RoleRow[] }) {
-  const [pick, setPick] = useState<RoleKey>("swe");
+/** FDE vs other roles. Desktop shows every column; mobile compares one role against FDE at a time. */
+export function FdeRoleExplainer({ rows, roles = defaultRoles, label = "How the FDE role compares" }: { rows: Row[]; roles?: RoleOption[]; label?: string }) {
+  const [pick, setPick] = useState<string>(roles[0].key);
   return (
     <div className="fx-roles" data-pick={pick}>
       <div className="fx-roles-toggle" role="group" aria-label="Compare FDE with">
@@ -22,7 +22,7 @@ export function FdeRoleExplainer({ rows }: { rows: RoleRow[] }) {
           <button key={role.key} type="button" aria-pressed={pick === role.key} onClick={() => setPick(role.key)}>{role.label}</button>
         ))}
       </div>
-      <div className="fx-roles-table" role="table" aria-label="How the FDE role compares">
+      <div className="fx-roles-table" role="table" aria-label={label}>
         <div className="fx-roles-row fx-roles-head" role="row">
           <span role="columnheader"><span className="fx-sr">Dimension</span></span>
           {roles.map((role) => <span role="columnheader" key={role.key} data-col={role.key}>{role.label}</span>)}

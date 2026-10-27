@@ -5528,7 +5528,7 @@ body:has(.agentic-course-page) > .dmx-announce { display: none; }
   .fx-roles-row { grid-template-columns: .8fr 1fr 1fr; }
   .fx-roles-row > span { padding: 12px; font-size: .8rem; }
   .fx-roles [data-col] { display: none; }
-  .fx-roles[data-pick="swe"] [data-col="swe"], .fx-roles[data-pick="mle"] [data-col="mle"], .fx-roles[data-pick="sa"] [data-col="sa"], .fx-roles [data-col="fde"] { display: block; }
+  .fx-roles[data-pick="swe"] [data-col="swe"], .fx-roles[data-pick="mle"] [data-col="mle"], .fx-roles[data-pick="sa"] [data-col="sa"], .fx-roles[data-pick="se"] [data-col="se"], .fx-roles[data-pick="aie"] [data-col="aie"], .fx-roles[data-pick="con"] [data-col="con"], .fx-roles [data-col="fde"] { display: block; }
   .fx-roles-head > span { font-size: .64rem; }
   .fx-journeys { grid-template-columns: 1fr; gap: 12px; }
   .fx-journeys li { padding: 20px; }
@@ -5610,3 +5610,26 @@ body:has(.agentic-course-page) > .dmx-announce { display: none; }
 .yt-facade:hover .yt-facade-play,.yt-facade:focus-visible .yt-facade-play { opacity:1;transform:translate(-50%,-50%) scale(1.06); }
 .yt-facade:focus-visible { outline:3px solid #60cdff;outline-offset:-3px; }
 .yt-facade-frame { position:absolute;inset:0;width:100%;height:100%;border:0; }
+
+/* FDE page SEO additions (2026-10-27): breadcrumb, employer skill map, interview-prep link, FAQ inline links. */
+.fx-crumbs { margin: 0 0 14px; }
+.fx-crumbs ol { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 0; padding: 0; list-style: none; font-size: .78rem; color: rgba(255,255,255,.72); }
+.fx-crumbs li + li::before { content: "›"; margin-right: 6px; color: rgba(255,255,255,.5); }
+.fx-crumbs a { color: rgba(255,255,255,.86); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(255,255,255,.35); }
+.fx-crumbs a:hover { color: #fff; }
+.fx-crumbs [aria-current] { color: rgba(255,255,255,.72); }
+.fx-jobmap { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 28px 0 0; padding: 0; list-style: none; }
+.fx-jobmap li { display: flex; flex-direction: column; justify-content: space-between; gap: 12px; padding: 16px; border: 1px solid var(--line); border-radius: 14px; background: #fff; }
+.fx-jobmap b { color: var(--ink); font-size: .92rem; line-height: 1.4; }
+.fx-jobmap span { color: #8a3a12; font-size: .8rem; font-weight: 800; }
+.fx-fine a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.fx-career-more { margin: 14px 0 0; }
+.fx-faq-list details p a { color: var(--ink); font-weight: 750; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(244,81,30,.55); }
+@media (max-width: 900px) { .fx-jobmap { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .fx-jobmap { grid-template-columns: 1fr; } }
+.fde-ga-next-step { display: flex; flex-wrap: wrap; gap: 8px; align-items: baseline; margin: 18px 0 0; }
+.fde-ga-next-step b { font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; opacity: .75; }
+.fde-ga-next-step a { color: inherit; font-weight: 750; text-decoration: underline; text-underline-offset: 3px; }
+.agentic-go-further { margin: 18px 0 0; text-align: center; color: rgba(255,255,255,.82); }
+.agentic-go-further a { color: #fff; font-weight: 750; text-decoration: underline; text-underline-offset: 3px; }
+.fde-catalog-callout p a { font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }

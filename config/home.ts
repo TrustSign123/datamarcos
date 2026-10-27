@@ -19,6 +19,8 @@ export type HomeProgram = {
   whoFor: string;
   summary: string;
   tag: string;
+  /** Optional descriptive anchor for the card's "View Program" link. */
+  ctaLabel?: string;
 };
 
 export const homePrograms: HomeProgram[] = [
@@ -72,7 +74,8 @@ export const homePrograms: HomeProgram[] = [
     facts: ["22 weeks", "170+ live hours", "Live online"],
     whoFor: "Engineers comfortable in Python with 2+ years of experience, or strong shipped projects.",
     summary: "Scope, build, secure and deploy AI systems in enterprise environments, from discovery to handoff.",
-    tag: "Enterprise AI"
+    tag: "Enterprise AI",
+    ctaLabel: "Forward Deployed Engineer (FDE) course"
   }
 ];
 
