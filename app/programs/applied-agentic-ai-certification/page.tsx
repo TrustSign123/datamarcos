@@ -1,7 +1,7 @@
 import type React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowDownToLine, ArrowRight, ArrowUpRight, Award, BadgeCheck, Bot, CalendarClock, Check, Linkedin, Minus, PlayCircle, Rocket, ShieldCheck, Sparkles, UsersRound, Wrench, X, Zap } from "lucide-react";
+import { ArrowDownToLine, ArrowRight, ArrowUpRight, Award, BadgeCheck, Bot, CalendarClock, Check, Linkedin, Minus, PlayCircle, Rocket, ShieldCheck, Sparkles, UsersRound, Wrench, X, Zap, RotateCcw } from "lucide-react";
 import { YouTubeFacade } from "@/components/YouTubeFacade";
 import { InlineLeadForm } from "@/components/lead/InlineLeadForm";
 import { GatedBrochureFrame } from "@/components/lead/GatedBrochureFrame";
@@ -402,6 +402,7 @@ export default function AppliedAgenticAICertificationPage() {
               <li><UsersRound size={17} aria-hidden="true" /> Live, mentor-led sessions with Deepesh Mishra</li>
               <li><Bot size={17} aria-hidden="true" /> RAG, agents, multi-agent, MCP, voice and n8n automation</li>
               <li><ShieldCheck size={17} aria-hidden="true" /> Honest outcomes: no placement or salary guarantees</li>
+              <li className="fx-apply-refund"><RotateCcw size={17} aria-hidden="true" /> <span><Link href="/refund-policy">7-day refund policy</Link>: not right for you? Ask within 7 days for a refund.</span></li>
             </ul>
             <Syllabus cta="Applied apply (syllabus)" variant="light" label="Prefer to read first? Get the syllabus" />
           </div>

@@ -1,3 +1,4 @@
+import { REFUND_FAQ_ANSWER } from "@/config/refund";
 export type CurriculumModule = {
   module: string;
   title: string;
@@ -282,7 +283,7 @@ export const programDetails: Record<string, ProgramDetail> = {
       { question: "Can international students join?", answer: "Yes, subject to cohort timing and delivery configuration." },
       { question: "How does the consultation work?", answer: "The free 1:1 call helps Datamarcos understand your background, goals and program fit. No payment is required for the consultation." },
       { question: "Can I pay through Razorpay?", answer: "Razorpay checkout can be enabled when enrollment is live and a public checkout URL is configured." },
-      { question: "What is the refund policy?", answer: "Please review the editable refund policy page or contact Datamarcos for the current policy before enrollment." }
+      { question: "What is the refund policy?", answer: REFUND_FAQ_ANSWER }
     ],
     showPricing: false,
     seo: {

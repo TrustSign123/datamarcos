@@ -1,3 +1,4 @@
+import { REFUND_FAQ_ANSWER } from "@/config/refund";
 import { EMI_NOTE, PROGRAM_FEES } from "@/config/fees";
 
 /**
@@ -216,8 +217,8 @@ export const homeFaqs: FaqItem[] = [
   },
   {
     q: "What is the refund policy?",
-    a: "Please read our Payment & Refund Policy for the full terms, or ask our counsellor before you enrol.",
-    link: { href: "/refund-policy", label: "Read the Payment & Refund Policy" }
+    a: REFUND_FAQ_ANSWER,
+    link: { href: "/refund-policy", label: "Read the 7-day refund policy" }
   }
 ];
 

@@ -3,8 +3,8 @@ import RefundPolicyPage from "@/app/refund-policy/page";
 
 export const metadata = pageMetadata({
   path: "/payment-refund-policy",
-  title: "Payment & Refund Policy | Datamarcos Online Programs",
-  description: "Datamarcos payment and refund policy for digital learning programs: merchant details, the no-cancellation and no-refund rule, shipping and contact details.",
+  title: "Payment & 7-Day Refund Policy | Datamarcos",
+  description: "Datamarcos payment and 7-day refund policy: ask within 7 days of your batch start or payment date, whichever is later, and we'll refund you. Merchant, shipping and contact details.",
   canonical: "/refund-policy"
 });
 
