@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowDownToLine, ArrowRight, ArrowUpRight, Building2, Check, ChevronDown, MessageCircle } from "lucide-react";
+import { ArrowDownToLine, ArrowRight, ArrowUpRight, Building2, Check, ChevronDown, MessageCircle, ShieldCheck } from "lucide-react";
 import { LearnerSpotlight } from "@/components/home/LearnerSpotlight";
 import { HeroSyllabusMenu } from "@/components/home/HeroSyllabusMenu";
 import { LearnerVideoCard } from "@/components/home/LearnerVideoCard";
@@ -293,6 +293,7 @@ export default function Home() {
             <h2 id="home-faq-title">Questions learners ask before joining.</h2>
             <p>Still unsure? Our counsellor can walk you through prerequisites, batch dates and EMI options.</p>
             <a className="dmh-ghost" href={env.whatsappUrl} target="_blank" rel="noreferrer"><MessageCircle size={16} /> Ask on WhatsApp</a>
+            <Link className="dmh-refund" href="/refund-policy"><ShieldCheck size={16} aria-hidden="true" /> <span><b>7-day refund policy.</b> Not right for you? Ask within 7 days for a refund.</span></Link>
           </div>
           <div className="dmh-faq">
             {homeFaqs.map((item) => (
@@ -315,7 +316,7 @@ export default function Home() {
             <a className="dmh-btn dmh-btn-wa" href={env.whatsappUrl} target="_blank" rel="noreferrer"><MessageCircle size={18} /> Chat on WhatsApp</a>
           </div>
           <ul className="dmh-final-points">
-            <li><Check size={15} /> Live online</li><li><Check size={15} /> Real projects</li><li><Check size={15} /> EMI options available</li>
+            <li><Check size={15} /> Live online</li><li><Check size={15} /> Real projects</li><li><Check size={15} /> EMI options available</li><li><Check size={15} /> <Link href="/refund-policy">7-day refund policy</Link></li>
           </ul>
         </div>
       </section>

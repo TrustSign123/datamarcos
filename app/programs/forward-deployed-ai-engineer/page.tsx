@@ -4,8 +4,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import {
   ArrowDownToLine, ArrowRight, ArrowUpRight, Award, BadgeCheck, Bot, CalendarClock, Check, Cloud, Compass, FileCheck2,
-  Hammer, Handshake, Linkedin, MessageSquareText, Minus, Presentation, Rocket, ShieldCheck, UsersRound, X
-} from "lucide-react";
+  Hammer, Handshake, Linkedin, MessageSquareText, Minus, Presentation, Rocket, ShieldCheck, UsersRound, X, RotateCcw } from "lucide-react";
 import { InlineLeadForm } from "@/components/lead/InlineLeadForm";
 import { GatedBrochureFrame } from "@/components/lead/GatedBrochureFrame";
 import { AlumniOutcomes } from "@/components/home/AlumniOutcomes";
@@ -565,6 +564,7 @@ export default function ForwardDeployedAIEngineerPage() {
               <li><UsersRound size={17} aria-hidden="true" /> 170+ live hours with mentor Deepesh Mishra</li>
               <li><Bot size={17} aria-hidden="true" /> RAG, agents, MCP, security, governance and LLMOps</li>
               <li><ShieldCheck size={17} aria-hidden="true" /> Honest outcomes: no placement or salary guarantees</li>
+              <li className="fx-apply-refund"><RotateCcw size={17} aria-hidden="true" /> <span><Link href="/refund-policy">7-day refund policy</Link>: not right for you? Ask within 7 days for a refund.</span></li>
             </ul>
             <Syllabus cta="FDE apply (syllabus)" variant="light" label="Prefer to read first? Get the syllabus" />
           </div>

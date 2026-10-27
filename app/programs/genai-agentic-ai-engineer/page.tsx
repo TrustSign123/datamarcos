@@ -4,8 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowDownToLine, ArrowRight, ArrowUpRight, Award, BadgeCheck, Bot, Boxes, Check, Hammer, Linkedin, Presentation, Rocket, ShieldCheck,
-  Sparkles, UsersRound, Workflow, X
-} from "lucide-react";
+  Sparkles, UsersRound, Workflow, X, RotateCcw } from "lucide-react";
 import { ProgramFee } from "@/components/program/ProgramFee";
 import { YouTubeFacade } from "@/components/YouTubeFacade";
 import { InlineLeadForm } from "@/components/lead/InlineLeadForm";
@@ -415,6 +414,7 @@ export default function GenAIAgenticEngineerPage() {
                 <li><UsersRound size={17} aria-hidden="true" /> 130+ hours of live sessions, labs and studio with Deepesh Mishra</li>
                 <li><Bot size={17} aria-hidden="true" /> LLMs, RAG, agents, MCP, security and LLMOps</li>
                 <li><ShieldCheck size={17} aria-hidden="true" /> Honest outcomes: no placement or salary guarantees</li>
+                <li className="fx-apply-refund"><RotateCcw size={17} aria-hidden="true" /> <span><Link href="/refund-policy">7-day refund policy</Link>: not right for you? Ask within 7 days for a refund.</span></li>
               </ul>
               <Syllabus cta="GenAI apply (syllabus)" variant="light" label="Prefer to read first? Get the syllabus" />
             </div>

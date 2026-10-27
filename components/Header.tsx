@@ -38,7 +38,7 @@ export function Header() {
   // The FDE program page carries no fee amounts (counsellors share them); other pages are unchanged.
   // Fee-free header/banner: the FDE page and the new /guides section (guides carry no fees or prices).
   // Fee-free pages: the header shows no fees here (the GenAI hero keeps its own fee line; see the Oct 2026 change log).
-  const feeFree = ["/programs/forward-deployed-ai-engineer", "/programs/genai-agentic-ai-engineer", "/programs/applied-agentic-ai-certification", "/guides"].includes(pathname) || pathname.startsWith("/guides/");
+  const feeFree = ["/programs/forward-deployed-ai-engineer", "/programs/genai-agentic-ai-engineer", "/programs/applied-agentic-ai-certification", "/guides", "/refund-policy", "/payment-refund-policy"].includes(pathname) || pathname.startsWith("/guides/");
   const [drawer, setDrawer] = useState(false);
   const [menu, setMenu] = useState<"programs" | "resources" | null>(null);
   const [scrolled, setScrolled] = useState(false);

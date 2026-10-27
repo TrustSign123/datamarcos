@@ -10,7 +10,7 @@ const columns = [
   { title: "Resources", links: [["Guides", "/guides"], ["Interview Prep", "/resources/interview-prep"]] },
   { title: "Company", links: [["About", "/about"], ["Contact", "/contact"], ["Become a Trainer", "/become-a-trainer"]] },
   { title: "For Teams", links: [["Corporate Training", "/corporate-training"], ["Trainer Network", "/become-a-trainer"]] },
-  { title: "Legal", links: [["Privacy", "/privacy"], ["Terms", "/terms"], ["Payment & Refund", "/refund-policy"]] }
+  { title: "Legal", links: [["Privacy", "/privacy"], ["Terms", "/terms"], ["7-day Refund Policy", "/refund-policy"]] }
 ];
 
 const footerTagline = "Live, mentor-led online courses in Forward Deployed AI, Generative & Agentic AI and Data Engineering for students and working professionals.";
