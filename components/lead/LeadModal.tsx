@@ -23,6 +23,7 @@ import { leadFormStyles, leadModalStyles } from "./leadStyles";
  * [data-dm-download] element opens the same form in "download" mode. The file is released only after
  * the endpoint returns ok (auto-download + a "Download now" button). A visitor who submitted in the
  * last 30 days (localStorage) downloads straight away. data-course / data-file override the defaults.
+ * Inside a [data-dm-ungated] element a download link is never gated (only tracked); used on the homepage.
  */
 
 type Mode = "lead" | "download";
@@ -100,7 +101,12 @@ export function LeadModal() {
       if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
       const element = event.target as Element | null;
       const download = element?.closest?.(DOWNLOAD_SELECTOR);
-      if (download && !download.closest("[data-dm-ungated]")) {
+      // Ungated downloads (e.g. homepage syllabus buttons): let the link download, just record it.
+      if (download && download.closest("[data-dm-ungated]")) {
+        trackEvent("resource_download", { course: download.getAttribute("data-course") || "", cta: download.getAttribute("data-cta") || "Download Syllabus", gated: "none" });
+        return;
+      }
+      if (download) {
         const file = download.getAttribute("data-file") || (download.tagName === "A" ? download.getAttribute("href") : "") || "";
         const isFile = /\.pdf($|[?#])/i.test(file) || file.includes("/brochures/");
         if (isLeadUnlocked() && isFile) return; // remembered visitor: let the link work normally

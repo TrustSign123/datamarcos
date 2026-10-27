@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowDownToLine, ArrowRight, ArrowUpRight, Building2, Check, ChevronDown, MessageCircle } from "lucide-react";
 import { LearnerSpotlight } from "@/components/home/LearnerSpotlight";
+import { HeroSyllabusMenu } from "@/components/home/HeroSyllabusMenu";
 import { LearnerVideoCard } from "@/components/home/LearnerVideoCard";
 import { AlumniOutcomes } from "@/components/home/AlumniOutcomes";
 import { EMI_NOTE, homeFaqs, homePrograms, learnerFeedback, learnerVideos } from "@/config/home";
@@ -104,7 +105,7 @@ export default function Home() {
             <p className="dmh-sub">Pick one of our <b>4 flagship courses</b>: <b>Forward Deployed AI Engineer</b>, <b>Generative AI &amp; Agentic AI Engineer</b>, <b>Applied Agentic AI Certification</b> or <b>Advance Data Engineering with Applied GenAI &amp; Agentic AI</b>. Learn live with Deepesh Mishra (18+ years, 25,000+ professionals trained across 200+ organizations) and build real projects.</p>
             <div className="dmh-actions">
               <Link className="button primary dmh-apply" href="/programs" data-dm-lead data-cta="Home hero - Apply Now">Apply Now <ArrowRight size={18} /></Link>
-              <Link className="dmh-syllabus" href="/programs" data-dm-download data-dm-lead data-cta="Download Syllabus"><ArrowDownToLine size={18} /> Download Syllabus</Link>
+              <HeroSyllabusMenu files={homePrograms.map((program) => ({ course: program.leadCourse, title: program.title, href: program.brochure }))} />
             </div>
             <p className="dmh-proof"><span>Live online classes</span><span>Real projects &amp; capstones</span><span>Fees from ₹40,000 · EMI options</span></p>
           </div>
@@ -174,7 +175,7 @@ export default function Home() {
                     <small>{EMI_NOTE}</small>
                   </div>
                   <div className="dmh-prog-actions">
-                    <a className="dmh-btn dmh-btn-solid" href={program.brochure} data-dm-download data-course={program.leadCourse} data-cta={`Home program card - Download Syllabus - ${program.leadCourse}`}><ArrowDownToLine size={16} /> Download Syllabus</a>
+                    <a className="dmh-btn dmh-btn-solid" href={program.brochure} download data-dm-ungated data-course={program.leadCourse} data-cta={`Home program card - Download Syllabus - ${program.leadCourse}`}><ArrowDownToLine size={16} /> Download Syllabus</a>
                     <Link className="dmh-btn dmh-btn-line" href={`/programs/${program.slug}`}>{program.ctaLabel ?? "View Program"} <ArrowUpRight size={16} /></Link>
                   </div>
                 </div>
