@@ -36,7 +36,8 @@ export function Logo() {
 export function Header() {
   const pathname = usePathname();
   // The FDE program page carries no fee amounts (counsellors share them); other pages are unchanged.
-  const feeFree = pathname === "/programs/forward-deployed-ai-engineer";
+  // Fee-free header/banner: the FDE page and the new /guides section (guides carry no fees or prices).
+  const feeFree = pathname === "/programs/forward-deployed-ai-engineer" || pathname === "/guides" || pathname.startsWith("/guides/");
   const [drawer, setDrawer] = useState(false);
   const [menu, setMenu] = useState<"programs" | "resources" | null>(null);
   const [scrolled, setScrolled] = useState(false);
