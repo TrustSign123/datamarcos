@@ -3,7 +3,7 @@
 import { FormEvent, type ReactNode, useRef, useState } from "react";
 import { LEAD_COURSES, LEAD_NOT_SURE, courseLabel, leadEndpoint } from "@/config/lead";
 import { env, site } from "@/config/site";
-import { readAttribution, trackEvent } from "@/lib/analytics";
+import { gaEvent, readAttribution, trackEvent } from "@/lib/analytics";
 import { rememberLeadUnlock } from "./leadUnlock";
 
 /**
@@ -32,6 +32,8 @@ export type LeadFormProps = {
   successFor?: (info: LeadSuccess) => { title?: string; body?: string; links?: SuccessLink[] };
   /** Prefix for element ids, so several forms can live on one page. */
   idPrefix?: string;
+  /** GA4 form_id for generate_lead (e.g. "lead_modal_apply"). Defaults to idPrefix. */
+  formId?: string;
   autoFocus?: boolean;
   onSuccess?: (info: LeadSuccess) => void;
 };
@@ -56,7 +58,7 @@ export function matchCourse(value?: string) {
 export function LeadForm({
   course: initialCourse, lockCourse = false, cta, submitLabel, trust = DEFAULT_TRUST,
   successTitle = "Thanks{first}! You’re all set.", successBody,
-  successLinks = [], successFor, idPrefix = "dml", autoFocus = false, onSuccess
+  successLinks = [], successFor, idPrefix = "dml", formId, autoFocus = false, onSuccess
 }: LeadFormProps) {
   const [course, setCourse] = useState(matchCourse(initialCourse));
   const [errors, setErrors] = useState<FieldErrors>({});
@@ -114,6 +116,8 @@ export function LeadForm({
       setDone({ name, course });
       onSuccess?.({ name, course });
       trackEvent("application_submit", { cta: ctaLabel, course });
+      // Course and CTA labels only: never the name, email or phone.
+      gaEvent("generate_lead", { form_id: formId || idPrefix, course, cta: ctaLabel });
       (window as Window & { fbq?: (...args: unknown[]) => void }).fbq?.("track", "Lead", { content_name: course });
     } catch (error) {
       const message = error instanceof Error ? error.message : "";

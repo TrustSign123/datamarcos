@@ -4,6 +4,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { WhatsAppCTA } from "@/components/Integrations";
 import { AnalyticsTags } from "@/components/AnalyticsTags";
+import { AnalyticsListeners } from "@/components/AnalyticsListeners";
 import { LeadModal } from "@/components/lead/LeadModal";
 import { site } from "@/config/site";
 
@@ -14,7 +15,9 @@ export const metadata: Metadata = {
   // No site-wide canonical here: each page sets its own self-referencing canonical (lib/seo.ts).
   // A layout-level canonical is inherited by every page that lacks one and pointed them all at "/".
   openGraph: { title: site.title, description: site.description, siteName: site.name, type: "website", images: [{ url: "/og/datamarcos-home.jpg", width: 1200, height: 630 }] },
-  twitter: { card: "summary_large_image", title: site.title, description: site.description, images: ["/og/datamarcos-home.jpg"] }
+  twitter: { card: "summary_large_image", title: site.title, description: site.description, images: ["/og/datamarcos-home.jpg"] },
+  // Google Search Console (URL-prefix property, HTML tag method). Renders <meta name="google-site-verification"> on every page.
+  verification: { google: "qCP91hcqOuO9xyGKStYqX5uEO_m7KVuapv6EYGCdhQg" }
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
@@ -22,6 +25,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en">
       <body>
         <AnalyticsTags />
+        <AnalyticsListeners />
         <Header />
         <main>{children}</main>
         <Footer />

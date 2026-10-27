@@ -2,7 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import { ArrowRight } from "lucide-react";
-import { readAttribution, trackEvent } from "@/lib/analytics";
+import { readAttribution, gaEvent, trackEvent } from "@/lib/analytics";
 
 type FormState = "idle" | "loading" | "success" | "error";
 
@@ -36,6 +36,7 @@ export function FDECallRequestForm({
       if (!response.ok) throw new Error(result.error || "Application submission failed.");
       setState("success");
       trackEvent("application_submit", { programId, programSlug });
+      gaEvent("generate_lead", { form_id: "fde_call_request", course: programName || programSlug || programId });
       form.reset();
     } catch (error) {
       setErrorMessage(error instanceof Error ? error.message : "Application submission failed.");
