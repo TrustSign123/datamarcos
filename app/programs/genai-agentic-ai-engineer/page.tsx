@@ -137,8 +137,8 @@ export default function GenAIAgenticEngineerPage() {
             <ProgramFee slug="genai-agentic-ai-engineer" />
           </div>
           <div className="fde-ga-hero-media">
-            <div className="fde-ga-hero-video-frame"><YouTubeFacade id={videoId} title="Generative AI and Agentic AI Engineer program overview" poster="/images/genai-agentic-ai-engineer/hero-video-poster.webp" posterSmall="/images/genai-agentic-ai-engineer/hero-video-poster-640.webp" priority /></div>
-            <div className="fde-ga-hero-mentor"><Image src="/images/deepesh-mishra-founder.jpeg" alt="Deepesh Mishra, founder and lead mentor at Datamarcos" width={160} height={160} priority /><div><span>YOUR LEAD MENTOR</span><strong>Deepesh Mishra</strong><small>Founder · Solution Architect · 18+ years</small></div><Sparkles size={19} /></div>
+            <div className="fde-ga-hero-video-frame"><YouTubeFacade id={videoId} title="Generative AI and Agentic AI Engineer program overview" poster="/images/genai-agentic-ai-engineer/hero-video-poster.webp" sizes="(max-width: 700px) calc(100vw - 40px), (max-width: 1240px) 46vw, 570px" priority /></div>
+            <div className="fde-ga-hero-mentor"><Image src="/images/deepesh-mishra-founder.jpeg" alt="Deepesh Mishra, founder and lead mentor at Datamarcos" width={160} height={160} sizes="58px" loading="eager" fetchPriority="low" /><div><span>YOUR LEAD MENTOR</span><strong>Deepesh Mishra</strong><small>Founder · Solution Architect · 18+ years</small></div><Sparkles size={19} /></div>
           </div>
         </div>
         <a className="fde-hero-scroll" href="#program-proof"><span /> Explore the program</a>

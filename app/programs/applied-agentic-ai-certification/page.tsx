@@ -140,10 +140,10 @@ export default function AppliedAgenticAICertificationPage() {
           </div>
           <figure className="fx-hero-media">
             <div className="fx-hero-video">
-              <YouTubeFacade id={APPLIED_VIDEO_ID} title="Applied Agentic AI Certification overview" poster="/images/applied-agentic-ai/hero-video-poster.webp" posterSmall="/images/applied-agentic-ai/hero-video-poster-640.webp" priority />
+              <YouTubeFacade id={APPLIED_VIDEO_ID} title="Applied Agentic AI Certification overview" poster="/images/applied-agentic-ai/hero-video-poster.webp" sizes="(max-width: 1080px) calc(100vw - 40px), 545px" priority />
             </div>
             <figcaption>
-              <Image src="/images/deepesh-mishra-founder.jpeg" alt="" width={88} height={88} />
+              <Image src="/images/deepesh-mishra-founder.jpeg" alt="" width={88} height={88} sizes="44px" />
               <span><b>Watch: Build. Automate. Deploy.</b>Program overview with mentor Deepesh Mishra <PlayCircle size={13} aria-hidden="true" /></span>
             </figcaption>
           </figure>

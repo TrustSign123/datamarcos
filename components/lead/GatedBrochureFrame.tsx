@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Lock } from "lucide-react";
 import { isLeadUnlocked, UNLOCK_EVENT } from "./leadUnlock";
 
@@ -10,6 +10,21 @@ import { isLeadUnlocked, UNLOCK_EVENT } from "./leadUnlock";
  */
 export function GatedBrochureFrame({ src, title, course, cover }: { src: string; title: string; course: string; cover?: string }) {
   const [unlocked, setUnlocked] = useState(false);
+  // The cover is a CSS background, which the browser downloads as soon as it renders, even far below the fold.
+  // Set it only when the frame comes within ~800 px of the viewport.
+  const [showCover, setShowCover] = useState(false);
+  const boxRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const box = boxRef.current;
+    if (!cover || !box) return;
+    if (!("IntersectionObserver" in window)) { setShowCover(true); return; }
+    const io = new IntersectionObserver((entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) { setShowCover(true); io.disconnect(); }
+    }, { rootMargin: "800px 0px" });
+    io.observe(box);
+    return () => io.disconnect();
+  }, [cover, unlocked]);
 
   useEffect(() => {
     const sync = () => setUnlocked(isLeadUnlocked());
@@ -25,7 +40,7 @@ export function GatedBrochureFrame({ src, title, course, cover }: { src: string;
   if (unlocked) return <iframe src={src} title={title} loading="lazy" />;
 
   return (
-    <div className="dm-locked-brochure" style={cover ? { ["--dm-cover" as string]: `url(${cover})` } : undefined}>
+    <div ref={boxRef} className="dm-locked-brochure" style={cover && showCover ? { ["--dm-cover" as string]: `url(${cover})` } : undefined}>
       <div className="dm-locked-brochure-inner">
         <span className="dm-locked-brochure-icon"><Lock size={22} aria-hidden="true" /></span>
         <p className="dm-locked-brochure-eyebrow">Full program guide</p>
