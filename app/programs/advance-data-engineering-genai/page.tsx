@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { preload } from "react-dom";
 import { GenAIAgenticLanding } from "@/components/program/GenAIAgenticLanding";
 import { site } from "@/config/site";
 import { courseJsonLd } from "@/lib/seo";
@@ -23,9 +24,14 @@ export const metadata: Metadata = {
   }
 };
 
-const courseSchema = courseJsonLd({ name: "Advance Data Engineering with Applied GenAI & Agentic AI", description: metadata.description as string, path: "/programs/advance-data-engineering-genai" });
+const courseSchema = courseJsonLd({ name: "Advance Data Engineering with Applied GenAI & Agentic AI", description: metadata.description as string, path: "/programs/advance-data-engineering-genai", duration: "P4M" });
 
 export default function AdvanceDataEngineeringGenAIPage() {
+  // The hero photo is a CSS background (it sits under gradient overlays), so the browser only finds it after the CSS
+  // is parsed. Preload it with high priority: it is this page's LCP element.
+  // Phones (≤640 px, where the photo sits under a 62-97% dark overlay) get a 960 px copy; each preload matches its CSS rule.
+  preload("/images/advance-data-engineering-genai/classroom-live.webp", { as: "image", fetchPriority: "high", media: "(min-width: 641px)" });
+  preload("/images/advance-data-engineering-genai/classroom-live-mobile.webp", { as: "image", fetchPriority: "high", media: "(max-width: 640px)" });
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(courseSchema) }} />
