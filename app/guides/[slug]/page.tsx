@@ -27,12 +27,20 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 const ORG_ID = `${site.url}/#organization`;
 
+/** FAQ answers may contain **bold** / [label](href); schema text must be plain. */
+function plain(text: string) {
+  return text.replace(/\*\*(.+?)\*\*/g, "$1").replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, "$1");
+}
+
 export default async function GuidePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const guide = getApprovedGuide(slug);
   if (!guide) notFound();
   const url = `${site.url}/guides/${guide.slug}`;
   const org = { "@type": "Organization", "@id": ORG_ID, name: site.name, url: site.url };
+  const author = guide.authorPerson
+    ? { "@type": "Person", name: guide.authorPerson.name, jobTitle: guide.authorPerson.jobTitle, worksFor: org }
+    : org;
 
   const jsonLd: Record<string, unknown>[] = [
     {
@@ -47,7 +55,7 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
       inLanguage: "en-IN",
       datePublished: guide.datePublished,
       dateModified: guide.dateModified,
-      author: org,
+      author,
       publisher: org,
       articleSection: guide.cluster
     },
@@ -65,7 +73,7 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
     jsonLd.push({
       "@context": "https://schema.org",
       "@type": "FAQPage",
-      mainEntity: guide.faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } }))
+      mainEntity: guide.faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: plain(f.a) } }))
     });
   }
 
@@ -98,7 +106,7 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
             {guide.faqs.map((f) => (
               <details key={f.q}>
                 <summary>{f.q}</summary>
-                <p>{f.a}</p>
+                <p><Inline text={f.a} /></p>
               </details>
             ))}
           </section>

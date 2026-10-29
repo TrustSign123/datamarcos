@@ -31,6 +31,8 @@ export type Guide = {
   lastReviewed: string;
   /** Byline. "Datamarcos Team" is published as the Organization in JSON-LD. */
   author: string;
+  /** When set, Article JSON-LD publishes this Person (worksFor the Datamarcos Organization) as the author instead of the Organization. */
+  authorPerson?: { name: string; jobTitle: string };
   cluster: GuideCluster;
   relatedProgram: { href: string; title: string; summary: string; cta: string };
   /** Shown in a box at the top (comparison guides must disclose that Datamarcos runs one of the programs). */
