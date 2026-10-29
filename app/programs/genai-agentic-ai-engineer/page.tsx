@@ -20,6 +20,7 @@ import {
   type GenaiFaq
 } from "@/config/genai";
 import { site } from "@/config/site";
+import { RelatedGuides } from "@/components/guides/RelatedGuides";
 
 const PATH = "/programs/genai-agentic-ai-engineer";
 const URL = `${site.url}${PATH}`;
@@ -391,6 +392,7 @@ export default function GenAIAgenticEngineerPage() {
         </section>
 
         {/* BROCHURE */}
+        <RelatedGuides slugs={["generative-ai-courses-india-compared-2026", "agentic-ai-courses-india-compared-2026", "rag-vs-fine-tuning"]} wrapClassName="fx-wrap" />
         <section className="fx-section fx-brochure" id="brochure" aria-labelledby="fx-bro-title">
           <div className="fx-wrap">
             <div className="fx-split fx-split-end">

@@ -16,6 +16,7 @@ import {
 } from "@/config/applied";
 import { site } from "@/config/site";
 import { pageMetadata } from "@/lib/seo";
+import { RelatedGuides } from "@/components/guides/RelatedGuides";
 
 const PATH = "/programs/applied-agentic-ai-certification";
 const URL = `${site.url}${PATH}`;
@@ -379,6 +380,7 @@ export default function AppliedAgenticAICertificationPage() {
       </section>
 
       {/* BROCHURE */}
+      <RelatedGuides slugs={["agentic-ai-courses-india-compared-2026", "rag-vs-fine-tuning"]} wrapClassName="fx-wrap" />
       <section className="fx-section fx-brochure" id="brochure" aria-labelledby="fx-bro-title">
         <div className="fx-wrap">
           <div className="fx-split fx-split-end">

@@ -25,6 +25,7 @@ import {
 } from "simple-icons";
 import type { LucideIcon } from "lucide-react";
 import { site } from "@/config/site";
+import { RelatedGuides } from "@/components/guides/RelatedGuides";
 
 const PATH = "/programs/forward-deployed-ai-engineer";
 
@@ -541,6 +542,7 @@ export default function ForwardDeployedAIEngineerPage() {
       </section>
 
       {/* BROCHURE */}
+      <RelatedGuides slugs={["forward-deployed-engineer-courses-india-compared-2026", "agentic-ai-courses-india-compared-2026"]} wrapClassName="fx-wrap" />
       <section className="fx-section fx-brochure" id="brochure" aria-labelledby="fx-bro-title">
         <div className="fx-wrap">
           <div className="fx-split fx-split-end">
