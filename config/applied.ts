@@ -1,7 +1,9 @@
 /**
  * Applied Agentic AI Certification page content.
- * Source of truth: /public/brochures/DataMarcos_Applied_Agentic_AI_Brochure.pdf (Sep 2026, 13 pages),
- * plus copy already on the live page. Rules: no fees in this file, no placement %, CTC or hike claims,
+ * Source of truth: the Sep 2026 Applied brochure (13 pages), plus copy already on the live page.
+ * NOTE (29 Oct 2026): /public/brochures/DataMarcos_Applied_Agentic_AI_Brochure.pdf is now Deepesh's new 15-page
+ * "Applied Agentic AI Engineer - Job-Oriented Certification" brochure; this page's copy has not been re-synced to it yet.
+ * Rules: no fees in this file, no placement %, CTC or hike claims,
  * no invented numbers. Deliberately NOT used: the brochure's "GPT-6 Astra / 99.9% ARC-AGI-3" claim
  * (unsourced) and weekly-hours or live-hours figures (the brochure gives none).
  */

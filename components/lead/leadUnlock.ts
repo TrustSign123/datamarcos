@@ -27,6 +27,7 @@ export function startDownload(href: string) {
   const link = document.createElement("a");
   link.href = href;
   link.download = "";
+  link.setAttribute("data-dm-internal", ""); // LeadModal: already tracked, don't count twice
   link.rel = "noopener";
   link.style.display = "none";
   document.body.appendChild(link);

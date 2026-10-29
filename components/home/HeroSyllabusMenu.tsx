@@ -6,9 +6,9 @@ import { ArrowDownToLine, ChevronDown } from "lucide-react";
 export type SyllabusFile = { course: string; title: string; href: string };
 
 /**
- * Homepage hero "Download Syllabus": opens a small list of the four course syllabi, and each item
- * downloads the PDF straight away. No lead form: data-dm-ungated opts out of the site-wide gate in LeadModal,
- * which still records a "resource_download" event (gated: "none").
+ * Homepage hero "Download Syllabus": opens a small list of the four course syllabi. Each item is a normal PDF link,
+ * so the site-wide gate in LeadModal opens the shared lead form for that course first; the PDF downloads only after a
+ * successful submit (Deepesh, 29 Oct 2026: every brochure/syllabus download is gated).
  */
 export function HeroSyllabusMenu({ files }: { files: SyllabusFile[] }) {
   const [open, setOpen] = useState(false);
@@ -24,7 +24,7 @@ export function HeroSyllabusMenu({ files }: { files: SyllabusFile[] }) {
   }, [open]);
 
   return (
-    <div className="dmh-syl" ref={ref} data-dm-ungated>
+    <div className="dmh-syl" ref={ref}>
       <button type="button" className="dmh-syllabus" aria-expanded={open} aria-controls="dmh-syl-menu" onClick={() => setOpen((v) => !v)}>
         <ArrowDownToLine size={18} /> Download Syllabus <ChevronDown size={16} className="dmh-syl-chev" aria-hidden="true" />
       </button>
