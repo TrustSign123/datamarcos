@@ -23,7 +23,7 @@ import { leadFormStyles, leadModalStyles } from "./leadStyles";
  * [data-dm-download] element opens the same form in "download" mode. The file is released only after
  * the endpoint returns ok (auto-download + a "Download now" button). A visitor who submitted in the
  * last 30 days (localStorage) downloads straight away. data-course / data-file override the defaults.
- * Inside a [data-dm-ungated] element a download link is never gated (only tracked); used on the homepage.
+ * There is no opt-out: every brochure/syllabus PDF link on the site is gated (Deepesh, 29 Oct 2026).
  */
 
 type Mode = "lead" | "download";
@@ -84,7 +84,7 @@ export function LeadModal() {
     prevOverflow.current = document.documentElement.style.overflow;
     document.documentElement.style.overflow = "hidden";
     setOpen(true);
-    trackEvent(mode === "download" ? "brochure_click" : "program_apply", { cta, course });
+    trackEvent(mode === "download" ? "brochure_click" : "program_apply", mode === "download" ? { cta, course, gated: "form" } : { cta, course });
   }, []);
 
   const closeModal = useCallback(() => {
@@ -101,15 +101,17 @@ export function LeadModal() {
       if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
       const element = event.target as Element | null;
       const download = element?.closest?.(DOWNLOAD_SELECTOR);
-      // Ungated downloads (e.g. homepage syllabus buttons): let the link download, just record it.
-      if (download && download.closest("[data-dm-ungated]")) {
-        trackEvent("resource_download", { course: download.getAttribute("data-course") || "", cta: download.getAttribute("data-cta") || "Download Syllabus", gated: "none" });
-        return;
-      }
       if (download) {
         const file = download.getAttribute("data-file") || (download.tagName === "A" ? download.getAttribute("href") : "") || "";
         const isFile = /\.pdf($|[?#])/i.test(file) || file.includes("/brochures/");
-        if (isLeadUnlocked() && isFile) return; // remembered visitor: let the link work normally
+        if (isLeadUnlocked() && isFile) {
+          // Already submitted the form in this browser (30-day unlock): let the link work normally, but record it.
+          // Programmatic post-submit downloads (startDownload) are already tracked by the modal.
+          if (!download.hasAttribute("data-dm-internal")) {
+            trackEvent("resource_download", { course: download.getAttribute("data-course") || courseForBrochure(file) || "", cta: download.getAttribute("data-cta") || "Download Syllabus", gated: "remembered" });
+          }
+          return;
+        }
         event.preventDefault();
         openModal({
           mode: "download",
