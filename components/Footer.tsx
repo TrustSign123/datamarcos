@@ -30,6 +30,7 @@ export function Footer() {
               <strong>Get in touch</strong>
               <a href={`mailto:${site.email}`}>{site.email}</a>
               <span>{site.location}</span>
+              <a href="https://g.page/r/CVK_Lds6x490EBM/review" target="_blank" rel="noopener noreferrer">Review us on Google</a>
             </div>
             {socials.map(([network, url]) => (
               <a key={network} href={url} target="_blank" rel="noreferrer">
