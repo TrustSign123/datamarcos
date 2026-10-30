@@ -31,6 +31,7 @@ export function GuideBody({ blocks }: { blocks: GuideBlock[] }) {
         switch (b.type) {
           case "p": return <p key={idx}><Inline text={b.text} /></p>;
           case "h2": return <h2 key={idx} id={b.id}>{b.text}</h2>;
+          case "h3": return <h3 key={idx} id={b.id}>{b.text}</h3>;
           case "ul": return <ul key={idx}>{b.items.map((t) => <li key={t}><Inline text={t} /></li>)}</ul>;
           case "ol": return <ol key={idx}>{b.items.map((t) => <li key={t}><Inline text={t} /></li>)}</ol>;
           case "note": return <p key={idx} className="guide-note"><Inline text={b.text} /></p>;

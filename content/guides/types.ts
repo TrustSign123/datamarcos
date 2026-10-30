@@ -12,6 +12,7 @@ export type GuideCluster = "Agentic AI" | "Generative AI" | "Data Engineering" |
 export type GuideBlock =
   | { type: "p"; text: string }
   | { type: "h2"; text: string; id: string }
+  | { type: "h3"; text: string; id: string }
   | { type: "ul"; items: string[] }
   | { type: "ol"; items: string[] }
   | { type: "note"; text: string }
