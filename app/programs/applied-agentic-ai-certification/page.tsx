@@ -367,6 +367,7 @@ export default function AppliedAgenticAICertificationPage() {
           <div>
             <Head id="fx-faq-title" eyebrow="FAQ" title={<>Questions, <em>answered.</em></>} body="Can't find yours? A counsellor will answer it on a short call." />
             <Cta cta="Applied FAQ (counsellor)" variant="dark" label="Ask a counsellor" />
+            <p className="fx-faq-guide">Choosing a framework? Read <Link href="/guides/langgraph-vs-crewai-vs-autogen">LangGraph vs CrewAI vs AutoGen</Link>.</p>
           </div>
           <div className="fx-faq-list">
             {appliedFaqs.map((faq, index) => (

@@ -529,6 +529,7 @@ export default function ForwardDeployedAIEngineerPage() {
           <div>
             <Head id="fx-faq-title" eyebrow="FAQ" title={<>Questions, <em>answered.</em></>} body="Can't find yours? A counsellor will answer it on a short call." />
             <Cta cta="FDE FAQ (counsellor)" variant="dark" label="Ask a counsellor" />
+            <p className="fx-faq-guide">New to the role? Read <Link href="/guides/what-is-a-forward-deployed-engineer">what a forward deployed engineer does</Link>.</p>
           </div>
           <div className="fx-faq-list">
             {fdeFaqs.map((faq, index) => (

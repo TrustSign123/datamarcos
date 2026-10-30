@@ -103,6 +103,7 @@ export default function InterviewPrepPage() {
           <p className="eyebrow">FDE interviews</p>
           <h2 className="section-title">What forward deployed engineer interview loops test</h2>
           <p className="section-copy">FDE loops mix engineering and customer work. Expect system design with an ambiguous brief, live debugging, and customer scenarios where you scope the problem before you build. Practise the scenario questions above, then add a short discovery step to every answer: who the stakeholders are, what success looks like and what the constraints are.</p>
+          <p className="section-copy">New to the role? Read <Link className="prep-inline-link" href="/guides/what-is-a-forward-deployed-engineer">what a forward deployed engineer does</Link>.</p>
           <div className="prep-actions">
             <Link className="button secondary" href="/programs/forward-deployed-ai-engineer">Prepare for forward deployed engineer interviews</Link>
           </div>
