@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { ArrowRight, ArrowUpRight, Building2, ChevronDown, Clock3, Menu, MessageCircle, Phone, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { resourceMenu } from "@/config/navigation";
+import { ThemeSync, ThemeToggle } from "@/components/ThemeToggle";
 import { EMI_NOTE, homePrograms } from "@/config/home";
 import { env, site } from "@/config/site";
 
@@ -78,6 +79,7 @@ export function Header() {
 
   return (
     <>
+      <ThemeSync />
       <div className="dmx-announce" role="note">
         <div className="container">
           <span className="dmx-announce-dot" aria-hidden="true" />
@@ -137,6 +139,7 @@ export function Header() {
             </div>
           </nav>
           <div className="dmx-actions">
+            <ThemeToggle />
             <a className="dmx-icon" href={env.whatsappUrl} target="_blank" rel="noreferrer" aria-label="Chat on WhatsApp" title="Chat on WhatsApp"><MessageCircle size={19} /></a>
             <Link className="dmx-apply" href="/programs" data-dm-lead data-cta="Header - Apply Now">Apply Now <ArrowRight size={16} /></Link>
           </div>
@@ -178,6 +181,7 @@ export function Header() {
           </div>
         </div>
         <div className="dmx-drawer-foot">
+          <ThemeToggle variant="row" />
           <button type="button" className="dmx-apply dmx-apply-block" data-dm-lead data-cta="Mobile menu - Apply Now" onClick={closeAll}>Apply Now <ArrowRight size={17} /></button>
           <div className="dmx-drawer-contact">
             <a href={env.whatsappUrl} target="_blank" rel="noreferrer"><MessageCircle size={17} /> WhatsApp</a>
