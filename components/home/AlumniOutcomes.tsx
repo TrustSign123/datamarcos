@@ -63,8 +63,11 @@ function StoryCard({ story }: { story: LearnerStory }) {
   );
 }
 
-/** Alumni outcomes / learner report: reach stats, organisation strip and verified learner stories. */
-export function AlumniOutcomes() {
+/**
+ * Alumni outcomes / learner report: reach stats, organisation strip and verified learner stories.
+ * `hideStats` (stat labels) lets one page drop tiles without changing the shared config; other pages are unaffected.
+ */
+export function AlumniOutcomes({ hideStats = [] }: { hideStats?: string[] } = {}) {
   const logos = [...orgLogos, ...orgLogos];
   const learners = learnerStories.filter((story) => story.kind !== "peer");
   const peers = learnerStories.filter((story) => story.kind === "peer");
@@ -73,7 +76,7 @@ export function AlumniOutcomes() {
       <div className="dma-report">
         <p className="dma-pill"><ShieldCheck size={14} aria-hidden="true" /> {OUTCOMES_PILL}</p>
         <dl className="dma-stats">
-          {outcomeStats.map((stat) => (
+          {outcomeStats.filter((stat) => !hideStats.includes(stat.label)).map((stat) => (
             <div key={stat.label} className={`dma-stat dma-stat-${stat.kind}`} title={stat.source}>
               <dt>{stat.label}</dt>
               <dd>{stat.value}</dd>

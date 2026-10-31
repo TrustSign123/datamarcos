@@ -216,6 +216,10 @@ export const guide: Guide = {
     {
       "type": "p",
       "text": "Want a shorter start? See the [8-week Applied Agentic AI Certification](/programs/applied-agentic-ai-certification) or our [agentic AI courses comparison](/guides/agentic-ai-courses-india-compared-2026). Choosing between RAG and fine-tuning for a project? Read [RAG vs fine-tuning](/guides/rag-vs-fine-tuning). More guides are in the [guides hub](/guides)."
+    },
+    {
+      "type": "p",
+      "text": "Engineers with 2+ years who want to deploy GenAI inside client systems can look at our [22-week FDE program](/programs/forward-deployed-ai-engineer)."
     }
   ],
   "faqs": [

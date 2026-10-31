@@ -178,6 +178,10 @@ export const guide: Guide = {
       ]
     },
     {
+      "type": "p",
+      "text": "Running agents for a real client adds access control, evals and handover; that is what the [forward deployed AI engineer program](/programs/forward-deployed-ai-engineer) practises."
+    },
+    {
       "type": "h2",
       "id": "a-simple-way-to-decide",
       "text": "A simple way to decide"

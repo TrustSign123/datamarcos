@@ -209,6 +209,10 @@ export const guide: Guide = {
     {
       "type": "p",
       "text": "Want more depth in security, LLMOps and production deployment? See the [18-week Generative AI & Agentic AI Engineer program](/programs/genai-agentic-ai-engineer). If you work directly with clients, the [FDE courses comparison](/guides/forward-deployed-engineer-courses-india-compared-2026) covers forward deployed engineering programs. More guides are in the [Datamarcos guides hub](/guides)."
+    },
+    {
+      "type": "p",
+      "text": "If you already ship code and want the client-facing side of agentic AI, see the [Forward Deployed Engineer course](/programs/forward-deployed-ai-engineer)."
     }
   ],
   "faqs": [

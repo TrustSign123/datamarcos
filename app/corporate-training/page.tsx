@@ -81,6 +81,7 @@ export default function CorporateTrainingPage() {
           <p className="eyebrow">Tech stack</p>
           <h2 className="section-title" id="stack-title">What we teach teams</h2>
           <div className="tech-list">{corporateStack.map((t) => <span className="tech-chip" key={t}>{t}</span>)}</div>
+          <p className="section-copy ct-fde-link">Forward deployed engineering for teams: discovery, secure RAG and agent deployment, and handover. See the <Link href="/programs/forward-deployed-ai-engineer">Forward Deployed AI Engineer program</Link>; admissions can discuss team cohorts and company sponsorship.</p>
         </div>
       </section>
 

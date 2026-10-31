@@ -300,6 +300,10 @@ export const guide: Guide = {
       "text": "Portfolios that work for FDE interviews show **decisions and trade-offs**, not just code. Include what broke, how you measured it, and what you would do differently."
     },
     {
+      "type": "p",
+      "text": "For practice questions and interview formats, see our [FDE interview prep](/resources/interview-prep) page."
+    },
+    {
       "type": "h2",
       "id": "how-to-prepare-for-fde-interviews",
       "text": "How to prepare for FDE interviews"

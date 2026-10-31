@@ -7,12 +7,12 @@ import { approvedGuides } from "@/lib/guides";
 // (canonical -> /refund-policy), legacy /programs/<slug> pages (301 in next.config.ts), /lp/*, /academy-preview.
 const LAST_UPDATED = new Date("2026-10-26");
 
-const pages: { path: string; priority: number }[] = [
+const pages: { path: string; priority: number; lastModified?: string }[] = [
   { path: "", priority: 1 },
   { path: "/programs/genai-agentic-ai-engineer", priority: 0.9 },
   { path: "/programs/advance-data-engineering-genai", priority: 0.9 },
   { path: "/programs/applied-agentic-ai-certification", priority: 0.9 },
-  { path: "/programs/forward-deployed-ai-engineer", priority: 0.9 },
+  { path: "/programs/forward-deployed-ai-engineer", priority: 0.9, lastModified: "2026-10-31" }, // FDE best-in-class update
   { path: "/programs", priority: 0.7 },
   { path: "/resources/interview-prep", priority: 0.6 },
   { path: "/corporate-training", priority: 0.5 },
@@ -25,7 +25,7 @@ const pages: { path: string; priority: number }[] = [
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const core = pages.map(({ path, priority }) => ({ url: `${site.url}${path}`, lastModified: LAST_UPDATED, priority }));
+  const core = pages.map(({ path, priority, lastModified }) => ({ url: `${site.url}${path}`, lastModified: lastModified ? new Date(lastModified) : LAST_UPDATED, priority }));
   // Guides: approved only, lastmod from each guide's dateModified (the index uses the newest one).
   if (approvedGuides.length === 0) return core;
   const newest = approvedGuides.map((g) => g.dateModified).sort().at(-1)!;
