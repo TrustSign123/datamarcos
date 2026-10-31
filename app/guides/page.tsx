@@ -15,7 +15,10 @@ export const metadata: Metadata = pageMetadata({
 export default function GuidesIndex() {
   // The index only exists while at least one guide is approved.
   if (approvedGuides.length === 0) notFound();
-  const groups = GUIDE_CLUSTERS.map((c) => ({ cluster: c, guides: approvedGuides.filter((g) => g.cluster === c) })).filter((g) => g.guides.length);
+  // FDE guides are pinned first on the hub (FDE best-in-class brief, 31 Oct 2026); the cluster order elsewhere is unchanged.
+  const PINNED = "Forward Deployed Engineering";
+  const order = [PINNED, ...GUIDE_CLUSTERS.filter((c) => c !== PINNED)];
+  const groups = order.map((c) => ({ cluster: c, guides: approvedGuides.filter((g) => g.cluster === c) })).filter((g) => g.guides.length);
   const breadcrumb = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -49,6 +52,13 @@ export default function GuidesIndex() {
                   <small>Last reviewed {formatGuideDate(g.lastReviewed)} <ArrowRight size={14} aria-hidden="true" /></small>
                 </Link>
               ))}
+              {cluster === PINNED && (
+                <Link className="guide-card guide-card-course" href="/programs/forward-deployed-ai-engineer">
+                  <strong>Forward Deployed AI Engineer program</strong>
+                  <span>Our 22-week live online FDE course: four client-style engagements, from customer discovery to production handover.</span>
+                  <small>See the FDE course <ArrowRight size={14} aria-hidden="true" /></small>
+                </Link>
+              )}
             </div>
           </section>
         ))}

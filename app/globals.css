@@ -5849,3 +5849,28 @@ button.dmh-syllabus { background: none; border: 0; border-bottom: 1px solid tran
 .guide-content h3 { margin: 28px 0 8px; font-size: 1.2rem; line-height: 1.3; scroll-margin-top: 96px; }
 .fx-faq-guide { margin: 14px 0 0; font-size: .95rem; color: inherit; } .fx-faq-guide a { color: #a8380e; text-decoration: underline; text-underline-offset: 3px; }
 .prep-inline-link { color: inherit; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+
+/* FDE best-in-class (31 Oct 2026) */
+.fx-hero h1 .fx-h1-sub { display: block; margin-top: 12px; font-size: .58em; line-height: 1.08; }
+.fde-page .fx-hero-note { align-items: flex-start; line-height: 1.5; }
+.fde-page .fx-hero-note svg { flex: none; margin-top: 2px; }
+.fde-page .fx-hero-note b { color: #fff; }
+.fx-inline-link { color: inherit; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(244,81,30,.6); }
+.fde-page .fx-mentor-stats dd .fx-link { font-family: inherit; font-size: 1rem; font-weight: 800; line-height: 1.2; }
+.fde-page .fx-mentor-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.fx-choose-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin: 28px 0 0; padding: 0; list-style: none; }
+.fx-choose-list li { display: flex; gap: 14px; padding: 20px; border: 1px solid rgba(17,17,17,.1); border-radius: 16px; background: #fff; }
+.fx-choose-list span { flex: none; color: var(--or-2, #f4511e); font: 900 1rem/1.5 "Arial Black", sans-serif; }
+.fx-choose-list p { margin: 0; line-height: 1.55; }
+.fx-choose-more { margin: 22px 0 0; }
+.fx-updated { display: inline-block; margin-left: 4px; font-weight: 700; }
+.fde-apply-next { margin: 14px 0 0; font-size: .95rem; }
+.fde-apply-next a { color: inherit; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.ct-fde-link { margin-top: 20px; }
+.ct-fde-link a { font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.guide-card-course { border-style: dashed; }
+/* Speed (brief 1.10): skip rendering work for the heaviest below-the-fold blocks until they near the viewport. */
+.fde-page .fx-tools, .fde-page .fx-learners, .fde-page #compare.fx-section { content-visibility: auto; contain-intrinsic-size: auto 1100px; }
+.fde-page .dma-stats { grid-template-columns: repeat(2, minmax(0, 240px)); justify-content: center; }
+@media (max-width: 900px) { .fx-choose-list { grid-template-columns: 1fr; } }
+@media (max-width: 760px) { .fde-page .fx-mentor-stats { grid-template-columns: 1fr 1fr; } }

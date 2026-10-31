@@ -93,6 +93,18 @@ const careerSupport = [
   "Offer evaluation and negotiation"
 ];
 
+const chooseChecklist = [
+  "Does it make you deploy into a client-style environment, or only build demos?",
+  "Do you write discovery notes, a scope or SOW, and a handover runbook?",
+  "Is security (prompt injection, PII, access control) taught as its own topic?",
+  "How many hours are live, and who reviews your work?",
+  "Is the certificate honest about who issues it?",
+  "Does the provider say plainly that it doesn't guarantee jobs?"
+];
+
+/** Last real change to the FDE brochure PDF (git history: 19 Oct 2026). Update only when the syllabus actually changes. */
+const SYLLABUS_UPDATED = "Oct 2026";
+
 const adjacentRoles = [
   { key: "se", label: "Solutions / sales engineer" },
   { key: "aie", label: "AI engineer" },
@@ -146,7 +158,7 @@ const accents = ["#f4511e", "#2f6bff", "#0e9f84", "#b04cff"];
 const ORG_ID = `${site.url}/#organization`;
 const MENTOR_ID = `${site.url}/#deepesh-mishra`;
 
-/** Course + mentor + breadcrumb + FAQ. Deliberately NO offers / price (no-fee rule). */
+/** Course + mentor + breadcrumb + FAQ. Deliberately NO offers / price (no-fee rule), no AggregateRating / Review. */
 const jsonLd = [
   {
     "@context": "https://schema.org",
@@ -159,6 +171,8 @@ const jsonLd = [
     image: `${site.url}/images/program-cards/forward-deployed-ai-engineer.webp`,
     inLanguage: "en-IN",
     educationalLevel: "Intermediate",
+    about: ["Forward deployed engineering", "Production AI deployment", "Retrieval-augmented generation", "AI agents"],
+    audience: { "@type": "EducationalAudience", educationalRole: "working software, data and ML engineers" },
     timeRequired: "P22W",
     coursePrerequisites: ["Comfortable Python with about 2+ years of engineering experience, or strong shipped projects", "Git, Linux and SQL basics (a bridge pre-work track is provided)"],
     teaches: ["Customer discovery and scoping (SOW, ROI, UAT)", "Production RAG and evaluation", "Agents, LangGraph and Model Context Protocol (MCP)", "Enterprise and data-platform integration (Databricks, Snowflake)", "AI security and governance (OWASP LLM Top 10, PII, DPDP)", "LLMOps, CI/CD and observability", "Deployment and handover"],
@@ -174,6 +188,8 @@ const jsonLd = [
     hasCourseInstance: {
       "@type": "CourseInstance",
       courseMode: "online",
+      // No startDate/endDate on purpose: no confirmed cohort date yet, and a placeholder date would be invalid structured data.
+      location: { "@type": "VirtualLocation", url: URL },
       courseWorkload: "PT170H",
       courseSchedule: { "@type": "Schedule", repeatFrequency: "P1W", repeatCount: 22 },
       instructor: { "@id": MENTOR_ID }
@@ -240,9 +256,9 @@ export default function ForwardDeployedAIEngineerPage() {
                 <li aria-current="page">Forward Deployed AI Engineer</li>
               </ol>
             </nav>
-            <p className="fx-hero-kicker"><span className="fx-dot" /> Forward Deployed Engineer (FDE) course · Live online · 22 weeks · Application-based</p>
-            <h1 id="fx-title">Become a <span>Forward Deployed</span> <em>AI Engineer.</em></h1>
-            <p className="fx-hero-deck">The engineer companies send in to make AI actually work. Learn to scope a messy customer problem, ship a secure AI system into their real environment, and own the result.</p>
+            <p className="fx-hero-kicker"><span className="fx-dot" /> FDE course · Live online · 22 weeks · 170+ live hours · Application-based</p>
+            <h1 id="fx-title"><span>Forward Deployed Engineer Course:</span> <em className="fx-h1-sub">become the AI engineer companies send in.</em></h1>
+            <p className="fx-hero-deck">Make AI actually work inside real companies. Learn to scope a messy customer problem, ship a secure AI system into their real environment, and own the result.</p>
             <ul className="fx-hero-promise">
               <li><Check size={16} aria-hidden="true" /><span>Ship <b>4 client-style deployments</b>: BFSI copilot, multi-agent ops, production hardening, your capstone</span></li>
               <li><Check size={16} aria-hidden="true" /><span>Go deep on what most AI courses skip: <b>security, governance, integration, LLMOps</b></span></li>
@@ -252,7 +268,8 @@ export default function ForwardDeployedAIEngineerPage() {
               <Cta label="Talk to a counsellor" cta="FDE hero (counsellor)" />
               <Syllabus cta="FDE hero (syllabus)" variant="light" />
             </div>
-            <p className="fx-hero-note"><CalendarClock size={15} aria-hidden="true" /> Small cohorts · rolling admissions · EMI options available, talk to a counsellor</p>
+            {/* No confirmed cohort date yet (31 Oct 2026): brief 1.3 fallback copy. Add a real date only once Deepesh confirms it. */}
+            <p className="fx-hero-note"><CalendarClock size={15} aria-hidden="true" /> <span><b>Next cohort:</b> dates shared on a 15-minute counsellor call · Weekend live sessions + weekday evening lab · Small cohorts · EMI options available</span></p>
           </div>
           <FdeHeroVisual />
         </div>
@@ -286,6 +303,7 @@ export default function ForwardDeployedAIEngineerPage() {
             <div className="fx-why-copy">
               <p>A <b>Forward Deployed Engineer</b> works inside the customer&apos;s world. Palantir pioneered the role; OpenAI, Anthropic, Salesforce and Databricks now build FDE teams because a model on its own does not change a business. Someone has to connect it to legacy systems, messy data, security reviews and real users, then stay until it creates value.</p>
               <p>That someone is part engineer, part consultant, and increasingly one of the most in-demand roles in AI.</p>
+              <p><Link className="fx-inline-link" href="/guides/what-is-a-forward-deployed-engineer">What does an FDE do day to day?</Link> Our free guide walks through a realistic engagement, from discovery to handover.</p>
             </div>
           </div>
           <ul className="fx-stats">
@@ -451,16 +469,13 @@ export default function ForwardDeployedAIEngineerPage() {
             <p className="fx-eyebrow">Learn from a practitioner</p>
             <h2 id="fx-mentor-title">Deepesh Mishra</h2>
             <p className="fx-mentor-role">Founder, Datamarcos · Solution Architect · Corporate Trainer · BITS Pilani alumnus</p>
-            <p>Deepesh has spent 18+ years building and teaching data and AI systems, and has delivered GenAI Forward Deployed Engineer programs for enterprise teams. He teaches the work in its real order: scope first, then build, secure, deploy and hand over.</p>
+            {/* 31 Oct 2026 (brief 0.1): unconfirmed 25,000+ / 18+ years / 10+ countries removed; "delivered GenAI FDE programs for enterprise teams" held until Deepesh confirms it with a public source. */}
+            <p>Deepesh is the founder and lead mentor at Datamarcos. He has worked as a solution architect and corporate trainer in data and AI, and has trained teams at 200+ organizations. He teaches the work in its real order: scope first, then build, secure, deploy and hand over.</p>
             <dl className="fx-mentor-stats">
-              <div><dt>Professionals trained</dt><dd>25,000+</dd></div>
-              <div><dt>Organisations</dt><dd>200+</dd></div>
-              <div><dt>Years in industry</dt><dd>18+</dd></div>
-              <div><dt>Countries</dt><dd>10+</dd></div>
+              <div><dt>Organizations trained</dt><dd>200+</dd></div>
+              <div><dt>Live online programs</dt><dd>4</dd></div>
+              <div><dt>Recommendations</dt><dd><a className="fx-link" href={DEEPESH_LINKEDIN} target="_blank" rel="noreferrer"><Linkedin size={16} aria-hidden="true" /> on LinkedIn <ArrowUpRight size={14} aria-hidden="true" /></a></dd></div>
             </dl>
-            <div className="fx-mentor-actions">
-              <a className="fx-link" href={DEEPESH_LINKEDIN} target="_blank" rel="noreferrer"><Linkedin size={16} aria-hidden="true" /> Recommendations on LinkedIn <ArrowUpRight size={14} aria-hidden="true" /></a>
-            </div>
           </div>
         </div>
       </section>
@@ -469,7 +484,7 @@ export default function ForwardDeployedAIEngineerPage() {
       <section className="fx-section fx-learners" id="learners" aria-labelledby="fx-learn-title">
         <div className="fx-wrap">
           <Head id="fx-learn-title" eyebrow="Learner proof" title={<>Where our learners <em>are now.</em></>} body="Real learners and teams who trained with Deepesh Mishra, in their own words. Every story links to its source." />
-          <AlumniOutcomes />
+          <AlumniOutcomes hideStats={["Professionals trained", "Years in industry & training", "Countries reached"]} />
         </div>
       </section>
 
@@ -493,7 +508,7 @@ export default function ForwardDeployedAIEngineerPage() {
               </div>
             ))}
           </div>
-          <p className="fx-fine">“Typical” and “generic” describe common formats in the market, not any specific provider.</p>
+          <p className="fx-fine">“Typical” and “generic” describe common formats in the market, not any specific provider. For named providers, read <Link className="fx-inline-link" href="/guides/forward-deployed-engineer-courses-india-compared-2026">how FDE courses in India compare</Link>.</p>
           <div className="fx-cta-band">
             <p><b>Still comparing?</b> A counsellor can walk you through the syllabus, cohort dates and EMI options in 15 minutes.</p>
             <Cta cta="FDE compare (counsellor)" />
@@ -523,6 +538,17 @@ export default function ForwardDeployedAIEngineerPage() {
         </div>
       </section>
 
+      {/* HOW TO CHOOSE (brief 1.7): non-comparative, no provider names */}
+      <section className="fx-section fx-choose" id="choose" aria-labelledby="fx-choose-title">
+        <div className="fx-wrap">
+          <Head id="fx-choose-title" eyebrow="Before you enrol anywhere" title={<>How to choose a <em>forward deployed engineer course.</em></>} body="Six questions to ask any FDE program, including ours." />
+          <ol className="fx-choose-list">
+            {chooseChecklist.map((item, index) => <li key={item}><span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span><p>{item}</p></li>)}
+          </ol>
+          <p className="fx-choose-more"><Link className="fx-link" href="/guides/forward-deployed-engineer-courses-india-compared-2026">See how Indian FDE programs compare on these points <ArrowRight size={14} aria-hidden="true" /></Link></p>
+        </div>
+      </section>
+
       {/* FAQ */}
       <section className="fx-section fx-paper" id="faq" aria-labelledby="fx-faq-title">
         <div className="fx-wrap fx-faq">
@@ -547,7 +573,7 @@ export default function ForwardDeployedAIEngineerPage() {
       <section className="fx-section fx-brochure" id="brochure" aria-labelledby="fx-bro-title">
         <div className="fx-wrap">
           <div className="fx-split fx-split-end">
-            <Head id="fx-bro-title" eyebrow="The full program guide" title={<>Read the 22-week <em>syllabus.</em></>} body="Week-by-week topics, labs, tools, engagements and admission details in one PDF." />
+            <Head id="fx-bro-title" eyebrow="The full program guide" title={<>Read the 22-week <em>syllabus.</em></>} body={<>Week-by-week topics, labs, tools, engagements and admission details in one PDF. <span className="fx-updated">Syllabus updated: {SYLLABUS_UPDATED}</span></>} />
             <Syllabus cta="FDE brochure section" variant="dark" label="Download PDF" />
           </div>
           <div className="fx-pdf"><GatedBrochureFrame src={FDE_BROCHURE} title="Forward Deployed AI Engineer program brochure" course={FDE_COURSE} cover="/images/forward-deployed-ai-engineer/brochure-cover-preview.webp" /></div>

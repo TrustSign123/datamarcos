@@ -87,6 +87,10 @@ export const guide: Guide = {
       ]
     },
     {
+      "type": "p",
+      "text": "Project Sentinel in our [FDE course](/programs/forward-deployed-ai-engineer#projects) is a client-style RAG engagement for a BFSI client."
+    },
+    {
       "type": "h2",
       "id": "start-with-evaluation-then-prompting",
       "text": "Start with evaluation, then prompting"
