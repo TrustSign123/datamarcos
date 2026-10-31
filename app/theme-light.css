@@ -1,0 +1,41 @@
+/* Light theme, hand-tuned layer (31 Oct 2026). Loads after theme-light.generated.css. Applied on "/" only (lib/theme.ts).
+   Palette: paper #fbfaf8 / white cards, ink #11141c, muted #4a5060, hairlines rgba(17,20,28,.1);
+   brand accents kept: pink #ff4ab8 -> coral #ff7a59 -> sky #48d5ff gradient (CTAs), darker accent text #b3146f / #0b7d8a / #1d7a44 for AA on white. */
+[data-theme="light"] { color-scheme: light; }
+[data-theme="light"] body { background: #fbfaf8; color: #11141c; }
+
+/* Hero: softer brand glow on paper */
+[data-theme="light"] .dmh-hero { background: radial-gradient(ellipse at 6% 10%, rgba(255,74,184,.16), transparent 42%), radial-gradient(ellipse at 96% 18%, rgba(255,141,28,.14), transparent 40%), linear-gradient(180deg, #fdfbfc 0%, #f8f6f9 100%); }
+
+/* Learner report accents: darker hues so initials/borders read on white (AA for the initials) */
+[data-theme="light"] .dma-accent-pink { --acc: #c2187a; }
+[data-theme="light"] .dma-accent-cyan { --acc: #0b7d8a; }
+[data-theme="light"] .dma-accent-green { --acc: #1d7a44; }
+[data-theme="light"] .dma-accent-amber { --acc: #b4521a; }
+[data-theme="light"] .dma-accent-violet { --acc: #6b4bd8; }
+[data-theme="light"] .dma-story { background: #fff; border-color: rgba(17,20,28,.1); box-shadow: 0 8px 26px rgba(20,25,40,.06); }
+[data-theme="light"] .dma-avatar-initials { background: #f4f5f8; }
+
+/* Logo strip: real brand colours on solid white tiles with a hairline, no grey wash */
+[data-theme="light"] .dma-logo-img { background: #fff; border-color: rgba(17,20,28,.1); box-shadow: 0 4px 14px rgba(20,25,40,.06); }
+
+/* Footer tagline is an inline style (rgba(255,255,255,.72)) in Footer.tsx */
+[data-theme="light"] .footer p { color: #4a5060 !important; }
+
+/* Headline gradient: brand pink -> coral -> sky, deepened for white (no muddy mid-tones) */
+[data-theme="light"] .dmh-hero h1 span { background: linear-gradient(120deg, #d1168a 0%, #ea4f2e 62%, #0e8fc4 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+/* Reels, quote wall, steps, mentor stats, FAQ: white cards with hairlines instead of grey washes */
+[data-theme="light"] .dmh-reel, [data-theme="light"] .dmh-wall-card { background: #fff; border-color: rgba(17,20,28,.1); box-shadow: 0 8px 24px rgba(20,25,40,.06); }
+[data-theme="light"] .dmh-steps article, [data-theme="light"] .dmh-mentor-stats div, [data-theme="light"] .dmh-faq details:not([open]) { background: #fff; border-color: rgba(17,20,28,.1); }
+[data-theme="light"] .dmh-faq details[open] { background: #fff7fb; border-color: rgba(209,22,138,.35); }
+
+/* Header mega menu: opaque white panel */
+[data-theme="light"] .dmx-mega { background: #fff; border-color: rgba(17,20,28,.1); box-shadow: 0 24px 60px rgba(20,25,40,.14); }
+
+/* Theme toggle in light mode */
+[data-theme="light"] .dmx-theme { color: #11141c; border-color: rgba(17,20,28,.16); }
+[data-theme="light"] .dmx-theme:hover { background: rgba(17,20,28,.05); border-color: rgba(17,20,28,.3); }
+[data-theme="light"] .dmx-theme-row { color: #11141c; border-color: rgba(17,20,28,.16); background: #fff; }
+[data-theme="light"] .dmx-theme-row:hover { background: #f4f5f8; }
+[data-theme="light"] .dmx-theme:focus-visible, [data-theme="light"] .dmx-theme-row:focus-visible { outline-color: #0e8fc4; }

@@ -29,6 +29,20 @@ export function ShadowPortal({ css, children, mount = "inline", id, style }: {
     if (host) setRoot(host.shadowRoot || host.attachShadow({ mode: "open" }));
   }, [mount, id]);
 
+  // Shadow roots don't see <html data-theme>, so mirror it onto the host (light theme, see lib/theme.ts).
+  useEffect(() => {
+    const host = root?.host as HTMLElement | undefined;
+    if (!host) return;
+    const sync = () => {
+      const theme = document.documentElement.getAttribute("data-theme");
+      if (theme) host.setAttribute("data-theme", theme); else host.removeAttribute("data-theme");
+    };
+    sync();
+    const mo = new MutationObserver(sync);
+    mo.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+    return () => mo.disconnect();
+  }, [root]);
+
   const content = root ? createPortal(<><style>{css}</style>{children}</>, root) : null;
   if (mount === "body") return content;
   return <div ref={hostRef} id={id} style={style}>{content}</div>;

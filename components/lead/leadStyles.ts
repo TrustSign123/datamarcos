@@ -80,6 +80,17 @@ export const leadModalStyles = `
 .body{padding:22px 26px 24px}
 .body .done{padding:12px 2px 6px}
 @media (max-width:520px){.overlay{padding:0;align-items:flex-end}.card{max-width:none;border-radius:20px 20px 0 0;max-height:94vh;transform:translateY(40px)}.head{padding:20px}.title{font-size:1.32rem}.body{padding:18px 20px 22px}}
+/* Light theme: host carries data-theme="light" (mirrored from <html> by ShadowPortal). */
+:host([data-theme=light]) .overlay{background:rgba(20,24,36,.42)}
+:host([data-theme=light]) .card{box-shadow:0 30px 80px rgba(20,24,40,.22),0 0 0 1px rgba(17,20,28,.08)}
+:host([data-theme=light]) .head{color:#11141c;background:radial-gradient(ellipse at 8% 0%,rgba(223,26,168,.16),transparent 55%),radial-gradient(ellipse at 100% 0%,rgba(255,141,28,.16),transparent 50%),linear-gradient(180deg,#fbf7fb,#f6f4f8)}
+:host([data-theme=light]) .mark{box-shadow:0 0 0 1px rgba(17,20,28,.08),0 6px 18px rgba(255,74,184,.18)}
+:host([data-theme=light]) .bname b,:host([data-theme=light]) .title{color:#11141c}
+:host([data-theme=light]) .bname small{color:#5b6070}
+:host([data-theme=light]) .eyebrow{color:#0b7d8a}
+:host([data-theme=light]) .sub{color:#4a5060}
+:host([data-theme=light]) .close{border-color:rgba(17,20,28,.14);background:#fff;color:#11141c}
+:host([data-theme=light]) .close:hover{background:#f1f2f5}
 `;
 
 /** Forward Deployed AI Engineer page theme: navy + solid orange, Avenir/Montserrat, 10px corners. */

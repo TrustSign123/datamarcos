@@ -5874,3 +5874,11 @@ button.dmh-syllabus { background: none; border: 0; border-bottom: 1px solid tran
 .fde-page .dma-stats { grid-template-columns: repeat(2, minmax(0, 240px)); justify-content: center; }
 @media (max-width: 900px) { .fx-choose-list { grid-template-columns: 1fr; } }
 @media (max-width: 760px) { .fde-page .fx-mentor-stats { grid-template-columns: 1fr 1fr; } }
+
+/* Theme toggle (31 Oct 2026). Light overrides come from theme-light*.css. */
+button.dmx-icon { padding: 0; background: none; font: inherit; cursor: pointer; }
+.dmx-theme { color: rgba(255,255,255,.86); }
+.dmx-theme:hover { color: #fff; background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.32); }
+.dmx-theme-row { display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 46px; padding: 0 16px; border-radius: 999px; border: 1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.04); color: rgba(255,255,255,.9); font: inherit; font-size: .95rem; font-weight: 800; cursor: pointer; }
+.dmx-theme-row:hover { background: rgba(255,255,255,.08); color: #fff; }
+.dmx-theme:focus-visible, .dmx-theme-row:focus-visible { outline: 3px solid #48d5ff; outline-offset: 2px; }
