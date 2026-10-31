@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowDownToLine, ArrowRight, ArrowUpRight, Building2, Check, ChevronDown, MessageCircle, ShieldCheck } from "lucide-react";
-import { LearnerSpotlight } from "@/components/home/LearnerSpotlight";
+import { LearnerSpotlight, type SpotlightLearner } from "@/components/home/LearnerSpotlight";
 import { HeroSyllabusMenu } from "@/components/home/HeroSyllabusMenu";
 import { LearnerVideoCard } from "@/components/home/LearnerVideoCard";
 import { AlumniOutcomes } from "@/components/home/AlumniOutcomes";
@@ -55,11 +55,13 @@ export const metadata: Metadata = {
 };
 
 /** Real Datamarcos learners. Employer is shown only where the learner's profile names one. */
-const learnerProfiles = [
+const learnerProfiles: SpotlightLearner[] = [
   { name: "Richard Leclézio", role: "Professional learner", image: "/images/student-placements/richard-leclezio.jpeg", link: "https://www.linkedin.com/in/richard-leclezio/" },
   { name: "Lakshan J", role: "Software Engineer", employer: "Hexaware Technologies", image: "/images/student-placements/lakshan-j.png", link: "https://www.linkedin.com/in/lakshan013/" },
   { name: "Uphar Tandon", role: "Technology professional", employer: "Microsoft", image: "/images/student-placements/uphar-tandon.png", link: "https://www.linkedin.com/in/uphar-tandon-2563a636/" },
-  { name: "Sharoz Farhan Afridi", role: "Technology professional", image: "/images/student-placements/sharoz-farhan-afridi.jpeg", link: "https://www.linkedin.com/in/sharoz-farhan-afridi/" }
+  { name: "Sharoz Farhan Afridi", role: "Technology professional", image: "/images/student-placements/sharoz-farhan-afridi.jpeg", link: "https://www.linkedin.com/in/sharoz-farhan-afridi/" },
+  // Added 31 Oct 2026 at Deepesh's request. No role/employer: none confirmed by Deepesh, so the card shows "Datamarcos learner" only.
+  { name: "Manav Chhouda", image: "/images/student-placements/manav-chhouda.webp", link: "https://www.linkedin.com/in/manav-chhouda-738784268/" }
 ];
 
 /** Short quotes for the community strip. People featured in the learner report (AlumniOutcomes) are kept there only. */
@@ -132,9 +134,9 @@ export default function Home() {
             {[...marqueeItems, ...marqueeItems].map((item, index) => {
               const clone = index >= marqueeItems.length;
               return item.kind === "learner" ? (
-                <a key={`${item.name}-${index}`} className="dmh-chip" href={item.link} target="_blank" rel="noreferrer" aria-hidden={clone || undefined} tabIndex={clone ? -1 : undefined}>
+                <a key={`${item.name}-${index}`} className="dmh-chip" href={item.link} target="_blank" rel="noopener noreferrer" aria-hidden={clone || undefined} tabIndex={clone ? -1 : undefined}>
                   <Image src={item.image} alt={clone ? "" : item.name} width={52} height={52} sizes="52px" />
-                  <span><b>{item.name}</b><small>{item.employer ? `${item.role} · ${item.employer}` : `${item.role} · Datamarcos learner`}</small></span>
+                  <span><b>{item.name}</b><small>{item.employer && item.role ? `${item.role} · ${item.employer}` : item.role ? `${item.role} · Datamarcos learner` : "Datamarcos learner"}</small></span>
                 </a>
               ) : (
                 <figure key={`${item.name}-${index}`} className="dmh-quote" aria-hidden={clone || undefined}>
