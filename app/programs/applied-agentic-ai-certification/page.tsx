@@ -367,7 +367,7 @@ export default function AppliedAgenticAICertificationPage() {
           <div>
             <Head id="fx-faq-title" eyebrow="FAQ" title={<>Questions, <em>answered.</em></>} body="Can't find yours? A counsellor will answer it on a short call." />
             <Cta cta="Applied FAQ (counsellor)" variant="dark" label="Ask a counsellor" />
-            <p className="fx-faq-guide">Choosing a framework? Read <Link href="/guides/langgraph-vs-crewai-vs-autogen">LangGraph vs CrewAI vs AutoGen</Link>.</p>
+            <p className="fx-faq-guide">New to agents? Read <Link href="/guides/what-is-agentic-ai">what agentic AI is</Link>. Choosing a framework? Read <Link href="/guides/langgraph-vs-crewai-vs-autogen">LangGraph vs CrewAI vs AutoGen</Link>.</p>
           </div>
           <div className="fx-faq-list">
             {appliedFaqs.map((faq, index) => (
@@ -381,7 +381,7 @@ export default function AppliedAgenticAICertificationPage() {
       </section>
 
       {/* BROCHURE */}
-      <RelatedGuides slugs={["agentic-ai-courses-india-compared-2026", "rag-vs-fine-tuning"]} wrapClassName="fx-wrap" />
+      <RelatedGuides slugs={["agentic-ai-courses-india-compared-2026", "rag-vs-fine-tuning", "what-is-agentic-ai", "langgraph-vs-crewai-vs-autogen"]} wrapClassName="fx-wrap" />
       <section className="fx-section fx-brochure" id="brochure" aria-labelledby="fx-bro-title">
         <div className="fx-wrap">
           <div className="fx-split fx-split-end">

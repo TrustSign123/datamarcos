@@ -6,6 +6,8 @@ import { guide as deCoursesCompared2026 } from "./data-engineering-courses-with-
 import { guide as ragVsFineTuning } from "./rag-vs-fine-tuning";
 import { guide as whatIsFde } from "./what-is-a-forward-deployed-engineer";
 import { guide as langgraphVsCrewaiVsAutogen } from "./langgraph-vs-crewai-vs-autogen";
+import { guide as whatIsAgenticAi } from "./what-is-agentic-ai";
+import { guide as fdeInterviewQuestions } from "./forward-deployed-engineer-interview-questions";
 
 /** Every guide file, any status. Only `approved` ones are exposed by lib/guides.ts. */
-export const allGuides: Guide[] = [fdeCoursesCompared2026, agenticCoursesCompared2026, genaiCoursesCompared2026, deCoursesCompared2026, ragVsFineTuning, whatIsFde, langgraphVsCrewaiVsAutogen];
+export const allGuides: Guide[] = [fdeCoursesCompared2026, agenticCoursesCompared2026, genaiCoursesCompared2026, deCoursesCompared2026, ragVsFineTuning, whatIsFde, langgraphVsCrewaiVsAutogen, whatIsAgenticAi, fdeInterviewQuestions];

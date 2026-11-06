@@ -555,7 +555,7 @@ export default function ForwardDeployedAIEngineerPage() {
           <div>
             <Head id="fx-faq-title" eyebrow="FAQ" title={<>Questions, <em>answered.</em></>} body="Can't find yours? A counsellor will answer it on a short call." />
             <Cta cta="FDE FAQ (counsellor)" variant="dark" label="Ask a counsellor" />
-            <p className="fx-faq-guide">New to the role? Read <Link href="/guides/what-is-a-forward-deployed-engineer">what a forward deployed engineer does</Link>.</p>
+            <p className="fx-faq-guide">New to the role? Read <Link href="/guides/what-is-a-forward-deployed-engineer">what a forward deployed engineer does</Link>. Practising interviews? See <Link href="/guides/forward-deployed-engineer-interview-questions">FDE interview questions</Link>.</p>
           </div>
           <div className="fx-faq-list">
             {fdeFaqs.map((faq, index) => (
@@ -569,7 +569,7 @@ export default function ForwardDeployedAIEngineerPage() {
       </section>
 
       {/* BROCHURE */}
-      <RelatedGuides slugs={["forward-deployed-engineer-courses-india-compared-2026", "agentic-ai-courses-india-compared-2026"]} wrapClassName="fx-wrap" />
+      <RelatedGuides slugs={["forward-deployed-engineer-courses-india-compared-2026", "what-is-a-forward-deployed-engineer", "forward-deployed-engineer-interview-questions"]} wrapClassName="fx-wrap" />
       <section className="fx-section fx-brochure" id="brochure" aria-labelledby="fx-bro-title">
         <div className="fx-wrap">
           <div className="fx-split fx-split-end">
