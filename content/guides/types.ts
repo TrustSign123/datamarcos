@@ -16,7 +16,8 @@ export type GuideBlock =
   | { type: "ul"; items: string[] }
   | { type: "ol"; items: string[] }
   | { type: "note"; text: string }
-  | { type: "table"; caption: string; head: string[]; rows: string[][] };
+  | { type: "table"; caption: string; head: string[]; rows: string[][] }
+  | { type: "code"; lang: string; code: string };
 
 export type Guide = {
   status: GuideStatus;

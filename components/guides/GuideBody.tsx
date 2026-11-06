@@ -46,6 +46,9 @@ export function GuideBody({ blocks }: { blocks: GuideBlock[] }) {
               </table>
             </div>
           );
+          case "code": return (
+            <pre key={idx} className="guide-code"><code className={`language-${b.lang}`}>{b.code}</code></pre>
+          );
         }
       })}
     </>

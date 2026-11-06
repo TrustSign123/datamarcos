@@ -5882,3 +5882,7 @@ button.dmx-icon { padding: 0; background: none; font: inherit; cursor: pointer; 
 .dmx-theme-row { display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 46px; padding: 0 16px; border-radius: 999px; border: 1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.04); color: rgba(255,255,255,.9); font: inherit; font-size: .95rem; font-weight: 800; cursor: pointer; }
 .dmx-theme-row:hover { background: rgba(255,255,255,.08); color: #fff; }
 .dmx-theme:focus-visible, .dmx-theme-row:focus-visible { outline: 3px solid #48d5ff; outline-offset: 2px; }
+
+/* Guide code blocks (batch 4) */
+.guide-code { margin: 18px 0; padding: 16px 18px; overflow-x: auto; border-radius: 12px; background: #0f1420; color: #e8ecf5; border: 1px solid rgba(255,255,255,.08); font-size: .86rem; line-height: 1.55; }
+.guide-code code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; white-space: pre; }

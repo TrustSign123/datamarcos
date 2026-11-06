@@ -301,7 +301,7 @@ export const guide: Guide = {
     },
     {
       "type": "p",
-      "text": "For practice questions and interview formats, see our [FDE interview prep](/resources/interview-prep) page."
+      "text": "For practice questions and interview formats, see our [FDE interview questions guide](/guides/forward-deployed-engineer-interview-questions) and the [FDE interview prep](/resources/interview-prep) page."
     },
     {
       "type": "h2",
@@ -323,7 +323,7 @@ export const guide: Guide = {
     },
     {
       "type": "p",
-      "text": "Practise explaining a project end to end: the problem, constraints, architecture, evaluation, security and what changed for users. For practice material, see our [interview prep resources](/resources/interview-prep)."
+      "text": "Practise explaining a project end to end: the problem, constraints, architecture, evaluation, security and what changed for users. For practice material, see our [FDE interview questions guide](/guides/forward-deployed-engineer-interview-questions) and the [interview prep resources](/resources/interview-prep)."
     },
     {
       "type": "h2",
