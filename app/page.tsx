@@ -7,6 +7,7 @@ import { HeroSyllabusMenu } from "@/components/home/HeroSyllabusMenu";
 import { LearnerVideoCard } from "@/components/home/LearnerVideoCard";
 import { AlumniOutcomes } from "@/components/home/AlumniOutcomes";
 import { EMI_NOTE, homeFaqs, homePrograms, learnerFeedback, learnerVideos } from "@/config/home";
+import { INTL_COURSE_FEE_LINE, intlProgramCards } from "@/config/intl-courses";
 import { INTL_FEE_COPY, faqsForJsonLd, faqsForMarket, feeOrIntl, isIndiaMarket } from "@/lib/geo";
 import { brochureHrefForMarket } from "@/config/lead";
 import { getMarket } from "@/lib/geo-server";
@@ -127,7 +128,7 @@ export default async function Home() {
             <p className="dmh-sub">Pick one of our <b>4 flagship courses</b>: <b>Forward Deployed AI Engineer</b>, <b>Generative AI &amp; Agentic AI Engineer</b>, <b>Applied Agentic AI Certification</b> or <b>Advance Data Engineering with Applied GenAI &amp; Agentic AI</b>. Learn live with Deepesh Mishra (18+ years, 25,000+ professionals trained across 200+ organizations) and build real projects.</p>
             <div className="dmh-actions">
               <Link className="button primary dmh-apply" href="/programs" data-dm-lead data-cta="Home hero - Apply Now">Apply Now <ArrowRight size={18} /></Link>
-              <HeroSyllabusMenu files={homePrograms.map((program) => ({ course: program.leadCourse, title: program.title, href: brochureHrefForMarket(program.brochure, market) }))} />
+              <HeroSyllabusMenu files={[...homePrograms, ...intlProgramCards].map((program) => ({ course: program.leadCourse, title: program.title, href: brochureHrefForMarket(program.brochure, market) }))} />
             </div>
             <p className="dmh-proof"><span>{india ? "Live online classes" : "Live online, learn from anywhere"}</span><span>Real projects &amp; capstones</span><span>{india ? "Fees from ₹40,000 · EMI options" : INTL_FEE_COPY}</span></p>
           </div>
@@ -162,9 +163,10 @@ export default async function Home() {
 
       <nav className="dmh-tracks" aria-label="Our live programs">
         <div className="container">
-          <strong>Explore our 4 live programs</strong>
+          <strong>Explore our live programs</strong>
           <div className="dmh-track-row">
             {homePrograms.map((program) => <Link key={program.slug} href={`/programs/${program.slug}`}>{program.title}</Link>)}
+            {intlProgramCards.map((program) => <Link key={program.slug} href={`/programs/${program.slug}`}>{program.title}</Link>)}
           </div>
         </div>
       </nav>
@@ -199,6 +201,37 @@ export default async function Home() {
                   <div className="dmh-prog-actions">
                     <a className="dmh-btn dmh-btn-solid" href={brochureHrefForMarket(program.brochure, market)} download data-course={program.leadCourse} data-cta={`Home program card - Download Syllabus - ${program.leadCourse}`}><ArrowDownToLine size={16} /> Download Syllabus</a>
                     <Link className="dmh-btn dmh-btn-line" href={`/programs/${program.slug}`}>{program.ctaLabel ?? "View Program"} <ArrowUpRight size={16} /></Link>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+          <div className="dmh-section-head dmh-more-head">
+            <div>
+              <p className="dmh-kicker">More live courses</p>
+              <h3 className="dmh-subhead">Additional part-time programs.</h3>
+              <p>Live, mentor-led courses with weekend and evening batches. {INTL_COURSE_FEE_LINE}</p>
+            </div>
+          </div>
+          <div className="dmh-prog-grid dmh-prog-grid-more">
+            {intlProgramCards.map((program) => (
+              <article className="dmh-prog" key={program.slug}>
+                <Link className="dmh-prog-poster" href={`/programs/${program.slug}`} tabIndex={-1} aria-hidden="true">
+                  <Image src={program.image} alt={program.imageAlt} width={720} height={720} sizes="(max-width: 640px) 92vw, (max-width: 1100px) 45vw, 290px" quality={70} />
+                  <span className="dmh-prog-tag">{program.tag}</span>
+                </Link>
+                <div className="dmh-prog-body">
+                  <h3><Link href={`/programs/${program.slug}`}>{program.title}</Link></h3>
+                  <ul className="dmh-prog-facts">{program.facts.map((fact) => <li key={fact}>{fact}</li>)}</ul>
+                  <p className="dmh-prog-summary">{program.summary}</p>
+                  <p className="dmh-prog-who"><b>Who it’s for:</b> {program.whoFor}</p>
+                  <div className="dmh-prog-fee">
+                    <span className="dmh-prog-fee-label">Program fee</span>
+                    <strong>{INTL_COURSE_FEE_LINE}</strong>
+                  </div>
+                  <div className="dmh-prog-actions">
+                    <a className="dmh-btn dmh-btn-solid" href={brochureHrefForMarket(program.brochure, market)} download data-course={program.leadCourse} data-cta={`Home program card - Download Syllabus - ${program.leadCourse}`}><ArrowDownToLine size={16} /> Download Syllabus</a>
+                    <Link className="dmh-btn dmh-btn-line" href={`/programs/${program.slug}`}>View Program <ArrowUpRight size={16} /></Link>
                   </div>
                 </div>
               </article>

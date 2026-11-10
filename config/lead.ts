@@ -7,6 +7,9 @@
  * LEAD_ENDPOINT below (the env var wins when set). If both are empty the popup still opens and shows
  * a friendly "please WhatsApp/email us" message on submit.
  */
+
+import { INTL_COURSE_BROCHURES, INTL_COURSES, INTL_LEAD_COURSES } from "@/config/intl-courses";
+
 export const LEAD_ENDPOINT = "https://script.google.com/macros/s/AKfycbyFT9ZQ8oeRL4VKPVOTubWh__GffnEJQ8Fu6svFoQNDtX-0MpQ9sHrNNoSWlUsp6rU/exec";
 
 export const leadEndpoint = process.env.NEXT_PUBLIC_LEAD_ENDPOINT || LEAD_ENDPOINT;
@@ -20,6 +23,9 @@ export const LEAD_COURSES = [
 
 export const LEAD_NOT_SURE = "Not sure yet";
 
+/** Existing four plus the five newer programs. Stored values for the original four stay exact. */
+export const ALL_LEAD_COURSES = [...LEAD_COURSES, ...INTL_LEAD_COURSES];
+
 /**
  * Display label for a course. Stored values stay exactly as in LEAD_COURSES so existing sheet rows,
  * filters and the CRM mapping keep matching; only the text shown to visitors is corrected.
@@ -29,14 +35,15 @@ export function courseLabel(course: string) {
 }
 
 /** Program slug → course name, used to preselect the course on program pages. */
-const slugToCourse: Record<string, (typeof LEAD_COURSES)[number]> = {
+const slugToCourse: Record<string, string> = {
   "genai-agentic-ai-engineer": "Generative AI & Agentic AI Engineer",
   "advance-data-engineering-genai": "Advance Data Engineering with Applied GenAI & Agentic AI",
   "advanced-ai-data-engineering-agentic-ai": "Advance Data Engineering with Applied GenAI & Agentic AI",
   "applied-agentic-ai-certification": "Applied Agentic AI",
   "forward-deployed-ai-engineer": "Forward Deployed AI Engineer",
   "forward-deployed-engineer": "Forward Deployed AI Engineer",
-  "forward-deployed-engineering": "Forward Deployed AI Engineer"
+  "forward-deployed-engineering": "Forward Deployed AI Engineer",
+  ...Object.fromEntries(INTL_COURSES.map((course) => [course.slug, course.course]))
 };
 
 /**
@@ -44,15 +51,16 @@ const slugToCourse: Record<string, (typeof LEAD_COURSES)[number]> = {
  * lead popup (see components/lead/LeadModal.tsx); the file is released only after a successful submit.
  * A course without a file gets a "we'll WhatsApp/email it" success message instead.
  */
-export const COURSE_BROCHURES: Partial<Record<(typeof LEAD_COURSES)[number], string>> = {
+export const COURSE_BROCHURES: Record<string, string> = {
   "Generative AI & Agentic AI Engineer": "/brochures/DataMarcos_GenAI_Agentic_AI_Engineer_Brochure.pdf",
   "Advance Data Engineering with Applied GenAI & Agentic AI": "/brochures/datamarcos-advance-data-engineering-genai-brochure.pdf",
   "Applied Agentic AI": "/brochures/DataMarcos_Applied_Agentic_AI_Brochure.pdf",
-  "Forward Deployed AI Engineer": "/brochures/Datamarcos_Forward_Deployed_AI_Engineer_Brochure.pdf"
+  "Forward Deployed AI Engineer": "/brochures/Datamarcos_Forward_Deployed_AI_Engineer_Brochure.pdf",
+  ...INTL_COURSE_BROCHURES
 };
 
 /** Older / alternate files that still belong to a course (used to work out the course from a link). */
-const extraBrochureCourses: Record<string, (typeof LEAD_COURSES)[number]> = {
+const extraBrochureCourses: Record<string, string> = {
   "/brochures/Datamarcos_FDE_Program_Landing_Page.pdf": "Forward Deployed AI Engineer",
   "/brochures/Datamarcos_Applied_Agentic_AI_Certification_Brochure.pdf": "Applied Agentic AI"
 };

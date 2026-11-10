@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { programs } from "@/config/programs";
+import { INTL_COURSE_FEE_LINE, intlProgramCards } from "@/config/intl-courses";
 
 // Current course pages only. Legacy slugs in config/programs.ts are 301-redirected (next.config.ts) and dormant FDE
 // slugs redirect to the single FDE page, so they are not listed (SEO pass 2026-10-26).
@@ -33,6 +34,15 @@ export function ProgramsCatalog() {
       (!status || program.status === status);
   }), [query, technology, level, format, audience, delivery, status]);
 
+  const visibleNew = useMemo(() => {
+    const needle = query.trim().toLowerCase();
+    return intlProgramCards.filter((course) => {
+      if (!needle) return true;
+      const blob = `${course.title} ${course.fullTitle} ${course.summary} ${course.whoFor} ${course.tag} ${course.facts.join(" ")}`.toLowerCase();
+      return blob.includes(needle);
+    });
+  }, [query]);
+
   return (
     <>
       <section className="hero-simple"><div className="container"><p className="eyebrow">Program catalog</p><h1 className="section-title">Explore Programs</h1><p className="section-copy">Reusable program cards for professional cohorts, workshops and corporate custom learning paths.</p></div></section>
@@ -60,6 +70,26 @@ export function ProgramsCatalog() {
             <Link className="button primary" href="/programs/forward-deployed-ai-engineer">Explore this program</Link>
           </aside>
           <div className="grid three">{filtered.map((program) => <article className="card" key={program.id}><span className="badge">{program.status.replaceAll("_", " ")}</span><h2>{program.title}</h2><p>{program.description}</p><p><strong>Technology:</strong> {program.category}</p><p><strong>Duration:</strong> {program.duration}</p><p><strong>Level:</strong> {program.level}</p><p><strong>Format:</strong> {program.format}</p><Link className="button primary" href={`/programs/${program.slug}`}>View Program</Link></article>)}</div>
+          {visibleNew.length > 0 && (
+            <div className="intl-catalog">
+              <h2>More live courses</h2>
+              <p>Part-time, mentor-led and live online. {INTL_COURSE_FEE_LINE}</p>
+              <div className="grid three">
+                {visibleNew.map((course) => (
+                  <article className="card" key={course.slug}>
+                    <span className="badge">{course.tag}</span>
+                    <h2>{course.fullTitle}</h2>
+                    <p>{course.summary}</p>
+                    <p><strong>Duration:</strong> {course.facts[0]} · {course.facts[1]}</p>
+                    <p><strong>Format:</strong> Part-time, live online</p>
+                    <p><strong>Who it&apos;s for:</strong> {course.whoFor}</p>
+                    <p><strong>Program fee:</strong> {INTL_COURSE_FEE_LINE}</p>
+                    <Link className="button primary" href={`/programs/${course.slug}`}>View Program</Link>
+                  </article>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </section>
     </>

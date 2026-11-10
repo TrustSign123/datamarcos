@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, type ReactNode, useRef, useState } from "react";
-import { LEAD_COURSES, LEAD_NOT_SURE, courseLabel, leadEndpoint } from "@/config/lead";
+import { ALL_LEAD_COURSES, LEAD_NOT_SURE, courseLabel, leadEndpoint } from "@/config/lead";
 import { env, site } from "@/config/site";
 import { gaEvent, readAttribution, trackEvent } from "@/lib/analytics";
 import { rememberLeadUnlock } from "./leadUnlock";
@@ -15,7 +15,7 @@ import { rememberLeadUnlock } from "./leadUnlock";
 type FieldErrors = Partial<Record<"name" | "email" | "phone" | "course" | "consent", boolean>>;
 
 export type LeadFormProps = {
-  /** Preselected course (must match LEAD_COURSES or "Not sure yet"). */
+  /** Preselected course (must match ALL_LEAD_COURSES or "Not sure yet"). */
   course?: string;
   /** Hide the course dropdown and always submit `course` (e.g. on a single-program page). */
   lockCourse?: boolean;
@@ -52,7 +52,7 @@ const DEFAULT_TRUST = ["18+ years experience", "25,000+ professionals trained", 
 
 export function matchCourse(value?: string) {
   if (!value) return "";
-  return [...LEAD_COURSES, LEAD_NOT_SURE].find((item) => item.toLowerCase() === value.toLowerCase()) || "";
+  return [...ALL_LEAD_COURSES, LEAD_NOT_SURE].find((item) => item.toLowerCase() === value.toLowerCase()) || "";
 }
 
 export function LeadForm({
@@ -178,7 +178,7 @@ export function LeadForm({
           ) : field("course", "Course interested in", (
             <select id={id("course")} name="course" value={course} onChange={(event) => { setCourse(event.target.value); clear("course"); }}>
               <option value="" disabled>Select a program</option>
-              {LEAD_COURSES.map((item) => <option key={item} value={item}>{courseLabel(item)}</option>)}
+              {ALL_LEAD_COURSES.map((item) => <option key={item} value={item}>{courseLabel(item)}</option>)}
               <option value={LEAD_NOT_SURE}>{LEAD_NOT_SURE}</option>
             </select>
           ), "Please choose a program (or “Not sure yet”).")}

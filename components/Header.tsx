@@ -8,6 +8,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { resourceMenu } from "@/config/navigation";
 import { ThemeSync, ThemeToggle } from "@/components/ThemeToggle";
 import { EMI_NOTE, homePrograms } from "@/config/home";
+import { INTL_COURSE_FEE_LINE, INTL_COURSE_PATHS, intlProgramCards } from "@/config/intl-courses";
 import { env, site } from "@/config/site";
 import { INTL_FEE_COPY, isIndiaMarket } from "@/lib/geo";
 import { useMarket } from "@/components/MarketProvider";
@@ -41,7 +42,7 @@ export function Header() {
   // The FDE program page carries no fee amounts (counsellors share them); other pages are unchanged.
   // Fee-free header/banner: the FDE page and the new /guides section (guides carry no fees or prices).
   // Fee-free pages: the header shows no fees here (the GenAI hero keeps its own fee line; see the Oct 2026 change log).
-  const feeFree = ["/programs/forward-deployed-ai-engineer", "/programs/genai-agentic-ai-engineer", "/programs/applied-agentic-ai-certification", "/guides", "/refund-policy", "/payment-refund-policy"].includes(pathname) || pathname.startsWith("/guides/");
+  const feeFree = ["/programs/forward-deployed-ai-engineer", "/programs/genai-agentic-ai-engineer", "/programs/applied-agentic-ai-certification", "/guides", "/refund-policy", "/payment-refund-policy"].includes(pathname) || pathname.startsWith("/guides/") || INTL_COURSE_PATHS.includes(pathname);
   const india = isIndiaMarket(useMarket());
   const announceExtra = india
     ? (feeFree ? " · EMI options available" : " · Fees from ₹40,000 with EMI options")
@@ -50,6 +51,7 @@ export function Header() {
     if (!india) return INTL_FEE_COPY;
     return feeFree ? program.facts[1] : program.fee;
   };
+  const newCourseFee = INTL_COURSE_FEE_LINE;
   const programsBlurb = india
     ? `Live online · mentor-led by Deepesh Mishra · ${EMI_NOTE}`
     : "Live online, learn from anywhere · mentor-led by Deepesh Mishra";
@@ -123,6 +125,19 @@ export function Header() {
                       </Link>
                     ))}
                   </div>
+                  <p className="dmx-mega-label">More live courses · fees shared on a counsellor call</p>
+                  <div className="dmx-mega-grid">
+                    {intlProgramCards.map((program) => (
+                      <Link key={program.slug} className="dmx-course" href={`/programs/${program.slug}`} onClick={closeAll}>
+                        <span className="dmx-course-img"><Image src={program.image} alt={program.imageAlt} width={72} height={72} sizes="72px" /></span>
+                        <span className="dmx-course-copy">
+                          <small>{program.tag}</small>
+                          <strong>{program.title}</strong>
+                          <span className="dmx-course-meta"><Clock3 size={13} aria-hidden="true" /> {program.facts[0]}<b>{newCourseFee}</b></span>
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
                   <div className="dmx-mega-foot">
                     <span>{programsBlurb}</span>
                     <div>
@@ -176,6 +191,14 @@ export function Header() {
             <Link key={program.slug} className="dmx-drawer-course" href={`/programs/${program.slug}`} onClick={closeAll}>
               <Image src={program.image} alt={program.imageAlt} width={52} height={52} sizes="52px" />
               <span><strong>{program.title}</strong><small>{program.facts[0]} · {courseFee(program)}</small></span>
+              <ArrowRight size={16} aria-hidden="true" />
+            </Link>
+          ))}
+          <p className="dmx-drawer-label">More live courses</p>
+          {intlProgramCards.map((program) => (
+            <Link key={program.slug} className="dmx-drawer-course" href={`/programs/${program.slug}`} onClick={closeAll}>
+              <Image src={program.image} alt={program.imageAlt} width={52} height={52} sizes="52px" />
+              <span><strong>{program.title}</strong><small>{program.facts[0]} · {newCourseFee}</small></span>
               <ArrowRight size={16} aria-hidden="true" />
             </Link>
           ))}
