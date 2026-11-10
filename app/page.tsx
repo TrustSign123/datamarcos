@@ -7,7 +7,8 @@ import { HeroSyllabusMenu } from "@/components/home/HeroSyllabusMenu";
 import { LearnerVideoCard } from "@/components/home/LearnerVideoCard";
 import { AlumniOutcomes } from "@/components/home/AlumniOutcomes";
 import { EMI_NOTE, homeFaqs, homePrograms, learnerFeedback, learnerVideos } from "@/config/home";
-import { INTL_FEE_COPY, faqsForMarket, feeOrIntl, isIndiaMarket } from "@/lib/geo";
+import { INTL_FEES_FROM, faqsForMarket, feeForMarket, isIndiaMarket } from "@/lib/geo";
+import { brochureHrefForMarket } from "@/config/lead";
 import { getMarket } from "@/lib/geo-server";
 import { env, site } from "@/config/site";
 import { corporateProgrammes, programmeLabel } from "@/config/corporate";
@@ -43,7 +44,7 @@ const organizationSchema = {
 
 const HOME_TITLE = "FDE, GenAI, Agentic AI & Data Engineering Courses | Datamarcos";
 const HOME_DESCRIPTION_IN = "4 live online courses for students and working professionals: FDE, GenAI & Agentic AI, Applied Agentic AI and Data Engineering. Fees from ₹40,000 with EMI options.";
-const HOME_DESCRIPTION_INTL = "4 live online courses for students and working professionals: FDE, GenAI & Agentic AI, Applied Agentic AI and Data Engineering. Live online, learn from anywhere.";
+const HOME_DESCRIPTION_INTL = "4 live online courses for students and working professionals: FDE, GenAI & Agentic AI, Applied Agentic AI and Data Engineering. Live online, learn from anywhere. Fees from US$800 with EMI options.";
 
 export async function generateMetadata(): Promise<Metadata> {
   const market = await getMarket();
@@ -130,9 +131,9 @@ export default async function Home() {
             <p className="dmh-sub">Pick one of our <b>4 flagship courses</b>: <b>Forward Deployed AI Engineer</b>, <b>Generative AI &amp; Agentic AI Engineer</b>, <b>Applied Agentic AI Certification</b> or <b>Advance Data Engineering with Applied GenAI &amp; Agentic AI</b>. Learn live with Deepesh Mishra (18+ years, 25,000+ professionals trained across 200+ organizations) and build real projects.</p>
             <div className="dmh-actions">
               <Link className="button primary dmh-apply" href="/programs" data-dm-lead data-cta="Home hero - Apply Now">Apply Now <ArrowRight size={18} /></Link>
-              <HeroSyllabusMenu files={homePrograms.map((program) => ({ course: program.leadCourse, title: program.title, href: program.brochure }))} />
+              <HeroSyllabusMenu files={homePrograms.map((program) => ({ course: program.leadCourse, title: program.title, href: brochureHrefForMarket(program.brochure, market) }))} />
             </div>
-            <p className="dmh-proof"><span>{india ? "Live online classes" : "Live online, learn from anywhere"}</span><span>Real projects &amp; capstones</span><span>{india ? "Fees from ₹40,000 · EMI options" : INTL_FEE_COPY}</span></p>
+            <p className="dmh-proof"><span>{india ? "Live online classes" : "Live online, learn from anywhere"}</span><span>Real projects &amp; capstones</span><span>{india ? "Fees from ₹40,000 · EMI options" : "Fees from US$800 · EMI options"}</span></p>
           </div>
           <LearnerSpotlight learners={learnerProfiles} />
         </div>
@@ -196,11 +197,11 @@ export default async function Home() {
                   <p className="dmh-prog-who"><b>Who it’s for:</b> {program.whoFor}</p>
                   <div className="dmh-prog-fee">
                     <span className="dmh-prog-fee-label">Program fee</span>
-                    <strong>{feeOrIntl(market, program.fee)}</strong>
-                    {india ? <small>{EMI_NOTE}</small> : null}
+                    <strong>{feeForMarket(market, program.slug)}</strong>
+                    <small>{EMI_NOTE}</small>
                   </div>
                   <div className="dmh-prog-actions">
-                    <a className="dmh-btn dmh-btn-solid" href={program.brochure} download data-course={program.leadCourse} data-cta={`Home program card - Download Syllabus - ${program.leadCourse}`}><ArrowDownToLine size={16} /> Download Syllabus</a>
+                    <a className="dmh-btn dmh-btn-solid" href={brochureHrefForMarket(program.brochure, market)} download data-course={program.leadCourse} data-cta={`Home program card - Download Syllabus - ${program.leadCourse}`}><ArrowDownToLine size={16} /> Download Syllabus</a>
                     <Link className="dmh-btn dmh-btn-line" href={`/programs/${program.slug}`}>{program.ctaLabel ?? "View Program"} <ArrowUpRight size={16} /></Link>
                   </div>
                 </div>
@@ -308,7 +309,7 @@ export default async function Home() {
           <div>
             <p className="dmh-kicker">FAQ</p>
             <h2 id="home-faq-title">Questions learners ask before joining.</h2>
-            <p>Still unsure? Our counsellor can walk you through prerequisites, batch dates and {india ? "EMI options" : "fees"}.</p>
+            <p>Still unsure? Our counsellor can walk you through prerequisites, batch dates and EMI options.</p>
             <a className="dmh-ghost" href={env.whatsappUrl} target="_blank" rel="noreferrer"><MessageCircle size={16} /> Ask on WhatsApp</a>
             <Link className="dmh-refund" href="/refund-policy"><ShieldCheck size={16} aria-hidden="true" /> <span><b>7-day refund policy.</b> Not right for you? Ask within 7 days for a refund.</span></Link>
           </div>
@@ -333,7 +334,7 @@ export default async function Home() {
             <a className="dmh-btn dmh-btn-wa" href={env.whatsappUrl} target="_blank" rel="noreferrer"><MessageCircle size={18} /> Chat on WhatsApp</a>
           </div>
           <ul className="dmh-final-points">
-            <li><Check size={15} /> {india ? "Live online" : "Live online, learn from anywhere"}</li><li><Check size={15} /> Real projects</li><li><Check size={15} /> {india ? "EMI options available" : INTL_FEE_COPY}</li><li><Check size={15} /> <Link href="/refund-policy">7-day refund policy</Link></li>
+            <li><Check size={15} /> {india ? "Live online" : "Live online, learn from anywhere"}</li><li><Check size={15} /> Real projects</li><li><Check size={15} /> EMI options available</li><li><Check size={15} /> <Link href="/refund-policy">7-day refund policy</Link></li>
           </ul>
         </div>
       </section>

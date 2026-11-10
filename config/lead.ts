@@ -57,15 +57,32 @@ const extraBrochureCourses: Record<string, (typeof LEAD_COURSES)[number]> = {
   "/brochures/Datamarcos_Applied_Agentic_AI_Certification_Brochure.pdf": "Applied Agentic AI"
 };
 
-export function brochureForCourse(course?: string) {
-  return course ? COURSE_BROCHURES[course as (typeof LEAD_COURSES)[number]] : undefined;
-}
-
-export function courseForBrochure(href?: string | null) {
+/** Strip a trailing query/hash and map /brochures/intl/... back to the India path. */
+export function indiaBrochurePath(href?: string | null) {
   if (!href) return undefined;
   let path = href;
   try { path = new URL(href, "https://www.datamarcos.com").pathname; } catch { /* keep as-is */ }
   path = decodeURIComponent(path);
+  if (path.startsWith("/brochures/intl/")) path = "/brochures/" + path.slice("/brochures/intl/".length);
+  return path;
+}
+
+/** India keeps the original /brochures/*.pdf URLs. International visitors get /brochures/intl/*.pdf. */
+export function brochureHrefForMarket(href: string, market: "in" | "intl") {
+  const path = indiaBrochurePath(href) || href;
+  if (market === "in" || !path.startsWith("/brochures/")) return path;
+  return "/brochures/intl/" + path.slice("/brochures/".length);
+}
+
+export function brochureForCourse(course?: string, market?: "in" | "intl") {
+  const href = course ? COURSE_BROCHURES[course as (typeof LEAD_COURSES)[number]] : undefined;
+  if (!href) return undefined;
+  return market ? brochureHrefForMarket(href, market) : href;
+}
+
+export function courseForBrochure(href?: string | null) {
+  const path = indiaBrochurePath(href);
+  if (!path) return undefined;
   const match = Object.entries(COURSE_BROCHURES).find(([, file]) => file === path);
   return match ? match[0] : extraBrochureCourses[path];
 }
