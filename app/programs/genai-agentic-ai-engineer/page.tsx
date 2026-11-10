@@ -20,7 +20,7 @@ import {
   type GenaiFaq
 } from "@/config/genai";
 import { site } from "@/config/site";
-import { PROGRAM_FEES_USD, faqsForJsonLd, faqsForMarket, isIndiaMarket } from "@/lib/geo";
+import { INTL_FEE_COPY, faqsForJsonLd, faqsForMarket, isIndiaMarket } from "@/lib/geo";
 import { brochureHrefForMarket } from "@/config/lead";
 import { getMarket } from "@/lib/geo-server";
 import { RelatedGuides } from "@/components/guides/RelatedGuides";
@@ -57,7 +57,7 @@ const opportunityIcons = [Hammer, Workflow, ShieldCheck];
 const accents = ["#f4511e", "#2f6bff", "#0e9f84", "#b04cff"];
 
 const successBodyIn = "A Datamarcos counsellor will call you about program fit, the next cohort date, EMI options and scholarships. Meanwhile, the brochure has the full 18-week roadmap.";
-const successBodyIntl = "A Datamarcos counsellor will call you about program fit, the next cohort date, EMI options and scholarships. Meanwhile, the brochure has the full 18-week roadmap.";
+const successBodyIntl = "A Datamarcos counsellor will call you about program fit, the next cohort date, fees and scholarships. Meanwhile, the brochure has the full 18-week roadmap.";
 
 const ORG_ID = `${site.url}/#organization`;
 const MENTOR_ID = `${site.url}/#deepesh-mishra`;
@@ -132,7 +132,7 @@ export default async function GenAIAgenticEngineerPage() {
   const brochureUrl = brochureHrefForMarket(GENAI_BROCHURE, market);
   const successLinks = [{ label: "Download the brochure", href: brochureUrl, download: true }];
   const india = isIndiaMarket(market);
-  const faqs = faqsForMarket(market, genaiFaqs, "genai-agentic-ai-engineer");
+  const faqs = faqsForMarket(market, genaiFaqs);
   return (
     <article className="fde-page fde-ga-page">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFor(faqsForJsonLd(genaiFaqs))) }} />
@@ -355,7 +355,7 @@ export default async function GenAIAgenticEngineerPage() {
               ))}
             </div>
             <div className="fx-cta-band">
-              <p><b>Still comparing?</b> A counsellor can walk you through the syllabus, cohort dates and EMI options in 15 minutes.</p>
+              <p><b>Still comparing?</b> A counsellor can walk you through the syllabus, cohort dates and {india ? "EMI options" : "fees"} in 15 minutes.</p>
               <Cta cta="GenAI compare (counsellor)" />
             </div>
           </div>
@@ -422,7 +422,7 @@ export default async function GenAIAgenticEngineerPage() {
             <div>
               <p className="fx-eyebrow">Application-based admission · small cohorts</p>
               <h2 id="fx-apply-title">Become the engineer <em>every AI team wants.</em></h2>
-              <p>Share a few details. A counsellor will talk through your background, program fit, the next cohort date, EMI options and scholarships.</p>
+              <p>Share a few details. A counsellor will talk through your background, program fit, the next cohort date, {india ? "EMI options" : "fees"} and scholarships.</p>
               <ul className="fx-apply-list">
                 <li><Rocket size={17} aria-hidden="true" /> 3 client-style projects + a capstone, deployed and portfolio-ready</li>
                 <li><UsersRound size={17} aria-hidden="true" /> 130+ hours of live sessions, labs and studio with Deepesh Mishra</li>
@@ -439,7 +439,7 @@ export default async function GenAIAgenticEngineerPage() {
               cta="GenAI inline form (apply section)"
               eyebrow="Generative AI & Agentic AI Engineer"
               title="Request your fit call."
-              intro={india ? "EMI options available, talk to a counsellor." : `${PROGRAM_FEES_USD["genai-agentic-ai-engineer"]}. EMI options available, talk to a counsellor.`}
+              intro={india ? "EMI options available, talk to a counsellor." : INTL_FEE_COPY}
               submitLabel="Request my fit call"
               trust={["Application-based", "Small cohorts", "Live online"]}
               successTitle="Thanks{first}! Request received."

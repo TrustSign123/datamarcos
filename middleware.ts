@@ -13,7 +13,7 @@ import { GEO_COOKIE, MARKET_HEADER, MARKET_QUERY, parseCountryCode, resolveMarke
  * statically prerendered India HTML cannot be served to international visitors.
  *
  * Brochure PDFs: India keeps /brochures/*.pdf. International visitors are
- * rewritten to /brochures/intl/*.pdf (USD-fee copies) so a leftover India
+ * rewritten to /brochures/intl/*.pdf (fee-free copies) so a leftover India
  * href still serves the right file after the lead-form gate.
  */
 export function middleware(request: NextRequest) {

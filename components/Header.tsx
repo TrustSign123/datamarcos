@@ -9,7 +9,7 @@ import { resourceMenu } from "@/config/navigation";
 import { ThemeSync, ThemeToggle } from "@/components/ThemeToggle";
 import { EMI_NOTE, homePrograms } from "@/config/home";
 import { env, site } from "@/config/site";
-import { INTL_FEES_FROM, PROGRAM_FEES_USD, isIndiaMarket } from "@/lib/geo";
+import { INTL_FEE_COPY, isIndiaMarket } from "@/lib/geo";
 import { useMarket } from "@/components/MarketProvider";
 
 /** Learner-first navigation. Anchors point at homepage sections so they work from any page. */
@@ -45,14 +45,14 @@ export function Header() {
   const india = isIndiaMarket(useMarket());
   const announceExtra = india
     ? (feeFree ? " · EMI options available" : " · Fees from ₹40,000 with EMI options")
-    : ` · Live online, learn from anywhere · ${INTL_FEES_FROM}`;
+    : " · Live online, learn from anywhere · Fees shared on a counsellor call";
   const courseFee = (program: (typeof homePrograms)[number]) => {
-    if (!india) return PROGRAM_FEES_USD[program.slug];
+    if (!india) return INTL_FEE_COPY;
     return feeFree ? program.facts[1] : program.fee;
   };
   const programsBlurb = india
     ? `Live online · mentor-led by Deepesh Mishra · ${EMI_NOTE}`
-    : `Live online, learn from anywhere · mentor-led by Deepesh Mishra · ${EMI_NOTE}`;
+    : "Live online, learn from anywhere · mentor-led by Deepesh Mishra";
   const [drawer, setDrawer] = useState(false);
   const [menu, setMenu] = useState<"programs" | "resources" | null>(null);
   const [scrolled, setScrolled] = useState(false);
