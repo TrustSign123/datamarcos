@@ -25,6 +25,8 @@ import {
 } from "simple-icons";
 import type { LucideIcon } from "lucide-react";
 import { site } from "@/config/site";
+import { INTL_FEE_COPY, faqsForMarket, isIndiaMarket } from "@/lib/geo";
+import { getMarket } from "@/lib/geo-server";
 import { RelatedGuides } from "@/components/guides/RelatedGuides";
 
 const PATH = "/programs/forward-deployed-ai-engineer";
@@ -34,13 +36,19 @@ const OG_IMAGE = { url: "/og/forward-deployed-ai-engineer.jpg", width: 1200, hei
 const OG_TITLE = "Forward Deployed Engineer (FDE) Course, Live Online | Datamarcos";
 const OG_DESCRIPTION = "Ship AI into real enterprises. 22 weeks, 170+ live hours, 4 client-style engagements, mentor-led.";
 
-export const metadata: Metadata = {
-  title: "Forward Deployed Engineer (FDE) Course Online | Datamarcos",
-  description: "Live 22-week Forward Deployed Engineer (FDE) course for working engineers in India. Ship 4 client-style AI deployments: RAG, agents, MCP, security and LLMOps.",
-  alternates: { canonical: PATH },
-  openGraph: { title: OG_TITLE, description: OG_DESCRIPTION, url: URL, siteName: site.name, type: "website", images: [OG_IMAGE] },
-  twitter: { card: "summary_large_image", title: OG_TITLE, description: OG_DESCRIPTION, images: [OG_IMAGE.url] }
-};
+const FDE_DESCRIPTION_IN = "Live 22-week Forward Deployed Engineer (FDE) course for working engineers in India. Ship 4 client-style AI deployments: RAG, agents, MCP, security and LLMOps.";
+const FDE_DESCRIPTION_INTL = "Live 22-week Forward Deployed Engineer (FDE) course for working engineers. Ship 4 client-style AI deployments: RAG, agents, MCP, security and LLMOps. Live online, learn from anywhere.";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const market = await getMarket();
+  return {
+    title: "Forward Deployed Engineer (FDE) Course Online | Datamarcos",
+    description: isIndiaMarket(market) ? FDE_DESCRIPTION_IN : FDE_DESCRIPTION_INTL,
+    alternates: { canonical: PATH },
+    openGraph: { title: OG_TITLE, description: OG_DESCRIPTION, url: URL, siteName: site.name, type: "website", images: [OG_IMAGE] },
+    twitter: { card: "summary_large_image", title: OG_TITLE, description: OG_DESCRIPTION, images: [OG_IMAGE.url] }
+  };
+}
 
 const nav: FdeNavItem[] = [
   { id: "why", label: "Why FDE" },
@@ -58,7 +66,8 @@ const nav: FdeNavItem[] = [
 
 const successLinks = [{ label: "Download the brochure", href: FDE_BROCHURE, download: true }];
 const successTitle = "Thanks{first}! Request received.";
-const successBody = "A Datamarcos counsellor will call you about program fit, the next cohort date, EMI options and scholarships. Meanwhile, the brochure has the full 22-week roadmap.";
+const successBodyIn = "A Datamarcos counsellor will call you about program fit, the next cohort date, EMI options and scholarships. Meanwhile, the brochure has the full 22-week roadmap.";
+const successBodyIntl = "A Datamarcos counsellor will call you about program fit, the next cohort date, fees and scholarships. Meanwhile, the brochure has the full 22-week roadmap.";
 
 const lifecycle: { icon: LucideIcon; step: string; body: string }[] = [
   { icon: Compass, step: "Discover", body: "Sit with stakeholders, map the real problem and define success." },
@@ -159,7 +168,8 @@ const ORG_ID = `${site.url}/#organization`;
 const MENTOR_ID = `${site.url}/#deepesh-mishra`;
 
 /** Course + mentor + breadcrumb + FAQ. Deliberately NO offers / price (no-fee rule), no AggregateRating / Review. */
-const jsonLd = [
+function jsonLdFor(faqs: typeof fdeFaqs) {
+  return [
   {
     "@context": "https://schema.org",
     "@type": "Course",
@@ -217,9 +227,10 @@ const jsonLd = [
   {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: fdeFaqs.map((faq) => ({ "@type": "Question", name: faq.q, acceptedAnswer: { "@type": "Answer", text: faq.a } }))
+    mainEntity: faqs.map((faq) => ({ "@type": "Question", name: faq.q, acceptedAnswer: { "@type": "Answer", text: faq.a } }))
   }
 ];
+}
 
 function Cta({ label = "Talk to a counsellor", cta, variant = "primary" }: { label?: string; cta: string; variant?: "primary" | "ghost" | "dark" }) {
   return <a className={`fx-btn fx-btn-${variant}`} href="#apply" data-dm-lead data-cta={cta} data-course={FDE_COURSE}>{label} <ArrowRight size={17} aria-hidden="true" /></a>;
@@ -239,10 +250,13 @@ function Head({ eyebrow, title, body, id, align }: { eyebrow: string; title: Rea
   );
 }
 
-export default function ForwardDeployedAIEngineerPage() {
+export default async function ForwardDeployedAIEngineerPage() {
+  const market = await getMarket();
+  const india = isIndiaMarket(market);
+  const faqs = faqsForMarket(market, fdeFaqs);
   return (
     <article className="fde-page fx">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFor(faqs)) }} />
 
       {/* HERO */}
       <section className="fx-hero" id="top" aria-labelledby="fx-title">
@@ -269,7 +283,7 @@ export default function ForwardDeployedAIEngineerPage() {
               <Syllabus cta="FDE hero (syllabus)" variant="light" />
             </div>
             {/* No confirmed cohort date yet (31 Oct 2026): brief 1.3 fallback copy. Add a real date only once Deepesh confirms it. */}
-            <p className="fx-hero-note"><CalendarClock size={15} aria-hidden="true" /> <span><b>Next cohort:</b> dates shared on a 15-minute counsellor call · Weekend live sessions + weekday evening lab · Small cohorts · EMI options available</span></p>
+            <p className="fx-hero-note"><CalendarClock size={15} aria-hidden="true" /> <span><b>Next cohort:</b> dates shared on a 15-minute counsellor call · Weekend live sessions + weekday evening lab · Small cohorts · {india ? "EMI options available" : INTL_FEE_COPY}</span></p>
           </div>
           <FdeHeroVisual />
         </div>
@@ -510,7 +524,7 @@ export default function ForwardDeployedAIEngineerPage() {
           </div>
           <p className="fx-fine">“Typical” and “generic” describe common formats in the market, not any specific provider. For named providers, read <Link className="fx-inline-link" href="/guides/forward-deployed-engineer-courses-india-compared-2026">how FDE courses in India compare</Link>.</p>
           <div className="fx-cta-band">
-            <p><b>Still comparing?</b> A counsellor can walk you through the syllabus, cohort dates and EMI options in 15 minutes.</p>
+            <p><b>Still comparing?</b> A counsellor can walk you through the syllabus, cohort dates and {india ? "EMI options" : "fees"} in 15 minutes.</p>
             <Cta cta="FDE compare (counsellor)" />
           </div>
         </div>
@@ -558,7 +572,7 @@ export default function ForwardDeployedAIEngineerPage() {
             <p className="fx-faq-guide">New to the role? Read <Link href="/guides/what-is-a-forward-deployed-engineer">what a forward deployed engineer does</Link>. Practising interviews? See <Link href="/guides/forward-deployed-engineer-interview-questions">FDE interview questions</Link>.</p>
           </div>
           <div className="fx-faq-list">
-            {fdeFaqs.map((faq, index) => (
+            {faqs.map((faq, index) => (
               <details key={faq.q} open={index === 0}>
                 <summary>{faq.q}<span aria-hidden="true" /></summary>
                 <FaqAnswer faq={faq} />
@@ -587,7 +601,7 @@ export default function ForwardDeployedAIEngineerPage() {
           <div>
             <p className="fx-eyebrow">Application-based admission · small cohorts</p>
             <h2 id="fx-apply-title">Be the engineer <em>they send in.</em></h2>
-            <p>Share a few details. A counsellor will talk through your background, program fit, the next cohort date, EMI options and scholarships. No pressure, no spam.</p>
+            <p>Share a few details. A counsellor will talk through your background, program fit, the next cohort date, {india ? "EMI options" : "fees"} and scholarships. No pressure, no spam.</p>
             <ul className="fx-apply-list">
               <li><Rocket size={17} aria-hidden="true" /> 4 client-style engagements, deployed and portfolio-ready</li>
               <li><UsersRound size={17} aria-hidden="true" /> 170+ live hours with mentor Deepesh Mishra</li>
@@ -604,11 +618,11 @@ export default function ForwardDeployedAIEngineerPage() {
             cta="FDE inline form (apply section)"
             eyebrow="Forward Deployed AI Engineer"
             title="Request your FDE fit call."
-            intro="EMI options available, talk to a counsellor."
+            intro={india ? "EMI options available, talk to a counsellor." : INTL_FEE_COPY}
             submitLabel="Request my fit call"
             trust={["Application-based", "Small cohorts", "Weekend-friendly"]}
             successTitle={successTitle}
-            successBody={successBody}
+            successBody={india ? successBodyIn : successBodyIntl}
             successLinks={successLinks}
             minHeight={560}
           />

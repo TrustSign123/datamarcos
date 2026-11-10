@@ -9,6 +9,8 @@ import { resourceMenu } from "@/config/navigation";
 import { ThemeSync, ThemeToggle } from "@/components/ThemeToggle";
 import { EMI_NOTE, homePrograms } from "@/config/home";
 import { env, site } from "@/config/site";
+import { INTL_FEE_COPY, isIndiaMarket } from "@/lib/geo";
+import { useMarket } from "@/components/MarketProvider";
 
 /** Learner-first navigation. Anchors point at homepage sections so they work from any page. */
 const sectionLinks = [
@@ -40,6 +42,17 @@ export function Header() {
   // Fee-free header/banner: the FDE page and the new /guides section (guides carry no fees or prices).
   // Fee-free pages: the header shows no fees here (the GenAI hero keeps its own fee line; see the Oct 2026 change log).
   const feeFree = ["/programs/forward-deployed-ai-engineer", "/programs/genai-agentic-ai-engineer", "/programs/applied-agentic-ai-certification", "/guides", "/refund-policy", "/payment-refund-policy"].includes(pathname) || pathname.startsWith("/guides/");
+  const india = isIndiaMarket(useMarket());
+  const announceExtra = india
+    ? (feeFree ? " · EMI options available" : " · Fees from ₹40,000 with EMI options")
+    : " · Live online, learn from anywhere · Fees shared on a counsellor call";
+  const courseFee = (program: (typeof homePrograms)[number]) => {
+    if (!india) return INTL_FEE_COPY;
+    return feeFree ? program.facts[1] : program.fee;
+  };
+  const programsBlurb = india
+    ? `Live online · mentor-led by Deepesh Mishra · ${EMI_NOTE}`
+    : "Live online, learn from anywhere · mentor-led by Deepesh Mishra";
   const [drawer, setDrawer] = useState(false);
   const [menu, setMenu] = useState<"programs" | "resources" | null>(null);
   const [scrolled, setScrolled] = useState(false);
@@ -83,7 +96,7 @@ export function Header() {
       <div className="dmx-announce" role="note">
         <div className="container">
           <span className="dmx-announce-dot" aria-hidden="true" />
-          <span><b>Admissions open</b><span className="dmx-announce-text-extra"> for our live online programs</span><span className="dmx-announce-text-extra">{feeFree ? " · EMI options available" : " · Fees from ₹40,000 with EMI options"}</span></span>
+          <span><b>Admissions open</b><span className="dmx-announce-text-extra"> for our live online programs</span><span className="dmx-announce-text-extra">{announceExtra}</span></span>
           <button type="button" data-dm-lead data-cta="Announcement bar - Talk to a counsellor">Talk to a counsellor <ArrowRight size={14} /></button>
         </div>
       </div>
@@ -105,13 +118,13 @@ export function Header() {
                         <span className="dmx-course-copy">
                           <small>{program.tag}</small>
                           <strong>{program.title}</strong>
-                          <span className="dmx-course-meta"><Clock3 size={13} aria-hidden="true" /> {program.facts[0]}<b>{feeFree ? program.facts[1] : program.fee}</b></span>
+                          <span className="dmx-course-meta"><Clock3 size={13} aria-hidden="true" /> {program.facts[0]}<b>{courseFee(program)}</b></span>
                         </span>
                       </Link>
                     ))}
                   </div>
                   <div className="dmx-mega-foot">
-                    <span>Live online · mentor-led by Deepesh Mishra · {EMI_NOTE}</span>
+                    <span>{programsBlurb}</span>
                     <div>
                       <Link href="/programs" onClick={closeAll}>All courses <ArrowRight size={14} /></Link>
                       <button type="button" data-dm-lead data-cta="Header programs menu - Free career call" onClick={closeAll}>Not sure? Free career call <ArrowRight size={14} /></button>
@@ -162,7 +175,7 @@ export function Header() {
           {homePrograms.map((program) => (
             <Link key={program.slug} className="dmx-drawer-course" href={`/programs/${program.slug}`} onClick={closeAll}>
               <Image src={program.image} alt={program.imageAlt} width={52} height={52} sizes="52px" />
-              <span><strong>{program.title}</strong><small>{program.facts[0]} · {feeFree ? program.facts[1] : program.fee}</small></span>
+              <span><strong>{program.title}</strong><small>{program.facts[0]} · {courseFee(program)}</small></span>
               <ArrowRight size={16} aria-hidden="true" />
             </Link>
           ))}

@@ -3,6 +3,8 @@ import Link from "next/link";
 import { ArrowDownToLine, ArrowRight, Braces, Check, Cloud, Code2, Database, GitBranch, Network, ShieldCheck, Sparkles, Workflow, type LucideIcon, RotateCcw } from "lucide-react";
 import { FDECallRequestForm } from "@/components/program/FDECallRequestForm";
 import { ProgramFee } from "@/components/program/ProgramFee";
+import { INTL_FEE_COPY, isIndiaMarket } from "@/lib/geo";
+import { getMarket } from "@/lib/geo-server";
 import { GatedBrochureFrame } from "@/components/lead/GatedBrochureFrame";
 import { RelatedGuides } from "@/components/guides/RelatedGuides";
 
@@ -55,7 +57,8 @@ const audience = [
   "Database administrators moving toward data platforms and AI"
 ];
 
-export function GenAIAgenticLanding() {
+export async function GenAIAgenticLanding() {
+  const india = isIndiaMarket(await getMarket());
   return (
     <article className="fde-page fde-genai-page">
       <section className="fde-hero fde-genai-hero" id="top">
@@ -122,7 +125,7 @@ export function GenAIAgenticLanding() {
       <RelatedGuides slugs={["data-engineering-courses-with-genai-india-compared-2026", "rag-vs-fine-tuning", "data-engineer-vs-ai-engineer"]} wrapClassName="container" />
       <section className="fde-brochure fde-genai-brochure" id="brochure"><div className="container fde-brochure-head"><div><p className="fde-eyebrow">Program guide · 2026</p><h2>Read the full brochure.</h2></div><a className="fde-button fde-button-dark" href={brochureUrl} download><ArrowDownToLine size={17} /> Download PDF</a></div><div className="container fde-pdf-frame"><GatedBrochureFrame src={brochureUrl} title="Advanced Data Engineering with Applied GenAI and Agentic AI brochure" course="Advance Data Engineering with Applied GenAI & Agentic AI" cover="/images/program-thumbnails/data-engineering-genai.webp" /></div></section>
 
-      <section className="fde-apply fde-genai-apply" id="apply"><div className="container fde-apply-grid"><div><p className="fde-eyebrow">Take the next step</p><h2>Plan your data + AI learning path.</h2><p>Ask about foundation-track dates, advanced specialization scheduling, fees and admissions. The program brochure lists both tracks; the team can confirm the current cohort plan.</p><a className="fde-apply-brochure" href={brochureUrl} download><ArrowDownToLine size={16} /> Download the full program brochure</a><p className="fde-apply-refund"><RotateCcw size={16} aria-hidden="true" /> <span><Link href="/refund-policy">7-day refund policy</Link>: not right for you? Ask within 7 days for a refund.</span></p><p className="fde-apply-next">Data engineers who want a customer-facing AI role can continue with the <Link href="/programs/forward-deployed-ai-engineer">Forward Deployed AI Engineer</Link> program.</p></div><FDECallRequestForm programId="advance-data-engineering-genai" programSlug="advance-data-engineering-genai" programName="Advance Data Engineering with Applied GenAI & Agentic AI" /></div></section>
+      <section className="fde-apply fde-genai-apply" id="apply"><div className="container fde-apply-grid"><div><p className="fde-eyebrow">Take the next step</p><h2>Plan your data + AI learning path.</h2><p>{india ? "Ask about foundation-track dates, advanced specialization scheduling, fees and admissions. The program brochure lists both tracks; the team can confirm the current cohort plan." : `Ask about foundation-track dates, advanced specialization scheduling and admissions. The program brochure lists both tracks; the team can confirm the current cohort plan. ${INTL_FEE_COPY}.`}</p><a className="fde-apply-brochure" href={brochureUrl} download><ArrowDownToLine size={16} /> Download the full program brochure</a><p className="fde-apply-refund"><RotateCcw size={16} aria-hidden="true" /> <span><Link href="/refund-policy">7-day refund policy</Link>: not right for you? Ask within 7 days for a refund.</span></p><p className="fde-apply-next">Data engineers who want a customer-facing AI role can continue with the <Link href="/programs/forward-deployed-ai-engineer">Forward Deployed AI Engineer</Link> program.</p></div><FDECallRequestForm programId="advance-data-engineering-genai" programSlug="advance-data-engineering-genai" programName="Advance Data Engineering with Applied GenAI & Agentic AI" /></div></section>
 
       <section className="fde-genai-final"><div className="container"><p className="fde-eyebrow">Learn. Apply. Grow. Succeed.</p><h2>Build your future with the power of AI.</h2><div><a className="fde-button fde-button-orange" href="#apply" data-dm-lead>Talk to admissions <ArrowRight size={17} /></a><Link className="fde-button fde-button-light" href="/programs">Explore all programs</Link></div></div></section>
     </article>

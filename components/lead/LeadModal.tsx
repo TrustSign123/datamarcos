@@ -2,6 +2,8 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
+import { INTL_FEE_COPY, isIndiaMarket } from "@/lib/geo";
+import { useMarket } from "@/components/MarketProvider";
 import { LEAD_COURSES, LEAD_NOT_SURE, brochureForCourse, courseForBrochure, courseForPath, courseLabel } from "@/config/lead";
 import { env } from "@/config/site";
 import { readAttribution, trackEvent } from "@/lib/analytics";
@@ -59,6 +61,7 @@ const LOGO = (
 
 export function LeadModal() {
   const pathname = usePathname();
+  const india = isIndiaMarket(useMarket());
   const [open, setOpen] = useState(false);
   const [session, setSession] = useState({ key: 0, course: "", cta: "Popup", title: "", mode: "lead" as Mode, file: "", unlocked: false });
   const [succeeded, setSucceeded] = useState(false);
@@ -146,7 +149,9 @@ export function LeadModal() {
   const heading = session.title || (isDownload ? "Get the syllabus" : isApply ? "Apply for the program" : "Talk to a program advisor");
   const subtitle = isDownload
     ? session.unlocked ? "Welcome back. Pick a program to download its syllabus." : "Share your details and the syllabus downloads instantly. Our team can also help with fees and batch dates."
-    : "Share your details and our team will call you to help you pick the right program, batch and fee plan.";
+    : (india
+      ? "Share your details and our team will call you to help you pick the right program, batch and fee plan."
+      : `Share your details and our team will call you to help you pick the right program and batch. ${INTL_FEE_COPY}.`);
   // A specific file (or a course on a program page) locks the course; otherwise show the picker.
   const lockCourse = isDownload && Boolean(session.file && session.course);
   const downloadCta = (course: string) => `Download Syllabus - ${course || "Not selected"}`;
