@@ -7,7 +7,7 @@ import { HeroSyllabusMenu } from "@/components/home/HeroSyllabusMenu";
 import { LearnerVideoCard } from "@/components/home/LearnerVideoCard";
 import { AlumniOutcomes } from "@/components/home/AlumniOutcomes";
 import { EMI_NOTE, homeFaqs, homePrograms, learnerFeedback, learnerVideos } from "@/config/home";
-import { INTL_FEES_FROM, faqsForMarket, feeForMarket, isIndiaMarket } from "@/lib/geo";
+import { faqsForJsonLd, faqsForMarket, feeForMarket, isIndiaMarket } from "@/lib/geo";
 import { brochureHrefForMarket } from "@/config/lead";
 import { getMarket } from "@/lib/geo-server";
 import { env, site } from "@/config/site";
@@ -43,14 +43,11 @@ const organizationSchema = {
 };
 
 const HOME_TITLE = "FDE, GenAI, Agentic AI & Data Engineering Courses | Datamarcos";
-const HOME_DESCRIPTION_IN = "4 live online courses for students and working professionals: FDE, GenAI & Agentic AI, Applied Agentic AI and Data Engineering. Fees from ₹40,000 with EMI options.";
-const HOME_DESCRIPTION_INTL = "4 live online courses for students and working professionals: FDE, GenAI & Agentic AI, Applied Agentic AI and Data Engineering. Live online, learn from anywhere. Fees from US$800 with EMI options.";
+const HOME_DESCRIPTION = "4 live online courses for students and working professionals: FDE, GenAI & Agentic AI, Applied Agentic AI and Data Engineering. Live online, learn from anywhere. Fees and EMI options shared on a counsellor call.";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const market = await getMarket();
-  return {
+export const metadata: Metadata = {
   title: HOME_TITLE,
-  description: isIndiaMarket(market) ? HOME_DESCRIPTION_IN : HOME_DESCRIPTION_INTL,
+  description: HOME_DESCRIPTION,
   alternates: { canonical: "/" },
   openGraph: {
     title: ogTitle,
@@ -61,8 +58,7 @@ export async function generateMetadata(): Promise<Metadata> {
     images: [{ url: "/og/datamarcos-home.jpg", width: 1200, height: 630, alt: "Datamarcos – live AI and data engineering programs with Deepesh Mishra" }]
   },
   twitter: { card: "summary_large_image", title: ogTitle, description: ogDescription, images: ["/og/datamarcos-home.jpg"] }
-  };
-}
+};
 
 /** Real Datamarcos learners. Employer is shown only where the learner's profile names one. */
 const learnerProfiles: SpotlightLearner[] = [
@@ -303,7 +299,7 @@ export default async function Home() {
       </section>
 
       <section className="dmh-section dmh-faq-section" id="faq" aria-labelledby="home-faq-title">
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchemaFor(faqs)) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchemaFor(faqsForJsonLd(homeFaqs))) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
         <div className="container dmh-faq-grid">
           <div>

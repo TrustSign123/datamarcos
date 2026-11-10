@@ -193,7 +193,7 @@ export const genaiCareer = [
 
 export type GenaiFaq = { q: string; a: string; link?: { href: string; label: string } };
 
-/** FAQ: previous page FAQ (fee answer made fee-free) + brochure p.18. Plain text also feeds FAQPage JSON-LD. */
+/** FAQ: previous page FAQ (fee answer made fee-free) + brochure p.18. Visible answers may be market-swapped; FAQPage JSON-LD uses the fee-free source text. */
 export const genaiFaqs: GenaiFaq[] = [
   { q: "Do I need prior AI experience?", a: "No. You need Python basics and working engineering fundamentals, or strong shipped projects. Bridge pre-work in Python, Linux, Git and SQL is provided before Day 1." },
   { q: "How much time should I plan for each week?", a: "Plan for about 8 to 12 hours per week: two live sessions, a weekday lab and project work." },

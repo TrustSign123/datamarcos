@@ -104,7 +104,7 @@ export const appliedChooser = [
 
 export type AppliedFaq = { q: string; a: string; link?: { href: string; label: string } };
 
-/** FAQ built only from brochure facts. Plain text also feeds FAQPage JSON-LD. */
+/** FAQ built only from brochure facts. Visible answers may be market-swapped; FAQPage JSON-LD uses the fee-free source text. */
 export const appliedFaqs: AppliedFaq[] = [
   { q: "Do I need prior AI experience?", a: "No. No prior AI experience is required, and beginner-friendly refreshers are built into every module. You should be open to learning basic Python and comfortable with hands-on exercises." },
   { q: "How long is the program?", a: "Eight weeks (2 months): Month 1 takes you from LLM foundations to RAG and your first agents, and Month 2 covers multi-agent systems, MCP, voice and automation, evaluation and your capstone." },

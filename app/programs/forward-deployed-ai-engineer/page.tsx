@@ -25,7 +25,7 @@ import {
 } from "simple-icons";
 import type { LucideIcon } from "lucide-react";
 import { site } from "@/config/site";
-import { PROGRAM_FEES_USD, faqsForMarket, isIndiaMarket } from "@/lib/geo";
+import { PROGRAM_FEES_USD, faqsForJsonLd, faqsForMarket, isIndiaMarket } from "@/lib/geo";
 import { brochureHrefForMarket } from "@/config/lead";
 import { getMarket } from "@/lib/geo-server";
 import { RelatedGuides } from "@/components/guides/RelatedGuides";
@@ -37,19 +37,15 @@ const OG_IMAGE = { url: "/og/forward-deployed-ai-engineer.jpg", width: 1200, hei
 const OG_TITLE = "Forward Deployed Engineer (FDE) Course, Live Online | Datamarcos";
 const OG_DESCRIPTION = "Ship AI into real enterprises. 22 weeks, 170+ live hours, 4 client-style engagements, mentor-led.";
 
-const FDE_DESCRIPTION_IN = "Live 22-week Forward Deployed Engineer (FDE) course for working engineers in India. Ship 4 client-style AI deployments: RAG, agents, MCP, security and LLMOps.";
-const FDE_DESCRIPTION_INTL = "Live 22-week Forward Deployed Engineer (FDE) course for working engineers. Ship 4 client-style AI deployments: RAG, agents, MCP, security and LLMOps. Live online, learn from anywhere.";
+const FDE_DESCRIPTION = "Live 22-week Forward Deployed Engineer (FDE) course for working engineers. Ship 4 client-style AI deployments: RAG, agents, MCP, security and LLMOps. Live online, learn from anywhere.";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const market = await getMarket();
-  return {
-    title: "Forward Deployed Engineer (FDE) Course Online | Datamarcos",
-    description: isIndiaMarket(market) ? FDE_DESCRIPTION_IN : FDE_DESCRIPTION_INTL,
-    alternates: { canonical: PATH },
-    openGraph: { title: OG_TITLE, description: OG_DESCRIPTION, url: URL, siteName: site.name, type: "website", images: [OG_IMAGE] },
-    twitter: { card: "summary_large_image", title: OG_TITLE, description: OG_DESCRIPTION, images: [OG_IMAGE.url] }
-  };
-}
+export const metadata: Metadata = {
+  title: "Forward Deployed Engineer (FDE) Course Online | Datamarcos",
+  description: FDE_DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: { title: OG_TITLE, description: OG_DESCRIPTION, url: URL, siteName: site.name, type: "website", images: [OG_IMAGE] },
+  twitter: { card: "summary_large_image", title: OG_TITLE, description: OG_DESCRIPTION, images: [OG_IMAGE.url] }
+};
 
 const nav: FdeNavItem[] = [
   { id: "why", label: "Why FDE" },
@@ -259,7 +255,7 @@ export default async function ForwardDeployedAIEngineerPage() {
   const successLinks = [{ label: "Download the brochure", href: brochureHrefForMarket(FDE_BROCHURE, market), download: true }];
   return (
     <article className="fde-page fx">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFor(faqs)) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFor(faqsForJsonLd(fdeFaqs))) }} />
 
       {/* HERO */}
       <section className="fx-hero" id="top" aria-labelledby="fx-title">

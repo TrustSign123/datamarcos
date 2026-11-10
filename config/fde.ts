@@ -171,7 +171,7 @@ export const fdeCompare: CompareRow[] = [
   { label: "Honest outcomes", dm: "No placement or salary guarantees", selfPaced: "Varies", bootcamp: "Varies" }
 ];
 
-/** `link.label` must appear verbatim in `a`; it is rendered as a link and the plain text goes to FAQPage JSON-LD. */
+/** `link.label` must appear verbatim in `a`; it is rendered as a link. Visible answers may be market-swapped; FAQPage JSON-LD uses the fee-free source text. */
 export type FdeFaq = { q: string; a: string; link?: { href: string; label: string } };
 
 export const fdeFaqs: FdeFaq[] = [

@@ -20,7 +20,7 @@ import {
   type GenaiFaq
 } from "@/config/genai";
 import { site } from "@/config/site";
-import { PROGRAM_FEES_USD, faqsForMarket, isIndiaMarket } from "@/lib/geo";
+import { PROGRAM_FEES_USD, faqsForJsonLd, faqsForMarket, isIndiaMarket } from "@/lib/geo";
 import { brochureHrefForMarket } from "@/config/lead";
 import { getMarket } from "@/lib/geo-server";
 import { RelatedGuides } from "@/components/guides/RelatedGuides";
@@ -135,7 +135,7 @@ export default async function GenAIAgenticEngineerPage() {
   const faqs = faqsForMarket(market, genaiFaqs, "genai-agentic-ai-engineer");
   return (
     <article className="fde-page fde-ga-page">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFor(faqs)) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFor(faqsForJsonLd(genaiFaqs))) }} />
       {/* HERO: unchanged from the previous page (kept exactly, including the YouTube facade). */}
       <section className="fde-hero fde-ga-hero" id="top">
         <div className="container fde-hero-grid">
