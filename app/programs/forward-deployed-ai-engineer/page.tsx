@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import {
   ArrowDownToLine, ArrowRight, ArrowUpRight, Award, BadgeCheck, Bot, CalendarClock, Check, Cloud, Compass, FileCheck2,
   Hammer, Handshake, Linkedin, MessageSquareText, Minus, Presentation, Rocket, ShieldCheck, UsersRound, X, RotateCcw } from "lucide-react";
+import { ProgramFee } from "@/components/program/ProgramFee";
 import { InlineLeadForm } from "@/components/lead/InlineLeadForm";
 import { GatedBrochureFrame } from "@/components/lead/GatedBrochureFrame";
 import { AlumniOutcomes } from "@/components/home/AlumniOutcomes";
@@ -281,8 +282,9 @@ export default async function ForwardDeployedAIEngineerPage() {
               <Cta label="Talk to a counsellor" cta="FDE hero (counsellor)" />
               <Syllabus cta="FDE hero (syllabus)" variant="light" />
             </div>
+            <ProgramFee slug="forward-deployed-ai-engineer" />
             {/* No confirmed cohort date yet (31 Oct 2026): brief 1.3 fallback copy. Add a real date only once Deepesh confirms it. */}
-            <p className="fx-hero-note"><CalendarClock size={15} aria-hidden="true" /> <span><b>Next cohort:</b> dates shared on a 15-minute counsellor call · Weekend live sessions + weekday evening lab · Small cohorts · {india ? "EMI options available" : INTL_FEE_COPY}</span></p>
+            <p className="fx-hero-note"><CalendarClock size={15} aria-hidden="true" /> <span><b>Next cohort:</b> dates shared on a 15-minute counsellor call · Weekend live sessions + weekday evening lab · Small cohorts</span></p>
           </div>
           <FdeHeroVisual />
         </div>

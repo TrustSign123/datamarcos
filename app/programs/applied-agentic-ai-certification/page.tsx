@@ -2,6 +2,7 @@ import type React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowDownToLine, ArrowRight, ArrowUpRight, Award, BadgeCheck, Bot, CalendarClock, Check, Linkedin, Minus, PlayCircle, Rocket, ShieldCheck, Sparkles, UsersRound, Wrench, X, Zap, RotateCcw } from "lucide-react";
+import { ProgramFee } from "@/components/program/ProgramFee";
 import { YouTubeFacade } from "@/components/YouTubeFacade";
 import { InlineLeadForm } from "@/components/lead/InlineLeadForm";
 import { GatedBrochureFrame } from "@/components/lead/GatedBrochureFrame";
@@ -148,7 +149,8 @@ export default async function AppliedAgenticAICertificationPage() {
               <Cta label="Talk to a counsellor" cta="Applied hero (counsellor)" />
               <Syllabus cta="Applied hero (syllabus)" variant="light" />
             </div>
-            <p className="fx-hero-note"><CalendarClock size={15} aria-hidden="true" /> Small-batch live cohorts · {india ? "EMI options available, talk to a counsellor" : INTL_FEE_COPY}</p>
+            <ProgramFee slug="applied-agentic-ai-certification" />
+            <p className="fx-hero-note"><CalendarClock size={15} aria-hidden="true" /> Small-batch live cohorts</p>
           </div>
           <figure className="fx-hero-media">
             <div className="fx-hero-video">

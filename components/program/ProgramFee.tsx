@@ -17,6 +17,7 @@ export async function ProgramFee({ slug, className = "" }: { slug: FeeSlug; clas
     <p className={`dm-program-fee ${className}`.trim()}>
       <span className="dm-program-fee-label">Program fee</span>
       <strong>{PROGRAM_FEES[slug]}</strong>
+      <span className="dm-program-fee-gst">incl. GST</span>
       <span className="dm-program-fee-emi">{EMI_NOTE}</span>
     </p>
   );
