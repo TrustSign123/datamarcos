@@ -15,7 +15,7 @@ import {
   appliedPrereqs, appliedProjects, appliedRoles, appliedShifts, appliedToolGroups, appliedWhy, type AppliedFaq
 } from "@/config/applied";
 import { site } from "@/config/site";
-import { PROGRAM_FEES_USD, faqsForMarket, isIndiaMarket } from "@/lib/geo";
+import { PROGRAM_FEES_USD, faqsForJsonLd, faqsForMarket, isIndiaMarket } from "@/lib/geo";
 import { brochureHrefForMarket } from "@/config/lead";
 import { getMarket } from "@/lib/geo-server";
 import { pageMetadata } from "@/lib/seo";
@@ -122,7 +122,7 @@ export default async function AppliedAgenticAICertificationPage() {
   const successLinks = [{ label: "Download the brochure", href: brochureHrefForMarket(APPLIED_BROCHURE, market), download: true }];
   return (
     <article className="fde-page fx fx-applied">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFor(faqs)) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFor(faqsForJsonLd(appliedFaqs))) }} />
 
       {/* HERO */}
       <section className="fx-hero" id="top" aria-labelledby="fx-title">

@@ -23,7 +23,7 @@ export type FeeSlug = keyof typeof PROGRAM_FEES;
 
 export const EMI_NOTE = "EMI options available – ask our counsellor";
 
-/** Starting price in the announce bar, hero chips and homepage meta (international only). */
+/** Starting price in the announce bar and hero chips (international only). Not used in search snippets. */
 export const INTL_FEES_FROM = "Fees from US$800 with EMI options";
 
 export const INTL_FEES_FAQ_ANSWER =

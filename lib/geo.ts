@@ -72,6 +72,16 @@ function intlFeeAnswer(question: string, slug?: FeeSlug): string {
   return "Yes, EMI options are available. Ask our counsellor for the plan that suits you.";
 }
 
+/** Fee-free FAQ answers for meta/JSON-LD. Identical in every market; visible FAQs still use faqsForMarket. */
+export const SNIPPET_FEE_FAQ_ANSWER =
+  "EMI options are available. Our counsellor shares the current fee and EMI plans on a call.";
+
+const FEE_AMOUNT_RE = /₹|\bRs\.?\b|\bINR\b|\bUS\$|\bUSD\b|\b70,000\b|\b60,000\b|\b40,000\b|\b1,600\b|\b1,200\b|\b800\b/;
+
+export function faqsForJsonLd<T extends FaqLike>(faqs: T[]): T[] {
+  return faqs.map((faq) => (FEE_AMOUNT_RE.test(faq.a) ? { ...faq, a: SNIPPET_FEE_FAQ_ANSWER } : faq));
+}
+
 /** Swap fee amounts for international visitors. Indian FAQs (including EMI wording) are otherwise unchanged. */
 export function faqsForMarket<T extends FaqLike>(market: Market, faqs: T[], slug?: FeeSlug): T[] {
   if (isIndiaMarket(market)) return faqs;
