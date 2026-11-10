@@ -15,6 +15,8 @@ import {
   appliedPrereqs, appliedProjects, appliedRoles, appliedShifts, appliedToolGroups, appliedWhy, type AppliedFaq
 } from "@/config/applied";
 import { site } from "@/config/site";
+import { INTL_FEE_COPY, faqsForMarket, isIndiaMarket } from "@/lib/geo";
+import { getMarket } from "@/lib/geo-server";
 import { pageMetadata } from "@/lib/seo";
 import { RelatedGuides } from "@/components/guides/RelatedGuides";
 
@@ -41,13 +43,15 @@ const nav: FdeNavItem[] = [
 const whyIcons = [Zap, Wrench, Rocket];
 const accents = ["#f4511e", "#2f6bff", "#0e9f84", "#b04cff"];
 const successLinks = [{ label: "Download the brochure", href: APPLIED_BROCHURE, download: true }];
-const successBody = "A Datamarcos counsellor will call you about program fit, the next batch date and EMI options. Meanwhile, the brochure has the full 8-week curriculum.";
+const successBodyIn = "A Datamarcos counsellor will call you about program fit, the next batch date and EMI options. Meanwhile, the brochure has the full 8-week curriculum.";
+const successBodyIntl = "A Datamarcos counsellor will call you about program fit, the next batch date and fees. Meanwhile, the brochure has the full 8-week curriculum.";
 
 const ORG_ID = `${site.url}/#organization`;
 const MENTOR_ID = `${site.url}/#deepesh-mishra`;
 
 /** Course + mentor + breadcrumb + FAQ. Deliberately NO offers / price. */
-const jsonLd = [
+function jsonLdFor(faqs: typeof appliedFaqs) {
+  return [
   {
     "@context": "https://schema.org",
     "@type": "Course",
@@ -81,8 +85,9 @@ const jsonLd = [
       { "@type": "ListItem", position: 3, name: APPLIED_TITLE, item: URL }
     ]
   },
-  { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: appliedFaqs.map((faq) => ({ "@type": "Question", name: faq.q, acceptedAnswer: { "@type": "Answer", text: faq.a } })) }
+  { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqs.map((faq) => ({ "@type": "Question", name: faq.q, acceptedAnswer: { "@type": "Answer", text: faq.a } })) }
 ];
+}
 
 function FaqAnswer({ faq }: { faq: AppliedFaq }) {
   if (!faq.link || !faq.a.includes(faq.link.label)) return <p>{faq.a}</p>;
@@ -108,10 +113,13 @@ function Head({ eyebrow, title, body, id }: { eyebrow: string; title: React.Reac
   );
 }
 
-export default function AppliedAgenticAICertificationPage() {
+export default async function AppliedAgenticAICertificationPage() {
+  const market = await getMarket();
+  const india = isIndiaMarket(market);
+  const faqs = faqsForMarket(market, appliedFaqs);
   return (
     <article className="fde-page fx fx-applied">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFor(faqs)) }} />
 
       {/* HERO */}
       <section className="fx-hero" id="top" aria-labelledby="fx-title">
@@ -137,7 +145,7 @@ export default function AppliedAgenticAICertificationPage() {
               <Cta label="Talk to a counsellor" cta="Applied hero (counsellor)" />
               <Syllabus cta="Applied hero (syllabus)" variant="light" />
             </div>
-            <p className="fx-hero-note"><CalendarClock size={15} aria-hidden="true" /> Small-batch live cohorts · EMI options available, talk to a counsellor</p>
+            <p className="fx-hero-note"><CalendarClock size={15} aria-hidden="true" /> Small-batch live cohorts · {india ? "EMI options available, talk to a counsellor" : INTL_FEE_COPY}</p>
           </div>
           <figure className="fx-hero-media">
             <div className="fx-hero-video">
@@ -330,7 +338,7 @@ export default function AppliedAgenticAICertificationPage() {
           </div>
           <p className="fx-fine">Explore the <Link href="/programs/genai-agentic-ai-engineer">GenAI &amp; Agentic AI Engineer</Link> and <Link href="/programs/forward-deployed-ai-engineer">Forward Deployed AI Engineer</Link> programs.</p>
           <div className="fx-cta-band">
-            <p><b>Not sure which fits?</b> A counsellor can walk you through the syllabus, batch dates and EMI options in 15 minutes.</p>
+            <p><b>Not sure which fits?</b> A counsellor can walk you through the syllabus, batch dates and {india ? "EMI options" : "fees"} in 15 minutes.</p>
             <Cta cta="Applied compare (counsellor)" />
           </div>
         </div>
@@ -371,7 +379,7 @@ export default function AppliedAgenticAICertificationPage() {
             <p className="fx-faq-guide">New to agents? Read <Link href="/guides/what-is-agentic-ai">what agentic AI is</Link>. Choosing a framework? Read <Link href="/guides/langgraph-vs-crewai-vs-autogen">LangGraph vs CrewAI vs AutoGen</Link>.</p>
           </div>
           <div className="fx-faq-list">
-            {appliedFaqs.map((faq, index) => (
+            {faqs.map((faq, index) => (
               <details key={faq.q} open={index === 0}>
                 <summary>{faq.q}<span aria-hidden="true" /></summary>
                 <FaqAnswer faq={faq} />
@@ -400,7 +408,7 @@ export default function AppliedAgenticAICertificationPage() {
           <div>
             <p className="fx-eyebrow">Small-batch live cohorts</p>
             <h2 id="fx-apply-title">Six months from now, <em>you could be shipping agents.</em></h2>
-            <p>Share a few details. A counsellor will talk through your background, the next batch date, EMI options and enrollment steps.</p>
+            <p>Share a few details. A counsellor will talk through your background, the next batch date, {india ? "EMI options" : "fees"} and enrollment steps.</p>
             <ul className="fx-apply-list">
               <li><Rocket size={17} aria-hidden="true" /> A project every module + an integrated multi-agent capstone</li>
               <li><UsersRound size={17} aria-hidden="true" /> Live, mentor-led sessions with Deepesh Mishra</li>
@@ -417,11 +425,11 @@ export default function AppliedAgenticAICertificationPage() {
             cta="Applied inline form (apply section)"
             eyebrow={APPLIED_TITLE}
             title="Request a call back."
-            intro="EMI options available, talk to a counsellor."
+            intro={india ? "EMI options available, talk to a counsellor." : INTL_FEE_COPY}
             submitLabel="Request my call"
             trust={["8 weeks", "Live & mentor-led", "No prior AI needed"]}
             successTitle="Thanks{first}! Request received."
-            successBody={successBody}
+            successBody={india ? successBodyIn : successBodyIntl}
             successLinks={successLinks}
             minHeight={560}
           />

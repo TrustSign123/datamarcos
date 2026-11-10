@@ -20,6 +20,8 @@ import {
   type GenaiFaq
 } from "@/config/genai";
 import { site } from "@/config/site";
+import { INTL_FEE_COPY, faqsForMarket, isIndiaMarket } from "@/lib/geo";
+import { getMarket } from "@/lib/geo-server";
 import { RelatedGuides } from "@/components/guides/RelatedGuides";
 
 const PATH = "/programs/genai-agentic-ai-engineer";
@@ -54,13 +56,15 @@ const nav: FdeNavItem[] = [
 const opportunityIcons = [Hammer, Workflow, ShieldCheck];
 const accents = ["#f4511e", "#2f6bff", "#0e9f84", "#b04cff"];
 const successLinks = [{ label: "Download the brochure", href: GENAI_BROCHURE, download: true }];
-const successBody = "A Datamarcos counsellor will call you about program fit, the next cohort date, EMI options and scholarships. Meanwhile, the brochure has the full 18-week roadmap.";
+const successBodyIn = "A Datamarcos counsellor will call you about program fit, the next cohort date, EMI options and scholarships. Meanwhile, the brochure has the full 18-week roadmap.";
+const successBodyIntl = "A Datamarcos counsellor will call you about program fit, the next cohort date, fees and scholarships. Meanwhile, the brochure has the full 18-week roadmap.";
 
 const ORG_ID = `${site.url}/#organization`;
 const MENTOR_ID = `${site.url}/#deepesh-mishra`;
 
 /** Course + mentor + breadcrumb + FAQ. Deliberately NO offers / price. */
-const jsonLd = [
+function jsonLdFor(faqs: typeof genaiFaqs) {
+  return [
   {
     "@context": "https://schema.org",
     "@type": "Course",
@@ -94,8 +98,9 @@ const jsonLd = [
       { "@type": "ListItem", position: 3, name: "Generative AI & Agentic AI Engineer", item: URL }
     ]
   },
-  { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: genaiFaqs.map((faq) => ({ "@type": "Question", name: faq.q, acceptedAnswer: { "@type": "Answer", text: faq.a } })) }
+  { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqs.map((faq) => ({ "@type": "Question", name: faq.q, acceptedAnswer: { "@type": "Answer", text: faq.a } })) }
 ];
+}
 
 function FaqAnswer({ faq }: { faq: GenaiFaq }) {
   if (!faq.link || !faq.a.includes(faq.link.label)) return <p>{faq.a}</p>;
@@ -121,10 +126,13 @@ function Head({ eyebrow, title, body, id }: { eyebrow: string; title: React.Reac
   );
 }
 
-export default function GenAIAgenticEngineerPage() {
+export default async function GenAIAgenticEngineerPage() {
+  const market = await getMarket();
+  const india = isIndiaMarket(market);
+  const faqs = faqsForMarket(market, genaiFaqs);
   return (
     <article className="fde-page fde-ga-page">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFor(faqs)) }} />
       {/* HERO: unchanged from the previous page (kept exactly, including the YouTube facade). */}
       <section className="fde-hero fde-ga-hero" id="top">
         <div className="container fde-hero-grid">
@@ -344,7 +352,7 @@ export default function GenAIAgenticEngineerPage() {
               ))}
             </div>
             <div className="fx-cta-band">
-              <p><b>Still comparing?</b> A counsellor can walk you through the syllabus, cohort dates and EMI options in 15 minutes.</p>
+              <p><b>Still comparing?</b> A counsellor can walk you through the syllabus, cohort dates and {india ? "EMI options" : "fees"} in 15 minutes.</p>
               <Cta cta="GenAI compare (counsellor)" />
             </div>
           </div>
@@ -382,7 +390,7 @@ export default function GenAIAgenticEngineerPage() {
               <p className="fx-faq-guide">New to agents? Read <Link href="/guides/what-is-agentic-ai">what agentic AI is</Link>.</p>
             </div>
             <div className="fx-faq-list">
-              {genaiFaqs.map((faq, index) => (
+              {faqs.map((faq, index) => (
                 <details key={faq.q} open={index === 0}>
                   <summary>{faq.q}<span aria-hidden="true" /></summary>
                   <FaqAnswer faq={faq} />
@@ -411,7 +419,7 @@ export default function GenAIAgenticEngineerPage() {
             <div>
               <p className="fx-eyebrow">Application-based admission · small cohorts</p>
               <h2 id="fx-apply-title">Become the engineer <em>every AI team wants.</em></h2>
-              <p>Share a few details. A counsellor will talk through your background, program fit, the next cohort date, EMI options and scholarships.</p>
+              <p>Share a few details. A counsellor will talk through your background, program fit, the next cohort date, {india ? "EMI options" : "fees"} and scholarships.</p>
               <ul className="fx-apply-list">
                 <li><Rocket size={17} aria-hidden="true" /> 3 client-style projects + a capstone, deployed and portfolio-ready</li>
                 <li><UsersRound size={17} aria-hidden="true" /> 130+ hours of live sessions, labs and studio with Deepesh Mishra</li>
@@ -428,11 +436,11 @@ export default function GenAIAgenticEngineerPage() {
               cta="GenAI inline form (apply section)"
               eyebrow="Generative AI & Agentic AI Engineer"
               title="Request your fit call."
-              intro="EMI options available, talk to a counsellor."
+              intro={india ? "EMI options available, talk to a counsellor." : INTL_FEE_COPY}
               submitLabel="Request my fit call"
               trust={["Application-based", "Small cohorts", "Live online"]}
               successTitle="Thanks{first}! Request received."
-              successBody={successBody}
+              successBody={india ? successBodyIn : successBodyIntl}
               successLinks={successLinks}
               minHeight={560}
             />

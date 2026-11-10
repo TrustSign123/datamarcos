@@ -7,6 +7,8 @@ import { HeroSyllabusMenu } from "@/components/home/HeroSyllabusMenu";
 import { LearnerVideoCard } from "@/components/home/LearnerVideoCard";
 import { AlumniOutcomes } from "@/components/home/AlumniOutcomes";
 import { EMI_NOTE, homeFaqs, homePrograms, learnerFeedback, learnerVideos } from "@/config/home";
+import { INTL_FEE_COPY, faqsForMarket, feeOrIntl, isIndiaMarket } from "@/lib/geo";
+import { getMarket } from "@/lib/geo-server";
 import { env, site } from "@/config/site";
 import { corporateProgrammes, programmeLabel } from "@/config/corporate";
 
@@ -39,9 +41,15 @@ const organizationSchema = {
   ]
 };
 
-export const metadata: Metadata = {
-  title: "FDE, GenAI, Agentic AI & Data Engineering Courses | Datamarcos",
-  description: "4 live online courses for students and working professionals: FDE, GenAI & Agentic AI, Applied Agentic AI and Data Engineering. Fees from ₹40,000 with EMI options.",
+const HOME_TITLE = "FDE, GenAI, Agentic AI & Data Engineering Courses | Datamarcos";
+const HOME_DESCRIPTION_IN = "4 live online courses for students and working professionals: FDE, GenAI & Agentic AI, Applied Agentic AI and Data Engineering. Fees from ₹40,000 with EMI options.";
+const HOME_DESCRIPTION_INTL = "4 live online courses for students and working professionals: FDE, GenAI & Agentic AI, Applied Agentic AI and Data Engineering. Live online, learn from anywhere.";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const market = await getMarket();
+  return {
+  title: HOME_TITLE,
+  description: isIndiaMarket(market) ? HOME_DESCRIPTION_IN : HOME_DESCRIPTION_INTL,
   alternates: { canonical: "/" },
   openGraph: {
     title: ogTitle,
@@ -52,7 +60,8 @@ export const metadata: Metadata = {
     images: [{ url: "/og/datamarcos-home.jpg", width: 1200, height: 630, alt: "Datamarcos – live AI and data engineering programs with Deepesh Mishra" }]
   },
   twitter: { card: "summary_large_image", title: ogTitle, description: ogDescription, images: ["/og/datamarcos-home.jpg"] }
-};
+  };
+}
 
 /** Real Datamarcos learners. Employer is shown only where the learner's profile names one. */
 const learnerProfiles: SpotlightLearner[] = [
@@ -93,19 +102,24 @@ const learningSteps = [
   ["Take systems to production", "Security, deployment, monitoring and enterprise context."]
 ];
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: homeFaqs.map((item) => ({
-    "@type": "Question",
-    name: item.q,
-    acceptedAnswer: { "@type": "Answer", text: item.link ? `${item.a} ${site.url.replace(/\/$/, "")}${item.link.href}` : item.a }
-  }))
-};
+function faqSchemaFor(faqs: typeof homeFaqs) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: { "@type": "Answer", text: item.link ? `${item.a} ${site.url.replace(/\/$/, "")}${item.link.href}` : item.a }
+    }))
+  };
+}
 
 const careerCallCta = "Not sure which program fits? Book a free 15-min career call";
 
-export default function Home() {
+export default async function Home() {
+  const market = await getMarket();
+  const india = isIndiaMarket(market);
+  const faqs = faqsForMarket(market, homeFaqs);
   return (
     <div className="dmh-page">
       <section className="dmh-hero" aria-labelledby="home-hero-title">
@@ -118,7 +132,7 @@ export default function Home() {
               <Link className="button primary dmh-apply" href="/programs" data-dm-lead data-cta="Home hero - Apply Now">Apply Now <ArrowRight size={18} /></Link>
               <HeroSyllabusMenu files={homePrograms.map((program) => ({ course: program.leadCourse, title: program.title, href: program.brochure }))} />
             </div>
-            <p className="dmh-proof"><span>Live online classes</span><span>Real projects &amp; capstones</span><span>Fees from ₹40,000 · EMI options</span></p>
+            <p className="dmh-proof"><span>{india ? "Live online classes" : "Live online, learn from anywhere"}</span><span>Real projects &amp; capstones</span><span>{india ? "Fees from ₹40,000 · EMI options" : INTL_FEE_COPY}</span></p>
           </div>
           <LearnerSpotlight learners={learnerProfiles} />
         </div>
@@ -182,8 +196,8 @@ export default function Home() {
                   <p className="dmh-prog-who"><b>Who it’s for:</b> {program.whoFor}</p>
                   <div className="dmh-prog-fee">
                     <span className="dmh-prog-fee-label">Program fee</span>
-                    <strong>{program.fee}</strong>
-                    <small>{EMI_NOTE}</small>
+                    <strong>{feeOrIntl(market, program.fee)}</strong>
+                    {india ? <small>{EMI_NOTE}</small> : null}
                   </div>
                   <div className="dmh-prog-actions">
                     <a className="dmh-btn dmh-btn-solid" href={program.brochure} download data-course={program.leadCourse} data-cta={`Home program card - Download Syllabus - ${program.leadCourse}`}><ArrowDownToLine size={16} /> Download Syllabus</a>
@@ -288,18 +302,18 @@ export default function Home() {
       </section>
 
       <section className="dmh-section dmh-faq-section" id="faq" aria-labelledby="home-faq-title">
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchemaFor(faqs)) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
         <div className="container dmh-faq-grid">
           <div>
             <p className="dmh-kicker">FAQ</p>
             <h2 id="home-faq-title">Questions learners ask before joining.</h2>
-            <p>Still unsure? Our counsellor can walk you through prerequisites, batch dates and EMI options.</p>
+            <p>Still unsure? Our counsellor can walk you through prerequisites, batch dates and {india ? "EMI options" : "fees"}.</p>
             <a className="dmh-ghost" href={env.whatsappUrl} target="_blank" rel="noreferrer"><MessageCircle size={16} /> Ask on WhatsApp</a>
             <Link className="dmh-refund" href="/refund-policy"><ShieldCheck size={16} aria-hidden="true" /> <span><b>7-day refund policy.</b> Not right for you? Ask within 7 days for a refund.</span></Link>
           </div>
           <div className="dmh-faq">
-            {homeFaqs.map((item) => (
+            {faqs.map((item) => (
               <details key={item.q}>
                 <summary><span>{item.q}</span><ChevronDown size={18} aria-hidden="true" /></summary>
                 <p>{item.a}</p>
@@ -319,7 +333,7 @@ export default function Home() {
             <a className="dmh-btn dmh-btn-wa" href={env.whatsappUrl} target="_blank" rel="noreferrer"><MessageCircle size={18} /> Chat on WhatsApp</a>
           </div>
           <ul className="dmh-final-points">
-            <li><Check size={15} /> Live online</li><li><Check size={15} /> Real projects</li><li><Check size={15} /> EMI options available</li><li><Check size={15} /> <Link href="/refund-policy">7-day refund policy</Link></li>
+            <li><Check size={15} /> {india ? "Live online" : "Live online, learn from anywhere"}</li><li><Check size={15} /> Real projects</li><li><Check size={15} /> {india ? "EMI options available" : INTL_FEE_COPY}</li><li><Check size={15} /> <Link href="/refund-policy">7-day refund policy</Link></li>
           </ul>
         </div>
       </section>

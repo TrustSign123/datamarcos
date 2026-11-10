@@ -11,6 +11,12 @@ import { AnalyticsListeners } from "@/components/AnalyticsListeners";
 import { LeadModal } from "@/components/lead/LeadModal";
 import { site } from "@/config/site";
 import { themeBootScript } from "@/lib/theme";
+import { getMarket } from "@/lib/geo-server";
+import { MarketProvider } from "@/components/MarketProvider";
+
+// Market is read from the x-dm-market request header, so this layout (and the
+// pages under it) must not be statically prerendered as a single India HTML.
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: site.title,
@@ -24,7 +30,8 @@ export const metadata: Metadata = {
   verification: { google: "qCP91hcqOuO9xyGKStYqX5uEO_m7KVuapv6EYGCdhQg" }
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const market = await getMarket();
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -32,13 +39,15 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />
       </head>
       <body>
-        <AnalyticsTags />
-        <AnalyticsListeners />
-        <Header />
-        <main>{children}</main>
-        <Footer />
-        <WhatsAppCTA />
-        <LeadModal />
+        <MarketProvider market={market}>
+          <AnalyticsTags />
+          <AnalyticsListeners />
+          <Header />
+          <main>{children}</main>
+          <Footer />
+          <WhatsAppCTA />
+          <LeadModal />
+        </MarketProvider>
       </body>
     </html>
   );
