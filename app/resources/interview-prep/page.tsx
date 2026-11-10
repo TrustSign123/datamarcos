@@ -94,6 +94,7 @@ export default function InterviewPrepPage() {
                 </details>
               ))}
             </div>
+            {track.id === "agentic-ai" ? <p className="section-copy">Building a project portfolio? See <Link className="prep-inline-link" href="/guides/agentic-ai-projects-for-beginners">agentic AI projects for beginners</Link>.</p> : null}
           </div>
         </section>
       ))}

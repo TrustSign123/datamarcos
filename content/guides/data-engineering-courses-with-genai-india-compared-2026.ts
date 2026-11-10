@@ -153,7 +153,7 @@ export const guide: Guide = {
     },
     {
       "type": "p",
-      "text": "Our view: data engineering skills keep their value whatever happens with AI, and adding GenAI on top opens more kinds of work than either skill alone. That's a judgement, not a guarantee."
+      "text": "Our view: data engineering skills keep their value whatever happens with AI, and adding GenAI on top opens more kinds of work than either skill alone. That's a judgement, not a guarantee. For a fuller comparison of the two paths, read [data engineer vs AI engineer](/guides/data-engineer-vs-ai-engineer)."
     },
     {
       "type": "h2",
