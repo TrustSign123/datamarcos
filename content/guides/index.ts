@@ -10,6 +10,8 @@ import { guide as whatIsAgenticAi } from "./what-is-agentic-ai";
 import { guide as fdeInterviewQuestions } from "./forward-deployed-engineer-interview-questions";
 import { guide as dataEngineerVsAiEngineer } from "./data-engineer-vs-ai-engineer";
 import { guide as agenticAiProjects } from "./agentic-ai-projects-for-beginners";
+import { guide as howToBuildAnMcpServer } from "./how-to-build-an-mcp-server";
+import { guide as n8nVsLanggraph } from "./n8n-vs-langgraph";
 
 /** Every guide file, any status. Only `approved` ones are exposed by lib/guides.ts. */
-export const allGuides: Guide[] = [fdeCoursesCompared2026, agenticCoursesCompared2026, genaiCoursesCompared2026, deCoursesCompared2026, ragVsFineTuning, whatIsFde, langgraphVsCrewaiVsAutogen, whatIsAgenticAi, fdeInterviewQuestions, dataEngineerVsAiEngineer, agenticAiProjects];
+export const allGuides: Guide[] = [fdeCoursesCompared2026, agenticCoursesCompared2026, genaiCoursesCompared2026, deCoursesCompared2026, ragVsFineTuning, whatIsFde, langgraphVsCrewaiVsAutogen, whatIsAgenticAi, fdeInterviewQuestions, dataEngineerVsAiEngineer, agenticAiProjects, howToBuildAnMcpServer, n8nVsLanggraph];
