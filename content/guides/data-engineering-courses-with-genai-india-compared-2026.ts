@@ -92,7 +92,7 @@ export const guide: Guide = {
           "Live, mentor-led, weekend/evening sessions",
           "4-month data engineering foundation (weeks 1–16), then an advanced GenAI and agentic specialisation",
           "Python and SQL, Azure Data Lake, PySpark, Azure Data Factory, Delta Lake, AWS, Databricks lakehouse, Spark Structured Streaming, Kafka, Airflow, dbt, Great Expectations, Snowflake",
-          "LLMs, embeddings and vector search, LangChain RAG, LangGraph and CrewAI agents, MCP, Snowflake Cortex AI, Databricks Mosaic AI, integrated capstone",
+          "LLMs, embeddings and vector search, LangChain RAG, LangGraph and CrewAI agents, MCP, Snowflake Cortex AI, Databricks Agent Bricks, integrated capstone",
           "Datamarcos certification (not a university certificate)"
         ]
       ]
@@ -141,7 +141,7 @@ export const guide: Guide = {
           "Core tools",
           "SQL, PySpark, Airflow, dbt, Kafka, Databricks or Snowflake",
           "Python, LLM APIs, vector databases, LangGraph",
-          "Both, plus platform AI such as Snowflake Cortex AI or Databricks Mosaic AI"
+          "Both, plus platform AI such as Snowflake Cortex AI or Databricks Agent Bricks"
         ],
         [
           "Common starting point",
@@ -195,7 +195,7 @@ export const guide: Guide = {
     },
     {
       "type": "p",
-      "text": "**Track 2: an advanced specialisation** in four modules: applied GenAI foundations, retrieval-augmented generation, agentic AI systems (LangGraph, CrewAI) and enterprise AI platforms (Snowflake Cortex AI, Databricks Mosaic AI), ending in an integrated agentic data application. Admissions confirms the cohort schedule for this track."
+      "text": "**Track 2: an advanced specialisation** in four modules: applied GenAI foundations, retrieval-augmented generation, agentic AI systems (LangGraph, CrewAI) and enterprise AI platforms (Snowflake Cortex AI, Databricks Agent Bricks), ending in an integrated agentic data application. Admissions confirms the cohort schedule for this track."
     },
     {
       "type": "p",
