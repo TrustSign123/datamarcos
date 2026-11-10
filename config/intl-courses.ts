@@ -7,6 +7,8 @@ import { llmopsCourse } from "./intl-course-data/llmops";
 import { genaiAtWorkCourse } from "./intl-course-data/genai-at-work";
 import { analyticsCourse } from "./intl-course-data/data-analytics";
 import { cybersecurityCourse } from "./intl-course-data/cybersecurity";
+import { dataScienceCourse } from "./intl-course-data/data-science-ai-genai";
+import { aiSecuritySecopsCourse } from "./intl-course-data/ai-security-secops";
 import type { IntlCourse } from "./intl-course-data/types";
 
 export const INTL_COURSES: IntlCourse[] = [
@@ -15,7 +17,9 @@ export const INTL_COURSES: IntlCourse[] = [
   llmopsCourse,
   genaiAtWorkCourse,
   analyticsCourse,
-  cybersecurityCourse
+  cybersecurityCourse,
+  dataScienceCourse,
+  aiSecuritySecopsCourse
 ];
 
 export const INTL_LEAD_COURSES = INTL_COURSES.map((course) => course.course);
@@ -87,6 +91,16 @@ const CARD_COPY: Record<string, { summary: string; tag: string; whoFor: string }
     tag: "Security · LLM defense",
     whoFor: "Security, SOC and detection professionals, and engineers who need to secure LLM or agent applications.",
     summary: "Use AI carefully in security operations, and secure LLM and agent apps against prompt injection and related risks."
+  },
+  "data-science-ai-genai": {
+    tag: "Data Science · ML · GenAI",
+    whoFor: "Career starters, switchers and analysts who want Python, statistics, machine learning and practical GenAI.",
+    summary: "From Python and statistics to machine learning, intro deep learning and practical GenAI, ending in a capstone. Not a BI-only or production LLM-engineering course."
+  },
+  "ai-security-secops": {
+    tag: "AI Security · SecOps",
+    whoFor: "Security, SOC and IR professionals, and engineers who need an advanced, lab-heavy path into AI security and SecOps.",
+    summary: "Lab-heavy course: secure LLM and agent applications, then use AI in SIEM/SOAR-style detection, triage and response with human gates. The advanced counterpart to the 8-week Cybersecurity with AI introduction."
   }
 };
 

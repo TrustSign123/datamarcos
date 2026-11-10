@@ -18,7 +18,9 @@ const notGeneric = new Set([
   "llmops-ai-evaluation",
   "genai-at-work",
   "data-analytics-with-ai",
-  "cybersecurity-with-ai"
+  "cybersecurity-with-ai",
+  "data-science-ai-genai",
+  "ai-security-secops"
 ]);
 
 export function generateStaticParams() {
