@@ -131,14 +131,14 @@ export const programs: Program[] = [
     status: "LIVE",
     cohortDate: undefined,
     seats: undefined,
-    technologies: ["Python", "SQL", "Azure Data Lake", "PySpark", "Spark Structured Streaming", "Azure Data Factory", "AWS", "Databricks", "Snowflake", "Delta Lake", "Kafka", "Airflow", "dbt", "Great Expectations", "LangChain", "LangGraph", "RAG", "CrewAI", "MCP", "Snowflake Cortex AI", "Databricks Mosaic AI"],
+    technologies: ["Python", "SQL", "Azure Data Lake", "PySpark", "Spark Structured Streaming", "Azure Data Factory", "AWS", "Databricks", "Snowflake", "Delta Lake", "Kafka", "Airflow", "dbt", "Great Expectations", "LangChain", "LangGraph", "RAG", "CrewAI", "MCP", "Snowflake Cortex AI", "Databricks Agent Bricks"],
     curriculum: [
       { title: "Foundation · Month 1 · Foundations & cloud data lakes", topics: ["Python and SQL refresher", "Files, formats, joins and aggregations", "Azure Data Lake", "Data modeling"] },
       { title: "Foundation · Month 2 · Pipelines, PySpark & orchestration", topics: ["PySpark", "Data structuring", "Azure Data Factory", "Delta Lake"] },
       { title: "Foundation · Month 3 · Multi-cloud, Databricks & streaming", topics: ["AWS", "Databricks lakehouse", "Spark Structured Streaming", "dbt and data quality"] },
       { title: "Foundation · Month 4 · Capstone & GenAI introduction", topics: ["Ingest, process, store and analyze", "Real-world dataset capstone", "GenAI introduction", "Resume and interview preparation"] },
       { title: "Advanced · Applied GenAI foundations and RAG", topics: ["LLMs and prompting", "Embeddings and vector databases", "LangChain", "Retrieval strategies"] },
-      { title: "Advanced · Agentic systems and enterprise platforms", topics: ["LangGraph", "CrewAI", "Agent orchestration", "Snowflake Cortex AI", "Databricks Mosaic AI"] }
+      { title: "Advanced · Agentic systems and enterprise platforms", topics: ["LangGraph", "CrewAI", "Agent orchestration", "Snowflake Cortex AI", "Databricks Agent Bricks"] }
     ],
     projects: ["End-to-end cloud data pipeline", "Production RAG knowledge assistant", "Researcher and customer-care agents", "Financial news multi-agent coordinator", "MCP server connected to a database and internal API", "Integrated Agentic AI data application capstone"],
     instructors: ["Deepesh Mishra"],

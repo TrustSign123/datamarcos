@@ -260,7 +260,7 @@ export const guide: Guide = {
     },
     {
       "type": "p",
-      "text": "If you are aiming at customer-facing AI roles, the [Forward Deployed Engineer guide](/guides/what-is-a-forward-deployed-engineer) explains where agentic skills fit, and the [interview prep page](/resources/interview-prep) has practice questions. For team training, see [corporate training](/corporate-training). All our guides are in the [guides hub](/guides)."
+      "text": "For project ideas you can actually build, see [agentic AI projects for beginners](/guides/agentic-ai-projects-for-beginners). If you are aiming at customer-facing AI roles, the [Forward Deployed Engineer guide](/guides/what-is-a-forward-deployed-engineer) explains where agentic skills fit, and the [interview prep page](/resources/interview-prep) has practice questions. For team training, see [corporate training](/corporate-training). All our guides are in the [guides hub](/guides)."
     },
     {
       "type": "p",

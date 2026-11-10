@@ -2,18 +2,19 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import type { GuideBlock } from "@/content/guides/types";
 
-/** Renders **bold** and [label](href). Internal hrefs use next/link; external ones open in a new tab. */
+/** Renders **bold**, *italic* and [label](href). Internal hrefs use next/link; external ones open in a new tab. */
 export function Inline({ text }: { text: string }) {
   const out: ReactNode[] = [];
-  const re = /\*\*(.+?)\*\*|\[([^\]]+)\]\(([^)\s]+)\)/g;
+  const re = /\*\*(.+?)\*\*|\*([^*]+)\*|\[([^\]]+)\]\(([^)\s]+)\)/g;
   let last = 0;
   let m: RegExpExecArray | null;
   let i = 0;
   while ((m = re.exec(text))) {
     if (m.index > last) out.push(text.slice(last, m.index));
     if (m[1] !== undefined) out.push(<strong key={i++}><Inline text={m[1]} /></strong>);
+    else if (m[2] !== undefined) out.push(<em key={i++}><Inline text={m[2]} /></em>);
     else {
-      const [label, href] = [m[2], m[3]];
+      const [label, href] = [m[3], m[4]];
       out.push(href.startsWith("/")
         ? <Link key={i++} href={href}>{label}</Link>
         : <a key={i++} href={href} target="_blank" rel="noopener noreferrer">{label}</a>);
