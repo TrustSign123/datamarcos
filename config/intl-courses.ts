@@ -99,8 +99,8 @@ const CARD_COPY: Record<string, { summary: string; tag: string; whoFor: string }
   },
   "ai-security-secops": {
     tag: "AI Security · SecOps",
-    whoFor: "Security, SOC and IR professionals, and engineers who need a deeper, hands-on path into AI security and SecOps.",
-    summary: "Secure LLM and agent applications, then use AI in SIEM/SOAR-style detection, triage and response with human gates. Deeper than the 8-week Cybersecurity with AI introduction."
+    whoFor: "Security, SOC and IR professionals, and engineers who need an advanced, lab-heavy path into AI security and SecOps.",
+    summary: "Lab-heavy course: secure LLM and agent applications, then use AI in SIEM/SOAR-style detection, triage and response with human gates. The advanced counterpart to the 8-week Cybersecurity with AI introduction."
   }
 };
 
