@@ -25,7 +25,7 @@ import {
 } from "simple-icons";
 import type { LucideIcon } from "lucide-react";
 import { site } from "@/config/site";
-import { PROGRAM_FEES_USD, faqsForJsonLd, faqsForMarket, isIndiaMarket } from "@/lib/geo";
+import { INTL_FEE_COPY, faqsForJsonLd, faqsForMarket, isIndiaMarket } from "@/lib/geo";
 import { brochureHrefForMarket } from "@/config/lead";
 import { getMarket } from "@/lib/geo-server";
 import { RelatedGuides } from "@/components/guides/RelatedGuides";
@@ -64,7 +64,7 @@ const nav: FdeNavItem[] = [
 
 const successTitle = "Thanks{first}! Request received.";
 const successBodyIn = "A Datamarcos counsellor will call you about program fit, the next cohort date, EMI options and scholarships. Meanwhile, the brochure has the full 22-week roadmap.";
-const successBodyIntl = "A Datamarcos counsellor will call you about program fit, the next cohort date, EMI options and scholarships. Meanwhile, the brochure has the full 22-week roadmap.";
+const successBodyIntl = "A Datamarcos counsellor will call you about program fit, the next cohort date, fees and scholarships. Meanwhile, the brochure has the full 22-week roadmap.";
 
 const lifecycle: { icon: LucideIcon; step: string; body: string }[] = [
   { icon: Compass, step: "Discover", body: "Sit with stakeholders, map the real problem and define success." },
@@ -251,7 +251,7 @@ function Head({ eyebrow, title, body, id, align }: { eyebrow: string; title: Rea
 export default async function ForwardDeployedAIEngineerPage() {
   const market = await getMarket();
   const india = isIndiaMarket(market);
-  const faqs = faqsForMarket(market, fdeFaqs, "forward-deployed-ai-engineer");
+  const faqs = faqsForMarket(market, fdeFaqs);
   const successLinks = [{ label: "Download the brochure", href: brochureHrefForMarket(FDE_BROCHURE, market), download: true }];
   return (
     <article className="fde-page fx">
@@ -282,7 +282,7 @@ export default async function ForwardDeployedAIEngineerPage() {
               <Syllabus cta="FDE hero (syllabus)" variant="light" />
             </div>
             {/* No confirmed cohort date yet (31 Oct 2026): brief 1.3 fallback copy. Add a real date only once Deepesh confirms it. */}
-            <p className="fx-hero-note"><CalendarClock size={15} aria-hidden="true" /> <span><b>Next cohort:</b> dates shared on a 15-minute counsellor call · Weekend live sessions + weekday evening lab · Small cohorts · {india ? "EMI options available" : `${PROGRAM_FEES_USD["forward-deployed-ai-engineer"]} · EMI options available`}</span></p>
+            <p className="fx-hero-note"><CalendarClock size={15} aria-hidden="true" /> <span><b>Next cohort:</b> dates shared on a 15-minute counsellor call · Weekend live sessions + weekday evening lab · Small cohorts · {india ? "EMI options available" : INTL_FEE_COPY}</span></p>
           </div>
           <FdeHeroVisual />
         </div>
@@ -523,7 +523,7 @@ export default async function ForwardDeployedAIEngineerPage() {
           </div>
           <p className="fx-fine">“Typical” and “generic” describe common formats in the market, not any specific provider. For named providers, read <Link className="fx-inline-link" href="/guides/forward-deployed-engineer-courses-india-compared-2026">how FDE courses in India compare</Link>.</p>
           <div className="fx-cta-band">
-            <p><b>Still comparing?</b> A counsellor can walk you through the syllabus, cohort dates and EMI options in 15 minutes.</p>
+            <p><b>Still comparing?</b> A counsellor can walk you through the syllabus, cohort dates and {india ? "EMI options" : "fees"} in 15 minutes.</p>
             <Cta cta="FDE compare (counsellor)" />
           </div>
         </div>
@@ -600,7 +600,7 @@ export default async function ForwardDeployedAIEngineerPage() {
           <div>
             <p className="fx-eyebrow">Application-based admission · small cohorts</p>
             <h2 id="fx-apply-title">Be the engineer <em>they send in.</em></h2>
-            <p>Share a few details. A counsellor will talk through your background, program fit, the next cohort date, EMI options and scholarships. No pressure, no spam.</p>
+            <p>Share a few details. A counsellor will talk through your background, program fit, the next cohort date, {india ? "EMI options" : "fees"} and scholarships. No pressure, no spam.</p>
             <ul className="fx-apply-list">
               <li><Rocket size={17} aria-hidden="true" /> 4 client-style engagements, deployed and portfolio-ready</li>
               <li><UsersRound size={17} aria-hidden="true" /> 170+ live hours with mentor Deepesh Mishra</li>
@@ -617,7 +617,7 @@ export default async function ForwardDeployedAIEngineerPage() {
             cta="FDE inline form (apply section)"
             eyebrow="Forward Deployed AI Engineer"
             title="Request your FDE fit call."
-            intro={india ? "EMI options available, talk to a counsellor." : `${PROGRAM_FEES_USD["forward-deployed-ai-engineer"]}. EMI options available, talk to a counsellor.`}
+            intro={india ? "EMI options available, talk to a counsellor." : INTL_FEE_COPY}
             submitLabel="Request my fit call"
             trust={["Application-based", "Small cohorts", "Weekend-friendly"]}
             successTitle={successTitle}
