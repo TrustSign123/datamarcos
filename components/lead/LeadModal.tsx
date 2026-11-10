@@ -2,9 +2,9 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
-import { INTL_FEE_COPY, isIndiaMarket } from "@/lib/geo";
+import { INTL_FEES_FROM, isIndiaMarket } from "@/lib/geo";
 import { useMarket } from "@/components/MarketProvider";
-import { LEAD_COURSES, LEAD_NOT_SURE, brochureForCourse, courseForBrochure, courseForPath, courseLabel } from "@/config/lead";
+import { LEAD_COURSES, LEAD_NOT_SURE, brochureForCourse, brochureHrefForMarket, courseForBrochure, courseForPath, courseLabel } from "@/config/lead";
 import { env } from "@/config/site";
 import { readAttribution, trackEvent } from "@/lib/analytics";
 import { LeadForm, matchCourse, type LeadSuccess } from "./LeadForm";
@@ -33,8 +33,13 @@ type OpenOptions = { course?: string; cta?: string; title?: string; mode?: Mode;
 
 const DOWNLOAD_SELECTOR = "[data-dm-download], a[href*='/brochures/'], a[href$='.pdf' i]";
 
-function downloadSuccess({ course }: LeadSuccess, file?: string) {
-  const href = file || brochureForCourse(course);
+function fileForMarket(file: string | undefined, course: string | undefined, market: "in" | "intl") {
+  if (file) return brochureHrefForMarket(file, market);
+  return brochureForCourse(course, market);
+}
+
+function downloadSuccess({ course }: LeadSuccess, file?: string, market: "in" | "intl" = "in") {
+  const href = fileForMarket(file, course, market);
   if (!href) {
     return {
       title: "Thanks{first}! We’ll send it over.",
@@ -61,7 +66,8 @@ const LOGO = (
 
 export function LeadModal() {
   const pathname = usePathname();
-  const india = isIndiaMarket(useMarket());
+  const market = useMarket();
+  const india = isIndiaMarket(market);
   const [open, setOpen] = useState(false);
   const [session, setSession] = useState({ key: 0, course: "", cta: "Popup", title: "", mode: "lead" as Mode, file: "", unlocked: false });
   const [succeeded, setSucceeded] = useState(false);
@@ -74,11 +80,11 @@ export function LeadModal() {
     const mode: Mode = options.mode || "lead";
     const course = matchCourse(options.course || courseForBrochure(options.file) || courseForPath(window.location.pathname));
     const cta = options.cta || (mode === "download" ? "Download Syllabus" : "Popup");
-    const file = options.file || "";
+    const file = fileForMarket(options.file, course, market) || "";
     const unlocked = mode === "download" && isLeadUnlocked();
     // Already submitted recently and we know the file: just download, no popup.
-    if (unlocked && (file || brochureForCourse(course))) {
-      startDownload(file || brochureForCourse(course)!);
+    if (unlocked && file) {
+      startDownload(file);
       trackEvent("resource_download", { course, cta, gated: "remembered" });
       return;
     }
@@ -88,7 +94,7 @@ export function LeadModal() {
     document.documentElement.style.overflow = "hidden";
     setOpen(true);
     trackEvent(mode === "download" ? "brochure_click" : "program_apply", mode === "download" ? { cta, course, gated: "form" } : { cta, course });
-  }, []);
+  }, [market]);
 
   const closeModal = useCallback(() => {
     setOpen(false);
@@ -118,7 +124,7 @@ export function LeadModal() {
         event.preventDefault();
         openModal({
           mode: "download",
-          file: isFile ? file : undefined,
+          file: isFile ? fileForMarket(file, undefined, market) : undefined,
           course: download.getAttribute("data-course") || undefined,
           cta: download.getAttribute("data-cta") || undefined,
           title: download.getAttribute("data-title") || undefined
@@ -151,13 +157,13 @@ export function LeadModal() {
     ? session.unlocked ? "Welcome back. Pick a program to download its syllabus." : "Share your details and the syllabus downloads instantly. Our team can also help with fees and batch dates."
     : (india
       ? "Share your details and our team will call you to help you pick the right program, batch and fee plan."
-      : `Share your details and our team will call you to help you pick the right program and batch. ${INTL_FEE_COPY}.`);
+      : `Share your details and our team will call you to help you pick the right program and batch. ${INTL_FEES_FROM}.`);
   // A specific file (or a course on a program page) locks the course; otherwise show the picker.
   const lockCourse = isDownload && Boolean(session.file && session.course);
   const downloadCta = (course: string) => `Download Syllabus - ${course || "Not selected"}`;
   const onDownloadSuccess = (info: LeadSuccess) => {
     setSucceeded(true);
-    const href = session.file || brochureForCourse(info.course);
+    const href = fileForMarket(session.file, info.course, market);
     if (href) {
       startDownload(href);
       trackEvent("resource_download", { course: info.course, cta: downloadCta(info.course), gated: "form" });
@@ -178,8 +184,8 @@ export function LeadModal() {
           <div className="body">
             {open && isDownload && session.unlocked && (
               <div className="picks">
-                {LEAD_COURSES.filter((course) => brochureForCourse(course)).map((course) => (
-                  <a key={course} href={brochureForCourse(course)} download onClick={() => trackEvent("resource_download", { course, cta: downloadCta(course), gated: "remembered" })}>
+                {LEAD_COURSES.filter((course) => brochureForCourse(course, market)).map((course) => (
+                  <a key={course} href={brochureForCourse(course, market)} download onClick={() => trackEvent("resource_download", { course, cta: downloadCta(course), gated: "remembered" })}>
                     {courseLabel(course)}<span>Download ↓</span>
                   </a>
                 ))}
@@ -195,7 +201,7 @@ export function LeadModal() {
                 submitLabel="Download Syllabus"
                 formId="lead_modal_brochure"
                 trust={["Instant download", "Live online", "Mentor-led"]}
-                successFor={(info) => downloadSuccess(info, session.file)}
+                successFor={(info) => downloadSuccess(info, session.file, market)}
                 autoFocus
                 onSuccess={onDownloadSuccess}
               />

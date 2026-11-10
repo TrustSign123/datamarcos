@@ -2,8 +2,8 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { ArrowDownToLine, ArrowRight, BriefcaseBusiness, Building2, Check, Cloud, Code2, GraduationCap, Handshake, HeartPulse, Landmark, Lightbulb, Radio, ShoppingCart, Truck, Zap } from "lucide-react";
 import { FDECallRequestForm } from "@/components/program/FDECallRequestForm";
-
-const brochureUrl = "/brochures/Datamarcos_FDE_Program_Landing_Page.pdf";
+import { getMarket } from "@/lib/geo-server";
+import { brochureHrefForMarket } from "@/config/lead";
 
 export const metadata: Metadata = {
   title: "Forward Deployed AI Engineer - 5-Month Executive Program | Datamarcos",
@@ -74,7 +74,8 @@ const learningModes = [
   { label: "Deploy", title: "Client-style engagements", body: "Four engagements with stakeholders, constraints and panel reviews. Practise discovery through deployment and handoff." }
 ];
 
-export default function ForwardDeployedEngineerLandingPage() {
+export default async function ForwardDeployedEngineerLandingPage() {
+  const brochureUrl = brochureHrefForMarket("/brochures/Datamarcos_FDE_Program_Landing_Page.pdf", await getMarket());
   return (
     <article className="fde-brochure-page">
       <nav className="fde-brochure-nav" aria-label="Program sections">

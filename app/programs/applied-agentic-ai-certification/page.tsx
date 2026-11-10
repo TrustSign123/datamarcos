@@ -15,7 +15,8 @@ import {
   appliedPrereqs, appliedProjects, appliedRoles, appliedShifts, appliedToolGroups, appliedWhy, type AppliedFaq
 } from "@/config/applied";
 import { site } from "@/config/site";
-import { INTL_FEE_COPY, faqsForMarket, isIndiaMarket } from "@/lib/geo";
+import { PROGRAM_FEES_USD, faqsForMarket, isIndiaMarket } from "@/lib/geo";
+import { brochureHrefForMarket } from "@/config/lead";
 import { getMarket } from "@/lib/geo-server";
 import { pageMetadata } from "@/lib/seo";
 import { RelatedGuides } from "@/components/guides/RelatedGuides";
@@ -42,9 +43,9 @@ const nav: FdeNavItem[] = [
 
 const whyIcons = [Zap, Wrench, Rocket];
 const accents = ["#f4511e", "#2f6bff", "#0e9f84", "#b04cff"];
-const successLinks = [{ label: "Download the brochure", href: APPLIED_BROCHURE, download: true }];
+
 const successBodyIn = "A Datamarcos counsellor will call you about program fit, the next batch date and EMI options. Meanwhile, the brochure has the full 8-week curriculum.";
-const successBodyIntl = "A Datamarcos counsellor will call you about program fit, the next batch date and fees. Meanwhile, the brochure has the full 8-week curriculum.";
+const successBodyIntl = "A Datamarcos counsellor will call you about program fit, the next batch date, EMI options and enrollment steps. Meanwhile, the brochure has the full 8-week curriculum.";
 
 const ORG_ID = `${site.url}/#organization`;
 const MENTOR_ID = `${site.url}/#deepesh-mishra`;
@@ -99,8 +100,9 @@ function Cta({ label = "Talk to a counsellor", cta, variant = "primary" }: { lab
   return <a className={`fx-btn fx-btn-${variant}`} href="#apply" data-dm-lead data-cta={cta} data-course={APPLIED_COURSE}>{label} <ArrowRight size={17} aria-hidden="true" /></a>;
 }
 
-function Syllabus({ cta, variant = "ghost", label = "Download syllabus" }: { cta: string; variant?: "ghost" | "light" | "dark"; label?: string }) {
-  return <a className={`fx-btn fx-btn-${variant}`} href={APPLIED_BROCHURE} data-dm-download data-file={APPLIED_BROCHURE} data-course={APPLIED_COURSE} data-cta={cta}><ArrowDownToLine size={17} aria-hidden="true" /> {label}</a>;
+async function Syllabus({ cta, variant = "ghost", label = "Download syllabus" }: { cta: string; variant?: "ghost" | "light" | "dark"; label?: string }) {
+  const href = brochureHrefForMarket(APPLIED_BROCHURE, await getMarket());
+  return <a className={`fx-btn fx-btn-${variant}`} href={href} data-dm-download data-file={href} data-course={APPLIED_COURSE} data-cta={cta}><ArrowDownToLine size={17} aria-hidden="true" /> {label}</a>;
 }
 
 function Head({ eyebrow, title, body, id }: { eyebrow: string; title: React.ReactNode; body?: React.ReactNode; id: string }) {
@@ -116,7 +118,8 @@ function Head({ eyebrow, title, body, id }: { eyebrow: string; title: React.Reac
 export default async function AppliedAgenticAICertificationPage() {
   const market = await getMarket();
   const india = isIndiaMarket(market);
-  const faqs = faqsForMarket(market, appliedFaqs);
+  const faqs = faqsForMarket(market, appliedFaqs, "applied-agentic-ai-certification");
+  const successLinks = [{ label: "Download the brochure", href: brochureHrefForMarket(APPLIED_BROCHURE, market), download: true }];
   return (
     <article className="fde-page fx fx-applied">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFor(faqs)) }} />
@@ -145,7 +148,7 @@ export default async function AppliedAgenticAICertificationPage() {
               <Cta label="Talk to a counsellor" cta="Applied hero (counsellor)" />
               <Syllabus cta="Applied hero (syllabus)" variant="light" />
             </div>
-            <p className="fx-hero-note"><CalendarClock size={15} aria-hidden="true" /> Small-batch live cohorts · {india ? "EMI options available, talk to a counsellor" : INTL_FEE_COPY}</p>
+            <p className="fx-hero-note"><CalendarClock size={15} aria-hidden="true" /> Small-batch live cohorts · {india ? "EMI options available, talk to a counsellor" : `${PROGRAM_FEES_USD["applied-agentic-ai-certification"]} · EMI options available, talk to a counsellor`}</p>
           </div>
           <figure className="fx-hero-media">
             <div className="fx-hero-video">
@@ -338,7 +341,7 @@ export default async function AppliedAgenticAICertificationPage() {
           </div>
           <p className="fx-fine">Explore the <Link href="/programs/genai-agentic-ai-engineer">GenAI &amp; Agentic AI Engineer</Link> and <Link href="/programs/forward-deployed-ai-engineer">Forward Deployed AI Engineer</Link> programs.</p>
           <div className="fx-cta-band">
-            <p><b>Not sure which fits?</b> A counsellor can walk you through the syllabus, batch dates and {india ? "EMI options" : "fees"} in 15 minutes.</p>
+            <p><b>Not sure which fits?</b> A counsellor can walk you through the syllabus, batch dates and EMI options in 15 minutes.</p>
             <Cta cta="Applied compare (counsellor)" />
           </div>
         </div>
@@ -408,7 +411,7 @@ export default async function AppliedAgenticAICertificationPage() {
           <div>
             <p className="fx-eyebrow">Small-batch live cohorts</p>
             <h2 id="fx-apply-title">Six months from now, <em>you could be shipping agents.</em></h2>
-            <p>Share a few details. A counsellor will talk through your background, the next batch date, {india ? "EMI options" : "fees"} and enrollment steps.</p>
+            <p>Share a few details. A counsellor will talk through your background, the next batch date, EMI options and enrollment steps.</p>
             <ul className="fx-apply-list">
               <li><Rocket size={17} aria-hidden="true" /> A project every module + an integrated multi-agent capstone</li>
               <li><UsersRound size={17} aria-hidden="true" /> Live, mentor-led sessions with Deepesh Mishra</li>
@@ -425,7 +428,7 @@ export default async function AppliedAgenticAICertificationPage() {
             cta="Applied inline form (apply section)"
             eyebrow={APPLIED_TITLE}
             title="Request a call back."
-            intro={india ? "EMI options available, talk to a counsellor." : INTL_FEE_COPY}
+            intro={india ? "EMI options available, talk to a counsellor." : `${PROGRAM_FEES_USD["applied-agentic-ai-certification"]}. EMI options available, talk to a counsellor.`}
             submitLabel="Request my call"
             trust={["8 weeks", "Live & mentor-led", "No prior AI needed"]}
             successTitle="Thanks{first}! Request received."

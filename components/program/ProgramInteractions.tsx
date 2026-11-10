@@ -1,5 +1,8 @@
 "use client";
 
+import { brochureHrefForMarket } from "@/config/lead";
+import { useMarket } from "@/components/MarketProvider";
+
 import Link from "next/link";
 import { X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
@@ -76,6 +79,8 @@ export function StickyProgramCTA({ programId, programSlug }: { programId: string
 }
 
 export function LeadMagnetCTA({ programId, programSlug, brochureUrl }: { programId: string; programSlug: string; brochureUrl?: string }) {
-  if (!brochureUrl) return <p className="muted-note">Program brochure will be available soon.</p>;
-  return <a className="button secondary" href={brochureUrl} onClick={() => trackEvent("brochure_click", { programId, programSlug })}>Download Program Brochure</a>;
+  const market = useMarket();
+  const href = brochureUrl ? brochureHrefForMarket(brochureUrl, market) : brochureUrl;
+  if (!href) return <p className="muted-note">Program brochure will be available soon.</p>;
+  return <a className="button secondary" href={href} onClick={() => trackEvent("brochure_click", { programId, programSlug })}>Download Program Brochure</a>;
 }

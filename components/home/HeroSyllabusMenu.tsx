@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { ArrowDownToLine, ChevronDown } from "lucide-react";
+import { brochureHrefForMarket } from "@/config/lead";
+import { useMarket } from "@/components/MarketProvider";
 
 export type SyllabusFile = { course: string; title: string; href: string };
 
@@ -11,6 +13,7 @@ export type SyllabusFile = { course: string; title: string; href: string };
  * successful submit (Deepesh, 29 Oct 2026: every brochure/syllabus download is gated).
  */
 export function HeroSyllabusMenu({ files }: { files: SyllabusFile[] }) {
+  const market = useMarket();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -29,10 +32,12 @@ export function HeroSyllabusMenu({ files }: { files: SyllabusFile[] }) {
         <ArrowDownToLine size={18} /> Download Syllabus <ChevronDown size={16} className="dmh-syl-chev" aria-hidden="true" />
       </button>
       <ul id="dmh-syl-menu" className="dmh-syl-menu" hidden={!open} aria-label="Download a course syllabus (PDF)">
-        {files.map((file) => (
-          <li key={file.href}>
+        {files.map((file) => {
+          const href = brochureHrefForMarket(file.href, market);
+          return (
+          <li key={href}>
             <a
-              href={file.href}
+              href={href}
               download
               data-course={file.course}
               data-cta={`Home hero - Download Syllabus - ${file.course}`}
@@ -43,7 +48,8 @@ export function HeroSyllabusMenu({ files }: { files: SyllabusFile[] }) {
               <small>PDF</small>
             </a>
           </li>
-        ))}
+          );
+        })}
       </ul>
     </div>
   );
