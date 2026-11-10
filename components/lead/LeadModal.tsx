@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { INTL_FEE_COPY, isIndiaMarket } from "@/lib/geo";
 import { useMarket } from "@/components/MarketProvider";
-import { LEAD_COURSES, LEAD_NOT_SURE, brochureForCourse, brochureHrefForMarket, courseForBrochure, courseForPath, courseLabel } from "@/config/lead";
+import { ALL_LEAD_COURSES, LEAD_NOT_SURE, brochureForCourse, brochureHrefForMarket, courseForBrochure, courseForPath, courseLabel } from "@/config/lead";
 import { env } from "@/config/site";
 import { readAttribution, trackEvent } from "@/lib/analytics";
 import { LeadForm, matchCourse, type LeadSuccess } from "./LeadForm";
@@ -184,7 +184,7 @@ export function LeadModal() {
           <div className="body">
             {open && isDownload && session.unlocked && (
               <div className="picks">
-                {LEAD_COURSES.filter((course) => brochureForCourse(course, market)).map((course) => (
+                {ALL_LEAD_COURSES.filter((course) => brochureForCourse(course, market)).map((course) => (
                   <a key={course} href={brochureForCourse(course, market)} download onClick={() => trackEvent("resource_download", { course, cta: downloadCta(course), gated: "remembered" })}>
                     {courseLabel(course)}<span>Download ↓</span>
                   </a>

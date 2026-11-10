@@ -1,6 +1,7 @@
 import { MetadataRoute } from "next";
 import { site } from "@/config/site";
 import { approvedGuides } from "@/lib/guides";
+import { INTL_COURSE_PATHS } from "@/config/intl-courses";
 
 // Only live pages that should be indexed. Placeholder, noindex, duplicate and redirected URLs are left out on
 // purpose (SEO pass 2026-10-26): /corporate-training/* sub-pages (301 to /corporate-training since 2026-10-27), /resources (hub + placeholders), /payment-refund-policy
@@ -14,6 +15,7 @@ const pages: { path: string; priority: number; lastModified?: string }[] = [
   { path: "/programs/applied-agentic-ai-certification", priority: 0.9 },
   { path: "/programs/forward-deployed-ai-engineer", priority: 0.9, lastModified: "2026-10-31" }, // FDE best-in-class update
   { path: "/programs", priority: 0.7 },
+  ...INTL_COURSE_PATHS.map((path) => ({ path, priority: 0.8, lastModified: "2026-11-10" })),
   { path: "/resources/interview-prep", priority: 0.6 },
   { path: "/corporate-training", priority: 0.5 },
   { path: "/about", priority: 0.5 },

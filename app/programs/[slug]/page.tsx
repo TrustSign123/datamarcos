@@ -12,7 +12,12 @@ const notGeneric = new Set([
   "applied-agentic-ai-certification",
   "forward-deployed-ai-engineer",
   "forward-deployed-engineer",
-  "forward-deployed-engineering"
+  "forward-deployed-engineering",
+  "ai-literacy-responsible-ai",
+  "ai-product-strategy-for-leaders",
+  "llmops-ai-evaluation",
+  "genai-at-work",
+  "data-analytics-with-ai"
 ]);
 
 export function generateStaticParams() {

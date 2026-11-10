@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { gaEvent, type GaEvent } from "@/lib/analytics";
 import { homePrograms } from "@/config/home";
+import { intlProgramCards } from "@/config/intl-courses";
 
 /**
  * One delegated click listener for contact links → GA4:
@@ -12,7 +13,10 @@ import { homePrograms } from "@/config/home";
  * number or email) and anything the visitor typed are never sent.
  * composedPath() is used so links inside the shadow-DOM lead modal are caught too.
  */
-const COURSE_BY_SLUG: Record<string, string> = Object.fromEntries(homePrograms.map((program) => [program.slug, program.leadCourse]));
+const COURSE_BY_SLUG: Record<string, string> = Object.fromEntries([
+  ...homePrograms.map((program) => [program.slug, program.leadCourse]),
+  ...intlProgramCards.map((program) => [program.slug, program.leadCourse])
+]);
 
 function kindOf(href: string): GaEvent | null {
   const h = href.trim().toLowerCase();
