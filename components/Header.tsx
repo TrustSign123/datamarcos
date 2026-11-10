@@ -39,10 +39,9 @@ export function Logo() {
 
 export function Header() {
   const pathname = usePathname();
-  // The FDE program page carries no fee amounts (counsellors share them); other pages are unchanged.
-  // Fee-free header/banner: the FDE page and the new /guides section (guides carry no fees or prices).
-  // Fee-free pages: the header shows no fees here (the GenAI hero keeps its own fee line; see the Oct 2026 change log).
-  const feeFree = ["/programs/forward-deployed-ai-engineer", "/programs/genai-agentic-ai-engineer", "/programs/applied-agentic-ai-certification", "/guides", "/refund-policy", "/payment-refund-policy"].includes(pathname) || pathname.startsWith("/guides/") || INTL_COURSE_PATHS.includes(pathname);
+  // Fee-free header/banner: guides, refund policy, and the newer always-fee-free courses.
+  // Flagship program pages show India fees in the announcement and Courses menu, same as the homepage.
+  const feeFree = ["/guides", "/refund-policy", "/payment-refund-policy"].includes(pathname) || pathname.startsWith("/guides/") || INTL_COURSE_PATHS.includes(pathname);
   const india = isIndiaMarket(useMarket());
   const announceExtra = india
     ? (feeFree ? " · EMI options available" : " · Fees from ₹40,000 with EMI options")
@@ -112,6 +111,7 @@ export function Header() {
               </button>
               {menu === "programs" && (
                 <div className="dmx-mega" id="dmx-programs">
+                  <div className="dmx-mega-scroll">
                   <p className="dmx-mega-label">Our 4 flagship courses · live online, for students &amp; working professionals</p>
                   <div className="dmx-mega-grid">
                     {homePrograms.map((program) => (
@@ -137,6 +137,7 @@ export function Header() {
                         </span>
                       </Link>
                     ))}
+                  </div>
                   </div>
                   <div className="dmx-mega-foot">
                     <span>{programsBlurb}</span>

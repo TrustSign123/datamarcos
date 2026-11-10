@@ -8,6 +8,6 @@ export const caseStudies = [
     technology: "Technologies to be added",
     outcome: "Verified outcome to be added",
     type: "Written case study",
-    href: "/resources/case-studies"
+    href: "/guides"
   }
 ];

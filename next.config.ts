@@ -10,7 +10,7 @@ const nextConfig: NextConfig = {
     const fde = ["/programs/forward-deployed-engineer", "/programs/forward-deployed-engineering"].map((source) => ({
       source,
       destination: "/programs/forward-deployed-ai-engineer",
-      permanent: true
+      statusCode: 301 as const
     }));
     // SEO pass 2026-10-26: legacy ~360-word program pages (config/programs.ts + app/programs/[slug]) stay in the
     // repo but 301 to the matching current course page. Data engineering is consolidated on one canonical URL.
@@ -35,7 +35,12 @@ const nextConfig: NextConfig = {
       ["/generative-ai-projects", "/programs/genai-agentic-ai-engineer"],
       // Old Instagram bio links that now 404 (2026-10-27).
       ["/ai-tools-chatgpt-page", "/programs/genai-agentic-ai-engineer"],
-      ["/data-engineering-course-page", "/programs/advance-data-engineering-genai"]
+      ["/data-engineering-course-page", "/programs/advance-data-engineering-genai"],
+      // Placeholder resource indexes (audit Nov 2026): send visitors to the live guides hub.
+      ["/resources/articles", "/guides"],
+      ["/resources/webinars", "/guides"],
+      ["/resources/roadmaps", "/guides"],
+      ["/resources/case-studies", "/guides"]
     ];
     // /corporate-training is a real page again (2026-10-27). Its old placeholder sub-pages (ai, data, cloud, devops,
     // custom-programs) now point at it; the [domain] route file stays in the repo, dormant.
