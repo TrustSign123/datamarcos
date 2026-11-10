@@ -6,6 +6,7 @@ import { leadersCourse } from "./intl-course-data/ai-product-strategy";
 import { llmopsCourse } from "./intl-course-data/llmops";
 import { genaiAtWorkCourse } from "./intl-course-data/genai-at-work";
 import { analyticsCourse } from "./intl-course-data/data-analytics";
+import { cybersecurityCourse } from "./intl-course-data/cybersecurity";
 import type { IntlCourse } from "./intl-course-data/types";
 
 export const INTL_COURSES: IntlCourse[] = [
@@ -13,7 +14,8 @@ export const INTL_COURSES: IntlCourse[] = [
   leadersCourse,
   llmopsCourse,
   genaiAtWorkCourse,
-  analyticsCourse
+  analyticsCourse,
+  cybersecurityCourse
 ];
 
 export const INTL_LEAD_COURSES = INTL_COURSES.map((course) => course.course);
@@ -80,6 +82,11 @@ const CARD_COPY: Record<string, { summary: string; tag: string; whoFor: string }
     tag: "Analytics · SQL · Python",
     whoFor: "Career starters, switchers and analysts who want SQL, Python, BI and careful AI-assisted analysis.",
     summary: "Spreadsheets, SQL, Python, BI and verified AI assistance, ending in a dashboard and written capstone."
+  },
+  "cybersecurity-with-ai": {
+    tag: "Security · LLM defense",
+    whoFor: "Security, SOC and detection professionals, and engineers who need to secure LLM or agent applications.",
+    summary: "Use AI carefully in security operations, and secure LLM and agent apps against prompt injection and related risks."
   }
 };
 
