@@ -4,6 +4,7 @@ import { ArrowDownToLine, ArrowRight, BriefcaseBusiness, Building2, Check, Cloud
 import { FDECallRequestForm } from "@/components/program/FDECallRequestForm";
 import { getMarket } from "@/lib/geo-server";
 import { brochureHrefForMarket } from "@/config/lead";
+import { NEXT_COHORT_LONG } from "@/config/cohort";
 
 export const metadata: Metadata = {
   title: "Forward Deployed AI Engineer - 5-Month Executive Program | Datamarcos",
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
 
 const facts = [
   { label: "Estimated time", value: "5 months (22 weeks), live online" },
-  { label: "Enrollment", value: "Rolling admissions. Ask for the next cohort date." },
+  { label: "Enrollment", value: `Next cohort starts ${NEXT_COHORT_LONG}.` },
   { label: "Prerequisite", value: "Python and 2+ years of engineering experience, or strong projects." }
 ];
 
@@ -102,7 +103,7 @@ export default async function ForwardDeployedEngineerLandingPage() {
             <div className="fde-hero-form-body">
               <p className="fde-hero-form-label">Forward Deployed AI Engineer</p>
               <h2>Talk to admissions</h2>
-              <p className="fde-hero-form-intro">Get the next cohort date, fees and scholarship details.</p>
+              <p className="fde-hero-form-intro">The next cohort starts {NEXT_COHORT_LONG}. Get fees and scholarship details.</p>
               <FDECallRequestForm />
             </div>
           </div>

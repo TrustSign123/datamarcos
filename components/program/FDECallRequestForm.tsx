@@ -3,6 +3,7 @@
 import { FormEvent, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { readAttribution, gaEvent, trackEvent } from "@/lib/analytics";
+import { NEXT_COHORT_LONG } from "@/config/cohort";
 
 type FormState = "idle" | "loading" | "success" | "error";
 
@@ -60,9 +61,9 @@ export function FDECallRequestForm({
       <button className="fde-brochure-submit" type="submit" disabled={state === "loading"}>
         {state === "loading" ? "Sending request..." : "Request a call"}<ArrowRight size={17} />
       </button>
-      {state === "success" && <p className="fde-form-success" role="status">Thanks. The admissions team will contact you about cohort dates and program fit.</p>}
+      {state === "success" && <p className="fde-form-success" role="status">Thanks. The admissions team will contact you about the cohort starting {NEXT_COHORT_LONG} and program fit.</p>}
       {state === "error" && <p className="fde-form-error" role="alert">{errorMessage || "We couldn&apos;t send the request. Please try again or contact Datamarcos directly."}</p>}
-      <p className="fde-form-note">Admissions will share the next cohort date, fees and scholarship details on request.</p>
+      <p className="fde-form-note">The next cohort starts on {NEXT_COHORT_LONG}. Admissions will share fees, session times and scholarship details on request.</p>
     </form>
   );
 }

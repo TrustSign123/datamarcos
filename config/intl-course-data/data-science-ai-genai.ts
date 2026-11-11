@@ -1,5 +1,6 @@
 import type { IntlCourse } from "./types";
 import { INTL_SHARED_TIMING } from "./types";
+import { NEXT_COHORT_LONG } from "@/config/cohort";
 
 export const dataScienceCourse: IntlCourse = {
   slug: "data-science-ai-genai",
@@ -171,7 +172,7 @@ export const dataScienceCourse: IntlCourse = {
   credentialName: "Datamarcos Certificate of Completion — Data Science & AI with GenAI",
   applyLead: "Build data science and AI skills",
   applyEm: "you can show.",
-  applyBody: "Share a few details. A counsellor will talk through your background, the 24-week time commitment, the next cohort, fees and enrollment.",
+  applyBody: `Share a few details. A counsellor will talk through your background, the 24-week time commitment, the cohort starting ${NEXT_COHORT_LONG}, fees and enrollment.`,
   applyBullets: [
     "Twenty-four weeks, 8–10 hours a week, live and mentor-led",
     "Python, statistics, machine learning, intro deep learning and practical GenAI",
@@ -179,7 +180,7 @@ export const dataScienceCourse: IntlCourse = {
     "Honest outcomes: no placement or salary guarantees, and not a production LLM-engineering program"
   ],
   trust: ["24 weeks", "Live & mentor-led", "No prior coding required"],
-  successBody: "A Datamarcos counsellor will call you about program fit, the next cohort date and fees. Meanwhile, the brochure has the full 24-week curriculum.",
+  successBody: `A Datamarcos counsellor will call you about program fit, the cohort starting ${NEXT_COHORT_LONG} and fees. Meanwhile, the brochure has the full 24-week curriculum.`,
   related: [
     { href: "/programs/data-analytics-with-ai", title: "Data Analytics with AI", blurb: "A shorter 16-week path if you want SQL, Python and BI dashboards rather than machine learning and GenAI." },
     { href: "/programs/genai-agentic-ai-engineer", title: "GenAI & Agentic AI Engineer", blurb: "A later or alternative engineering path if you specifically want to build production LLM, RAG and agent systems." }

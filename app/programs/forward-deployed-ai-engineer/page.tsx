@@ -27,6 +27,7 @@ import {
 } from "simple-icons";
 import type { LucideIcon } from "lucide-react";
 import { site } from "@/config/site";
+import { NEXT_COHORT_ISO, NEXT_COHORT_LONG, NEXT_COHORT_STARTS } from "@/config/cohort";
 import { APPLY_FEE_INTRO, faqsWithProgramFees } from "@/config/fees";
 import { faqsForJsonLd, faqsForMarket, isIndiaMarket } from "@/lib/geo";
 import { brochureHrefForMarket } from "@/config/lead";
@@ -67,8 +68,8 @@ const nav: FdeNavItem[] = [
 
 
 const successTitle = "Thanks{first}! Request received.";
-const successBodyIn = "A Datamarcos counsellor will call you about program fit, the next cohort date, EMI options and scholarships. Meanwhile, the brochure has the full 22-week roadmap.";
-const successBodyIntl = "A Datamarcos counsellor will call you about program fit, the next cohort date, fees and scholarships. Meanwhile, the brochure has the full 22-week roadmap.";
+const successBodyIn = `A Datamarcos counsellor will call you about program fit, the cohort starting ${NEXT_COHORT_LONG}, EMI options and scholarships. Meanwhile, the brochure has the full 22-week roadmap.`;
+const successBodyIntl = `A Datamarcos counsellor will call you about program fit, the cohort starting ${NEXT_COHORT_LONG}, fees and scholarships. Meanwhile, the brochure has the full 22-week roadmap.`;
 
 const lifecycle: { icon: LucideIcon; step: string; body: string }[] = [
   { icon: Compass, step: "Discover", body: "Sit with stakeholders, map the real problem and define success." },
@@ -199,7 +200,7 @@ function jsonLdFor(faqs: typeof fdeFaqs) {
     hasCourseInstance: {
       "@type": "CourseInstance",
       courseMode: "online",
-      // No startDate/endDate on purpose: no confirmed cohort date yet, and a placeholder date would be invalid structured data.
+      startDate: NEXT_COHORT_ISO,
       location: { "@type": "VirtualLocation", url: URL },
       courseWorkload: "PT170H",
       courseSchedule: { "@type": "Schedule", repeatFrequency: "P1W", repeatCount: 22 },
@@ -286,8 +287,7 @@ export default async function ForwardDeployedAIEngineerPage() {
               <Syllabus cta="FDE hero (syllabus)" variant="light" />
             </div>
             <ViewFeesLink />
-            {/* No confirmed cohort date yet (31 Oct 2026): brief 1.3 fallback copy. Add a real date only once Deepesh confirms it. */}
-            <p className="fx-hero-note"><CalendarClock size={15} aria-hidden="true" /> <span><b>Next cohort:</b> dates shared on a 15-minute counsellor call · Weekend live sessions + weekday evening lab · Small cohorts</span></p>
+            <p className="fx-hero-note"><CalendarClock size={15} aria-hidden="true" /> <span><b>Next cohort:</b> {NEXT_COHORT_STARTS} · Weekend live sessions + weekday evening lab · Small cohorts</span></p>
           </div>
           <FdeHeroVisual />
         </div>
@@ -528,7 +528,7 @@ export default async function ForwardDeployedAIEngineerPage() {
           </div>
           <p className="fx-fine">“Typical” and “generic” describe common formats in the market, not any specific provider. For named providers, read <Link className="fx-inline-link" href="/guides/forward-deployed-engineer-courses-india-compared-2026">how FDE courses in India compare</Link>.</p>
           <div className="fx-cta-band">
-            <p><b>Still comparing?</b> A counsellor can walk you through the syllabus, cohort dates and {india ? "EMI options" : "fees"} in 15 minutes.</p>
+            <p><b>Still comparing?</b> A counsellor can walk you through the syllabus, the {NEXT_COHORT_LONG} start date and {india ? "EMI options" : "fees"} in 15 minutes.</p>
             <Cta cta="FDE compare (counsellor)" />
           </div>
         </div>
@@ -607,7 +607,7 @@ export default async function ForwardDeployedAIEngineerPage() {
           <div>
             <p className="fx-eyebrow">Application-based admission · small cohorts</p>
             <h2 id="fx-apply-title">Be the engineer <em>they send in.</em></h2>
-            <p>Share a few details. A counsellor will talk through your background, program fit, the next cohort date, {india ? "EMI options" : "fees"} and scholarships. No pressure, no spam.</p>
+            <p>Share a few details. A counsellor will talk through your background, program fit, the cohort starting {NEXT_COHORT_LONG}, {india ? "EMI options" : "fees"} and scholarships. No pressure, no spam.</p>
             <ul className="fx-apply-list">
               <li><Rocket size={17} aria-hidden="true" /> 4 client-style engagements, deployed and portfolio-ready</li>
               <li><UsersRound size={17} aria-hidden="true" /> 170+ live hours with mentor Deepesh Mishra</li>

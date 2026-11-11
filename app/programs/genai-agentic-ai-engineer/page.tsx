@@ -21,6 +21,7 @@ import {
   type GenaiFaq
 } from "@/config/genai";
 import { site } from "@/config/site";
+import { NEXT_COHORT_ISO, NEXT_COHORT_LONG, NEXT_COHORT_STARTS } from "@/config/cohort";
 import { APPLY_FEE_INTRO, faqsWithProgramFees } from "@/config/fees";
 import { faqsForJsonLd, faqsForMarket, isIndiaMarket } from "@/lib/geo";
 import { brochureHrefForMarket } from "@/config/lead";
@@ -59,8 +60,8 @@ const nav: FdeNavItem[] = [
 const opportunityIcons = [Hammer, Workflow, ShieldCheck];
 const accents = ["#f4511e", "#2f6bff", "#0e9f84", "#b04cff"];
 
-const successBodyIn = "A Datamarcos counsellor will call you about program fit, the next cohort date, EMI options and scholarships. Meanwhile, the brochure has the full 18-week roadmap.";
-const successBodyIntl = "A Datamarcos counsellor will call you about program fit, the next cohort date, fees and scholarships. Meanwhile, the brochure has the full 18-week roadmap.";
+const successBodyIn = `A Datamarcos counsellor will call you about program fit, the cohort starting ${NEXT_COHORT_LONG}, EMI options and scholarships. Meanwhile, the brochure has the full 18-week roadmap.`;
+const successBodyIntl = `A Datamarcos counsellor will call you about program fit, the cohort starting ${NEXT_COHORT_LONG}, fees and scholarships. Meanwhile, the brochure has the full 18-week roadmap.`;
 
 const ORG_ID = `${site.url}/#organization`;
 const MENTOR_ID = `${site.url}/#deepesh-mishra`;
@@ -86,6 +87,7 @@ function jsonLdFor(faqs: typeof genaiFaqs) {
     hasCourseInstance: {
       "@type": "CourseInstance",
       courseMode: "online",
+      startDate: NEXT_COHORT_ISO,
       courseWorkload: "PT130H",
       courseSchedule: { "@type": "Schedule", repeatFrequency: "P1W", repeatCount: 18 },
       instructor: { "@id": MENTOR_ID }
@@ -148,7 +150,7 @@ export default async function GenAIAgenticEngineerPage() {
             <p className="fde-deck">Build it. Ship it. Own the outcome.</p>
             <p className="fde-intro">Build LLM applications, RAG systems and multi-agent workflows, then secure, evaluate and deploy them on real enterprise stacks—with Deepesh Mishra.</p>
             <div className="fde-actions"><a className="fde-button fde-button-orange" href="#apply" data-dm-lead>Request a seat <ArrowRight size={17} /></a><a className="fde-button fde-button-light" href={brochureUrl} download><ArrowDownToLine size={17} /> Download brochure</a></div>
-            <p className="fde-note"><Check size={15} /> Two live sessions weekly · Hands-on projects · 1:1 mentorship</p>
+            <p className="fde-note"><Check size={15} /> {NEXT_COHORT_STARTS} · Two live sessions weekly · Hands-on projects · 1:1 mentorship</p>
             <ViewFeesLink />
           </div>
           <div className="fde-ga-hero-media">
@@ -358,7 +360,7 @@ export default async function GenAIAgenticEngineerPage() {
               ))}
             </div>
             <div className="fx-cta-band">
-              <p><b>Still comparing?</b> A counsellor can walk you through the syllabus, cohort dates and {india ? "EMI options" : "fees"} in 15 minutes.</p>
+              <p><b>Still comparing?</b> A counsellor can walk you through the syllabus, the {NEXT_COHORT_LONG} start date and {india ? "EMI options" : "fees"} in 15 minutes.</p>
               <Cta cta="GenAI compare (counsellor)" />
             </div>
           </div>
@@ -427,7 +429,7 @@ export default async function GenAIAgenticEngineerPage() {
             <div>
               <p className="fx-eyebrow">Application-based admission · small cohorts</p>
               <h2 id="fx-apply-title">Become the engineer <em>every AI team wants.</em></h2>
-              <p>Share a few details. A counsellor will talk through your background, program fit, the next cohort date, {india ? "EMI options" : "fees"} and scholarships.</p>
+              <p>Share a few details. A counsellor will talk through your background, program fit, the cohort starting {NEXT_COHORT_LONG}, {india ? "EMI options" : "fees"} and scholarships.</p>
               <ul className="fx-apply-list">
                 <li><Rocket size={17} aria-hidden="true" /> 3 client-style projects + a capstone, deployed and portfolio-ready</li>
                 <li><UsersRound size={17} aria-hidden="true" /> 130+ hours of live sessions, labs and studio with Deepesh Mishra</li>

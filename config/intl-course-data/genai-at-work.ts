@@ -1,5 +1,6 @@
 import type { IntlCourse } from "./types";
 import { INTL_SHARED_TIMING } from "./types";
+import { NEXT_COHORT_LONG } from "@/config/cohort";
 
 export const genaiAtWorkCourse: IntlCourse = {
   slug: "genai-at-work",
@@ -174,7 +175,7 @@ export const genaiAtWorkCourse: IntlCourse = {
   credentialName: "Datamarcos Certificate of Completion — GenAI at Work",
   applyLead: "Put AI tools to work",
   applyEm: "in the job you already have.",
-  applyBody: "Share a few details. A counsellor will talk through your background, the next cohort, fees and enrollment. Evening batches on India time are available for the Gulf and Africa.",
+  applyBody: `Share a few details. A counsellor will talk through your background, the cohort starting ${NEXT_COHORT_LONG}, fees and enrollment. Evening batches on India time are available for the Gulf and Africa.`,
   applyBullets: [
     "Six weeks, 5–8 hours a week, live and mentor-led",
     "No coding required; recordings if you miss a class",
@@ -182,7 +183,7 @@ export const genaiAtWorkCourse: IntlCourse = {
     "Honest outcomes: no placement or salary guarantees"
   ],
   trust: ["6 weeks", "Live & mentor-led", "No coding required"],
-  successBody: "A Datamarcos counsellor will call you about program fit, the next cohort date and fees. Meanwhile, the brochure has the full 6-week curriculum.",
+  successBody: `A Datamarcos counsellor will call you about program fit, the cohort starting ${NEXT_COHORT_LONG} and fees. Meanwhile, the brochure has the full 6-week curriculum.`,
   related: [
     { href: "/programs/data-analytics-with-ai", title: "Data Analytics with AI", blurb: "A longer program if you want SQL, Python and BI alongside AI-assisted analysis." },
     { href: "/programs/ai-literacy-responsible-ai", title: "AI Literacy & Responsible AI", blurb: "A shorter literacy program with practical EU AI Act context for managers and teams." }

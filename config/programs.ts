@@ -1,3 +1,5 @@
+import { NEXT_COHORT_LONG } from "@/config/cohort";
+
 export type ProgramStatus = "LIVE" | "UPCOMING" | "COMING_SOON" | "CORPORATE_CUSTOM" | "WAITLIST";
 
 export type Program = {
@@ -53,6 +55,7 @@ export const programs: Program[] = [
     format: "Live mentor-led executive program",
     delivery: ["Live Online", "Hybrid", "Corporate Sponsored"],
     status: "LIVE",
+    cohortDate: NEXT_COHORT_LONG,
     technologies: ["Python", "FastAPI", "OpenAI", "Claude", "Gemini", "LangChain", "LangGraph", "CrewAI", "OpenAI Agents SDK", "Google ADK", "MCP", "A2A", "Qdrant", "Pinecone", "pgvector", "Neo4j", "RAGAS", "DeepEval", "Docker", "Terraform", "Kubernetes", "OpenTelemetry", "Grafana", "AWS Bedrock", "Azure AI Foundry", "Databricks", "Snowflake"],
     curriculum: [
       { title: "Foundations · Weeks 1-3", topics: ["LLM fundamentals", "Prompt engineering and structured outputs", "FastAPI GenAI services", "Python, Git and environment bridge track"] },
@@ -64,7 +67,7 @@ export const programs: Program[] = [
     projects: ["P1 Knowledge Copilot", "P2 Multi-Agent Ops Copilot", "P3 Production Hardening", "Domain capstone and Demo Day"],
     instructors: ["Deepesh Mishra"],
     testimonials: ["Kumar Gaurav", "Ansh Ranjan", "Gourav Thadhani"],
-    pricing: "Admissions shares cohort dates, fees, instalment options and scholarship details after a fit conversation.",
+    pricing: `The next cohort starts on ${NEXT_COHORT_LONG}. Admissions shares fees, instalment options and scholarship details after a fit conversation.`,
     showPricing: false,
     brochureUrl: "/brochures/DataMarcos_GenAI_Agentic_AI_Engineer_Brochure.pdf",
     programOgImage: "/images/genai-agentic-ai-engineer/classroom-cohort.jpg",
@@ -90,7 +93,7 @@ export const programs: Program[] = [
     format: "Premium Live Cohort",
     delivery: ["Live Online", "Onsite", "Hybrid", "Custom Corporate Academy"],
     status: "LIVE",
-    cohortDate: undefined,
+    cohortDate: NEXT_COHORT_LONG,
     seats: undefined,
     technologies: ["Advanced Data Engineering", "AI-Ready Data", "RAG", "LLM Engineering", "Agentic AI", "MCP", "Multi-Agent Systems", "Evaluation", "Observability", "Security", "LLMOps", "Production AI"],
     curriculum: [
@@ -129,7 +132,7 @@ export const programs: Program[] = [
     format: "Live mentor-led cohort",
     delivery: ["Remote", "Hybrid"],
     status: "LIVE",
-    cohortDate: undefined,
+    cohortDate: NEXT_COHORT_LONG,
     seats: undefined,
     technologies: ["Python", "SQL", "Azure Data Lake", "PySpark", "Spark Structured Streaming", "Azure Data Factory", "AWS", "Databricks", "Snowflake", "Delta Lake", "Kafka", "Airflow", "dbt", "Great Expectations", "LangChain", "LangGraph", "RAG", "CrewAI", "MCP", "Snowflake Cortex AI", "Databricks Agent Bricks"],
     curriculum: [
@@ -143,7 +146,7 @@ export const programs: Program[] = [
     projects: ["End-to-end cloud data pipeline", "Production RAG knowledge assistant", "Researcher and customer-care agents", "Financial news multi-agent coordinator", "MCP server connected to a database and internal API", "Integrated Agentic AI data application capstone"],
     instructors: ["Deepesh Mishra"],
     testimonials: ["Raghul K", "Ansh Ranjan", "Kumar Gaurav", "Corporate Training Participant"],
-    pricing: "Tap Download Brochure or Book a Consultation and Datamarcos will WhatsApp the fees and next batch dates.",
+    pricing: `The next cohort starts on ${NEXT_COHORT_LONG}. Tap Download Brochure or Book a Consultation and Datamarcos will WhatsApp the fees.`,
     showPricing: false,
     brochureUrl: "/brochures/datamarcos-advance-data-engineering-genai-brochure.pdf",
     programOgImage: "/images/advance-data-engineering-genai/classroom-live.jpg",
@@ -214,6 +217,7 @@ export const programs: Program[] = [
     format: "Live mentor-led executive program",
     delivery: ["Live Online", "Hybrid", "Corporate Custom"],
     status: "LIVE",
+    cohortDate: NEXT_COHORT_LONG,
     technologies: ["Python", "FastAPI", "LLM Engineering", "RAG", "LangGraph", "MCP", "AWS", "Azure", "GCP", "Terraform", "Docker", "Enterprise Integrations", "AI Security", "LLMOps"],
     curriculum: [
       { title: "Foundation", topics: ["FDE craft", "Discovery", "APIs", "Cloud", "Networking", "Containers", "CI/CD"] },
@@ -225,7 +229,7 @@ export const programs: Program[] = [
     projects: ["Project Sentinel: BFSI secure knowledge copilot", "Project Atlas: multi-agent operations copilot", "Project Helix: regulated production deployment", "End-to-end client capstone engagement"],
     instructors: ["Deepesh Mishra"],
     testimonials: [],
-    pricing: "Application-based admission. Cohort dates and fees are shared after the fit conversation.",
+    pricing: `Application-based admission. The next cohort starts on ${NEXT_COHORT_LONG}. Fees are shared after the fit conversation.`,
     showPricing: false,
     brochureUrl: "/brochures/Datamarcos_Forward_Deployed_AI_Engineer_Brochure.pdf",
     programOgImage: "/images/forward-deployed-ai-engineer/brochure-cover.png",

@@ -5957,6 +5957,7 @@ button.dmx-icon { padding: 0; background: none; font: inherit; cursor: pointer; 
 .dm-fees-kicker { display: inline-flex; align-items: center; gap: 8px; }
 .dm-fees-head h2 { margin: 0 0 12px; font-size: clamp(1.6rem, 3vw, 2.2rem); line-height: 1.15; }
 .dm-fees-head p, .dm-fees-sub, .dm-fees-refund { margin: 0; color: rgba(244,241,234,.72); font-size: .95rem; line-height: 1.55; }
+.dm-fees-start { display: inline-flex; align-items: center; gap: 8px; margin-top: 14px; color: #f4f1ea; font-weight: 650; }
 .dm-fees-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
 .dm-fees-card { display: flex; flex-direction: column; gap: 10px; padding: 24px 22px 22px; border: 1px solid rgba(255,112,67,.28); border-radius: 20px; background: linear-gradient(180deg, rgba(255,112,67,.08), rgba(18,21,28,.92)); }
 .dm-fees-amount { margin: 4px 0 0; color: #fff; font-size: clamp(1.35rem, 2.2vw, 1.85rem); font-weight: 850; line-height: 1.2; letter-spacing: -.02em; }

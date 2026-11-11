@@ -1,5 +1,6 @@
 import type { IntlCourse } from "./types";
 import { INTL_SHARED_TIMING } from "./types";
+import { NEXT_COHORT_LONG } from "@/config/cohort";
 
 export const leadersCourse: IntlCourse = {
   slug: "ai-product-strategy-for-leaders",
@@ -184,7 +185,7 @@ export const leadersCourse: IntlCourse = {
   credentialName: "Datamarcos Certificate of Completion — AI Product & Strategy for Leaders",
   applyLead: "Walk into the next planning meeting",
   applyEm: "with a written brief.",
-  applyBody: "Share a few details. A counsellor will talk through your background, the next cohort, fees and enrollment. Exact session times are confirmed on that call.",
+  applyBody: `Share a few details. A counsellor will talk through your background, the cohort starting ${NEXT_COHORT_LONG}, fees and enrollment. Exact session times are confirmed on that call.`,
   applyBullets: [
     "Six weeks, 4–5 hours a week, live and mentor-led",
     "Built around one initiative from your work",
@@ -192,7 +193,7 @@ export const leadersCourse: IntlCourse = {
     "Honest outcomes: no placement or salary guarantees"
   ],
   trust: ["6 weeks", "Live & mentor-led", "No coding required"],
-  successBody: "A Datamarcos counsellor will call you about program fit, the next cohort date and fees. Meanwhile, the brochure has the full 6-week curriculum.",
+  successBody: `A Datamarcos counsellor will call you about program fit, the cohort starting ${NEXT_COHORT_LONG} and fees. Meanwhile, the brochure has the full 6-week curriculum.`,
   related: [
     { href: "/programs/ai-literacy-responsible-ai", title: "AI Literacy & Responsible AI", blurb: "A 4-week literacy program, including practical EU AI Act staff-literacy context." },
     { href: "/programs/forward-deployed-ai-engineer", title: "Forward Deployed AI Engineer", blurb: "A longer engineering program for people who will ship AI inside a customer's environment." }

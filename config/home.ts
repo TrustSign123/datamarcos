@@ -1,5 +1,6 @@
 import { REFUND_FAQ_ANSWER } from "@/config/refund";
 import { EMI_NOTE, PROGRAM_FEES } from "@/config/fees";
+import { NEXT_COHORT_CARD, NEXT_COHORT_FAQ_ANSWER } from "@/config/cohort";
 
 /**
  * Homepage content. Every fact below comes from the program pages / brochures already on the site
@@ -34,7 +35,7 @@ export const homePrograms: HomeProgram[] = [
     image: "/images/program-cards/forward-deployed-ai-engineer.webp",
     imageAlt: "Forward Deployed AI Engineer program poster",
     fee: PROGRAM_FEES["forward-deployed-ai-engineer"],
-    facts: ["22 weeks", "170+ live hours", "Live online"],
+    facts: ["22 weeks", "170+ live hours", "Live online", NEXT_COHORT_CARD],
     whoFor: "Engineers comfortable in Python with 2+ years of experience, or strong shipped projects.",
     summary: "Scope, build, secure and deploy AI systems in enterprise environments, from discovery to handoff.",
     tag: "Enterprise AI",
@@ -48,7 +49,7 @@ export const homePrograms: HomeProgram[] = [
     image: "/images/program-cards/genai-agentic-ai-engineer.webp",
     imageAlt: "Generative AI and Agentic AI Engineer program poster",
     fee: PROGRAM_FEES["genai-agentic-ai-engineer"],
-    facts: ["18 weeks", "130+ live hours", "Live online"],
+    facts: ["18 weeks", "130+ live hours", "Live online", NEXT_COHORT_CARD],
     whoFor: "Developers, data/ML, QA and DevOps engineers, and career switchers with coding basics.",
     summary: "Build LLM apps, production RAG and multi-agent systems, then secure and deploy them.",
     tag: "GenAI · Agents"
@@ -61,7 +62,7 @@ export const homePrograms: HomeProgram[] = [
     image: "/images/program-cards/applied-agentic-ai.webp",
     imageAlt: "Applied Agentic AI certification program poster",
     fee: PROGRAM_FEES["applied-agentic-ai-certification"],
-    facts: ["8 weeks", "Live mentor support", "Portfolio capstone"],
+    facts: ["8 weeks", "Live mentor support", "Portfolio capstone", NEXT_COHORT_CARD],
     whoFor: "Professionals who want to move beyond prompts and build real AI workflows and agents.",
     summary: "Design, build and evaluate practical AI workflows with retrieval, tools and agent orchestration.",
     tag: "Certification"
@@ -74,7 +75,7 @@ export const homePrograms: HomeProgram[] = [
     image: "/images/program-cards/data-engineering-genai.webp",
     imageAlt: "Advanced Data Engineering with GenAI and Agentic AI program poster",
     fee: PROGRAM_FEES["advance-data-engineering-genai"],
-    facts: ["4-month foundation", "+ advanced AI track", "Weekend/evening live"],
+    facts: ["4-month foundation", "+ advanced AI track", "Weekend/evening live", NEXT_COHORT_CARD],
     whoFor: "People working with data, or moving from analytics, software or database roles (SQL required).",
     summary: "Modern cloud data engineering first, then GenAI, production RAG, agents and a capstone.",
     tag: "Data Engineering · GenAI"
@@ -205,7 +206,7 @@ export const homeFaqs: FaqItem[] = [
   },
   {
     q: "When does the next batch start?",
-    a: "Admissions shares the current cohort dates. Apply or message us on WhatsApp and we’ll send you the next batch date for your program."
+    a: NEXT_COHORT_FAQ_ANSWER
   },
   {
     q: "Do you offer placement or a job guarantee?",
