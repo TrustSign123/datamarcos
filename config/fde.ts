@@ -5,6 +5,8 @@
  * market figure carries its source + date.
  */
 
+import { NEXT_COHORT_FAQ_ANSWER } from "@/config/cohort";
+
 export const FDE_COURSE = "Forward Deployed AI Engineer";
 export const FDE_BROCHURE = "/brochures/Datamarcos_Forward_Deployed_AI_Engineer_Brochure.pdf";
 
@@ -187,8 +189,8 @@ export const fdeFaqs: FdeFaq[] = [
   { q: "Will I get a job or placement after this course?", a: "No course can promise you an FDE job, and we do not guarantee placement, salary or hikes. What you get is a portfolio of four deployed, client-style engagements, a weekly career track, FDE-specific mock interview loops, resume and LinkedIn teardowns, and a referral and outreach playbook." },
   { q: "Will I get a certificate?", a: "Yes. The Datamarcos Executive Certificate in Forward Deployed AI Engineering is awarded on completing the program and defending your capstone." },
   { q: "What is the fee? Are EMI options available?", a: "EMI options are available. Our counsellor shares the fee, instalment options, scholarships and the next cohort date after a short call. Request a call and we will get back to you." },
-  // 31 Oct 2026 (brief 1.6 #6). No confirmed cohort date yet, so the brief's fallback copy is used. Replace only with a date Deepesh confirms.
-  { q: "When does the next cohort start?", a: "Cohort dates are shared on a short counsellor call. Request a call and we will share the next start date." },
+  // Next cohort date confirmed by Deepesh, 11 Nov 2026.
+  { q: "When does the next cohort start?", a: NEXT_COHORT_FAQ_ANSWER },
   { q: "Can my company sponsor me?", a: "Yes. Talk to admissions about corporate sponsorship and team cohorts." },
   // Added 27 Oct 2026 (SEO brief, section 4). Facts match the page: ~2+ years, certificate, 4 engagements, weekly rhythm, career track.
   { q: "Can a fresher join the Forward Deployed Engineer course?", a: "Most FDE roles expect real engineering experience, so the program is built for engineers with about 2+ years, or strong shipped projects. If you are earlier in your career, a counsellor may suggest starting with the Generative AI & Agentic AI Engineer program and moving to FDE later.", link: { href: "/programs/genai-agentic-ai-engineer", label: "Generative AI & Agentic AI Engineer program" } },

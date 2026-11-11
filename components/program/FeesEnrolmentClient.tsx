@@ -4,6 +4,7 @@ import Link from "next/link";
 import { FormEvent, useMemo, useState } from "react";
 import { ArrowRight, CalendarClock, RotateCcw, Wallet, Bookmark } from "lucide-react";
 import { FEES_SECTION_ID, paymentIntentLabel, type FeeQuote, type PaymentType } from "@/config/fees";
+import { NEXT_COHORT_LONG } from "@/config/cohort";
 
 type RazorpaySuccess = {
   razorpay_order_id: string;
@@ -179,6 +180,7 @@ export function FeesEnrolmentClient({ quote, paymentsEnabled }: { quote: FeeQuot
           <p className="dm-fees-eyebrow">Fees &amp; enrolment</p>
           <h2 id="dm-fees-title">Book a seat, pay the fee, or choose EMI.</h2>
           <p>Prices below are for this program. The 5% seat booking is adjusted against the full fee. No discounts are shown here — the figure is the current program fee.</p>
+          <p className="dm-fees-start"><CalendarClock size={15} aria-hidden="true" /> Next batch starts {NEXT_COHORT_LONG}.</p>
         </header>
         {done && <p className="dm-fees-done" role="status">{done}</p>}
         <div className="dm-fees-grid">

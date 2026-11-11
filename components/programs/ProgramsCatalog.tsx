@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { programs } from "@/config/programs";
 import { intlProgramCards } from "@/config/intl-courses";
+import { NEXT_COHORT_LONG, NEXT_COHORT_STARTS } from "@/config/cohort";
 
 // Current course pages only. Legacy slugs in config/programs.ts are 301-redirected (next.config.ts) and dormant FDE
 // slugs redirect to the single FDE page, so they are not listed (SEO pass 2026-10-26).
@@ -58,18 +59,18 @@ export function ProgramsCatalog() {
             <select aria-label="Status" value={status} onChange={(e) => setStatus(e.target.value)}><option value="">Status</option><option>LIVE</option><option>UPCOMING</option><option>COMING_SOON</option><option>CORPORATE_CUSTOM</option><option>WAITLIST</option></select>
           </div>
           <aside className="fde-catalog-callout">
-            <div><span className="badge">18-WEEK EXECUTIVE PROGRAM</span><h2>Generative AI & Agentic AI Engineer</h2><p>130+ live hours, three client-style projects, a capstone and weekly career preparation.</p></div>
+            <div><span className="badge">18-WEEK EXECUTIVE PROGRAM</span><h2>Generative AI & Agentic AI Engineer</h2><p>130+ live hours, three client-style projects, a capstone and weekly career preparation. {NEXT_COHORT_STARTS}.</p></div>
             <Link className="button primary" href="/programs/genai-agentic-ai-engineer">Explore the flagship</Link>
           </aside>
           <aside className="fde-catalog-callout">
-            <div><span className="badge">8-WEEK CERTIFICATION</span><h2>Applied Agentic AI Certification</h2><p>Mentor-led certification to build AI workflows, RAG systems, tool-using agents and automation, ending in a portfolio capstone.</p></div>
+            <div><span className="badge">8-WEEK CERTIFICATION</span><h2>Applied Agentic AI Certification</h2><p>Mentor-led certification to build AI workflows, RAG systems, tool-using agents and automation, ending in a portfolio capstone. {NEXT_COHORT_STARTS}.</p></div>
             <Link className="button primary" href="/programs/applied-agentic-ai-certification">Explore this program</Link>
           </aside>
           <aside className="fde-catalog-callout">
-            <div><span className="badge">5-MONTH EXECUTIVE PROGRAM</span><h2>Become a Forward Deployed AI Engineer</h2><p>Live online, hands-on learning across discovery, AI engineering, deployment and career support.</p><p><Link href="/programs/forward-deployed-ai-engineer">Forward Deployed Engineer course for working engineers: 22 weeks live</Link></p></div>
+            <div><span className="badge">5-MONTH EXECUTIVE PROGRAM</span><h2>Become a Forward Deployed AI Engineer</h2><p>Live online, hands-on learning across discovery, AI engineering, deployment and career support. {NEXT_COHORT_STARTS}.</p><p><Link href="/programs/forward-deployed-ai-engineer">Forward Deployed Engineer course for working engineers: 22 weeks live</Link></p></div>
             <Link className="button primary" href="/programs/forward-deployed-ai-engineer">Explore this program</Link>
           </aside>
-          <div className="grid three">{filtered.map((program) => <article className="card" key={program.id}><span className="badge">{program.status.replaceAll("_", " ")}</span><h2>{program.title}</h2><p>{program.description}</p><p><strong>Technology:</strong> {program.category}</p><p><strong>Duration:</strong> {program.duration}</p><p><strong>Level:</strong> {program.level}</p><p><strong>Format:</strong> {program.format}</p><Link className="button primary" href={`/programs/${program.slug}`}>View Program</Link></article>)}</div>
+          <div className="grid three">{filtered.map((program) => <article className="card" key={program.id}><span className="badge">{program.status.replaceAll("_", " ")}</span><h2>{program.title}</h2><p>{program.description}</p><p><strong>Technology:</strong> {program.category}</p><p><strong>Duration:</strong> {program.duration}</p><p><strong>Level:</strong> {program.level}</p><p><strong>Format:</strong> {program.format}</p><p><strong>Next batch:</strong> {NEXT_COHORT_LONG}</p><Link className="button primary" href={`/programs/${program.slug}`}>View Program</Link></article>)}</div>
           {visibleNew.length > 0 && (
             <div className="intl-catalog">
               <h2>More live courses</h2>
@@ -82,6 +83,7 @@ export function ProgramsCatalog() {
                     <p>{course.summary}</p>
                     <p><strong>Duration:</strong> {course.facts[0]} · {course.facts[1]}</p>
                     <p><strong>Format:</strong> Part-time, live online</p>
+                    <p><strong>Next batch:</strong> {NEXT_COHORT_LONG}</p>
                     <p><strong>Who it&apos;s for:</strong> {course.whoFor}</p>
                     <Link className="button primary" href={`/programs/${course.slug}`}>View Program</Link>
                   </article>

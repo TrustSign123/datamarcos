@@ -8,6 +8,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { resourceMenu } from "@/config/navigation";
 import { ThemeSync, ThemeToggle } from "@/components/ThemeToggle";
 import { EMI_NOTE, homePrograms } from "@/config/home";
+import { NEXT_COHORT_CARD, NEXT_COHORT_STARTS } from "@/config/cohort";
 import { intlProgramCards } from "@/config/intl-courses";
 import { env, site } from "@/config/site";
 import { isIndiaMarket } from "@/lib/geo";
@@ -90,7 +91,7 @@ export function Header() {
       <div className="dmx-announce" role="note">
         <div className="container">
           <span className="dmx-announce-dot" aria-hidden="true" />
-          <span><b>Admissions open</b><span className="dmx-announce-text-extra"> for our live online programs</span><span className="dmx-announce-text-extra">{announceExtra}</span></span>
+          <span><b>Admissions open</b><span className="dmx-announce-text-extra"> for our live online programs · {NEXT_COHORT_STARTS}</span><span className="dmx-announce-text-extra">{announceExtra}</span></span>
           <button type="button" data-dm-lead data-cta="Announcement bar - Talk to a counsellor">Talk to a counsellor <ArrowRight size={14} /></button>
         </div>
       </div>
@@ -113,7 +114,7 @@ export function Header() {
                         <span className="dmx-course-copy">
                           <small>{program.tag}</small>
                           <strong>{program.title}</strong>
-                          <span className="dmx-course-meta"><Clock3 size={13} aria-hidden="true" /> {program.facts[0]}</span>
+                          <span className="dmx-course-meta"><Clock3 size={13} aria-hidden="true" /> {program.facts[0]} · {NEXT_COHORT_CARD}</span>
                         </span>
                       </Link>
                     ))}
@@ -126,7 +127,7 @@ export function Header() {
                         <span className="dmx-course-copy">
                           <small>{program.tag}</small>
                           <strong>{program.title}</strong>
-                          <span className="dmx-course-meta"><Clock3 size={13} aria-hidden="true" /> {program.facts[0]}</span>
+                          <span className="dmx-course-meta"><Clock3 size={13} aria-hidden="true" /> {program.facts[0]} · {NEXT_COHORT_CARD}</span>
                         </span>
                       </Link>
                     ))}
@@ -184,7 +185,7 @@ export function Header() {
           {homePrograms.map((program) => (
             <Link key={program.slug} className="dmx-drawer-course" href={`/programs/${program.slug}`} onClick={closeAll}>
               <Image src={program.image} alt={program.imageAlt} width={52} height={52} sizes="52px" />
-              <span><strong>{program.title}</strong><small>{program.facts[0]}</small></span>
+              <span><strong>{program.title}</strong><small>{program.facts[0]} · {NEXT_COHORT_CARD}</small></span>
               <ArrowRight size={16} aria-hidden="true" />
             </Link>
           ))}
@@ -192,7 +193,7 @@ export function Header() {
           {intlProgramCards.map((program) => (
             <Link key={program.slug} className="dmx-drawer-course" href={`/programs/${program.slug}`} onClick={closeAll}>
               <Image src={program.image} alt={program.imageAlt} width={52} height={52} sizes="52px" />
-              <span><strong>{program.title}</strong><small>{program.facts[0]}</small></span>
+              <span><strong>{program.title}</strong><small>{program.facts[0]} · {NEXT_COHORT_CARD}</small></span>
               <ArrowRight size={16} aria-hidden="true" />
             </Link>
           ))}

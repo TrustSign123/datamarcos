@@ -1,5 +1,6 @@
 import type { IntlCourse } from "./types";
 import { INTL_SHARED_TIMING } from "./types";
+import { NEXT_COHORT_LONG } from "@/config/cohort";
 
 export const llmopsCourse: IntlCourse = {
   slug: "llmops-ai-evaluation",
@@ -222,7 +223,7 @@ export const llmopsCourse: IntlCourse = {
   credentialName: "Datamarcos Certificate of Completion — LLMOps & AI Evaluation",
   applyLead: "Take a prototype",
   applyEm: "past the demo.",
-  applyBody: "Share a few details. A counsellor will talk through your background, the prototype you can bring, the next cohort, fees and enrollment.",
+  applyBody: `Share a few details. A counsellor will talk through your background, the prototype you can bring, the cohort starting ${NEXT_COHORT_LONG}, fees and enrollment.`,
   applyBullets: [
     "Eight weeks, 8–10 hours a week, live and mentor-led",
     "Built around a prototype you already have or can rebuild",
@@ -230,7 +231,7 @@ export const llmopsCourse: IntlCourse = {
     "Honest outcomes: no placement or salary guarantees"
   ],
   trust: ["8 weeks", "Live & mentor-led", "Python required"],
-  successBody: "A Datamarcos counsellor will call you about program fit, the next cohort date and fees. Meanwhile, the brochure has the full 8-week curriculum.",
+  successBody: `A Datamarcos counsellor will call you about program fit, the cohort starting ${NEXT_COHORT_LONG} and fees. Meanwhile, the brochure has the full 8-week curriculum.`,
   related: [
     { href: "/programs/genai-agentic-ai-engineer", title: "GenAI & Agentic AI Engineer", blurb: "A longer foundations-to-agents program if you do not yet have a prototype to harden." },
     { href: "/programs/forward-deployed-ai-engineer", title: "Forward Deployed AI Engineer", blurb: "A 22-week program for engineers who will ship AI inside a customer's environment." }

@@ -10,6 +10,7 @@ import { cybersecurityCourse } from "./intl-course-data/cybersecurity";
 import { dataScienceCourse } from "./intl-course-data/data-science-ai-genai";
 import { aiSecuritySecopsCourse } from "./intl-course-data/ai-security-secops";
 import type { IntlCourse } from "./intl-course-data/types";
+import { NEXT_COHORT_CARD } from "@/config/cohort";
 
 export const INTL_COURSES: IntlCourse[] = [
   literacyCourse,
@@ -114,7 +115,7 @@ export const intlProgramCards: IntlProgramCard[] = INTL_COURSES.map((course) => 
     brochure: course.brochure,
     image: course.image,
     imageAlt: course.imageAlt,
-    facts: [course.durationLabel, course.hoursPerWeek, "Live online"],
+    facts: [course.durationLabel, course.hoursPerWeek, "Live online", NEXT_COHORT_CARD],
     whoFor: copy.whoFor,
     summary: copy.summary,
     tag: copy.tag

@@ -9,6 +9,7 @@
  */
 import type { CurriculumPhase } from "@/components/program/fde/FdeCurriculum";
 import type { ToolGroup } from "@/components/program/ToolWall";
+import { NEXT_COHORT_FAQ_ANSWER } from "@/config/cohort";
 
 export const APPLIED_COURSE = "Applied Agentic AI"; // must match LEAD_COURSES
 export const APPLIED_TITLE = "Applied Agentic AI Certification";
@@ -115,5 +116,6 @@ export const appliedFaqs: AppliedFaq[] = [
   { q: "Will I get a certificate?", a: "Yes. Every learner who completes the program receives the Datamarcos Applied Agentic AI Certification, validating hands-on proficiency across LLMs, RAG, agents, multi-agent orchestration and MCP." },
   { q: "Will I get a job after this?", a: "We do not guarantee placements, salaries or hikes. You leave with portfolio projects, an integrated capstone and career support." },
   { q: "What is the fee and next batch date?", a: "EMI options are available. Our counsellor shares the fee, instalment options and the next batch date after a short call." },
+  { q: "When does the next batch start?", a: NEXT_COHORT_FAQ_ANSWER },
   { q: "Which Datamarcos course should I pick?", a: "Start with Applied Agentic AI if you want a focused 8-week path into agents. Choose the 18-week Generative AI & Agentic AI Engineer program for deeper production, security and LLMOps work.", link: { href: "/programs/genai-agentic-ai-engineer", label: "Generative AI & Agentic AI Engineer program" } }
 ];

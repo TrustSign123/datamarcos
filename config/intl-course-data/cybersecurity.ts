@@ -1,5 +1,6 @@
 import type { IntlCourse } from "./types";
 import { INTL_SHARED_TIMING } from "./types";
+import { NEXT_COHORT_LONG } from "@/config/cohort";
 
 export const cybersecurityCourse: IntlCourse = {
   slug: "cybersecurity-with-ai",
@@ -207,7 +208,7 @@ export const cybersecurityCourse: IntlCourse = {
   credentialName: "Datamarcos Certificate of Completion — Cybersecurity with AI",
   applyLead: "Use AI in security work",
   applyEm: "without losing the evidence trail.",
-  applyBody: "Share a few details. A counsellor will talk through your background, weekend-morning or other batch times, the next cohort, fees and enrollment.",
+  applyBody: `Share a few details. A counsellor will talk through your background, weekend-morning or other batch times, the cohort starting ${NEXT_COHORT_LONG}, fees and enrollment.`,
   applyBullets: [
     "Eight weeks, 6–8 hours a week, live and mentor-led",
     "US weekend-morning batches, with other regional times available",
@@ -215,7 +216,7 @@ export const cybersecurityCourse: IntlCourse = {
     "Honest scope: not an official CompTIA, SANS or (ISC)² certificate, and no placement or salary guarantees"
   ],
   trust: ["8 weeks", "Live & mentor-led", "US weekend mornings"],
-  successBody: "A Datamarcos counsellor will call you about program fit, the next cohort date and fees. Meanwhile, the brochure has the full 8-week curriculum.",
+  successBody: `A Datamarcos counsellor will call you about program fit, the cohort starting ${NEXT_COHORT_LONG} and fees. Meanwhile, the brochure has the full 8-week curriculum.`,
   related: [
     { href: "/programs/llmops-ai-evaluation", title: "LLMOps & AI Evaluation", blurb: "A production follow-on if you already build LLM apps and want evaluation, observability and hardening." },
     { href: "/programs/forward-deployed-ai-engineer", title: "Forward Deployed AI Engineer", blurb: "A longer engineering program for people who will ship AI inside a customer's environment." }

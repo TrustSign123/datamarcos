@@ -10,6 +10,7 @@
  */
 import type { Market } from "@/lib/geo";
 import { isIndiaMarket } from "@/lib/geo";
+import { NEXT_COHORT_LONG } from "@/config/cohort";
 
 export const EMI_MONTHS = 24;
 export const SEAT_PERCENT = 5;
@@ -182,7 +183,7 @@ export function programFeeFaqAnswer(slug: FeeSlug, market: Market): string {
   const emi = quote.india
     ? `EMI from ${quote.emiFormatted}/month, up to 24 months, subject to approval (EMI via partner).`
     : `Flexible instalments — from ${quote.emiFormatted}/month over 24 months, subject to approval. Instalment options can also be arranged with our counsellor.`;
-  return `The program fee is ${quote.feeFormatted}${gst}. You can book your seat for ${quote.seatFormatted} (5% of the fee, adjusted against the full fee). ${emi} You can pay the full fee on the program page, or talk to a counsellor. The next cohort date is shared on a counsellor call.`;
+  return `The program fee is ${quote.feeFormatted}${gst}. You can book your seat for ${quote.seatFormatted} (5% of the fee, adjusted against the full fee). ${emi} You can pay the full fee on the program page, or talk to a counsellor. The next cohort starts on ${NEXT_COHORT_LONG}.`;
 }
 
 export function allProgramFeesFaqAnswer(market: Market): string {

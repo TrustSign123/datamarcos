@@ -1,5 +1,6 @@
 import type { IntlCourse } from "./types";
 import { INTL_SHARED_TIMING } from "./types";
+import { NEXT_COHORT_LONG } from "@/config/cohort";
 
 export const aiSecuritySecopsCourse: IntlCourse = {
   slug: "ai-security-secops",
@@ -135,7 +136,7 @@ export const aiSecuritySecopsCourse: IntlCourse = {
   credentialName: "Datamarcos Certificate of Completion — AI Security & SecOps",
   applyLead: "Secure AI systems,",
   applyEm: "and use AI in the SOC with controls.",
-  applyBody: "Share a few details. A counsellor will talk through your background, how this lab-heavy 8-week path compares with our Cybersecurity with AI introduction, the next cohort, fees and enrollment.",
+  applyBody: `Share a few details. A counsellor will talk through your background, how this lab-heavy 8-week path compares with our Cybersecurity with AI introduction, the cohort starting ${NEXT_COHORT_LONG}, fees and enrollment.`,
   applyBullets: [
     "Eight weeks, 6–8 hours a week, live and mentor-led",
     "Lab-heavy: LLM and agent application security plus AI-powered SecOps",
@@ -143,7 +144,7 @@ export const aiSecuritySecopsCourse: IntlCourse = {
     "Honest scope: not an official CompTIA, SANS or GIAC certificate, and no placement or salary guarantees"
   ],
   trust: ["8 weeks", "Live & mentor-led", "Lab-heavy"],
-  successBody: "A Datamarcos counsellor will call you about program fit, the next cohort date and fees. Meanwhile, the brochure has the full 8-week curriculum.",
+  successBody: `A Datamarcos counsellor will call you about program fit, the cohort starting ${NEXT_COHORT_LONG} and fees. Meanwhile, the brochure has the full 8-week curriculum.`,
   related: [
     { href: "/programs/cybersecurity-with-ai", title: "Cybersecurity with AI", blurb: "The 8-week introduction if you want a first pass at AI in security operations and LLM application security before this lab-heavy course." },
     { href: "/programs/llmops-ai-evaluation", title: "LLMOps & AI Evaluation", blurb: "A production follow-on if you already build LLM apps and want evaluation, observability and hardening." }

@@ -6,6 +6,7 @@
  */
 import type { CurriculumPhase } from "@/components/program/fde/FdeCurriculum";
 import type { ToolGroup } from "@/components/program/ToolWall";
+import { NEXT_COHORT_FAQ_ANSWER } from "@/config/cohort";
 
 export const GENAI_COURSE = "Generative AI & Agentic AI Engineer"; // must match LEAD_COURSES
 export const GENAI_BROCHURE = "/brochures/DataMarcos_GenAI_Agentic_AI_Engineer_Brochure.pdf";
@@ -204,6 +205,7 @@ export const genaiFaqs: GenaiFaq[] = [
   { q: "Will I get a job after the program?", a: "No placement, salary or hike is guaranteed. The program includes deployed projects, portfolio support, interview preparation, mock interview loops and a referral and outreach playbook." },
   { q: "Will I get a certificate?", a: "Yes. The Datamarcos Executive Certificate in Generative AI and Agentic AI Engineering is awarded on completing the program and defending your capstone." },
   { q: "What is the fee and next cohort date?", a: "EMI options are available. Our counsellor shares the fee, instalment options, scholarships and the next cohort date after a short fit conversation." },
+  { q: "When does the next cohort start?", a: NEXT_COHORT_FAQ_ANSWER },
   { q: "Can my company sponsor me or join as a team?", a: "Yes. Contact admissions to discuss corporate sponsorship and team cohorts." },
   { q: "How is this different from the Forward Deployed AI Engineer program?", a: "This program builds LLM, RAG and agent engineering skills over 18 weeks. The Forward Deployed AI Engineer program assumes engineering experience and adds the customer-facing half of the job: discovery, scoping, SOWs, security reviews, enterprise integration, deployment and handover.", link: { href: "/programs/forward-deployed-ai-engineer", label: "Forward Deployed AI Engineer program" } }
 ];

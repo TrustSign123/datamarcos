@@ -1,5 +1,6 @@
 import type { IntlCourse } from "./types";
 import { INTL_SHARED_TIMING } from "./types";
+import { NEXT_COHORT_LONG } from "@/config/cohort";
 
 export const analyticsCourse: IntlCourse = {
   slug: "data-analytics-with-ai",
@@ -325,7 +326,7 @@ export const analyticsCourse: IntlCourse = {
   credentialName: "Datamarcos Certificate of Completion — Data Analytics with AI",
   applyLead: "Build analysis skills",
   applyEm: "you can show.",
-  applyBody: "Share a few details. A counsellor will talk through your background, the time commitment, the next cohort, fees and enrollment.",
+  applyBody: `Share a few details. A counsellor will talk through your background, the time commitment, the cohort starting ${NEXT_COHORT_LONG}, fees and enrollment.`,
   applyBullets: [
     "Sixteen weeks, 8–10 hours a week, live and mentor-led",
     "SQL, Python, a BI dashboard and a written capstone",
@@ -333,7 +334,7 @@ export const analyticsCourse: IntlCourse = {
     "Honest outcomes: no placement or salary guarantees"
   ],
   trust: ["16 weeks", "Live & mentor-led", "No prior coding required"],
-  successBody: "A Datamarcos counsellor will call you about program fit, the next cohort date and fees. Meanwhile, the brochure has the full 16-week curriculum.",
+  successBody: `A Datamarcos counsellor will call you about program fit, the cohort starting ${NEXT_COHORT_LONG} and fees. Meanwhile, the brochure has the full 16-week curriculum.`,
   related: [
     { href: "/programs/advance-data-engineering-genai", title: "Advance Data Engineering with GenAI", blurb: "A later path if you want production data engineering after this analysis foundation." },
     { href: "/programs/genai-at-work", title: "GenAI at Work", blurb: "A shorter, no-code program if you want everyday AI tools rather than SQL and Python." }

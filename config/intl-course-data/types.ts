@@ -1,4 +1,5 @@
 import type { ToolGroup } from "@/components/program/ToolWall";
+import { NEXT_COHORT_LONG } from "@/config/cohort";
 import type { CurriculumPhase } from "@/components/program/fde/FdeCurriculum";
 
 /** On-page and brochure fee line for these international-only programs. No amounts. */
@@ -52,4 +53,4 @@ export type IntlCourse = {
 };
 
 export const INTL_SHARED_TIMING =
-  "Part-time and live online, in a small mentor-led cohort. Weekend-morning batches are offered for learners in the US. Evening batches (India time) are offered for learners in the Gulf and Africa. Europe-oriented groups typically meet after work and on Saturdays. Recordings are shared if you miss a live session. Exact days, times and the next cohort date are confirmed on a counsellor call.";
+  `Part-time and live online, in a small mentor-led cohort. Weekend-morning batches are offered for learners in the US. Evening batches (India time) are offered for learners in the Gulf and Africa. Europe-oriented groups typically meet after work and on Saturdays. Recordings are shared if you miss a live session. The next cohort starts on ${NEXT_COHORT_LONG}. Exact session days and times are confirmed on a counsellor call.`;

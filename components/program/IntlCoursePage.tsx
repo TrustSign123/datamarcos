@@ -12,6 +12,7 @@ import { APPLY_FEE_INTRO, faqsWithProgramFees, isFeeSlug } from "@/config/fees";
 import { type IntlCourse, type IntlFaq } from "@/config/intl-courses";
 import { brochureHrefForMarket } from "@/config/lead";
 import { site } from "@/config/site";
+import { NEXT_COHORT_FAQ_ANSWER, NEXT_COHORT_ISO, NEXT_COHORT_STARTS } from "@/config/cohort";
 import { FeesEnrolment } from "@/components/program/FeesEnrolment";
 import { ViewFeesLink } from "@/components/program/ViewFeesLink";
 import { faqsForJsonLd } from "@/lib/geo";
@@ -64,6 +65,7 @@ function jsonLdFor(course: IntlCourse, faqs: IntlFaq[]) {
       hasCourseInstance: {
         "@type": "CourseInstance",
         courseMode: "online",
+        startDate: NEXT_COHORT_ISO,
         courseSchedule: { "@type": "Schedule", repeatFrequency: "P1W", repeatCount: course.weekCount },
         instructor: { "@id": MENTOR_ID }
       }
@@ -127,12 +129,15 @@ export async function IntlCoursePage({ course }: { course: IntlCourse }) {
   const market = await getMarket();
   const brochureHref = brochureHrefForMarket(course.brochure, market);
   const feeSlug = isFeeSlug(course.slug) ? course.slug : undefined;
-  const faqs = feeSlug ? faqsWithProgramFees(market, course.faqs, feeSlug) : course.faqs;
+  const startFaq = { q: "When does the next cohort start?", a: NEXT_COHORT_FAQ_ANSWER };
+  const withStart = (list: typeof course.faqs) =>
+    list.some((faq) => /when does the next (cohort|batch) start/i.test(faq.q)) ? list : [...list, startFaq];
+  const faqs = withStart(feeSlug ? faqsWithProgramFees(market, course.faqs, feeSlug) : course.faqs);
   const successLinks = [{ label: "Download the brochure", href: brochureHref, download: true }];
 
   return (
     <article className="fde-page fx fx-intl-course">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFor(course, faqsForJsonLd(feeSlug ? faqsWithProgramFees("in", course.faqs, feeSlug) : course.faqs))) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFor(course, faqsForJsonLd(withStart(feeSlug ? faqsWithProgramFees("in", course.faqs, feeSlug) : course.faqs)))) }} />
       <FdeSectionNav items={nav} course={course.course} brand={<>{course.title}</>} ctaPrefix={course.title} />
 
       <section className="fx-hero" id="top" aria-labelledby="fx-title">
@@ -158,7 +163,7 @@ export async function IntlCoursePage({ course }: { course: IntlCourse }) {
               <Cta course={course.course} label="Talk to a counsellor" cta={`${course.title} hero (counsellor)`} />
               <Syllabus course={course.course} href={brochureHref} cta={`${course.title} hero (syllabus)`} variant="light" />
             </div>
-            <p className="fx-hero-note"><CalendarClock size={15} aria-hidden="true" /> {course.formatLabel} · {course.durationLabel} · {course.hoursPerWeek}</p>
+            <p className="fx-hero-note"><CalendarClock size={15} aria-hidden="true" /> {course.formatLabel} · {course.durationLabel} · {course.hoursPerWeek} · {NEXT_COHORT_STARTS}</p>
             <ViewFeesLink />
           </div>
           <figure className="fx-hero-media">
@@ -249,7 +254,7 @@ export async function IntlCoursePage({ course }: { course: IntlCourse }) {
           <Head id="fx-format-title" eyebrow="Format and schedule" title={<>Part-time, live, <em>with regional batches.</em></>} />
           <p className="fx-head-body">{course.timing}</p>
           <p className="fx-head-body">{course.regions}</p>
-          <p className="fx-head-body">A Datamarcos certificate of completion is awarded when you finish the program work. Cohort start dates are shared on a counsellor call — we do not publish a date until then. Fees and EMI are listed in the Fees &amp; enrolment section.</p>
+          <p className="fx-head-body">A Datamarcos certificate of completion is awarded when you finish the program work. Fees and EMI are listed in the Fees &amp; enrolment section.</p>
         </div>
       </section>
 

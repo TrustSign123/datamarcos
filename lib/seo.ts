@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { site } from "@/config/site";
+import { NEXT_COHORT_ISO } from "@/config/cohort";
 
 const DEFAULT_OG = "/og/datamarcos-home.jpg";
 
@@ -50,6 +51,7 @@ export function courseJsonLd({ name, description, path, duration, workloadHours,
     ...(credential ? { educationalCredentialAwarded: credential } : {}),
     hasCourseInstance: {
       "@type": "CourseInstance",
+      startDate: NEXT_COHORT_ISO,
       courseMode: "online",
       ...(workloadHours ? { courseWorkload: `PT${workloadHours}H` } : {}),
       instructor: { "@type": "Person", name: site.founder.name }

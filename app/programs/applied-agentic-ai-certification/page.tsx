@@ -17,6 +17,7 @@ import {
   appliedPrereqs, appliedProjects, appliedRoles, appliedShifts, appliedToolGroups, appliedWhy, type AppliedFaq
 } from "@/config/applied";
 import { site } from "@/config/site";
+import { NEXT_COHORT_ISO, NEXT_COHORT_LONG, NEXT_COHORT_STARTS } from "@/config/cohort";
 import { APPLY_FEE_INTRO, faqsWithProgramFees } from "@/config/fees";
 import { faqsForJsonLd, faqsForMarket, isIndiaMarket } from "@/lib/geo";
 import { brochureHrefForMarket } from "@/config/lead";
@@ -48,8 +49,8 @@ const nav: FdeNavItem[] = [
 const whyIcons = [Zap, Wrench, Rocket];
 const accents = ["#f4511e", "#2f6bff", "#0e9f84", "#b04cff"];
 
-const successBodyIn = "A Datamarcos counsellor will call you about program fit, the next batch date and EMI options. Meanwhile, the brochure has the full 8-week curriculum.";
-const successBodyIntl = "A Datamarcos counsellor will call you about program fit, the next batch date and fees. Meanwhile, the brochure has the full 8-week curriculum.";
+const successBodyIn = `A Datamarcos counsellor will call you about program fit, the batch starting ${NEXT_COHORT_LONG} and EMI options. Meanwhile, the brochure has the full 8-week curriculum.`;
+const successBodyIntl = `A Datamarcos counsellor will call you about program fit, the batch starting ${NEXT_COHORT_LONG} and fees. Meanwhile, the brochure has the full 8-week curriculum.`;
 
 const ORG_ID = `${site.url}/#organization`;
 const MENTOR_ID = `${site.url}/#deepesh-mishra`;
@@ -76,6 +77,7 @@ function jsonLdFor(faqs: typeof appliedFaqs) {
     hasCourseInstance: {
       "@type": "CourseInstance",
       courseMode: "online",
+      startDate: NEXT_COHORT_ISO,
       courseSchedule: { "@type": "Schedule", repeatFrequency: "P1W", repeatCount: 8 },
       instructor: { "@id": MENTOR_ID }
     }
@@ -153,7 +155,7 @@ export default async function AppliedAgenticAICertificationPage() {
               <Syllabus cta="Applied hero (syllabus)" variant="light" />
             </div>
             <ViewFeesLink />
-            <p className="fx-hero-note"><CalendarClock size={15} aria-hidden="true" /> Small-batch live cohorts</p>
+            <p className="fx-hero-note"><CalendarClock size={15} aria-hidden="true" /> <span><b>Next batch:</b> {NEXT_COHORT_STARTS} · Small-batch live cohorts</span></p>
           </div>
           <figure className="fx-hero-media">
             <div className="fx-hero-video">
@@ -418,7 +420,7 @@ export default async function AppliedAgenticAICertificationPage() {
           <div>
             <p className="fx-eyebrow">Small-batch live cohorts</p>
             <h2 id="fx-apply-title">Six months from now, <em>you could be shipping agents.</em></h2>
-            <p>Share a few details. A counsellor will talk through your background, the next batch date, {india ? "EMI options" : "fees"} and enrollment steps.</p>
+            <p>Share a few details. A counsellor will talk through your background, the batch starting {NEXT_COHORT_LONG}, {india ? "EMI options" : "fees"} and enrollment steps.</p>
             <ul className="fx-apply-list">
               <li><Rocket size={17} aria-hidden="true" /> A project every module + an integrated multi-agent capstone</li>
               <li><UsersRound size={17} aria-hidden="true" /> Live, mentor-led sessions with Deepesh Mishra</li>
