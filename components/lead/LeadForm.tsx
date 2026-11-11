@@ -36,6 +36,8 @@ export type LeadFormProps = {
   formId?: string;
   autoFocus?: boolean;
   onSuccess?: (info: LeadSuccess) => void;
+  /** Hidden intent for payment-fallback leads (e.g. "Book seat – Course"). */
+  intent?: string;
 };
 
 export type LeadSuccess = { name: string; course: string };
@@ -58,7 +60,7 @@ export function matchCourse(value?: string) {
 export function LeadForm({
   course: initialCourse, lockCourse = false, cta, submitLabel, trust = DEFAULT_TRUST,
   successTitle = "Thanks{first}! You’re all set.", successBody,
-  successLinks = [], successFor, idPrefix = "dml", formId, autoFocus = false, onSuccess
+  successLinks = [], successFor, idPrefix = "dml", formId, autoFocus = false, onSuccess, intent
 }: LeadFormProps) {
   const [course, setCourse] = useState(matchCourse(initialCourse));
   const [errors, setErrors] = useState<FieldErrors>({});
@@ -101,6 +103,7 @@ export function LeadForm({
         headers: { "Content-Type": "text/plain;charset=utf-8" },
         body: JSON.stringify({
           name, email, phone: cc + phone, course, cta: ctaLabel,
+          intent: intent || "",
           page: window.location.href,
           utm_source: attribution.utm_source || "",
           utm_medium: attribution.utm_medium || "",

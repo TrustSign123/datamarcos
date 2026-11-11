@@ -8,9 +8,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { resourceMenu } from "@/config/navigation";
 import { ThemeSync, ThemeToggle } from "@/components/ThemeToggle";
 import { EMI_NOTE, homePrograms } from "@/config/home";
-import { INTL_COURSE_FEE_LINE, INTL_COURSE_PATHS, intlProgramCards } from "@/config/intl-courses";
+import { intlProgramCards } from "@/config/intl-courses";
 import { env, site } from "@/config/site";
-import { INTL_FEE_COPY, isIndiaMarket } from "@/lib/geo";
+import { isIndiaMarket } from "@/lib/geo";
 import { useMarket } from "@/components/MarketProvider";
 
 /** Learner-first navigation. Anchors point at homepage sections so they work from any page. */
@@ -39,18 +39,11 @@ export function Logo() {
 
 export function Header() {
   const pathname = usePathname();
-  // Fee-free header/banner: guides, refund policy, and the newer always-fee-free courses.
-  // Flagship program pages show India fees in the announcement and Courses menu, same as the homepage.
-  const feeFree = ["/guides", "/refund-policy", "/payment-refund-policy"].includes(pathname) || pathname.startsWith("/guides/") || INTL_COURSE_PATHS.includes(pathname);
+  // Prices are not shown in the announcement or course cards; they live on each program page.
   const india = isIndiaMarket(useMarket());
   const announceExtra = india
-    ? (feeFree ? " · EMI options available" : " · Fees from ₹40,000 with EMI options")
-    : " · Live online, learn from anywhere · Fees shared on a counsellor call";
-  const courseFee = (program: (typeof homePrograms)[number]) => {
-    if (!india) return INTL_FEE_COPY;
-    return feeFree ? program.facts[1] : program.fee;
-  };
-  const newCourseFee = INTL_COURSE_FEE_LINE;
+    ? " · EMI options available"
+    : " · Live online, learn from anywhere";
   const programsBlurb = india
     ? `Live online · mentor-led by Deepesh Mishra · ${EMI_NOTE}`
     : "Live online, learn from anywhere · mentor-led by Deepesh Mishra";
@@ -120,12 +113,12 @@ export function Header() {
                         <span className="dmx-course-copy">
                           <small>{program.tag}</small>
                           <strong>{program.title}</strong>
-                          <span className="dmx-course-meta"><Clock3 size={13} aria-hidden="true" /> {program.facts[0]}<b>{courseFee(program)}</b></span>
+                          <span className="dmx-course-meta"><Clock3 size={13} aria-hidden="true" /> {program.facts[0]}</span>
                         </span>
                       </Link>
                     ))}
                   </div>
-                  <p className="dmx-mega-label">More live courses · fees shared on a counsellor call</p>
+                  <p className="dmx-mega-label">More live courses</p>
                   <div className="dmx-mega-grid">
                     {intlProgramCards.map((program) => (
                       <Link key={program.slug} className="dmx-course" href={`/programs/${program.slug}`} onClick={closeAll}>
@@ -133,7 +126,7 @@ export function Header() {
                         <span className="dmx-course-copy">
                           <small>{program.tag}</small>
                           <strong>{program.title}</strong>
-                          <span className="dmx-course-meta"><Clock3 size={13} aria-hidden="true" /> {program.facts[0]}<b>{newCourseFee}</b></span>
+                          <span className="dmx-course-meta"><Clock3 size={13} aria-hidden="true" /> {program.facts[0]}</span>
                         </span>
                       </Link>
                     ))}
@@ -191,7 +184,7 @@ export function Header() {
           {homePrograms.map((program) => (
             <Link key={program.slug} className="dmx-drawer-course" href={`/programs/${program.slug}`} onClick={closeAll}>
               <Image src={program.image} alt={program.imageAlt} width={52} height={52} sizes="52px" />
-              <span><strong>{program.title}</strong><small>{program.facts[0]} · {courseFee(program)}</small></span>
+              <span><strong>{program.title}</strong><small>{program.facts[0]}</small></span>
               <ArrowRight size={16} aria-hidden="true" />
             </Link>
           ))}
@@ -199,7 +192,7 @@ export function Header() {
           {intlProgramCards.map((program) => (
             <Link key={program.slug} className="dmx-drawer-course" href={`/programs/${program.slug}`} onClick={closeAll}>
               <Image src={program.image} alt={program.imageAlt} width={52} height={52} sizes="52px" />
-              <span><strong>{program.title}</strong><small>{program.facts[0]} · {newCourseFee}</small></span>
+              <span><strong>{program.title}</strong><small>{program.facts[0]}</small></span>
               <ArrowRight size={16} aria-hidden="true" />
             </Link>
           ))}

@@ -5,7 +5,8 @@ import Link from "next/link";
 import {
   ArrowDownToLine, ArrowRight, ArrowUpRight, Award, BadgeCheck, Bot, Boxes, Check, Hammer, Linkedin, Presentation, Rocket, ShieldCheck,
   Sparkles, UsersRound, Workflow, X, RotateCcw } from "lucide-react";
-import { ProgramFee } from "@/components/program/ProgramFee";
+import { FeesEnrolment } from "@/components/program/FeesEnrolment";
+import { ViewFeesLink } from "@/components/program/ViewFeesLink";
 import { YouTubeFacade } from "@/components/YouTubeFacade";
 import { InlineLeadForm } from "@/components/lead/InlineLeadForm";
 import { GatedBrochureFrame } from "@/components/lead/GatedBrochureFrame";
@@ -20,7 +21,8 @@ import {
   type GenaiFaq
 } from "@/config/genai";
 import { site } from "@/config/site";
-import { INTL_FEE_COPY, faqsForJsonLd, faqsForMarket, isIndiaMarket } from "@/lib/geo";
+import { APPLY_FEE_INTRO, faqsWithProgramFees } from "@/config/fees";
+import { faqsForJsonLd, faqsForMarket, isIndiaMarket } from "@/lib/geo";
 import { brochureHrefForMarket } from "@/config/lead";
 import { getMarket } from "@/lib/geo-server";
 import { RelatedGuides } from "@/components/guides/RelatedGuides";
@@ -50,6 +52,7 @@ const nav: FdeNavItem[] = [
   { id: "mentor", label: "Mentor" },
   { id: "learners", label: "Learners" },
   { id: "compare", label: "Compare" },
+  { id: "fees", label: "Fees" },
   { id: "faq", label: "FAQ" }
 ];
 
@@ -132,10 +135,10 @@ export default async function GenAIAgenticEngineerPage() {
   const brochureUrl = brochureHrefForMarket(GENAI_BROCHURE, market);
   const successLinks = [{ label: "Download the brochure", href: brochureUrl, download: true }];
   const india = isIndiaMarket(market);
-  const faqs = faqsForMarket(market, genaiFaqs);
+  const faqs = faqsForMarket(market, faqsWithProgramFees(market, genaiFaqs, "genai-agentic-ai-engineer"));
   return (
     <article className="fde-page fde-ga-page">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFor(faqsForJsonLd(genaiFaqs))) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFor(faqsForJsonLd(faqsWithProgramFees("in", genaiFaqs, "genai-agentic-ai-engineer")))) }} />
       {/* HERO: unchanged from the previous page (kept exactly, including the YouTube facade). */}
       <section className="fde-hero fde-ga-hero" id="top">
         <div className="container fde-hero-grid">
@@ -146,7 +149,7 @@ export default async function GenAIAgenticEngineerPage() {
             <p className="fde-intro">Build LLM applications, RAG systems and multi-agent workflows, then secure, evaluate and deploy them on real enterprise stacks—with Deepesh Mishra.</p>
             <div className="fde-actions"><a className="fde-button fde-button-orange" href="#apply" data-dm-lead>Request a seat <ArrowRight size={17} /></a><a className="fde-button fde-button-light" href={brochureUrl} download><ArrowDownToLine size={17} /> Download brochure</a></div>
             <p className="fde-note"><Check size={15} /> Two live sessions weekly · Hands-on projects · 1:1 mentorship</p>
-            <ProgramFee slug="genai-agentic-ai-engineer" />
+            <ViewFeesLink />
           </div>
           <div className="fde-ga-hero-media">
             <div className="fde-ga-hero-video-frame"><YouTubeFacade id={videoId} title="Generative AI and Agentic AI Engineer program overview" poster="/images/genai-agentic-ai-engineer/hero-video-poster.webp" sizes="(max-width: 700px) calc(100vw - 40px), (max-width: 1240px) 46vw, 570px" priority /></div>
@@ -384,7 +387,9 @@ export default async function GenAIAgenticEngineerPage() {
           </div>
         </section>
 
-        {/* FAQ */}
+        <FeesEnrolment slug="genai-agentic-ai-engineer" />
+
+      {/* FAQ */}
         <section className="fx-section fx-paper" id="faq" aria-labelledby="fx-faq-title">
           <div className="fx-wrap fx-faq">
             <div>
@@ -439,7 +444,7 @@ export default async function GenAIAgenticEngineerPage() {
               cta="GenAI inline form (apply section)"
               eyebrow="Generative AI & Agentic AI Engineer"
               title="Request your fit call."
-              intro={india ? "EMI options available, talk to a counsellor." : INTL_FEE_COPY}
+              intro={APPLY_FEE_INTRO}
               submitLabel="Request my fit call"
               trust={["Application-based", "Small cohorts", "Live online"]}
               successTitle="Thanks{first}! Request received."

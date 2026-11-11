@@ -8,9 +8,12 @@ import { FdeSectionNav, type FdeNavItem } from "@/components/program/fde/FdeSect
 import { FdeCurriculum } from "@/components/program/fde/FdeCurriculum";
 import { ToolWall } from "@/components/program/ToolWall";
 import { DEEPESH_LINKEDIN } from "@/config/home";
-import { INTL_COURSE_FEE_LINE, type IntlCourse, type IntlFaq } from "@/config/intl-courses";
+import { APPLY_FEE_INTRO, faqsWithProgramFees, isFeeSlug } from "@/config/fees";
+import { type IntlCourse, type IntlFaq } from "@/config/intl-courses";
 import { brochureHrefForMarket } from "@/config/lead";
 import { site } from "@/config/site";
+import { FeesEnrolment } from "@/components/program/FeesEnrolment";
+import { ViewFeesLink } from "@/components/program/ViewFeesLink";
 import { faqsForJsonLd } from "@/lib/geo";
 import { getMarket } from "@/lib/geo-server";
 
@@ -25,6 +28,7 @@ const nav: FdeNavItem[] = [
   { id: "tools", label: "Tools" },
   { id: "format", label: "Format" },
   { id: "mentor", label: "Mentor" },
+  { id: "fees", label: "Fees" },
   { id: "faq", label: "FAQ" }
 ];
 
@@ -122,12 +126,13 @@ function Head({ eyebrow, title, body, id }: { eyebrow: string; title: React.Reac
 export async function IntlCoursePage({ course }: { course: IntlCourse }) {
   const market = await getMarket();
   const brochureHref = brochureHrefForMarket(course.brochure, market);
-  const faqs = course.faqs;
+  const feeSlug = isFeeSlug(course.slug) ? course.slug : undefined;
+  const faqs = feeSlug ? faqsWithProgramFees(market, course.faqs, feeSlug) : course.faqs;
   const successLinks = [{ label: "Download the brochure", href: brochureHref, download: true }];
 
   return (
     <article className="fde-page fx fx-intl-course">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFor(course, faqsForJsonLd(faqs))) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFor(course, faqsForJsonLd(feeSlug ? faqsWithProgramFees("in", course.faqs, feeSlug) : course.faqs))) }} />
       <FdeSectionNav items={nav} course={course.course} brand={<>{course.title}</>} ctaPrefix={course.title} />
 
       <section className="fx-hero" id="top" aria-labelledby="fx-title">
@@ -153,7 +158,8 @@ export async function IntlCoursePage({ course }: { course: IntlCourse }) {
               <Cta course={course.course} label="Talk to a counsellor" cta={`${course.title} hero (counsellor)`} />
               <Syllabus course={course.course} href={brochureHref} cta={`${course.title} hero (syllabus)`} variant="light" />
             </div>
-            <p className="fx-hero-note"><CalendarClock size={15} aria-hidden="true" /> {course.formatLabel} · {course.durationLabel} · {course.hoursPerWeek} · {INTL_COURSE_FEE_LINE}</p>
+            <p className="fx-hero-note"><CalendarClock size={15} aria-hidden="true" /> {course.formatLabel} · {course.durationLabel} · {course.hoursPerWeek}</p>
+            <ViewFeesLink />
           </div>
           <figure className="fx-hero-media">
             <div className="fx-intl-panel">
@@ -243,7 +249,7 @@ export async function IntlCoursePage({ course }: { course: IntlCourse }) {
           <Head id="fx-format-title" eyebrow="Format and schedule" title={<>Part-time, live, <em>with regional batches.</em></>} />
           <p className="fx-head-body">{course.timing}</p>
           <p className="fx-head-body">{course.regions}</p>
-          <p className="fx-head-body">{INTL_COURSE_FEE_LINE} A Datamarcos certificate of completion is awarded when you finish the program work. Cohort start dates are shared on a counsellor call — we do not publish a date until then.</p>
+          <p className="fx-head-body">A Datamarcos certificate of completion is awarded when you finish the program work. Cohort start dates are shared on a counsellor call — we do not publish a date until then. Fees and EMI are listed in the Fees &amp; enrolment section.</p>
         </div>
       </section>
 
@@ -263,7 +269,9 @@ export async function IntlCoursePage({ course }: { course: IntlCourse }) {
         </div>
       </section>
 
-      <section className="fx-section fx-faq" id="faq" aria-labelledby="fx-faq-title">
+      {feeSlug ? <FeesEnrolment slug={feeSlug} /> : null}
+
+            <section className="fx-section fx-faq" id="faq" aria-labelledby="fx-faq-title">
         <div className="fx-wrap fx-faq-grid">
           <div>
             <Head id="fx-faq-title" eyebrow="FAQ" title={<>Questions, <em>answered.</em></>} body="Can't find yours? A counsellor will answer it on a short call." />
@@ -314,7 +322,7 @@ export async function IntlCoursePage({ course }: { course: IntlCourse }) {
             cta={`${course.title} inline form (apply section)`}
             eyebrow={course.fullTitle}
             title="Request a call back."
-            intro={INTL_COURSE_FEE_LINE}
+            intro={APPLY_FEE_INTRO}
             submitLabel="Request my call"
             trust={course.trust}
             successTitle="Thanks{first}! Request received."
