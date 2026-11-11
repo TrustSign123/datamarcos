@@ -5,7 +5,8 @@ import type { Metadata } from "next";
 import {
   ArrowDownToLine, ArrowRight, ArrowUpRight, Award, BadgeCheck, Bot, CalendarClock, Check, Cloud, Compass, FileCheck2,
   Hammer, Handshake, Linkedin, MessageSquareText, Minus, Presentation, Rocket, ShieldCheck, UsersRound, X, RotateCcw } from "lucide-react";
-import { ProgramFee } from "@/components/program/ProgramFee";
+import { FeesEnrolment } from "@/components/program/FeesEnrolment";
+import { ViewFeesLink } from "@/components/program/ViewFeesLink";
 import { InlineLeadForm } from "@/components/lead/InlineLeadForm";
 import { GatedBrochureFrame } from "@/components/lead/GatedBrochureFrame";
 import { AlumniOutcomes } from "@/components/home/AlumniOutcomes";
@@ -26,7 +27,8 @@ import {
 } from "simple-icons";
 import type { LucideIcon } from "lucide-react";
 import { site } from "@/config/site";
-import { INTL_FEE_COPY, faqsForJsonLd, faqsForMarket, isIndiaMarket } from "@/lib/geo";
+import { APPLY_FEE_INTRO, faqsWithProgramFees } from "@/config/fees";
+import { faqsForJsonLd, faqsForMarket, isIndiaMarket } from "@/lib/geo";
 import { brochureHrefForMarket } from "@/config/lead";
 import { getMarket } from "@/lib/geo-server";
 import { RelatedGuides } from "@/components/guides/RelatedGuides";
@@ -59,6 +61,7 @@ const nav: FdeNavItem[] = [
   { id: "mentor", label: "Mentor" },
   { id: "learners", label: "Learners" },
   { id: "compare", label: "Compare" },
+  { id: "fees", label: "Fees" },
   { id: "faq", label: "FAQ" }
 ];
 
@@ -252,11 +255,11 @@ function Head({ eyebrow, title, body, id, align }: { eyebrow: string; title: Rea
 export default async function ForwardDeployedAIEngineerPage() {
   const market = await getMarket();
   const india = isIndiaMarket(market);
-  const faqs = faqsForMarket(market, fdeFaqs);
+  const faqs = faqsForMarket(market, faqsWithProgramFees(market, fdeFaqs, "forward-deployed-ai-engineer"));
   const successLinks = [{ label: "Download the brochure", href: brochureHrefForMarket(FDE_BROCHURE, market), download: true }];
   return (
     <article className="fde-page fx">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFor(faqsForJsonLd(fdeFaqs))) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFor(faqsForJsonLd(faqsWithProgramFees("in", fdeFaqs, "forward-deployed-ai-engineer")))) }} />
 
       {/* HERO */}
       <section className="fx-hero" id="top" aria-labelledby="fx-title">
@@ -282,7 +285,7 @@ export default async function ForwardDeployedAIEngineerPage() {
               <Cta label="Talk to a counsellor" cta="FDE hero (counsellor)" />
               <Syllabus cta="FDE hero (syllabus)" variant="light" />
             </div>
-            <ProgramFee slug="forward-deployed-ai-engineer" />
+            <ViewFeesLink />
             {/* No confirmed cohort date yet (31 Oct 2026): brief 1.3 fallback copy. Add a real date only once Deepesh confirms it. */}
             <p className="fx-hero-note"><CalendarClock size={15} aria-hidden="true" /> <span><b>Next cohort:</b> dates shared on a 15-minute counsellor call · Weekend live sessions + weekday evening lab · Small cohorts</span></p>
           </div>
@@ -564,6 +567,8 @@ export default async function ForwardDeployedAIEngineerPage() {
         </div>
       </section>
 
+      <FeesEnrolment slug="forward-deployed-ai-engineer" />
+
       {/* FAQ */}
       <section className="fx-section fx-paper" id="faq" aria-labelledby="fx-faq-title">
         <div className="fx-wrap fx-faq">
@@ -619,7 +624,7 @@ export default async function ForwardDeployedAIEngineerPage() {
             cta="FDE inline form (apply section)"
             eyebrow="Forward Deployed AI Engineer"
             title="Request your FDE fit call."
-            intro={india ? "EMI options available, talk to a counsellor." : INTL_FEE_COPY}
+            intro={APPLY_FEE_INTRO}
             submitLabel="Request my fit call"
             trust={["Application-based", "Small cohorts", "Weekend-friendly"]}
             successTitle={successTitle}

@@ -39,38 +39,22 @@ export function resolveMarket(opts: {
   return marketFromCountry(opts.vercelCountry);
 }
 
-const FEE_COPY_RE = /\bfees?\b|\bEMI\b|₹/i;
-
 type FaqLike = { q: string; a: string };
 
-function intlFeeQuestion(question: string): string {
-  const q = question.trim();
-  if (/what is the fee\??\s*are EMI options available/i.test(q)) return "How do I find out about fees?";
-  if (/^what are the fees\??$/i.test(q)) return "How do I find out about fees?";
-  if (/^is EMI available\??$/i.test(q)) return "How do I find out about fees?";
-  if (/what is the fee and next cohort date/i.test(q)) return "How do I find out about fees and the next cohort date?";
-  if (/what is the fee and next batch date/i.test(q)) return "How do I find out about fees and the next batch date?";
-  if (FEE_COPY_RE.test(q)) return "How do I find out about fees?";
-  return question;
-}
-
-/** Fee-free FAQ answers for meta/JSON-LD. Identical in every market; visible FAQs still use faqsForMarket. */
+/** Fee-free FAQ answers for meta/JSON-LD. Identical in every market. Visible FAQs use faqsWithProgramFees. */
 export const SNIPPET_FEE_FAQ_ANSWER =
   "EMI options are available. Our counsellor shares the current fee and EMI plans on a call.";
 
-const FEE_AMOUNT_RE = /₹|\bRs\.?\b|\bINR\b|\bUS\$|\bUSD\b|\b70,000\b|\b60,000\b|\b40,000\b|\b1,600\b|\b1,200\b|\b800\b/;
+const FEE_AMOUNT_RE = /₹|\$\s*\d|\bRs\.?\b|\bINR\b|\bUS\$|\bUSD\b|\b7,999\b|\b4,999\b|\b70,000\b|\b65,000\b|\b60,000\b|\b45,000\b|\b40,000\b|\b35,000\b|\b30,000\b|\b1,900\b|\b1,700\b|\b1,500\b|\b1,400\b|\b1,200\b|\b1,000\b|\b900\b|\b350\b|\b300\b|\bEMI from\b/;
 
 export function faqsForJsonLd<T extends FaqLike>(faqs: T[]): T[] {
   return faqs.map((faq) => (FEE_AMOUNT_RE.test(faq.a) ? { ...faq, a: SNIPPET_FEE_FAQ_ANSWER } : faq));
 }
 
-/** Swap fee/EMI answers for international visitors. Indian FAQs are unchanged. */
+/** Visible FAQs are already market-specific (see faqsWithProgramFees). This only rewrites India-centric phrasing for international visitors. JSON-LD stays fee-free via faqsForJsonLd. */
 export function faqsForMarket<T extends FaqLike>(market: Market, faqs: T[]): T[] {
   if (isIndiaMarket(market)) return faqs;
   return faqs.map((faq) => {
-    if (FEE_COPY_RE.test(faq.q) || FEE_COPY_RE.test(faq.a)) {
-      return { ...faq, q: intlFeeQuestion(faq.q), a: INTL_FEE_COPY };
-    }
     if (/anywhere in India \(and abroad\)/i.test(faq.a)) {
       return { ...faq, a: faq.a.replace(/from anywhere in India \(and abroad\)/i, "from anywhere") };
     }

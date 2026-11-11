@@ -6,9 +6,10 @@ import { LearnerSpotlight, type SpotlightLearner } from "@/components/home/Learn
 import { HeroSyllabusMenu } from "@/components/home/HeroSyllabusMenu";
 import { LearnerVideoCard } from "@/components/home/LearnerVideoCard";
 import { AlumniOutcomes } from "@/components/home/AlumniOutcomes";
-import { EMI_NOTE, homeFaqs, homePrograms, learnerFeedback, learnerVideos } from "@/config/home";
-import { INTL_COURSE_FEE_LINE, intlProgramCards } from "@/config/intl-courses";
-import { INTL_FEE_COPY, faqsForJsonLd, faqsForMarket, feeOrIntl, isIndiaMarket } from "@/lib/geo";
+import { homeFaqs, homePrograms, learnerFeedback, learnerVideos } from "@/config/home";
+import { faqsWithProgramFees } from "@/config/fees";
+import { intlProgramCards } from "@/config/intl-courses";
+import { faqsForJsonLd, faqsForMarket, isIndiaMarket } from "@/lib/geo";
 import { brochureHrefForMarket } from "@/config/lead";
 import { getMarket } from "@/lib/geo-server";
 import { env, site } from "@/config/site";
@@ -117,7 +118,7 @@ const careerCallCta = "Not sure which program fits? Book a free 15-min career ca
 export default async function Home() {
   const market = await getMarket();
   const india = isIndiaMarket(market);
-  const faqs = faqsForMarket(market, homeFaqs);
+  const faqs = faqsForMarket(market, faqsWithProgramFees(market, homeFaqs));
   return (
     <div className="dmh-page">
       <section className="dmh-hero" aria-labelledby="home-hero-title">
@@ -130,7 +131,7 @@ export default async function Home() {
               <Link className="button primary dmh-apply" href="/programs" data-dm-lead data-cta="Home hero - Apply Now">Apply Now <ArrowRight size={18} /></Link>
               <HeroSyllabusMenu files={[...homePrograms, ...intlProgramCards].map((program) => ({ course: program.leadCourse, title: program.title, href: brochureHrefForMarket(program.brochure, market) }))} />
             </div>
-            <p className="dmh-proof"><span>{india ? "Live online classes" : "Live online, learn from anywhere"}</span><span>Real projects &amp; capstones</span><span>{india ? "Fees from ₹40,000 · EMI options" : INTL_FEE_COPY}</span></p>
+            <p className="dmh-proof"><span>{india ? "Live online classes" : "Live online, learn from anywhere"}</span><span>Real projects &amp; capstones</span><span>{india ? "EMI options available" : "Flexible instalments available"}</span></p>
           </div>
           <LearnerSpotlight learners={learnerProfiles} />
         </div>
@@ -193,11 +194,6 @@ export default async function Home() {
                   <ul className="dmh-prog-facts">{program.facts.map((fact) => <li key={fact}>{fact}</li>)}</ul>
                   <p className="dmh-prog-summary">{program.summary}</p>
                   <p className="dmh-prog-who"><b>Who it’s for:</b> {program.whoFor}</p>
-                  <div className="dmh-prog-fee">
-                    <span className="dmh-prog-fee-label">Program fee</span>
-                    <strong>{feeOrIntl(market, program.fee)}</strong>
-                    {india ? <small>{EMI_NOTE}</small> : null}
-                  </div>
                   <div className="dmh-prog-actions">
                     <a className="dmh-btn dmh-btn-solid" href={brochureHrefForMarket(program.brochure, market)} download data-course={program.leadCourse} data-cta={`Home program card - Download Syllabus - ${program.leadCourse}`}><ArrowDownToLine size={16} /> Download Syllabus</a>
                     <Link className="dmh-btn dmh-btn-line" href={`/programs/${program.slug}`}>{program.ctaLabel ?? "View Program"} <ArrowUpRight size={16} /></Link>
@@ -210,7 +206,7 @@ export default async function Home() {
             <div>
               <p className="dmh-kicker">More live courses</p>
               <h3 className="dmh-subhead">Additional part-time programs.</h3>
-              <p>Live, mentor-led courses with weekend and evening batches. {INTL_COURSE_FEE_LINE}</p>
+              <p>Live, mentor-led courses with weekend and evening batches.</p>
             </div>
           </div>
           <div className="dmh-prog-grid dmh-prog-grid-more">
@@ -225,10 +221,6 @@ export default async function Home() {
                   <ul className="dmh-prog-facts">{program.facts.map((fact) => <li key={fact}>{fact}</li>)}</ul>
                   <p className="dmh-prog-summary">{program.summary}</p>
                   <p className="dmh-prog-who"><b>Who it’s for:</b> {program.whoFor}</p>
-                  <div className="dmh-prog-fee">
-                    <span className="dmh-prog-fee-label">Program fee</span>
-                    <strong>{INTL_COURSE_FEE_LINE}</strong>
-                  </div>
                   <div className="dmh-prog-actions">
                     <a className="dmh-btn dmh-btn-solid" href={brochureHrefForMarket(program.brochure, market)} download data-course={program.leadCourse} data-cta={`Home program card - Download Syllabus - ${program.leadCourse}`}><ArrowDownToLine size={16} /> Download Syllabus</a>
                     <Link className="dmh-btn dmh-btn-line" href={`/programs/${program.slug}`}>View Program <ArrowUpRight size={16} /></Link>
@@ -332,7 +324,7 @@ export default async function Home() {
       </section>
 
       <section className="dmh-section dmh-faq-section" id="faq" aria-labelledby="home-faq-title">
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchemaFor(faqsForJsonLd(homeFaqs))) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchemaFor(faqsForJsonLd(faqsWithProgramFees("in", homeFaqs)))) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
         <div className="container dmh-faq-grid">
           <div>
@@ -363,7 +355,7 @@ export default async function Home() {
             <a className="dmh-btn dmh-btn-wa" href={env.whatsappUrl} target="_blank" rel="noreferrer"><MessageCircle size={18} /> Chat on WhatsApp</a>
           </div>
           <ul className="dmh-final-points">
-            <li><Check size={15} /> {india ? "Live online" : "Live online, learn from anywhere"}</li><li><Check size={15} /> Real projects</li><li><Check size={15} /> {india ? "EMI options available" : INTL_FEE_COPY}</li><li><Check size={15} /> <Link href="/refund-policy">7-day refund policy</Link></li>
+            <li><Check size={15} /> {india ? "Live online" : "Live online, learn from anywhere"}</li><li><Check size={15} /> Real projects</li><li><Check size={15} /> {india ? "EMI options available" : "Flexible instalments available"}</li><li><Check size={15} /> <Link href="/refund-policy">7-day refund policy</Link></li>
           </ul>
         </div>
       </section>

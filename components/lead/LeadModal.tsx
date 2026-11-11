@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
-import { INTL_FEE_COPY, isIndiaMarket } from "@/lib/geo";
 import { useMarket } from "@/components/MarketProvider";
 import { ALL_LEAD_COURSES, LEAD_NOT_SURE, brochureForCourse, brochureHrefForMarket, courseForBrochure, courseForPath, courseLabel } from "@/config/lead";
 import { env } from "@/config/site";
@@ -29,7 +28,7 @@ import { leadFormStyles, leadModalStyles } from "./leadStyles";
  */
 
 type Mode = "lead" | "download";
-type OpenOptions = { course?: string; cta?: string; title?: string; mode?: Mode; file?: string };
+type OpenOptions = { course?: string; cta?: string; title?: string; mode?: Mode; file?: string; intent?: string };
 
 const DOWNLOAD_SELECTOR = "[data-dm-download], a[href*='/brochures/'], a[href$='.pdf' i]";
 
@@ -67,9 +66,8 @@ const LOGO = (
 export function LeadModal() {
   const pathname = usePathname();
   const market = useMarket();
-  const india = isIndiaMarket(market);
   const [open, setOpen] = useState(false);
-  const [session, setSession] = useState({ key: 0, course: "", cta: "Popup", title: "", mode: "lead" as Mode, file: "", unlocked: false });
+  const [session, setSession] = useState({ key: 0, course: "", cta: "Popup", title: "", mode: "lead" as Mode, file: "", unlocked: false, intent: "" });
   const [succeeded, setSucceeded] = useState(false);
   const prevOverflow = useRef("");
 
@@ -88,7 +86,7 @@ export function LeadModal() {
       trackEvent("resource_download", { course, cta, gated: "remembered" });
       return;
     }
-    setSession((prev) => ({ key: prev.key + 1, course, cta, title: options.title || "", mode, file, unlocked }));
+    setSession((prev) => ({ key: prev.key + 1, course, cta, title: options.title || "", mode, file, unlocked, intent: options.intent || "" }));
     setSucceeded(false);
     prevOverflow.current = document.documentElement.style.overflow;
     document.documentElement.style.overflow = "hidden";
@@ -155,9 +153,7 @@ export function LeadModal() {
   const heading = session.title || (isDownload ? "Get the syllabus" : isApply ? "Apply for the program" : "Talk to a program advisor");
   const subtitle = isDownload
     ? session.unlocked ? "Welcome back. Pick a program to download its syllabus." : "Share your details and the syllabus downloads instantly. Our team can also help with fees and batch dates."
-    : (india
-      ? "Share your details and our team will call you to help you pick the right program, batch and fee plan."
-      : `Share your details and our team will call you to help you pick the right program and batch. ${INTL_FEE_COPY}.`);
+    : "Share your details and our team will call you to help you pick the right program, batch and fee plan.";
   // A specific file (or a course on a program page) locks the course; otherwise show the picker.
   const lockCourse = isDownload && Boolean(session.file && session.course);
   const downloadCta = (course: string) => `Download Syllabus - ${course || "Not selected"}`;
@@ -211,6 +207,7 @@ export function LeadModal() {
                 key={session.key}
                 course={session.course}
                 cta={session.cta}
+                intent={session.intent}
                 submitLabel={isApply ? "Submit Application" : "Request a Call Back"}
                 formId={isApply ? "lead_modal_apply" : "lead_modal_callback"}
                 autoFocus

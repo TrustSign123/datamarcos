@@ -2,7 +2,8 @@ import type React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowDownToLine, ArrowRight, ArrowUpRight, Award, BadgeCheck, Bot, CalendarClock, Check, Linkedin, Minus, PlayCircle, Rocket, ShieldCheck, Sparkles, UsersRound, Wrench, X, Zap, RotateCcw } from "lucide-react";
-import { ProgramFee } from "@/components/program/ProgramFee";
+import { FeesEnrolment } from "@/components/program/FeesEnrolment";
+import { ViewFeesLink } from "@/components/program/ViewFeesLink";
 import { YouTubeFacade } from "@/components/YouTubeFacade";
 import { InlineLeadForm } from "@/components/lead/InlineLeadForm";
 import { GatedBrochureFrame } from "@/components/lead/GatedBrochureFrame";
@@ -16,7 +17,8 @@ import {
   appliedPrereqs, appliedProjects, appliedRoles, appliedShifts, appliedToolGroups, appliedWhy, type AppliedFaq
 } from "@/config/applied";
 import { site } from "@/config/site";
-import { INTL_FEE_COPY, faqsForJsonLd, faqsForMarket, isIndiaMarket } from "@/lib/geo";
+import { APPLY_FEE_INTRO, faqsWithProgramFees } from "@/config/fees";
+import { faqsForJsonLd, faqsForMarket, isIndiaMarket } from "@/lib/geo";
 import { brochureHrefForMarket } from "@/config/lead";
 import { getMarket } from "@/lib/geo-server";
 import { pageMetadata } from "@/lib/seo";
@@ -39,6 +41,7 @@ const nav: FdeNavItem[] = [
   { id: "mentor", label: "Mentor" },
   { id: "learners", label: "Learners" },
   { id: "compare", label: "Compare" },
+  { id: "fees", label: "Fees" },
   { id: "faq", label: "FAQ" }
 ];
 
@@ -119,11 +122,11 @@ function Head({ eyebrow, title, body, id }: { eyebrow: string; title: React.Reac
 export default async function AppliedAgenticAICertificationPage() {
   const market = await getMarket();
   const india = isIndiaMarket(market);
-  const faqs = faqsForMarket(market, appliedFaqs);
+  const faqs = faqsForMarket(market, faqsWithProgramFees(market, appliedFaqs, "applied-agentic-ai-certification"));
   const successLinks = [{ label: "Download the brochure", href: brochureHrefForMarket(APPLIED_BROCHURE, market), download: true }];
   return (
     <article className="fde-page fx fx-applied">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFor(faqsForJsonLd(appliedFaqs))) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFor(faqsForJsonLd(faqsWithProgramFees("in", appliedFaqs, "applied-agentic-ai-certification")))) }} />
 
       {/* HERO */}
       <section className="fx-hero" id="top" aria-labelledby="fx-title">
@@ -149,7 +152,7 @@ export default async function AppliedAgenticAICertificationPage() {
               <Cta label="Talk to a counsellor" cta="Applied hero (counsellor)" />
               <Syllabus cta="Applied hero (syllabus)" variant="light" />
             </div>
-            <ProgramFee slug="applied-agentic-ai-certification" />
+            <ViewFeesLink />
             <p className="fx-hero-note"><CalendarClock size={15} aria-hidden="true" /> Small-batch live cohorts</p>
           </div>
           <figure className="fx-hero-media">
@@ -375,6 +378,8 @@ export default async function AppliedAgenticAICertificationPage() {
         </div>
       </section>
 
+      <FeesEnrolment slug="applied-agentic-ai-certification" />
+
       {/* FAQ */}
       <section className="fx-section fx-paper" id="faq" aria-labelledby="fx-faq-title">
         <div className="fx-wrap fx-faq">
@@ -430,7 +435,7 @@ export default async function AppliedAgenticAICertificationPage() {
             cta="Applied inline form (apply section)"
             eyebrow={APPLIED_TITLE}
             title="Request a call back."
-            intro={india ? "EMI options available, talk to a counsellor." : INTL_FEE_COPY}
+            intro={APPLY_FEE_INTRO}
             submitLabel="Request my call"
             trust={["8 weeks", "Live & mentor-led", "No prior AI needed"]}
             successTitle="Thanks{first}! Request received."

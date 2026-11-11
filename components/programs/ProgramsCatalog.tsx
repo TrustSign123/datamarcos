@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { programs } from "@/config/programs";
-import { INTL_COURSE_FEE_LINE, intlProgramCards } from "@/config/intl-courses";
+import { intlProgramCards } from "@/config/intl-courses";
 
 // Current course pages only. Legacy slugs in config/programs.ts are 301-redirected (next.config.ts) and dormant FDE
 // slugs redirect to the single FDE page, so they are not listed (SEO pass 2026-10-26).
@@ -73,7 +73,7 @@ export function ProgramsCatalog() {
           {visibleNew.length > 0 && (
             <div className="intl-catalog">
               <h2>More live courses</h2>
-              <p>Part-time, mentor-led and live online. {INTL_COURSE_FEE_LINE}</p>
+              <p>Part-time, mentor-led and live online.</p>
               <div className="grid three">
                 {visibleNew.map((course) => (
                   <article className="card" key={course.slug}>
@@ -83,7 +83,6 @@ export function ProgramsCatalog() {
                     <p><strong>Duration:</strong> {course.facts[0]} · {course.facts[1]}</p>
                     <p><strong>Format:</strong> Part-time, live online</p>
                     <p><strong>Who it&apos;s for:</strong> {course.whoFor}</p>
-                    <p><strong>Program fee:</strong> {INTL_COURSE_FEE_LINE}</p>
                     <Link className="button primary" href={`/programs/${course.slug}`}>View Program</Link>
                   </article>
                 ))}
