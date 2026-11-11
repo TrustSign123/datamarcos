@@ -5,6 +5,11 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true
   },
+  // Dynamic geo (root layout force-dynamic) turns on Next.js streaming metadata.
+  // By default that puts <title>, description and canonical in <body> for Googlebot
+  // and normal browsers (only htmlLimitedBots such as Bingbot and Chrome-Lighthouse
+  // get them in <head>). Match every UA so metadata always renders in <head>.
+  htmlLimitedBots: /.*/,
   // Dormant FDE pages: source files stay in the repo, visitors go to the single FDE page.
   async redirects() {
     const fde = ["/programs/forward-deployed-engineer", "/programs/forward-deployed-engineering"].map((source) => ({
