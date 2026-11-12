@@ -6,6 +6,8 @@
  * local development and any edge that omits the header keep today's copy.
  */
 export const GEO_COOKIE = "dm-country";
+/** ISO country from x-vercel-ip-country, for client phone defaults. Not an override. */
+export const GEO_IP_COOKIE = "dm-ip-country";
 export const MARKET_HEADER = "x-dm-market";
 export const MARKET_QUERY = "__m";
 

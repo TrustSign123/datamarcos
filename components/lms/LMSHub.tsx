@@ -6,6 +6,8 @@ import type { User } from "@supabase/supabase-js";
 import { ArrowRight, Clock, ExternalLink, FileText, LockKeyhole, LogOut, Mail, Plus, Save, Search, ShieldCheck, Sparkles, UserRoundCog, UsersRound } from "lucide-react";
 import { adminNav, classes, externalLabel, getCourse, lmsCourses, lmsNav, modules, quizzes, recordings, resources } from "@/lib/lms-data";
 import { supabase, type LmsCourseRecord, type LmsEnrollmentRecord, type Profile } from "@/lib/supabase";
+import { PhoneField } from "@/components/phone/PhoneField";
+import { toE164 } from "@/lib/phone";
 
 type LMSHubProps = { path: string };
 type Message = { type: "success" | "error" | "info"; text: string } | null;
@@ -131,7 +133,8 @@ function AuthCard({ kind }: { kind: "login" | "register" | "activate" | "forgot"
       }
     }
     if (kind === "register") {
-      const result = await supabase.auth.signUp({ email, password, options: { data: { full_name: fullName, pending_enrollment_code: code } } });
+      const phone = toE164(String(formData.get("phone") || "")) || "";
+      const result = await supabase.auth.signUp({ email, password, options: { data: { full_name: fullName, pending_enrollment_code: code, ...(phone ? { phone } : {}) } } });
       error = result.error;
       if (!error) {
         if (code) localStorage.setItem("datamarcos_pending_code", code);
@@ -180,7 +183,7 @@ function AuthCard({ kind }: { kind: "login" | "register" | "activate" | "forgot"
           {kind !== "reset" && kind !== "activate" ? <div className="field"><label>Email</label><input name="email" type="email" placeholder="student@example.com" required /></div> : null}
           {kind === "login" || isRegister || kind === "reset" ? <div className="field"><label>Password</label><input name="password" type="password" placeholder="Password" required /></div> : null}
           {isActivate || isRegister ? <div className="field"><label>Enrollment Code</label><input name="code" defaultValue={pendingCode} placeholder="DM-GENAI-8F42K" required={isActivate} /></div> : null}
-          {isRegister ? <div className="grid two"><div className="field"><label>Phone</label><input name="phone" placeholder="Optional" /></div><div className="field"><label>Country</label><input name="country" placeholder="Optional" /></div></div> : null}
+          {isRegister ? <div className="grid two"><div className="field"><label htmlFor="lms-register-phone">Phone</label><PhoneField id="lms-register-phone" name="phone" required={false} placeholder="Optional" /></div><div className="field"><label>Country</label><input name="country" placeholder="Optional" /></div></div> : null}
           <button className="button primary" disabled={busy} type="submit">{busy ? "Please wait..." : kind === "login" ? "Sign In" : kind === "forgot" ? "Send Reset Link" : kind === "reset" ? "Update Password" : "Continue"}</button>
           {kind === "login" || isRegister ? <div className="lms-divider">OR</div> : null}
           {kind === "login" || isRegister ? <button className="button secondary" type="button" onClick={googleSignIn}><Mail size={18} /> Continue with Google</button> : null}

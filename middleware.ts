@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { GEO_COOKIE, MARKET_HEADER, MARKET_QUERY, parseCountryCode, resolveMarket } from "@/lib/geo";
+import { GEO_COOKIE, GEO_IP_COOKIE, MARKET_HEADER, MARKET_QUERY, parseCountryCode, resolveMarket, type Market } from "@/lib/geo";
 
 /**
  * Cache-safe geo variants:
@@ -16,6 +16,20 @@ import { GEO_COOKIE, MARKET_HEADER, MARKET_QUERY, parseCountryCode, resolveMarke
  * rewritten to /brochures/intl/*.pdf (fee-free copies) so a leftover India
  * href still serves the right file after the lead-form gate.
  */
+
+function withGeoHeaders(response: NextResponse, request: NextRequest, market: Market, ipCountry: string | null) {
+  response.headers.set("Vary", "x-vercel-ip-country, Cookie");
+  response.headers.set(MARKET_HEADER, market);
+  if (ipCountry) {
+    response.cookies.set(GEO_IP_COOKIE, ipCountry, {
+      path: "/",
+      sameSite: "lax",
+      secure: request.nextUrl.protocol === "https:"
+    });
+  }
+  return response;
+}
+
 export function middleware(request: NextRequest) {
   const incoming = request.nextUrl;
   const countryParam = incoming.searchParams.get("country");
@@ -23,9 +37,10 @@ export function middleware(request: NextRequest) {
   const queryCountry = parseCountryCode(countryParam);
   const cookieCountry = parseCountryCode(request.cookies.get(GEO_COOKIE)?.value);
 
+  const ipCountry = parseCountryCode(request.headers.get("x-vercel-ip-country"));
   const market = resolveMarket({
     overrideCountry: clearOverride ? null : queryCountry || cookieCountry,
-    vercelCountry: request.headers.get("x-vercel-ip-country")
+    vercelCountry: ipCountry
   });
 
   // Persist or clear the manual override, then drop ?country= from the URL.
@@ -43,9 +58,7 @@ export function middleware(request: NextRequest) {
     } else {
       redirect.cookies.delete(GEO_COOKIE);
     }
-    redirect.headers.set("Vary", "x-vercel-ip-country, Cookie");
-    redirect.headers.set(MARKET_HEADER, market);
-    return redirect;
+    return withGeoHeaders(redirect, request, market, ipCountry);
   }
 
   const requestHeaders = new Headers(request.headers);
@@ -61,8 +74,7 @@ export function middleware(request: NextRequest) {
     const response = rewritten
       ? NextResponse.rewrite(rewriteUrl, { request: { headers: requestHeaders } })
       : NextResponse.next({ request: { headers: requestHeaders } });
-    response.headers.set("Vary", "x-vercel-ip-country, Cookie");
-    response.headers.set(MARKET_HEADER, market);
+    withGeoHeaders(response, request, market, ipCountry);
     // The public /brochures/*.pdf URL can serve India or intl bytes.
     if (rewritten) response.headers.set("Cache-Control", "private, no-store");
     return response;
@@ -71,9 +83,7 @@ export function middleware(request: NextRequest) {
   const rewriteUrl = incoming.clone();
   rewriteUrl.searchParams.set(MARKET_QUERY, market);
   const response = NextResponse.rewrite(rewriteUrl, { request: { headers: requestHeaders } });
-  response.headers.set("Vary", "x-vercel-ip-country, Cookie");
-  response.headers.set(MARKET_HEADER, market);
-  return response;
+  return withGeoHeaders(response, request, market, ipCountry);
 }
 
 export const config = {

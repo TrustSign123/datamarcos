@@ -4,6 +4,8 @@ import { FormEvent, type ReactNode, useRef, useState } from "react";
 import { ALL_LEAD_COURSES, LEAD_NOT_SURE, courseLabel, leadEndpoint } from "@/config/lead";
 import { env, site } from "@/config/site";
 import { gaEvent, readAttribution, trackEvent } from "@/lib/analytics";
+import { PhoneField } from "@/components/phone/PhoneField";
+import { PHONE_ERROR, isValidInternationalPhone } from "@/lib/phone";
 import { rememberLeadUnlock } from "./leadUnlock";
 
 /**
@@ -43,11 +45,6 @@ export type LeadFormProps = {
 export type LeadSuccess = { name: string; course: string };
 export type SuccessLink = { label: string; href: string; download?: boolean; primary?: boolean };
 
-const COUNTRY_CODES = [
-  ["+91", "🇮🇳 +91"], ["+1", "🇺🇸 +1"], ["+44", "🇬🇧 +44"], ["+971", "🇦🇪 +971"],
-  ["+65", "🇸🇬 +65"], ["+61", "🇦🇺 +61"], ["+966", "🇸🇦 +966"], ["+49", "🇩🇪 +49"]
-] as const;
-
 const NOT_CONNECTED = `Our enquiry form is being set up. Please WhatsApp us at ${site.phone} or email ${site.email} and we'll call you back.`;
 const GENERIC_ERROR = `We couldn't submit right now. Please try again, or WhatsApp us at ${site.phone}.`;
 const DEFAULT_TRUST = ["18+ years experience", "25,000+ professionals trained", "200+ clients"];
@@ -79,13 +76,11 @@ export function LeadForm({
 
     const name = String(data.get("name") || "").trim();
     const email = String(data.get("email") || "").trim();
-    const cc = String(data.get("cc") || "+91");
-    let phone = String(data.get("phone") || "").replace(/\D/g, "");
-    if (cc === "+91" && phone.length === 11 && phone.startsWith("0")) phone = phone.slice(1);
+    const phone = String(data.get("phone") || "").trim();
     const next: FieldErrors = {
       name: !(name.length >= 2 && /[a-zA-Z\u0900-\u097F]/.test(name)),
       email: !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email),
-      phone: cc === "+91" ? !/^[6-9]\d{9}$/.test(phone) : phone.length < 6 || phone.length > 13,
+      phone: !isValidInternationalPhone(phone),
       course: !course,
       consent: data.get("consent") !== "on"
     };
@@ -102,7 +97,7 @@ export function LeadForm({
         method: "POST",
         headers: { "Content-Type": "text/plain;charset=utf-8" },
         body: JSON.stringify({
-          name, email, phone: cc + phone, course, cta: ctaLabel,
+          name, email, phone, course, cta: ctaLabel,
           intent: intent || "",
           page: window.location.href,
           utm_source: attribution.utm_source || "",
@@ -168,14 +163,8 @@ export function LeadForm({
         </div>
         <div className="row">
           {field("phone", "Phone number", (
-            <div className="phone">
-              <select name="cc" aria-label="Country code" defaultValue="+91">
-                {COUNTRY_CODES.map(([value, label]) => <option key={value} value={value}>{label}</option>)}
-              </select>
-              <input id={id("phone")} name="phone" type="tel" inputMode="numeric" autoComplete="tel-national" placeholder="10-digit mobile" maxLength={14}
-                onInput={(event) => { event.currentTarget.value = event.currentTarget.value.replace(/\D/g, "").slice(0, 14); clear("phone"); }} />
-            </div>
-          ), "Please enter a valid 10-digit mobile number.")}
+            <PhoneField id={id("phone")} name="phone" onValueChange={() => clear("phone")} />
+          ), PHONE_ERROR)}
           {lockCourse && course ? (
             <div className="f"><label>Program</label><div className="program"><b>{courseLabel(course)}</b></div></div>
           ) : field("course", "Course interested in", (

@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.112.4",
+    "libphonenumber-js": "^1.13.16",
     "lucide-react": "0.468.0",
     "next": "15.5.24",
     "react": "19.0.0",
