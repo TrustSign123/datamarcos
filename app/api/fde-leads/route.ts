@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { PHONE_ERROR, isValidInternationalPhone, toE164 } from "@/lib/phone";
 
 type FDELead = {
   programId?: string;
@@ -55,6 +56,10 @@ export async function POST(request: Request) {
   if (lead.consent !== "yes" || requiredFields.some((field) => typeof lead[field] !== "string" || !lead[field]?.trim())) {
     return NextResponse.json({ error: "Complete every required field and agree to follow-up." }, { status: 400 });
   }
+  const phone = toE164(lead.phone!.trim());
+  if (!phone || !isValidInternationalPhone(phone)) {
+    return NextResponse.json({ error: PHONE_ERROR }, { status: 400 });
+  }
 
   const webhookUrl = process.env.FDE_GOOGLE_SHEETS_WEBHOOK_URL;
   const sharedToken = process.env.FDE_GOOGLE_SHEETS_SHARED_TOKEN;
@@ -68,7 +73,7 @@ export async function POST(request: Request) {
     programName: program.name,
     fullName: lead.fullName!.trim(),
     email: lead.email!.trim(),
-    phone: lead.phone!.trim(),
+    phone,
     degree: lead.degree!.trim(),
     graduationYear: lead.graduationYear!.trim(),
     designation: lead.designation!.trim(),

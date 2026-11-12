@@ -5979,6 +5979,60 @@ button.dmx-icon { padding: 0; background: none; font: inherit; cursor: pointer; 
 .dm-fees-modal input, .dm-fees-modal select { width: 100%; padding: 10px 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,.14); background: #12151c; color: #f4f1ea; font: inherit; }
 .dm-fees-phone { display: flex; gap: 8px; }
 .dm-fees-phone select { width: 118px; flex: 0 0 118px; }
+.dm-fees-phone-field { display: grid; gap: 6px; }
+.dm-fees-modal .dm-phone-cc,
+.dm-fees-modal .dm-phone-num,
+.dm-fees-modal .dm-phone-search {
+  height: auto;
+  min-height: 42px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: #12151c;
+  color: #f4f1ea;
+  border-radius: 12px;
+  box-shadow: none;
+}
+.dm-fees-modal .dm-phone-cc:focus,
+.dm-fees-modal .dm-phone-num:focus,
+.dm-fees-modal .dm-phone-search:focus {
+  border-color: #ff7043;
+  box-shadow: 0 0 0 3px rgba(255,112,67,.25);
+}
+.dm-fees-modal .dm-phone-panel {
+  background: #1a1e27;
+  color: #f4f1ea;
+  border-color: rgba(255,255,255,.14);
+}
+.dm-fees-modal .dm-phone-option:hover,
+.dm-fees-modal .dm-phone-option[data-active="true"] { background: rgba(255,255,255,.08); }
+.dm-fees-modal .dm-phone-option span,
+.dm-fees-modal .dm-phone-empty { color: rgba(244,241,234,.65); }
+.dm-fees-modal .dm-phone-pin { border-color: rgba(255,255,255,.12); }
+.field .dm-phone-cc,
+.field .dm-phone-num {
+  height: auto;
+  min-height: 46px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+}
+.fde-form-field .dm-phone-cc,
+.fde-form-field .dm-phone-num {
+  height: auto;
+  min-height: 43px;
+  padding-top: 0;
+  padding-bottom: 0;
+  border: 1px solid #e4d9ce;
+  border-radius: 6px;
+  background: #fffdfa;
+  font-size: .83rem;
+  box-shadow: none;
+}
+.fde-form-field .dm-phone-cc:focus,
+.fde-form-field .dm-phone-num:focus {
+  outline: 2px solid rgba(245, 103, 25, .3);
+  border-color: var(--fde2-orange);
+  box-shadow: none;
+}
 .dm-fees-error { margin: 0; color: #ff8a8a; font-size: .88rem; }
 .dm-fees-close { position: absolute; top: 12px; right: 14px; border: 0; background: none; color: #f4f1ea; font-size: 1.6rem; line-height: 1; cursor: pointer; }
 .dm-view-fees { margin: 16px 0 0; }

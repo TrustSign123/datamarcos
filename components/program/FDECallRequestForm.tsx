@@ -4,6 +4,8 @@ import { FormEvent, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { readAttribution, gaEvent, trackEvent } from "@/lib/analytics";
 import { NEXT_COHORT_LONG } from "@/config/cohort";
+import { PhoneField } from "@/components/phone/PhoneField";
+import { PHONE_ERROR, isValidInternationalPhone, toE164 } from "@/lib/phone";
 
 type FormState = "idle" | "loading" | "success" | "error";
 
@@ -25,6 +27,13 @@ export function FDECallRequestForm({
     setErrorMessage("");
     const form = event.currentTarget;
     const fields = Object.fromEntries(Array.from(new FormData(form), ([key, value]) => [key, String(value)]));
+    const phone = toE164(fields.phone || "");
+    if (!phone || !isValidInternationalPhone(phone)) {
+      setErrorMessage(PHONE_ERROR);
+      setState("error");
+      return;
+    }
+    fields.phone = phone;
     trackEvent("application_start", { programId, programSlug });
 
     try {
@@ -51,7 +60,7 @@ export function FDECallRequestForm({
       <div className="fde-form-grid">
         <div className="fde-form-field"><label htmlFor="fde-lead-name">Full name</label><input id="fde-lead-name" name="fullName" autoComplete="name" required placeholder="Your name" /></div>
         <div className="fde-form-field"><label htmlFor="fde-lead-email">Email</label><input id="fde-lead-email" name="email" type="email" autoComplete="email" required placeholder="you@company.com" /></div>
-        <div className="fde-form-field"><label htmlFor="fde-lead-phone">Phone number</label><input id="fde-lead-phone" name="phone" type="tel" autoComplete="tel" required placeholder="+91 00000 00000" /></div>
+        <div className="fde-form-field"><label htmlFor="fde-lead-phone">Phone number</label><PhoneField id="fde-lead-phone" name="phone" required /></div>
         <div className="fde-form-field"><label htmlFor="fde-lead-degree">Degree</label><input id="fde-lead-degree" name="degree" required placeholder="B.Tech, BCA, MSc..." /></div>
         <div className="fde-form-field"><label htmlFor="fde-lead-year">Graduation year</label><input id="fde-lead-year" name="graduationYear" inputMode="numeric" required placeholder="2022" /></div>
         <div className="fde-form-field"><label htmlFor="fde-lead-designation">Current designation</label><input id="fde-lead-designation" name="designation" required placeholder="Software Engineer" /></div>

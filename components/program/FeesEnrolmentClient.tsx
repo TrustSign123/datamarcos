@@ -5,6 +5,8 @@ import { FormEvent, useMemo, useState } from "react";
 import { ArrowRight, CalendarClock, RotateCcw, Wallet, Bookmark } from "lucide-react";
 import { FEES_SECTION_ID, paymentIntentLabel, type FeeQuote, type PaymentType } from "@/config/fees";
 import { NEXT_COHORT_LONG } from "@/config/cohort";
+import { PhoneField } from "@/components/phone/PhoneField";
+import { PHONE_ERROR, isValidInternationalPhone } from "@/lib/phone";
 
 type RazorpaySuccess = {
   razorpay_order_id: string;
@@ -14,11 +16,6 @@ type RazorpaySuccess = {
 
 type RazorpayInstance = { open: () => void };
 type RazorpayCtor = new (options: Record<string, unknown>) => RazorpayInstance;
-
-const COUNTRY_CODES = [
-  ["+91", "🇮🇳 +91"], ["+1", "🇺🇸 +1"], ["+44", "🇬🇧 +44"], ["+971", "🇦🇪 +971"],
-  ["+65", "🇸🇬 +65"], ["+61", "🇦🇺 +61"], ["+966", "🇸🇦 +966"], ["+49", "🇩🇪 +49"]
-] as const;
 
 function loadCheckout(): Promise<RazorpayCtor> {
   const existing = (window as Window & { Razorpay?: RazorpayCtor }).Razorpay;
@@ -85,18 +82,17 @@ export function FeesEnrolmentClient({ quote, paymentsEnabled }: { quote: FeeQuot
     const data = new FormData(event.currentTarget);
     const name = String(data.get("name") || "").trim();
     const email = String(data.get("email") || "").trim();
-    const cc = String(data.get("cc") || "+91");
-    let phone = String(data.get("phone") || "").replace(/\D/g, "");
-    if (cc === "+91" && phone.length === 11 && phone.startsWith("0")) phone = phone.slice(1);
+    const phone = String(data.get("phone") || "").trim();
     if (name.length < 2 || !/[a-zA-Z\u0900-\u097F]/.test(name) || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
       setError("Please enter your name and a valid email address.");
       return;
     }
-    if (cc === "+91" ? !/^[6-9]\d{9}$/.test(phone) : phone.length < 6 || phone.length > 13) {
-      setError("Please enter a valid phone number.");
+    if (!isValidInternationalPhone(phone)) {
+      setError(PHONE_ERROR);
       return;
     }
-    const contact = cc + phone;
+    const contact = phone;
+
     setBusy(true);
     try {
       const orderRes = await fetch("/api/payments/order", {
@@ -241,15 +237,12 @@ export function FeesEnrolmentClient({ quote, paymentsEnabled }: { quote: FeeQuot
                 Email <span aria-hidden="true">*</span>
                 <input name="email" type="email" autoComplete="email" required maxLength={150} placeholder="you@example.com" />
               </label>
-              <label>
-                Phone number <span aria-hidden="true">*</span>
-                <span className="dm-fees-phone">
-                  <select name="cc" aria-label="Country code" defaultValue={quote.india ? "+91" : "+1"}>
-                    {COUNTRY_CODES.map(([value, label]) => <option key={value} value={value}>{label}</option>)}
-                  </select>
-                  <input name="phone" type="tel" inputMode="numeric" autoComplete="tel-national" required maxLength={14} placeholder="Mobile number" />
-                </span>
-              </label>
+              <div className="dm-fees-phone-field">
+                <label htmlFor="dm-pay-phone">
+                  Phone number <span aria-hidden="true">*</span>
+                </label>
+                <PhoneField id="dm-pay-phone" name="phone" required />
+              </div>
               {error && <p className="dm-fees-error" role="alert">{error}</p>}
               <button type="submit" className="dm-fees-btn dm-fees-btn-primary" disabled={busy}>
                 {busy ? "Starting checkout…" : payLabel}

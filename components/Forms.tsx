@@ -3,6 +3,8 @@
 import { FormEvent, useState } from "react";
 import { env } from "@/config/site";
 import { readAttribution, gaEvent, trackEvent } from "@/lib/analytics";
+import { PhoneField } from "@/components/phone/PhoneField";
+import { PHONE_ERROR, isValidInternationalPhone, toE164 } from "@/lib/phone";
 
 type FormState = "idle" | "loading" | "success" | "error";
 
@@ -86,9 +88,13 @@ export function TrainerApplicationForm() {
   return (
     <form className="form card">
       <div className="grid two">
-        {["Name", "Email", "Phone", "Country", "Primary Expertise", "Years Experience", "Current Role", "LinkedIn", "Resume", "Availability", "Preferred Delivery", "Hourly / Program Rate"].map((label) => (
+        {["Name", "Email", "Country", "Primary Expertise", "Years Experience", "Current Role", "LinkedIn", "Resume", "Availability", "Preferred Delivery", "Hourly / Program Rate"].map((label) => (
           <TextField key={label} label={label} name={label.toLowerCase().replace(/[^a-z0-9]+/g, "-")} required={label !== "Resume"} />
         ))}
+        <div className="field">
+          <label htmlFor="trainer-phone">Phone</label>
+          <PhoneField id="trainer-phone" name="phone" required />
+        </div>
       </div>
       <div className="field"><label htmlFor="bio">Bio</label><textarea id="bio" name="bio" /></div>
       <button className="button primary" type="button" onClick={() => trackEvent("trainer_application")}>Submit Trainer Profile</button>
@@ -126,12 +132,21 @@ export function ProfessionalApplicationForm() {
 
 export function ProgramApplicationForm({ programId, programSlug }: { programId: string; programSlug: string }) {
   const [state, setState] = useState<FormState>("idle");
+  const [errorMessage, setErrorMessage] = useState("");
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setErrorMessage("");
     setState("loading");
     const form = event.currentTarget;
     const data = new FormData(form);
+    const phone = toE164(String(data.get("phone") || ""));
+    if (!phone || !isValidInternationalPhone(phone)) {
+      setErrorMessage(PHONE_ERROR);
+      setState("error");
+      return;
+    }
+    data.set("phone", phone);
     data.set("programId", programId);
     data.set("programSlug", programSlug);
     data.set("attribution", JSON.stringify(readAttribution()));
@@ -143,6 +158,7 @@ export function ProgramApplicationForm({ programId, programSlug }: { programId: 
       gaEvent("generate_lead", { form_id: "program_application", course: programSlug });
       form.reset();
     } catch {
+      setErrorMessage("");
       setState("error");
     }
   }
@@ -152,7 +168,10 @@ export function ProgramApplicationForm({ programId, programSlug }: { programId: 
       <div className="grid two">
         <TextField label="Full Name" name="fullName" placeholder="Your full name" />
         <TextField label="Email" name="email" type="email" placeholder="you@example.com" />
-        <TextField label="Phone / WhatsApp" name="phone" type="tel" placeholder="+1 555 000 0000" />
+        <div className="field">
+          <label htmlFor="program-apply-phone">Phone / WhatsApp</label>
+          <PhoneField id="program-apply-phone" name="phone" required />
+        </div>
         <TextField label="Country" name="country" placeholder="Country" />
         <TextField label="Current Role" name="currentRole" placeholder="Data Engineer, Software Engineer..." />
         <TextField label="Years of Experience" name="yearsExperience" placeholder="3 years" />
@@ -170,7 +189,7 @@ export function ProgramApplicationForm({ programId, programSlug }: { programId: 
       </div>
       <button className="button primary" type="submit" disabled={state === "loading"}>{state === "loading" ? "Submitting..." : "Submit Application"}</button>
       {state === "success" && <p role="status">Thanks. Your application has been captured for follow-up.</p>}
-      {state === "error" && <p role="alert">The application endpoint is not configured. Please contact Datamarcos directly.</p>}
+      {state === "error" && <p role="alert">{errorMessage || "The application endpoint is not configured. Please contact Datamarcos directly."}</p>}
     </form>
   );
 }

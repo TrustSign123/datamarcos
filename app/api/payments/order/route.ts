@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createProgramOrder } from "@/lib/razorpay-server";
 import { getMarket } from "@/lib/geo-server";
+import { isValidInternationalPhone, toE164 } from "@/lib/phone";
 
 function validName(value: string) {
   return value.length >= 2 && /[a-zA-Z\u0900-\u097F]/.test(value);
@@ -11,8 +12,7 @@ function validEmail(value: string) {
 }
 
 function validPhone(value: string) {
-  const phone = value.replace(/[^\d+]/g, "");
-  return phone.length >= 8 && phone.length <= 16;
+  return isValidInternationalPhone(value);
 }
 
 export async function POST(request: Request) {
@@ -25,7 +25,7 @@ export async function POST(request: Request) {
 
   const name = String(body.name || "").trim();
   const email = String(body.email || "").trim();
-  const phone = String(body.phone || "").trim();
+  const phone = toE164(String(body.phone || "").trim()) || "";
   if (!validName(name) || !validEmail(email) || !validPhone(phone)) {
     return NextResponse.json({ error: "Please enter your name, email and a valid phone number." }, { status: 400 });
   }
