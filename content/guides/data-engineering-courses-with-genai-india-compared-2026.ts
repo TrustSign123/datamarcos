@@ -39,6 +39,10 @@ export const guide: Guide = {
       ]
     },
     {
+      "type": "p",
+      "text": "For a step-by-step learning path rather than a course comparison, see the [data engineering roadmap](/guides/data-engineering-roadmap)."
+    },
+    {
       "type": "h2",
       "id": "side-by-side-comparison",
       "text": "Side-by-side comparison"

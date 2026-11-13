@@ -229,7 +229,7 @@ export const guide: Guide = {
     },
     {
       "type": "p",
-      "text": "If you are already a data engineer, steps 1-7 are your base: start at step 8. The new skills are LLM APIs, retrieval quality, agent design and evaluation, not a new career from zero."
+      "text": "If you are already a data engineer, steps 1-7 are your base: start at step 8. The new skills are LLM APIs, retrieval quality, agent design and evaluation, not a new career from zero. For a stage-by-stage data engineering path, including the 2026 AI-ready data skills, see the [data engineering roadmap](/guides/data-engineering-roadmap)."
     },
     {
       "type": "h2",
