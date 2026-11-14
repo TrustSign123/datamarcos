@@ -95,15 +95,34 @@ export type LearnerVideo = {
   /** Instagram reel shortcode, or the MP4 path for kind "video". */
   source: string;
   url?: string;
+  /** Defaults from the URL host (LinkedIn / Instagram) when omitted. */
+  urlLabel?: string;
   poster: string;
   name: string;
   role: string;
-  headline: string;
-  quote: string;
+  headline?: string;
+  quote?: string;
   course?: string;
+  /** 9:16 player. Leave unset for the default 4:5 reel frame. */
+  vertical?: boolean;
+};
+
+export const mikeHamataVideo: LearnerVideo = {
+  id: "mike-hamata",
+  kind: "video",
+  source: "/videos/learner-mike-hamata.mp4",
+  poster: "/images/learner-feedback/poster-mike-hamata.webp",
+  name: "Mike Hamata",
+  role: "Applied Agentic AI Certification, live class",
+  url: "https://www.linkedin.com/in/mikehamata",
+  urlLabel: "View on LinkedIn",
+  course: "Applied Agentic AI",
+  // No headline or quote: the page only shows name, course and LinkedIn (no invented wording).
+  vertical: true
 };
 
 export const learnerVideos: LearnerVideo[] = [
+  mikeHamataVideo,
   {
     id: "hema-natarajan",
     kind: "instagram",
