@@ -243,6 +243,10 @@ export const guide: Guide = {
       ]
     },
     {
+      "type": "p",
+      "text": "For the full stage-by-stage path with a project at every step, see the [agentic AI roadmap](/guides/agentic-ai-roadmap)."
+    },
+    {
       "type": "h2",
       "id": "learn-it-hands-on",
       "text": "Learn it hands-on"

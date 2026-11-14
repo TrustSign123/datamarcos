@@ -31,7 +31,7 @@ export const guide: Guide = {
     },
     {
       "type": "p",
-      "text": "New to the concepts? Read [What is agentic AI?](/guides/what-is-agentic-ai) first. It explains the plan → act → observe loop that every project here uses."
+      "text": "New to the concepts? Read [What is agentic AI?](/guides/what-is-agentic-ai) first. It explains the plan → act → observe loop that every project here uses. For the ordered learning path these projects sit in, see the [agentic AI roadmap](/guides/agentic-ai-roadmap)."
     },
     {
       "type": "h2",
