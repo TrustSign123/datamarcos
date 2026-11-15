@@ -8,10 +8,11 @@ import { YouTubeFacade } from "@/components/YouTubeFacade";
 import { InlineLeadForm } from "@/components/lead/InlineLeadForm";
 import { GatedBrochureFrame } from "@/components/lead/GatedBrochureFrame";
 import { AlumniOutcomes } from "@/components/home/AlumniOutcomes";
+import { LearnerVideoCard } from "@/components/home/LearnerVideoCard";
 import { FdeSectionNav, type FdeNavItem } from "@/components/program/fde/FdeSectionNav";
 import { FdeCurriculum } from "@/components/program/fde/FdeCurriculum";
 import { ToolWall } from "@/components/program/ToolWall";
-import { DEEPESH_LINKEDIN } from "@/config/home";
+import { DEEPESH_LINKEDIN, mikeHamataVideo } from "@/config/home";
 import {
   APPLIED_BROCHURE, APPLIED_COURSE, APPLIED_TITLE, APPLIED_VIDEO_ID, appliedChooser, appliedFaqs, appliedFor, appliedNotFor, appliedPhases,
   appliedPrereqs, appliedProjects, appliedRoles, appliedShifts, appliedToolGroups, appliedWhy, type AppliedFaq
@@ -322,6 +323,10 @@ export default async function AppliedAgenticAICertificationPage() {
       <section className="fx-section fx-learners" id="learners" aria-labelledby="fx-learn-title">
         <div className="fx-wrap">
           <Head id="fx-learn-title" eyebrow="Learner proof" title={<>Where our learners <em>are now.</em></>} body="Real learners and teams who trained with Deepesh Mishra, in their own words. Every story links to its source." />
+          <div className="fx-learner-videos">
+            <h3 className="fx-learner-videos-title">Hear from a live-class learner.</h3>
+            <LearnerVideoCard video={mikeHamataVideo} />
+          </div>
           <AlumniOutcomes />
         </div>
       </section>

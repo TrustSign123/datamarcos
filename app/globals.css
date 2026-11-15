@@ -4773,6 +4773,7 @@ body:has(.agentic-course-page) > .whatsapp {
 .dmh-reels { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 18px; align-items: start; }
 .dmh-reel { overflow: hidden; border-radius: 20px; border: 1px solid rgba(255,255,255,.12); background: #0d1420; }
 .dmh-reel-media { position: relative; aspect-ratio: 4 / 5; background: #0b121d; }
+.dmh-reel-media.is-vertical { aspect-ratio: 9 / 16; }
 .dmh-reel-media iframe, .dmh-reel-media video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: #fff; }
 .dmh-reel-media video { background: #000; object-fit: contain; }
 .dmh-reel-poster { position: absolute; inset: 0; width: 100%; padding: 0; border: 0; background: none; cursor: pointer; }
@@ -5406,6 +5407,9 @@ body:has(.agentic-course-page) > .dmx-announce { display: none; }
 .fx-learners { background: radial-gradient(ellipse at 85% 10%, rgba(244,81,30,.16), transparent 45%), #070a12; color: #fff; }
 .fx-learners .fx-head h2, .fx-learners h3 { color: #fff; }
 .fx-learners .fx-head-body { color: rgba(255,255,255,.68); }
+.fx-learner-videos { display: grid; gap: 16px; margin: 8px 0 40px; justify-items: start; }
+.fx-learner-videos-title { margin: 0; font-size: 1.15rem; }
+.fx-learner-videos .dmh-reel { width: 100%; max-width: 300px; }
 
 /* compare */
 .fx-cmp { overflow: hidden; border-radius: 24px; border: 1px solid var(--line); background: #fff; box-shadow: 0 30px 60px rgba(14,16,15,.06); }
