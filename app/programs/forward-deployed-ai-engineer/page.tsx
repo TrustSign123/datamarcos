@@ -283,7 +283,7 @@ export default async function ForwardDeployedAIEngineerPage() {
             </nav>
             <p className="ds-kicker"><span className="ds-dot" aria-hidden="true" /> FDE course · Live online · {NEXT_COHORT_STARTS}</p>
             <h1 id="fx-title">Forward Deployed Engineer Course: <span>become the AI engineer companies send in.</span></h1>
-            <p className="ds-lead">Don’t fear AI. Learn to deploy it. Turn your Java, backend, data, DevOps or Python experience into one of AI’s fastest-growing roles: scope a real customer problem, ship a secure AI system and own the result.</p>
+            <p className="ds-lead"><span className="ds-lead-long">Don’t fear AI. Learn to deploy it. Turn your Java, backend, data, DevOps or Python experience into one of AI’s fastest-growing roles: scope a real customer problem, ship a secure AI system and own the result.</span><span className="ds-lead-short">Don’t fear AI. Learn to deploy it, from your Java, backend, data, DevOps or Python base.</span></p>
             <div className="ds-actions">
               <a className="ds-btn ds-btn-primary ds-btn-lg" href="#readiness">Check your readiness <ArrowRight size={18} aria-hidden="true" /></a>
               <Syllabus cta="FDE hero (syllabus)" />
