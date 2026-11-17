@@ -14,7 +14,7 @@ import { getMarket } from "@/lib/geo-server";
 import { env, site } from "@/config/site";
 import { corporateProgrammes, programmeLabel } from "@/config/corporate";
 import { NEXT_COHORT_LONG } from "@/config/cohort";
-import { PLACEMENT_DISCLAIMER, PLACEMENT_LABEL, PLACEMENT_URL, placementSteps } from "@/config/placement";
+import { PLACEMENT_LABEL, PLACEMENT_URL } from "@/config/placement";
 import { SectionHead } from "@/components/ds/Section";
 import { LogoMarquee } from "@/components/ds/LogoMarquee";
 import { StoryCard } from "@/components/ds/StoryCard";
@@ -22,6 +22,7 @@ import { Placeholder } from "@/components/ds/Placeholder";
 import { WhyDatamarcos } from "@/components/ds/WhyDatamarcos";
 import { LearnersNow } from "@/components/ds/LearnersNow";
 import { DsTabs } from "@/components/ds/Tabs";
+import { CareerOSJourney } from "@/components/ds/CareerOSJourney";
 
 const ogTitle = "4 Live Online AI & Data Engineering Courses with Deepesh Mishra | Datamarcos";
 const ogDescription = "Forward Deployed AI Engineer, Generative AI & Agentic AI Engineer, Applied Agentic AI Certification and Advance Data Engineering with Applied GenAI & Agentic AI. Live online courses for students and working professionals, mentor-led by Deepesh Mishra.";
@@ -247,30 +248,8 @@ export default async function Home() {
         </div>
       </section>
             ) },
-            { id: "placement", label: "Placement journey", icon: <Briefcase size={17} aria-hidden="true" />, aliases: ["placements", "careeros"], content: (
-      <section className="ds-section" aria-labelledby="home-placement-title">
-        <div className="ds-wrap">
-          <SectionHead id="home-placement-title" eyebrow="Placement support" title={<>Your path <em>from class to job.</em></>} sub="Five steps. Real support at each one." />
-          <ol className="ds-journey">
-            {placementSteps.map((step, index) => (
-              <li key={step.title}>
-                <span className="ds-journey-n">{index + 1}</span>
-                <small>{step.where}</small>
-                <h3>{step.title}</h3>
-                <p>{step.body}</p>
-              </li>
-            ))}
-          </ol>
-          <div className="ds-careeros">
-            <div>
-              <span className="ds-tag">CareerOS by Datamarcos</span>
-              <h3>Live AI &amp; data openings, mock interviews and your job tracker. In one place.</h3>
-              <p className="ds-fine">{PLACEMENT_DISCLAIMER}</p>
-            </div>
-            <a className="ds-btn ds-btn-primary" href={PLACEMENT_URL} target="_blank" rel="noopener noreferrer">Open the placement portal <ArrowUpRight size={16} aria-hidden="true" /></a>
-          </div>
-        </div>
-      </section>
+            { id: "placement", label: "Placement journey", icon: <Briefcase size={17} aria-hidden="true" />, aliases: ["placements"], content: (
+              <CareerOSJourney id="cos-tab" variant="compact" ctaPrefix="Home tab CareerOS" />
             ) },
             { id: "mentor", label: "Mentors", icon: <UserRoundCheck size={17} aria-hidden="true" />, aliases: ["mentors"], content: (
       <section className="ds-section" aria-labelledby="home-mentor-title">
@@ -311,6 +290,9 @@ export default async function Home() {
           ]}
         />
       </section>
+
+      {/* PLACEMENT USP: CareerOS scroll journey */}
+      <CareerOSJourney id="careeros" ctaPrefix="Home CareerOS" />
 
 
       {/* 6. HOW YOU LEARN: the experience in one band */}
