@@ -24,6 +24,7 @@ import { FdeEngagementShowcase } from "@/components/program/fde/FdeEngagementSho
 import { StoryCard } from "@/components/ds/StoryCard";
 import { Placeholder } from "@/components/ds/Placeholder";
 import { WhyDatamarcos } from "@/components/ds/WhyDatamarcos";
+import { CareerOSJourney } from "@/components/ds/CareerOSJourney";
 import { LearnersNow } from "@/components/ds/LearnersNow";
 import { LearnerVideoCard } from "@/components/home/LearnerVideoCard";
 import { learnerStories, learnerVideos } from "@/config/home";
@@ -538,6 +539,8 @@ export default async function ForwardDeployedAIEngineerPage() {
           <p className="ds-fine ds-center">{PLACEMENT_DISCLAIMER}</p>
         </div>
       </section>
+
+      <CareerOSJourney id="placement" course={FDE_COURSE} ctaPrefix="FDE CareerOS" />
 
       {/* 11. COMPARE */}
       <section className="ds-section" id="compare" aria-labelledby="fx-cmp-title">

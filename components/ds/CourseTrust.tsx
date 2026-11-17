@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, PhoneCall, RotateCcw, ShieldCheck } from "lucide-react";
+import { ArrowRight, PhoneCall, RotateCcw, ShieldCheck } from "lucide-react";
 import { SectionHead } from "@/components/ds/Section";
 import { StoryCard } from "@/components/ds/StoryCard";
 import { LearnersNow } from "@/components/ds/LearnersNow";
 import { WhyDatamarcos } from "@/components/ds/WhyDatamarcos";
 import { learnerStories } from "@/config/home";
-import { PLACEMENT_DISCLAIMER, PLACEMENT_URL, placementSteps } from "@/config/placement";
+import { CareerOSJourney } from "@/components/ds/CareerOSJourney";
 
 /** Shared course-page proof blocks: why us, learner stories, the placement journey. Same content as the homepage. */
 export function CourseProof({ course, ctaPrefix, courseName }: { course: string; ctaPrefix: string; courseName: string }) {
@@ -22,24 +22,7 @@ export function CourseProof({ course, ctaPrefix, courseName }: { course: string;
           <p className="ds-fine">Stories are shared by learners. No placement, salary or hike is guaranteed; outcomes depend on each learner.</p>
         </div>
       </section>
-      <section className="ds-section" id="placement" aria-labelledby={`${ctaPrefix}-placement-title`}>
-        <div className="ds-wrap">
-          <SectionHead id={`${ctaPrefix}-placement-title`} eyebrow="Placement support" title={<>Your path <em>from class to job.</em></>} sub="Five steps. Real support at each one." />
-          <ol className="ds-journey">
-            {placementSteps.map((step, index) => (
-              <li key={step.title}><span className="ds-journey-n">{index + 1}</span><small>{step.where}</small><h3>{step.title}</h3><p>{step.body}</p></li>
-            ))}
-          </ol>
-          <div className="ds-careeros">
-            <div>
-              <span className="ds-tag">CareerOS by Datamarcos</span>
-              <h3>Live AI &amp; data openings, mock interviews and your job tracker. In one place.</h3>
-              <p className="ds-fine">{PLACEMENT_DISCLAIMER}</p>
-            </div>
-            <a className="ds-btn ds-btn-primary" href={PLACEMENT_URL} target="_blank" rel="noopener noreferrer">Open the placement portal <ArrowUpRight size={16} aria-hidden="true" /></a>
-          </div>
-        </div>
-      </section>
+      <CareerOSJourney id="placement" course={course} ctaPrefix={`${ctaPrefix} CareerOS`} />
     </div>
   );
 }
