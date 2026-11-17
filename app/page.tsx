@@ -72,9 +72,12 @@ export const metadata: Metadata = {
 
 /** Real Datamarcos learners. Employer is shown only where the learner's profile names one. */
 const learnerProfiles: SpotlightLearner[] = [
-  { name: "Richard Leclézio", role: "Professional learner", image: "/images/student-placements/richard-leclezio.jpeg", link: "https://www.linkedin.com/in/richard-leclezio/" },
   { name: "Lakshan J", role: "Software Engineer", employer: "Hexaware Technologies", image: "/images/student-placements/lakshan-j.png", link: "https://www.linkedin.com/in/lakshan013/" },
+  // Confirmed Datamarcos learners (Deepesh, 17 Nov 2026). Role and employer exactly as their public LinkedIn shows. No photo on file yet: initials card.
+  { name: "Pravince Kumar", role: "Product Manager", employer: "Google", link: "https://www.linkedin.com/in/pravincesingh/" },
   { name: "Uphar Tandon", role: "Technology professional", employer: "Microsoft", image: "/images/student-placements/uphar-tandon.png", link: "https://www.linkedin.com/in/uphar-tandon-2563a636/" },
+  { name: "Joydip Dutta", role: "Project Associate, AOCTestbed", employer: "IIT Madras", link: "https://www.linkedin.com/in/joydip-dutta-b1878816b/" },
+  { name: "Richard Leclézio", role: "Professional learner", image: "/images/student-placements/richard-leclezio.jpeg", link: "https://www.linkedin.com/in/richard-leclezio/" },
   { name: "Sharoz Farhan Afridi", role: "Technology professional", image: "/images/student-placements/sharoz-farhan-afridi.jpeg", link: "https://www.linkedin.com/in/sharoz-farhan-afridi/" },
   // Added 31 Oct 2026 at Deepesh's request. No role/employer: none confirmed by Deepesh, so the card shows "Datamarcos learner" only.
   { name: "Manav Chhouda", image: "/images/student-placements/manav-chhouda.webp", link: "https://www.linkedin.com/in/manav-chhouda-738784268/" }
@@ -140,7 +143,7 @@ export default async function Home() {
           <div className="ds-hero-copy">
             <p className="ds-kicker"><span className="ds-dot" aria-hidden="true" /> Admissions open · All batches start {NEXT_COHORT_LONG}</p>
             <h1 id="home-hero-title">AI is changing tech jobs. <span>Be the one who builds it.</span></h1>
-            <p className="ds-lead">Turn your Java, backend, data, DevOps or Python experience into an AI role. Live, mentor-led programs in <b>Forward Deployed AI</b>, <b>GenAI &amp; Agentic AI</b> and <b>Data Engineering</b>.</p>
+            <p className="ds-lead"><span className="ds-lead-long">Turn your Java, backend, data, DevOps or Python experience into an AI role. Live, mentor-led programs in <b>Forward Deployed AI</b>, <b>GenAI &amp; Agentic AI</b> and <b>Data Engineering</b>.</span><span className="ds-lead-short">Live, mentor-led AI programs for working engineers.</span></p>
             <div className="ds-actions">
               <button type="button" className="ds-btn ds-btn-primary ds-btn-lg" data-dm-lead data-cta="Home hero - Book a free career call">Book a free career call <ArrowRight size={18} aria-hidden="true" /></button>
               <HeroSyllabusMenu files={[...homePrograms, ...intlProgramCards].map((program) => ({ course: program.leadCourse, title: program.title, href: brochureHrefForMarket(program.brochure, market) }))} />

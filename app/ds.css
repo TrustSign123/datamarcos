@@ -731,3 +731,89 @@ html[data-theme] .fx-nav li a.is-active { background: var(--ds-blue-50); color: 
 .ds-level small { color: var(--ds-text); font-size: .9rem; line-height: 1.45; }
 .ds-level span:last-child { color: var(--ds-muted); font-size: .86rem; }
 @media (max-width: 900px) { .ds-levels { grid-template-columns: 1fr; } }
+
+/* ===== Accent palette (blue stays primary) ===== */
+:root {
+  --ds-amber: #f59e0b; --ds-amber-ink: #b45309; --ds-amber-50: #fff7e6;
+  --ds-green: #16a34a; --ds-green-50: #eafaf0;
+  --ds-teal: #0d9488; --ds-teal-50: #e6f7f5;
+  --ds-violet: #7c3aed; --ds-violet-50: #f3edff;
+}
+.ds-kicker { background: var(--ds-green-50) !important; color: #0f6b3a !important; border-color: #c9efd8 !important; }
+.ds-programs .ds-program:nth-child(2) .ds-tag, .ds-why-grid li:nth-child(2) svg, .ds-stories > :nth-child(3n+2) .ds-tag { color: var(--ds-teal); }
+.ds-programs .ds-program:nth-child(2) .ds-tag { background: var(--ds-teal-50); border-color: #bfe9e4; }
+.ds-programs .ds-program:nth-child(3) .ds-tag { background: var(--ds-violet-50); color: var(--ds-violet); border-color: #ddd0ff; }
+.ds-programs .ds-program:nth-child(4) .ds-tag { background: var(--ds-amber-50); color: var(--ds-amber-ink); border-color: #fde2b0; }
+.ds-why-grid li:nth-child(3) svg { color: var(--ds-violet); }
+.ds-why-grid li:nth-child(4) svg { color: var(--ds-amber-ink); }
+.ds-why-grid li:nth-child(5) svg { color: var(--ds-green); }
+.ds-stats > div:nth-child(2) dd { color: var(--ds-teal); }
+.ds-stats > div:nth-child(3) dd { color: var(--ds-violet); }
+.ds-stats > div:nth-child(4) dd { color: var(--ds-amber-ink); }
+.ds-eyebrow { color: var(--ds-blue); }
+.ds-journey li:last-child .ds-journey-n { background: var(--ds-green); }
+.ds-level-2 .ds-level-n { background: var(--ds-amber-50); color: var(--ds-amber-ink); }
+.ds-level-3 .ds-level-n { background: var(--ds-violet-50); color: var(--ds-violet); }
+.ds-cj-chips button.is-done { color: #0f6b3a; background: var(--ds-green-50); border-color: #c9efd8; }
+.dmh-spotlight-chip small { color: #fcd34d !important; }
+.dmh-spotlight-initials { position: absolute; inset: 0; display: grid; place-items: center; background: radial-gradient(400px 300px at 30% 20%, rgba(124, 58, 237, .55), transparent 60%), linear-gradient(150deg, var(--ds-blue), var(--ds-navy)); color: rgba(255, 255, 255, .92); font-family: var(--ds-display); font-size: clamp(4rem, 14vw, 7rem); font-weight: 800; letter-spacing: -.04em; }
+
+/* ===== Depth: graph-paper grid + soft gradient blobs, site-wide ===== */
+:is(.ds-hero, .ds-cj, .ds-tabs-sec, .ds-apply, .fx-hero, .fde-hero, .page-hero, .hero) { position: relative; isolation: isolate; }
+:is(.ds-hero, .ds-cj, .ds-tabs-sec, .fx-hero, .fde-hero, .page-hero, .hero)::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background-image: linear-gradient(rgba(21, 87, 229, .07) 1px, transparent 1px), linear-gradient(90deg, rgba(21, 87, 229, .07) 1px, transparent 1px);
+  background-size: 32px 32px;
+  -webkit-mask-image: radial-gradient(120% 80% at 50% 0%, #000 30%, transparent 80%); mask-image: radial-gradient(120% 80% at 50% 0%, #000 30%, transparent 80%);
+}
+:is(.ds-hero, .ds-tabs-sec, .fx-hero, .fde-hero, .page-hero, .hero)::after {
+  content: ""; position: absolute; z-index: -1; pointer-events: none; width: 520px; height: 520px; right: -120px; top: -160px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, rgba(124, 58, 237, .16), rgba(21, 87, 229, .12) 45%, transparent 70%); filter: blur(10px);
+}
+.ds-section.ds-soft { background-image: radial-gradient(600px 280px at 0% 0%, rgba(13, 148, 136, .07), transparent 70%), radial-gradient(600px 300px at 100% 100%, rgba(245, 158, 11, .07), transparent 70%); background-color: var(--ds-soft); }
+.ds-reach { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='120' viewBox='0 0 600 120'%3E%3Cpath d='M0 100 C80 90 120 60 200 70 S320 30 400 40 S520 10 600 14' fill='none' stroke='%231557e5' stroke-opacity='.10' stroke-width='3'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: center 30%; background-size: 100% 120px; }
+
+/* ===== Mobile: compact hero so the learner story card shows on the first screen ===== */
+.ds-lead-short { display: none; }
+@media (max-width: 640px) {
+  .ds-home .ds-hero { padding: 18px 0 22px; }
+  .ds-home .ds-hero-grid { gap: 16px; }
+  .ds-home .ds-kicker { margin-bottom: 10px; padding: 5px 10px; font-size: .74rem; }
+  .ds-home .ds-hero h1 { margin-bottom: 8px; font-size: 1.85rem; line-height: 1.1; }
+  .ds-home .ds-hero h1 span { display: inline; }
+  .ds-home .ds-lead { margin-bottom: 12px; font-size: .98rem; }
+  .ds-home .ds-lead-long { display: none; }
+  .ds-home .ds-lead-short { display: inline; }
+  .ds-home .ds-actions { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 8px; }
+  .ds-home .ds-actions > * { min-width: 0; }
+  .ds-home .ds-actions > .ds-btn { width: 100%; min-height: 46px; padding: 0 10px; font-size: .9rem; white-space: nowrap; }
+  .ds-home .ds-actions .dmh-syllabus { min-height: 46px; width: 100%; padding: 0 8px; font-size: .86rem; white-space: nowrap; }
+  .ds-home .ds-actions .dmh-syllabus svg:last-child { display: none; }
+  .ds-home .ds-assure, .ds-home .ds-hero-links, .ds-home .ds-hero-proof { display: none; }
+  .ds-home .ds-hero-visual { max-width: none; }
+  .ds-home .dmh-spotlight { aspect-ratio: auto; height: 300px; max-width: none; border-radius: 18px; }
+  .ds-hero::after, .ds-tabs-sec::after { width: 300px; height: 300px; right: -100px; top: -100px; }
+
+  /* One clean sticky CTA; WhatsApp becomes a small round icon above it. */
+  .ds-mobilebar { padding: 10px 14px calc(10px + env(safe-area-inset-bottom)); }
+  .ds-mobilebar .ds-mobilebar-wa { display: none; }
+  .ds-mobilebar .ds-btn { width: 100%; }
+  body .button.primary.whatsapp { display: grid; place-items: center; width: 52px !important; height: 52px !important; min-height: 0 !important; padding: 0 !important; right: 14px !important; bottom: 18px !important; border-radius: 50% !important; }
+  body .button.primary.whatsapp span { display: none !important; }
+  body:has(.ds-mobilebar) .button.primary.whatsapp, body:has(.fx-mbar.is-on) .button.primary.whatsapp { bottom: calc(82px + env(safe-area-inset-bottom)) !important; }
+  .ds-fde .fx-mbar { left: 0; right: 0; bottom: 0; border-radius: 0; padding: 10px 14px calc(10px + env(safe-area-inset-bottom)); }
+}
+
+@media (max-width: 640px) {
+  .ds-fde-hero { padding: 14px 0 22px; }
+  .ds-fde-hero .ds-crumbs { display: none; }
+  .ds-fde-hero .ds-kicker { margin-bottom: 10px; font-size: .74rem; }
+  .ds-fde-hero h1 { margin-bottom: 8px; font-size: 1.9rem; line-height: 1.1; }
+  .ds-fde-hero .ds-lead { margin-bottom: 14px; font-size: .98rem; }
+  .ds-fde-hero .ds-lead-long { display: none; }
+  .ds-fde-hero .ds-lead-short { display: inline; }
+  .ds-fde-hero .ds-actions { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 8px; }
+  .ds-fde-hero .ds-actions > * { min-width: 0; width: 100%; min-height: 46px; padding: 0 10px; font-size: .9rem; white-space: nowrap; }
+  .ds-fde-hero .ds-hero-links { gap: 8px 16px; margin-top: 10px; font-size: .88rem; }
+}
+@media (max-width: 640px) { .ds-home .ds-actions > .ds-btn svg, .ds-fde-hero .ds-actions > .ds-btn svg { display: none; } }

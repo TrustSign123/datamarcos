@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 
 /** `role` is optional: leave it out when the learner has not confirmed one (the chip then reads "Datamarcos learner" only). */
-export type SpotlightLearner = { name: string; role?: string; employer?: string; image: string; link: string };
+export type SpotlightLearner = { name: string; role?: string; employer?: string; image?: string; link: string };
 
 /** Hero story card: cycles through real Datamarcos learners (pauses on hover / reduced motion). */
 export function LearnerSpotlight({ learners, interval = 4500 }: { learners: SpotlightLearner[]; interval?: number }) {
@@ -30,7 +30,9 @@ export function LearnerSpotlight({ learners, interval = 4500 }: { learners: Spot
       </div>
       {learners.map((learner, i) => (
         <a key={learner.name} href={learner.link} target="_blank" rel="noopener noreferrer" className={`dmh-spotlight-slide${i === index ? " active" : ""}`} aria-hidden={i !== index} tabIndex={i === index ? 0 : -1}>
-          <Image src={learner.image} alt={learner.name} fill sizes="(max-width: 900px) 92vw, 440px" priority={i === 0} />
+          {learner.image
+            ? <Image src={learner.image} alt={learner.name} fill sizes="(max-width: 900px) 92vw, 440px" priority={i === 0} />
+            : <span className="dmh-spotlight-initials" aria-hidden="true">{learner.name.split(" ").map((part) => part[0]).join("").slice(0, 2)}</span>}
           <span className="dmh-spotlight-shade" />
           <strong className="dmh-spotlight-name">{learner.name}</strong>
           <span className="dmh-spotlight-chip">
