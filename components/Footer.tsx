@@ -4,11 +4,12 @@ import { Logo } from "@/components/Header";
 import { site } from "@/config/site";
 import { homePrograms } from "@/config/home";
 import { intlProgramCards } from "@/config/intl-courses";
+import { PLACEMENT_URL } from "@/config/placement";
 
 // B2C positioning (27 Oct 2026): the four flagship courses lead; corporate training is kept but listed last.
 const columns = [
   { title: "Courses", links: [...homePrograms.map((p) => [p.title, `/programs/${p.slug}`] as const), ...intlProgramCards.map((p) => [p.title, `/programs/${p.slug}`] as const), ["All courses", "/programs"] as const] },
-  { title: "Resources", links: [["Guides", "/guides"], ["Interview Prep", "/resources/interview-prep"]] },
+  { title: "Resources", links: [["Guides", "/guides"], ["Interview Prep", "/resources/interview-prep"], ["Placement support (CareerOS)", PLACEMENT_URL]] },
   { title: "Company", links: [["About", "/about"], ["Contact", "/contact"], ["Become a Trainer", "/become-a-trainer"]] },
   { title: "For Teams", links: [["Corporate Training", "/corporate-training"], ["Trainer Network", "/become-a-trainer"]] },
   { title: "Legal", links: [["Privacy", "/privacy"], ["Terms", "/terms"], ["7-day Refund Policy", "/refund-policy"]] }
@@ -21,12 +22,12 @@ export function Footer() {
   const labelFor = (network: string) => network === "whatsapp" ? "WhatsApp" : network[0].toUpperCase() + network.slice(1);
 
   return (
-    <footer className="footer">
+    <footer className="footer ds-footer">
       <div className="container">
         <div className="grid footer-grid">
           <div>
             <Logo />
-            <p style={{ color: "rgba(255,255,255,.72)", lineHeight: 1.7 }}>{footerTagline}</p>
+            <p className="ds-footer-tagline">{footerTagline}</p>
             <div className="footer-contact">
               <strong>Get in touch</strong>
               <a href={`mailto:${site.email}`}>{site.email}</a>
@@ -43,10 +44,14 @@ export function Footer() {
             <div key={column.title}>
               <h2 className="footer-heading">{column.title}</h2>
               {column.links.map(([label, href]) => (
-                <Link key={href} href={href}>
-                  {column.title === "Legal" && (label === "Privacy" ? <ShieldCheck size={15} aria-hidden="true" /> : <FileText size={15} aria-hidden="true" />)}
-                  {label}
-                </Link>
+                href.startsWith("http") ? (
+                  <a key={href} href={href} target="_blank" rel="noopener noreferrer">{label}</a>
+                ) : (
+                  <Link key={href} href={href}>
+                    {column.title === "Legal" && (label === "Privacy" ? <ShieldCheck size={15} aria-hidden="true" /> : <FileText size={15} aria-hidden="true" />)}
+                    {label}
+                  </Link>
+                )
               ))}
             </div>
           ))}

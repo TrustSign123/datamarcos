@@ -409,3 +409,16 @@ export const learnerStories: LearnerStory[] = [
     kind: "peer"
   }
 ];
+
+/**
+ * Where our learners are today (blue/white redesign, 17 Nov 2026).
+ * Deepesh confirmed on 17 Nov 2026 that both are Datamarcos learners. Role and organisation are copied from each
+ * learner's public LinkedIn headline / current experience as seen on 17 Nov 2026. This is NOT a placement claim:
+ * we do not say Datamarcos placed them or that the course led to the role. No quote: neither has published one about us.
+ */
+export type LearnerNow = { name: string; initials: string; role: string; org: string; linkedin: string; image?: string };
+
+export const learnersNow: LearnerNow[] = [
+  { name: "Pravince Kumar", initials: "PK", role: "Product Manager", org: "Google (Google Maps & DeepMind)", linkedin: "https://www.linkedin.com/in/pravincesingh" },
+  { name: "Joydip Dutta", initials: "JD", role: "Project Associate, AOCTestbed", org: "IIT Madras", linkedin: "https://www.linkedin.com/in/joydip-dutta-b1878816b" }
+];
