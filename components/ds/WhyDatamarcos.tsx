@@ -1,3 +1,4 @@
+import type React from "react";
 import Link from "next/link";
 import { BadgeCheck, Briefcase, Hammer, RotateCcw, UserRoundCheck } from "lucide-react";
 import { PLACEMENT_URL } from "@/config/placement";
@@ -7,7 +8,7 @@ import { site } from "@/config/site";
  * "Why Datamarcos": five differentiators, each restating a fact already published on our sites
  * (config/site.ts founder facts, program pages, CareerOS, refund policy). `fde` swaps in FDE-specific proof.
  */
-export function WhyDatamarcos({ variant = "home" }: { variant?: "home" | "fde" }) {
+export function WhyDatamarcos({ variant = "home", title }: { variant?: "home" | "fde" | "course"; title?: React.ReactNode }) {
   const fde = variant === "fde";
   const items = [
     { icon: UserRoundCheck, title: "Founder-led, live teaching", body: fde ? "Taught live by Deepesh Mishra, BITS Pilani alumnus and solution architect who has trained teams at 200+ organizations." : `Deepesh Mishra teaches live: BITS Pilani alumnus, 18+ years, has worked with ${site.founder.workedWith.slice(0, 3).join(", ")} and more.` },
@@ -22,7 +23,7 @@ export function WhyDatamarcos({ variant = "home" }: { variant?: "home" | "fde" }
         <header className="ds-head ds-head-center">
           <div>
             <p className="ds-eyebrow">Why Datamarcos</p>
-            <h2 id={`why-${variant}`}>{fde ? <>Why learn FDE <em>with us.</em></> : <>Why learners <em>choose us.</em></>}</h2>
+            <h2 id={`why-${variant}`}>{title ?? (fde ? <>Why learn FDE <em>with us.</em></> : <>Why learners <em>choose us.</em></>)}</h2>
           </div>
         </header>
         <ul className="ds-why-grid">
@@ -31,7 +32,7 @@ export function WhyDatamarcos({ variant = "home" }: { variant?: "home" | "fde" }
               <item.icon size={22} aria-hidden="true" />
               <b>{item.title}</b>
               <span>{item.body}</span>
-              {item.href && <a className="ds-link" href={item.href} target="_blank" rel="noopener noreferrer">CareerOS</a>}
+              {item.href && <a className="ds-link" href={item.href} target="_blank" rel="noopener noreferrer">Placement portal</a>}
               {item.internal && <Link className="ds-link" href={item.internal}>Refund policy</Link>}
             </li>
           ))}

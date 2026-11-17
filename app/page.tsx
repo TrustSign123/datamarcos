@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowDownToLine, ArrowRight, ArrowUpRight, BadgeCheck, Building2, CalendarClock, Check, ChevronDown, Clock3, GraduationCap, Hammer, Linkedin, MessageCircle, PhoneCall, RotateCcw, ShieldCheck, UsersRound } from "lucide-react";
+import { ArrowDownToLine, ArrowRight, ArrowUpRight, BadgeCheck, Briefcase, Building2, CalendarClock, Check, ChevronDown, Clock3, Gauge, GraduationCap, Hammer, Linkedin, MessageCircle, MessageSquareQuote, PhoneCall, RotateCcw, ShieldCheck, Sparkles, UserRoundCheck, UsersRound } from "lucide-react";
 import { LearnerSpotlight, type SpotlightLearner } from "@/components/home/LearnerSpotlight";
 import { HeroSyllabusMenu } from "@/components/home/HeroSyllabusMenu";
 import { LearnerVideoCard } from "@/components/home/LearnerVideoCard";
@@ -14,13 +14,14 @@ import { getMarket } from "@/lib/geo-server";
 import { env, site } from "@/config/site";
 import { corporateProgrammes, programmeLabel } from "@/config/corporate";
 import { NEXT_COHORT_LONG } from "@/config/cohort";
-import { PLACEMENT_DISCLAIMER, PLACEMENT_URL, placementSteps } from "@/config/placement";
+import { PLACEMENT_DISCLAIMER, PLACEMENT_LABEL, PLACEMENT_URL, placementSteps } from "@/config/placement";
 import { SectionHead } from "@/components/ds/Section";
 import { LogoMarquee } from "@/components/ds/LogoMarquee";
 import { StoryCard } from "@/components/ds/StoryCard";
 import { Placeholder } from "@/components/ds/Placeholder";
 import { WhyDatamarcos } from "@/components/ds/WhyDatamarcos";
 import { LearnersNow } from "@/components/ds/LearnersNow";
+import { DsTabs } from "@/components/ds/Tabs";
 
 const ogTitle = "4 Live Online AI & Data Engineering Courses with Deepesh Mishra | Datamarcos";
 const ogDescription = "Forward Deployed AI Engineer, Generative AI & Agentic AI Engineer, Applied Agentic AI Certification and Advance Data Engineering with Applied GenAI & Agentic AI. Live online courses for students and working professionals, mentor-led by Deepesh Mishra.";
@@ -149,6 +150,10 @@ export default async function Home() {
               <li><Check size={15} aria-hidden="true" /> {india ? "EMI options" : "Flexible instalments"}</li>
               <li><Check size={15} aria-hidden="true" /> <Link href="/refund-policy">7-day refund policy</Link></li>
             </ul>
+            <p className="ds-hero-links">
+              <Link className="ds-link" href="/programs/forward-deployed-ai-engineer#readiness" data-cta="Home hero - Check my readiness"><Gauge size={15} aria-hidden="true" /> Check your readiness in 30 seconds <ArrowRight size={14} aria-hidden="true" /></Link>
+              <a className="ds-link" href={PLACEMENT_URL} target="_blank" rel="noopener noreferrer"><Briefcase size={15} aria-hidden="true" /> {PLACEMENT_LABEL} <ArrowUpRight size={14} aria-hidden="true" /></a>
+            </p>
           </div>
           <div className="ds-hero-visual">
             <LearnerSpotlight learners={learnerProfiles} />
@@ -171,8 +176,16 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* 3. IS THIS FOR ME? background -> program, then the programs */}
-      <section className="ds-section ds-soft" id="programs" aria-labelledby="home-programs-title">
+      {/* 3. EXPLORE: one tabbed section (programs, stories, placement, mentors, why us) */}
+      <section className="ds-section ds-soft ds-tabs-sec" aria-labelledby="home-tabs-title">
+        <div className="ds-wrap">
+          <SectionHead id="home-tabs-title" eyebrow="Explore Datamarcos" title={<>Everything you need <em>to decide.</em></>} />
+        </div>
+        <DsTabs
+          label="Explore Datamarcos"
+          tabs={[
+            { id: "programs", label: "Programs", icon: <GraduationCap size={17} aria-hidden="true" />, content: (
+      <section className="ds-section" aria-labelledby="home-programs-title">
         <div className="ds-wrap">
           <SectionHead id="home-programs-title" eyebrow="Find your program" title={<>Is this for you? <em>Start from your role.</em></>} sub="Pick your background. We’ll point you to the right AI program." />
           <ul className="ds-finder">
@@ -216,12 +229,48 @@ export default async function Home() {
           </div>
         </div>
       </section>
-
-      {/* WHY US: differentiators vs other providers */}
-      <WhyDatamarcos />
-
-      {/* 4. MENTORS: who teaches you */}
-      <section className="ds-section" id="mentor" aria-labelledby="home-mentor-title">
+            ) },
+            { id: "learner-stories", label: "Learner stories", icon: <MessageSquareQuote size={17} aria-hidden="true" />, aliases: ["stories"], content: (
+      <section className="ds-section" aria-labelledby="home-stories-title">
+        <div className="ds-wrap">
+          <SectionHead id="home-stories-title" eyebrow="Success stories" title={<>Real learners. <em>Their own words.</em></>} sub="Every story links to its source." action={<a className="ds-link" href={DEEPESH_LINKEDIN} target="_blank" rel="noreferrer">All recommendations on LinkedIn <ArrowUpRight size={14} aria-hidden="true" /></a>} align="left" />
+          <div className="ds-stories">{learners.map((story) => <StoryCard key={story.id} story={story} />)}</div>
+          <LearnersNow />
+          <h3 className="ds-subhead">Hear from our learners</h3>
+          <div className="ds-reels">{learnerVideos.map((video) => <LearnerVideoCard key={video.id} video={video} />)}</div>
+          {peer && <p className="ds-peer"><b>Industry peer · {peer.name}, {peer.role}{peer.company ? `, ${peer.company}` : ""}:</b> “{peer.quote}” <a href={peer.verify.href} target="_blank" rel="noreferrer">{peer.verify.label}</a></p>}
+          <p className="ds-soft-cta"><button type="button" className="ds-link" data-dm-lead data-cta="Home stories - Start your story">Start your own story: book a free career call <ArrowRight size={14} aria-hidden="true" /></button></p>
+          <p className="ds-fine">Learner stories are shared by the learners themselves. No placement, salary or hike is guaranteed; outcomes depend on each learner.</p>
+        </div>
+      </section>
+            ) },
+            { id: "placement", label: "Placement journey", icon: <Briefcase size={17} aria-hidden="true" />, aliases: ["placements", "careeros"], content: (
+      <section className="ds-section" aria-labelledby="home-placement-title">
+        <div className="ds-wrap">
+          <SectionHead id="home-placement-title" eyebrow="Placement support" title={<>Your path <em>from class to job.</em></>} sub="Five steps. Real support at each one." />
+          <ol className="ds-journey">
+            {placementSteps.map((step, index) => (
+              <li key={step.title}>
+                <span className="ds-journey-n">{index + 1}</span>
+                <small>{step.where}</small>
+                <h3>{step.title}</h3>
+                <p>{step.body}</p>
+              </li>
+            ))}
+          </ol>
+          <div className="ds-careeros">
+            <div>
+              <span className="ds-tag">CareerOS by Datamarcos</span>
+              <h3>Live AI &amp; data openings, mock interviews and your job tracker. In one place.</h3>
+              <p className="ds-fine">{PLACEMENT_DISCLAIMER}</p>
+            </div>
+            <a className="ds-btn ds-btn-primary" href={PLACEMENT_URL} target="_blank" rel="noopener noreferrer">Open the placement portal <ArrowUpRight size={16} aria-hidden="true" /></a>
+          </div>
+        </div>
+      </section>
+            ) },
+            { id: "mentor", label: "Mentors", icon: <UserRoundCheck size={17} aria-hidden="true" />, aliases: ["mentors"], content: (
+      <section className="ds-section" aria-labelledby="home-mentor-title">
         <div className="ds-wrap">
           <SectionHead id="home-mentor-title" eyebrow="Instructors & mentors" title={<>Learn from <em>practitioners.</em></>} />
           <div className="ds-mentors">
@@ -252,20 +301,14 @@ export default async function Home() {
           <p className="ds-soft-cta"><button type="button" className="ds-link" data-dm-lead data-cta="Home mentors - Talk to the team">Talk to our team about your goals <ArrowRight size={14} aria-hidden="true" /></button></p>
         </div>
       </section>
-
-      {/* 5. PROOF: real learners, in their own words */}
-      <section className="ds-section ds-soft" id="learner-stories" aria-labelledby="home-stories-title">
-        <div className="ds-wrap">
-          <SectionHead id="home-stories-title" eyebrow="Success stories" title={<>Real learners. <em>Their own words.</em></>} sub="Every story links to its source." action={<a className="ds-link" href={DEEPESH_LINKEDIN} target="_blank" rel="noreferrer">All recommendations on LinkedIn <ArrowUpRight size={14} aria-hidden="true" /></a>} align="left" />
-          <div className="ds-stories">{learners.map((story) => <StoryCard key={story.id} story={story} />)}</div>
-          <LearnersNow />
-          <h3 className="ds-subhead">Hear from our learners</h3>
-          <div className="ds-reels">{learnerVideos.map((video) => <LearnerVideoCard key={video.id} video={video} />)}</div>
-          {peer && <p className="ds-peer"><b>Industry peer · {peer.name}, {peer.role}{peer.company ? `, ${peer.company}` : ""}:</b> “{peer.quote}” <a href={peer.verify.href} target="_blank" rel="noreferrer">{peer.verify.label}</a></p>}
-          <p className="ds-soft-cta"><button type="button" className="ds-link" data-dm-lead data-cta="Home stories - Start your story">Start your own story: book a free career call <ArrowRight size={14} aria-hidden="true" /></button></p>
-          <p className="ds-fine">Learner stories are shared by the learners themselves. No placement, salary or hike is guaranteed; outcomes depend on each learner.</p>
-        </div>
+            ) },
+            { id: "why", label: "Why Datamarcos", icon: <Sparkles size={17} aria-hidden="true" />, aliases: ["why-datamarcos"], content: (
+<WhyDatamarcos />
+            ) }
+          ]}
+        />
       </section>
+
 
       {/* 6. HOW YOU LEARN: the experience in one band */}
       <section className="ds-experience" aria-labelledby="home-exp-title">
@@ -279,31 +322,6 @@ export default async function Home() {
             <h2 id="home-exp-title">The Datamarcos learning experience</h2>
             <ul>{experience.map((item) => <li key={item.title}><item.icon size={20} aria-hidden="true" /><span><b>{item.title}</b>{item.body}</span></li>)}</ul>
             <button type="button" className="ds-btn ds-btn-white ds-exp-cta" data-dm-lead data-cta="Home experience - Check my fit">Check which program fits me <ArrowRight size={16} aria-hidden="true" /></button>
-          </div>
-        </div>
-      </section>
-
-      {/* 7. PLACEMENT JOURNEY: the path to a job */}
-      <section className="ds-section" id="placement" aria-labelledby="home-placement-title">
-        <div className="ds-wrap">
-          <SectionHead id="home-placement-title" eyebrow="Placement support" title={<>Your path <em>from class to job.</em></>} sub="Five steps. Real support at each one." />
-          <ol className="ds-journey">
-            {placementSteps.map((step, index) => (
-              <li key={step.title}>
-                <span className="ds-journey-n">{index + 1}</span>
-                <small>{step.where}</small>
-                <h3>{step.title}</h3>
-                <p>{step.body}</p>
-              </li>
-            ))}
-          </ol>
-          <div className="ds-careeros">
-            <div>
-              <span className="ds-tag">CareerOS by Datamarcos</span>
-              <h3>Live AI &amp; data openings, mock interviews and your job tracker. In one place.</h3>
-              <p className="ds-fine">{PLACEMENT_DISCLAIMER}</p>
-            </div>
-            <a className="ds-btn ds-btn-primary" href={PLACEMENT_URL} target="_blank" rel="noopener noreferrer">Explore CareerOS <ArrowUpRight size={16} aria-hidden="true" /></a>
           </div>
         </div>
       </section>
@@ -359,6 +377,8 @@ export default async function Home() {
             <li><Clock3 size={18} aria-hidden="true" /> {india ? "Live online, weekend & evening batches" : "Live online, learn from anywhere"}</li>
             <li><ShieldCheck size={18} aria-hidden="true" /> {india ? "EMI options available" : "Flexible instalments available"}</li>
             <li><RotateCcw size={18} aria-hidden="true" /> <Link href="/refund-policy">7-day refund policy</Link></li>
+            <li><Gauge size={18} aria-hidden="true" /> <Link href="/programs/forward-deployed-ai-engineer#readiness">Check your FDE readiness</Link></li>
+            <li><Briefcase size={18} aria-hidden="true" /> <a href={PLACEMENT_URL} target="_blank" rel="noopener noreferrer">{PLACEMENT_LABEL} (CareerOS)</a></li>
           </ul>
         </div>
       </section>

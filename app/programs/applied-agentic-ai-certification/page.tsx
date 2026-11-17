@@ -1,4 +1,7 @@
 import type React from "react";
+import { CourseProof, RiskStrip } from "@/components/ds/CourseTrust";
+import { CareerJourney } from "@/components/ds/CareerJourney";
+import { journeyFromPhases } from "@/lib/journey";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowDownToLine, ArrowRight, ArrowUpRight, Award, BadgeCheck, Bot, CalendarClock, Check, Linkedin, Minus, PlayCircle, Rocket, ShieldCheck, Sparkles, UsersRound, Wrench, X, Zap, RotateCcw } from "lucide-react";
@@ -38,6 +41,7 @@ const nav: FdeNavItem[] = [
   { id: "outcomes", label: "Outcomes" },
   { id: "fit", label: "Who it's for" },
   { id: "curriculum", label: "Curriculum" },
+  { id: "journey", label: "Journey" },
   { id: "projects", label: "Projects" },
   { id: "tools", label: "Tools" },
   { id: "mentor", label: "Mentor" },
@@ -260,6 +264,8 @@ export default async function AppliedAgenticAICertificationPage() {
         </div>
       </section>
 
+      <CareerJourney course={APPLIED_COURSE} ctaPrefix="Applied" duration="8 weeks · 2 months" title={<>Month by month, <em>to applied AI builder.</em></>} objective="Design, build and evaluate practical AI workflows with retrieval, tools and agent orchestration, ending in a capstone you can show." steps={journeyFromPhases(appliedPhases)} />
+
       {/* PROJECTS */}
       <section className="fx-section fx-ink" id="projects" aria-labelledby="fx-proj-title">
         <div className="fx-wrap">
@@ -385,6 +391,8 @@ export default async function AppliedAgenticAICertificationPage() {
         </div>
       </section>
 
+      <CourseProof course={APPLIED_COURSE} ctaPrefix="Applied" courseName="Applied Agentic AI" />
+      <RiskStrip course={APPLIED_COURSE} ctaPrefix="Applied" india={india} />
       <FeesEnrolment slug="applied-agentic-ai-certification" />
 
       {/* FAQ */}

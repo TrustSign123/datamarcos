@@ -1,4 +1,9 @@
 import type React from "react";
+import { CourseProof, RiskStrip } from "@/components/ds/CourseTrust";
+import { isIndiaMarket } from "@/lib/geo";
+import { CareerJourney } from "@/components/ds/CareerJourney";
+import { journeyFromPhases } from "@/lib/journey";
+import { intlProgramCards } from "@/config/intl-courses";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowDownToLine, ArrowRight, CalendarClock, Check, Linkedin, Rocket, RotateCcw, ShieldCheck, UsersRound } from "lucide-react";
@@ -25,6 +30,7 @@ const nav: FdeNavItem[] = [
   { id: "outcomes", label: "Outcomes" },
   { id: "fit", label: "Who it's for" },
   { id: "curriculum", label: "Curriculum" },
+  { id: "journey", label: "Journey" },
   { id: "projects", label: "Projects" },
   { id: "tools", label: "Tools" },
   { id: "format", label: "Format" },
@@ -219,6 +225,8 @@ export async function IntlCoursePage({ course }: { course: IntlCourse }) {
         </div>
       </section>
 
+      <CareerJourney course={course.course} ctaPrefix={course.title} duration={course.durationLabel} title={<>Your journey, <em>step by step.</em></>} objective={intlProgramCards.find((card) => card.slug === course.slug)?.summary ?? course.deck} steps={journeyFromPhases(course.phases)} />
+
       <section className="fx-section" id="projects" aria-labelledby="fx-proj-title">
         <div className="fx-wrap">
           <Head id="fx-proj-title" eyebrow="Projects" title={<>Work you can <em>take with you.</em></>} />
@@ -274,6 +282,8 @@ export async function IntlCoursePage({ course }: { course: IntlCourse }) {
         </div>
       </section>
 
+      <CourseProof course={course.course} ctaPrefix={course.slug} courseName={course.title} />
+      {feeSlug ? <RiskStrip course={course.course} ctaPrefix={course.slug} india={isIndiaMarket(market)} /> : null}
       {feeSlug ? <FeesEnrolment slug={feeSlug} /> : null}
 
             <section className="fx-section fx-faq" id="faq" aria-labelledby="fx-faq-title">

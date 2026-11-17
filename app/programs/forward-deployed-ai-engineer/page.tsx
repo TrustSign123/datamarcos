@@ -2,6 +2,8 @@ import type React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
+import { CareerJourney } from "@/components/ds/CareerJourney";
+import { journeyFromPhases } from "@/lib/journey";
 import {
   ArrowDownToLine, ArrowRight, ArrowUpRight, Award, BadgeCheck, Bot, Check, Cloud, Compass, FileCheck2,
   Hammer, Handshake, Linkedin, MessageSquareText, PhoneCall, Rocket, ShieldCheck, UsersRound, X, RotateCcw } from "lucide-react";
@@ -25,7 +27,7 @@ import { WhyDatamarcos } from "@/components/ds/WhyDatamarcos";
 import { LearnersNow } from "@/components/ds/LearnersNow";
 import { LearnerVideoCard } from "@/components/home/LearnerVideoCard";
 import { learnerStories, learnerVideos } from "@/config/home";
-import { PLACEMENT_DISCLAIMER, PLACEMENT_URL } from "@/config/placement";
+import { PLACEMENT_DISCLAIMER, PLACEMENT_LABEL, PLACEMENT_URL } from "@/config/placement";
 import {
   siAnthropic, siApachekafka, siAuth0, siDatabricks, siDocker, siCrewai, siElasticsearch, siFastapi, siGithub, siGithubactions,
   siGooglegemini, siGooglecloud, siGraphql, siGrafana, siHuggingface, siJira, siKubernetes, siLangchain, siLanggraph, siLinux,
@@ -63,6 +65,7 @@ const nav: FdeNavItem[] = [
   { id: "fit", label: "Who it's for" },
   { id: "readiness", label: "Readiness" },
   { id: "curriculum", label: "Curriculum" },
+  { id: "journey", label: "Journey" },
   { id: "projects", label: "Projects" },
   { id: "mentor", label: "Mentor" },
   { id: "learners", label: "Learners" },
@@ -244,6 +247,13 @@ function Head({ eyebrow, title, body, id, align = "center" }: { eyebrow: string;
   );
 }
 
+/** Readiness levels: the same outcomes the readiness check gives (components/program/fde/FdeReadinessCheck.tsx). */
+const fdeReadinessLevels = [
+  { level: "Ready now", who: "2+ years shipping code in Java, JavaScript, Python, backend, data or DevOps.", next: "Apply. A short diagnostic and mentor call confirm your seat." },
+  { level: "Ready with bridge pre-work", who: "You code, but Python, Linux, Git or SQL are rusty.", next: "Bridge pre-work covers them before Day 1." },
+  { level: "Start one step earlier", who: "No hands-on coding experience yet.", next: "Begin with GenAI & Agentic AI Engineer, then move to FDE." }
+];
+
 export default async function ForwardDeployedAIEngineerPage() {
   const market = await getMarket();
   const india = isIndiaMarket(market);
@@ -278,7 +288,8 @@ export default async function ForwardDeployedAIEngineerPage() {
               <a className="ds-btn ds-btn-primary ds-btn-lg" href="#readiness">Check your readiness <ArrowRight size={18} aria-hidden="true" /></a>
               <Syllabus cta="FDE hero (syllabus)" />
             </div>
-            <div className="ds-hero-links"><Cta label="Talk to a counsellor" cta="FDE hero (counsellor)" variant="ghost" /> <ViewFeesLink /></div>
+            <div className="ds-hero-links"><Cta label="Talk to a counsellor" cta="FDE hero (counsellor)" variant="ghost" /> <ViewFeesLink />  <a className="ds-link" href={PLACEMENT_URL} target="_blank" rel="noopener noreferrer">{PLACEMENT_LABEL} <ArrowUpRight size={14} aria-hidden="true" /></a>
+            </div>
           </div>
           <div className="ds-fde-card">
             <p className="ds-fde-card-title">The FDE engagement, end to end</p>
@@ -354,8 +365,19 @@ export default async function ForwardDeployedAIEngineerPage() {
       {/* 4. AUDIENCE + TRANSITIONS */}
       <section className="ds-section" id="fit" aria-labelledby="fx-fit-title">
         <div className="ds-wrap">
-          <Head id="fx-fit-title" eyebrow="Who it's for" title={<>Your background <em>is your edge.</em></>} body="Built for working engineers. The program fills the gaps." />
+          <Head id="fx-fit-title" eyebrow="Is this for you?" title={<>Is this for you? <em>Start from your stack.</em></>} body="Built for working Java, JavaScript, Python, backend, data and DevOps engineers. The program fills the gaps." />
           <ul className="ds-stacks">{fdeAudience.map((a) => <li key={a.stack}><b>{a.stack}</b><small>{a.note}</small></li>)}</ul>
+          <ol className="ds-levels" aria-label="Readiness levels">
+            {fdeReadinessLevels.map((level, index) => (
+              <li key={level.level} className={`ds-level ds-level-${index + 1}`}>
+                <span className="ds-level-n">{index + 1}</span>
+                <b>{level.level}</b>
+                <small>{level.who}</small>
+                <span>{level.next}</span>
+              </li>
+            ))}
+          </ol>
+          <p className="ds-center"><a className="ds-btn ds-btn-primary" href="#readiness" data-cta="FDE fit - Check my readiness">Check your readiness in 30 seconds <ArrowRight size={16} aria-hidden="true" /></a></p>
           <ul className="ds-transitions">
             {fdeJourneys.map((j) => (
               <li key={j.from}>
@@ -414,6 +436,9 @@ export default async function ForwardDeployedAIEngineerPage() {
           <div className="ds-center ds-row ds-row-center"><Syllabus cta="FDE curriculum (full syllabus)" variant="navy" label="Get the full syllabus PDF" /></div>
         </div>
       </section>
+
+      {/* CAREER JOURNEY SIMULATION: month by month to job-ready */}
+      <CareerJourney course={FDE_COURSE} ctaPrefix="FDE" duration="22 weeks · ~6 months" title={<>Month by month, <em>to FDE-ready.</em></>} objective="Become the engineer companies send in: scope a real customer problem, build and secure the AI system, deploy it and own the outcome." steps={journeyFromPhases(fdePhases, { milestones: fdeCareerTimeline })} careerPrep="FDE interview loops and 1:1 mocks, plus resume and LinkedIn rewrites in the weekly career track" />
 
       {/* 7. PROJECTS: interactive showcase */}
       <section className="ds-section ds-navy" id="projects" aria-labelledby="fx-proj-title">
@@ -501,7 +526,7 @@ export default async function ForwardDeployedAIEngineerPage() {
               <span className="ds-tag">CareerOS by Datamarcos</span>
               <h3>After your capstone is verified</h3>
               <p>Match live AI and data openings, practise mock interviews and track every application.</p>
-              <a className="ds-btn ds-btn-white" href={PLACEMENT_URL} target="_blank" rel="noopener noreferrer">Explore CareerOS <ArrowUpRight size={16} aria-hidden="true" /></a>
+              <a className="ds-btn ds-btn-white" href={PLACEMENT_URL} target="_blank" rel="noopener noreferrer">Open the placement portal <ArrowUpRight size={16} aria-hidden="true" /></a>
             </div>
             <div className="ds-card ds-cert">
               <Award size={34} aria-hidden="true" />
