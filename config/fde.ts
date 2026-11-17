@@ -224,3 +224,40 @@ export const fdeJobSkillMap = [
   { skill: "AI security, governance, LLMOps and handover", weeks: "Weeks 15-19" },
   { skill: "Capstone engagement and FDE interview loops", weeks: "Weeks 20-22 + weekly career track" }
 ];
+
+/* ------------------------------------------------------------------ */
+/* Blue/white redesign (17 Nov 2026). All copy below restates the FDE brochure (2026 edition)
+   or facts already on this page. No placement %, salary or hike figures.                     */
+/* ------------------------------------------------------------------ */
+
+/** "Roles you become ready for" (brochure). Role readiness, not a placement guarantee. */
+export const fdeReadyRoles = [
+  "AI Forward Deployed Engineer", "AI Solutions Engineer", "Agentic AI Engineer", "GenAI / LLM Application Developer",
+  "Platform FDE (Databricks, Snowflake)", "AI Automation Engineer", "AI Solutions Architect", "AI Delivery Lead"
+];
+
+/** "Where graduates aim" (brochure, Hiring paths). */
+export const fdeHiringPaths = [
+  { title: "AI labs & AI-first startups", body: "Customer-facing deployment and field engineering roles." },
+  { title: "Data & cloud platform companies", body: "Platform FDE roles at data, AI and cloud vendors." },
+  { title: "GCCs, consulting & enterprises", body: "AI deployment teams inside capability centres and consulting firms." }
+];
+
+/** Who it's for, by today's stack. Each line maps to an fdeJourneys row; Java/JS developers use the Python bridge pre-work. */
+export const fdeAudience = [
+  { stack: "Java", note: "Backend & enterprise systems" },
+  { stack: "JavaScript", note: "Full-stack & APIs" },
+  { stack: "Python", note: "Backend, automation, ML" },
+  { stack: "Backend", note: "Services & integrations" },
+  { stack: "Data", note: "Pipelines, warehouses, ML" },
+  { stack: "DevOps", note: "CI/CD, cloud, reliability" }
+];
+
+/** Career launch timeline (brochure, "Built around how FDEs actually get hired"). */
+export const fdeCareerTimeline = [
+  { weeks: "Weeks 1-4", milestone: "Role targeting", output: "Target list and positioning statement" },
+  { weeks: "Weeks 5-9", milestone: "GitHub portfolio and project write-ups", output: "Architecture-first READMEs" },
+  { weeks: "Weeks 10-14", milestone: "Resume rewrite for FDE roles; LinkedIn and Naukri profile", output: "ATS-friendly resume" },
+  { weeks: "Weeks 15-19", milestone: "FDE interview loops: system design, debugging, customer scenarios", output: "Practised loops with feedback" },
+  { weeks: "Weeks 20-22", milestone: "Demo Day, mock loops, referral and outreach playbook", output: "Job-search plan and offer-negotiation guide" }
+];
