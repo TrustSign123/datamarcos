@@ -1,5 +1,8 @@
 import type React from "react";
+import { CourseProof, RiskStrip } from "@/components/ds/CourseTrust";
 import type { Metadata } from "next";
+import { CareerJourney } from "@/components/ds/CareerJourney";
+import { journeyFromPhases } from "@/lib/journey";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -48,6 +51,7 @@ const nav: FdeNavItem[] = [
   { id: "roles", label: "Roles" },
   { id: "fit", label: "Who it's for" },
   { id: "curriculum", label: "Curriculum" },
+  { id: "journey", label: "Journey" },
   { id: "projects", label: "Projects" },
   { id: "tools", label: "Tools" },
   { id: "mentor", label: "Mentor" },
@@ -268,6 +272,8 @@ export default async function GenAIAgenticEngineerPage() {
           </div>
         </section>
 
+        <CareerJourney course={GENAI_COURSE} ctaPrefix="GenAI" duration="18 weeks · ~4.5 months" title={<>Month by month, <em>to GenAI engineer.</em></>} objective="Build LLM apps, production RAG and multi-agent systems, then secure and deploy them, with a portfolio to prove it." steps={journeyFromPhases(genaiPhases, { milestones: genaiCareer })} careerPrep="1:1 mock interviews, AI system-design rounds and a resume rewrite in the career track" />
+
         {/* PROJECTS */}
         <section className="fx-section fx-ink" id="projects" aria-labelledby="fx-proj-title">
           <div className="fx-wrap">
@@ -389,6 +395,8 @@ export default async function GenAIAgenticEngineerPage() {
           </div>
         </section>
 
+        <CourseProof course={GENAI_COURSE} ctaPrefix="GenAI" courseName="GenAI & Agentic AI" />
+        <RiskStrip course={GENAI_COURSE} ctaPrefix="GenAI" india={india} />
         <FeesEnrolment slug="genai-agentic-ai-engineer" />
 
       {/* FAQ */}

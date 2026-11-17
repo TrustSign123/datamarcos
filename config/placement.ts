@@ -10,6 +10,8 @@
  * No placement %, salary or hike figures: none are verified.
  */
 export const PLACEMENT_URL = "https://career.datamarcos.com";
+/** Visible name for the placement portal link. */
+export const PLACEMENT_LABEL = "Placement portal";
 
 export const PLACEMENT_DISCLAIMER = "Placement support, not a placement guarantee. Outcomes depend on each learner and the job market.";
 

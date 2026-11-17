@@ -1,4 +1,8 @@
 import Image from "next/image";
+import { CourseProof, RiskStrip } from "@/components/ds/CourseTrust";
+import { isIndiaMarket } from "@/lib/geo";
+import { CareerJourney } from "@/components/ds/CareerJourney";
+import type { JourneyStep } from "@/lib/journey";
 import Link from "next/link";
 import { ArrowDownToLine, ArrowRight, Braces, Check, Cloud, Code2, Database, GitBranch, Network, ShieldCheck, Sparkles, Workflow, type LucideIcon, RotateCcw } from "lucide-react";
 import { FDECallRequestForm } from "@/components/program/FDECallRequestForm";
@@ -57,6 +61,22 @@ const audience = [
   "Database administrators moving toward data platforms and AI"
 ];
 
+/** Journey stops come straight from `phases`: four foundation months, then the advanced-track modules (no month is invented for them). */
+const adeJourney: JourneyStep[] = phases.map((phase, index) => {
+  const month = phase.weeks.match(/Month (\d+) · (Weeks [\d-]+)/);
+  const module = phase.weeks.match(/Module (\d+)/);
+  return {
+    id: `ade-${phase.number}`,
+    label: month ? `Month ${month[1]}` : `Advanced · Module ${module?.[1] ?? index - 3}`,
+    span: month ? month[2].replace("-", "–") : "Advanced track",
+    modules: [phase.title],
+    learn: phase.topics.slice(0, 3),
+    build: phase.ship,
+    unlock: index === 3 ? "Data Engineering Foundation complete" : index === phases.length - 1 ? "Applied GenAI & Agentic AI track complete" : undefined,
+    milestone: index === 3 ? "Foundation capstone · resume and interview prep" : index === phases.length - 1 ? "Integrated capstone" : undefined
+  };
+});
+
 export async function GenAIAgenticLanding() {
   const market = await getMarket();
   const brochureUrl = brochureHrefForMarket("/brochures/datamarcos-advance-data-engineering-genai-brochure.pdf", market);
@@ -110,6 +130,7 @@ export async function GenAIAgenticLanding() {
       <section className="fde-engagements fde-genai-work"><div className="container"><div className="fde-section-heading"><div><p className="fde-eyebrow">Applied work</p><h2>Build the systems in the brochure.</h2></div><p>Use these project formats to practise the ideas: data ingestion, grounded retrieval, useful agents and an integrated application.</p></div><div className="fde-engagement-list">{buildItems.map((item) => <article className="fde-engagement" key={item.id}><span className="fde-engagement-number">{item.id}</span><div><p>PROJECT BUILD</p><h3>{item.title}</h3></div><p className="fde-engagement-description">{item.detail}</p><ArrowRight className="fde-engagement-arrow" size={19} /></article>)}</div></div></section>
 
       <section className="fde-section fde-curriculum fde-genai-curriculum" id="curriculum"><div className="container"><div className="fde-section-heading"><div><p className="fde-eyebrow">The roadmap · two tracks</p><h2>From data foundations<br />to agentic applications.</h2></div><p>Follow the month-by-month foundation and then move into the advanced GenAI modules. The brochure describes the advanced track as a specialization; admissions can confirm its cohort schedule.</p></div><div className="fde-phase-list">{phases.map((phase, index) => <details className="fde-phase" key={phase.number} open={index === 0 || index === 4}><summary><span className="fde-phase-number">{phase.number}</span><span className="fde-phase-title"><small>{phase.weeks}</small><strong>{phase.title}</strong></span><span className="fde-phase-summary">{phase.summary}</span><span className="fde-phase-toggle" aria-hidden="true">+</span></summary><div className="fde-phase-content"><ul>{phase.topics.map((topic) => <li key={topic}><Check size={15} />{topic}</li>)}</ul><p><strong>You build</strong>{phase.ship}</p></div></details>)}</div></div></section>
+      <CareerJourney course={ADE_LEAD_COURSE} ctaPrefix="ADE" duration="4-month foundation + advanced track" title={<>Month by month, <em>to data + AI engineer.</em></>} objective="Modern cloud data engineering first, then GenAI, production RAG, agents and an integrated capstone on real data platforms." steps={adeJourney} careerPrep="Resume and interview preparation in Month 4, then practice rounds on CareerOS" />
 
       <section className="fde-toolkit fde-genai-toolkit"><div className="container"><div className="fde-toolkit-heading"><div><p className="fde-eyebrow">Technologies & tools</p><h2>The stack across both tracks.</h2></div><p>Tools and platforms named in the program brochure, used for cloud data engineering, GenAI applications and agent workflows.</p></div><div className="fde-genai-tool-list">{["Azure", "AWS", "Snowflake", "Databricks", "PySpark", "Delta Lake", "Kafka", "Airflow", "dbt", "Great Expectations", "SQL", "Python", "Git", "LangChain", "LangGraph", "CrewAI", "RAG", "Vector Databases", "Snowflake Cortex AI", "Databricks Agent Bricks"].map((tool) => <span key={tool}>{tool}</span>)}</div></div></section>
 
@@ -125,6 +146,8 @@ export async function GenAIAgenticLanding() {
 
       <div className="container"><p className="fde-apply-next">Choosing between data engineering and AI engineering? Read <Link href="/guides/data-engineer-vs-ai-engineer">data engineer vs AI engineer</Link>.</p></div>
       <RelatedGuides slugs={["data-engineering-courses-with-genai-india-compared-2026", "rag-vs-fine-tuning", "data-engineer-vs-ai-engineer"]} wrapClassName="container" />
+      <CourseProof course={ADE_LEAD_COURSE} ctaPrefix="ADE" courseName="data + AI engineering" />
+      <RiskStrip course={ADE_LEAD_COURSE} ctaPrefix="ADE" india={isIndiaMarket(market)} />
       <FeesEnrolment slug="advance-data-engineering-genai" />
 
       <section className="fde-brochure fde-genai-brochure" id="brochure"><div className="container fde-brochure-head"><div><p className="fde-eyebrow">Program guide · 2026</p><h2>Read the full brochure.</h2></div><a className="fde-button fde-button-dark" href={brochureUrl} data-dm-download data-file={brochureUrl} data-course={ADE_LEAD_COURSE} data-cta="ADE brochure section"><ArrowDownToLine size={17} /> Download PDF</a></div><div className="container fde-pdf-frame"><GatedBrochureFrame src={brochureUrl} title="Advanced Data Engineering with Applied GenAI and Agentic AI brochure" course="Advance Data Engineering with Applied GenAI & Agentic AI" cover="/images/program-thumbnails/data-engineering-genai.webp" /></div></section>
