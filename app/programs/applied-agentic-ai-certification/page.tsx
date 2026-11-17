@@ -277,7 +277,7 @@ export default async function AppliedAgenticAICertificationPage() {
               </li>
             ))}
           </ul>
-          <p className="fx-faq-guide">Want project ideas to practise first? See <Link href="/guides/agentic-ai-projects-for-beginners">agentic AI projects for beginners</Link>.</p>
+          <p className="fx-faq-guide">Want project ideas to practise first? See <Link href="/guides/agentic-ai-projects-for-beginners">agentic AI projects for beginners</Link>. Building retrieval? See <Link href="/guides/how-to-build-a-rag-pipeline">how to build a RAG pipeline</Link>. For prompting versus what the model sees, read <Link href="/guides/prompt-engineering-vs-context-engineering">prompt engineering vs context engineering</Link>.</p>
         </div>
       </section>
 
@@ -407,7 +407,7 @@ export default async function AppliedAgenticAICertificationPage() {
       </section>
 
       {/* BROCHURE */}
-      <RelatedGuides slugs={["agentic-ai-courses-india-compared-2026", "rag-vs-fine-tuning", "what-is-agentic-ai", "langgraph-vs-crewai-vs-autogen", "agentic-ai-projects-for-beginners"]} wrapClassName="fx-wrap" />
+      <RelatedGuides slugs={["agentic-ai-courses-india-compared-2026", "rag-vs-fine-tuning", "how-to-build-a-rag-pipeline", "what-is-agentic-ai", "langgraph-vs-crewai-vs-autogen", "agentic-ai-projects-for-beginners", "prompt-engineering-vs-context-engineering"]} wrapClassName="fx-wrap" />
       <section className="fx-section fx-brochure" id="brochure" aria-labelledby="fx-bro-title">
         <div className="fx-wrap">
           <div className="fx-split fx-split-end">

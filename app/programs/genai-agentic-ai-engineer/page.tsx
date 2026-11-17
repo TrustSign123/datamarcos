@@ -397,7 +397,7 @@ export default async function GenAIAgenticEngineerPage() {
             <div>
               <Head id="fx-faq-title" eyebrow="FAQ" title={<>Before you <em>apply.</em></>} body="Can't find yours? A counsellor will answer it on a short call." />
               <Cta cta="GenAI FAQ (counsellor)" variant="dark" label="Ask a counsellor" />
-              <p className="fx-faq-guide">New to agents? Read <Link href="/guides/what-is-agentic-ai">what agentic AI is</Link>.</p>
+              <p className="fx-faq-guide">New to agents? Read <Link href="/guides/what-is-agentic-ai">what agentic AI is</Link>. Building retrieval? See <Link href="/guides/how-to-build-a-rag-pipeline">how to build a RAG pipeline</Link>.</p>
             </div>
             <div className="fx-faq-list">
               {faqs.map((faq, index) => (
@@ -411,7 +411,7 @@ export default async function GenAIAgenticEngineerPage() {
         </section>
 
         {/* BROCHURE */}
-        <RelatedGuides slugs={["generative-ai-courses-india-compared-2026", "agentic-ai-courses-india-compared-2026", "rag-vs-fine-tuning", "what-is-agentic-ai"]} wrapClassName="fx-wrap" />
+        <RelatedGuides slugs={["generative-ai-courses-india-compared-2026", "agentic-ai-courses-india-compared-2026", "rag-vs-fine-tuning", "how-to-build-a-rag-pipeline", "what-is-agentic-ai", "prompt-engineering-vs-context-engineering"]} wrapClassName="fx-wrap" />
         <section className="fx-section fx-brochure" id="brochure" aria-labelledby="fx-bro-title">
           <div className="fx-wrap">
             <div className="fx-split fx-split-end">
