@@ -73,11 +73,11 @@ export const metadata: Metadata = {
 
 /** Real Datamarcos learners. Employer is shown only where the learner's profile names one. */
 const learnerProfiles: SpotlightLearner[] = [
+  { name: "Pravince Kumar", role: "Product Manager", employer: "Google", image: "/images/student-placements/pravince-kumar.webp", link: "https://www.linkedin.com/in/pravincesingh/" },
   { name: "Lakshan J", role: "Software Engineer", employer: "Hexaware Technologies", image: "/images/student-placements/lakshan-j.png", link: "https://www.linkedin.com/in/lakshan013/" },
-  // Confirmed Datamarcos learners (Deepesh, 17 Nov 2026). Role and employer exactly as their public LinkedIn shows. No photo on file yet: initials card.
-  { name: "Pravince Kumar", role: "Product Manager", employer: "Google", link: "https://www.linkedin.com/in/pravincesingh/" },
+  // Confirmed Datamarcos learners (Deepesh, 17 Nov 2026). Role and employer exactly as their public LinkedIn shows. Photos shared by Deepesh (18 Nov 2026); Pravince shown first at his request.
   { name: "Uphar Tandon", role: "Technology professional", employer: "Microsoft", image: "/images/student-placements/uphar-tandon.png", link: "https://www.linkedin.com/in/uphar-tandon-2563a636/" },
-  { name: "Joydip Dutta", role: "Project Associate, AOCTestbed", employer: "IIT Madras", link: "https://www.linkedin.com/in/joydip-dutta-b1878816b/" },
+  { name: "Joydip Dutta", role: "Project Associate, AOCTestbed", employer: "IIT Madras", image: "/images/student-placements/joydip-dutta.webp", link: "https://www.linkedin.com/in/joydip-dutta-b1878816b/" },
   { name: "Richard Leclézio", role: "Professional learner", image: "/images/student-placements/richard-leclezio.jpeg", link: "https://www.linkedin.com/in/richard-leclezio/" },
   { name: "Sharoz Farhan Afridi", role: "Technology professional", image: "/images/student-placements/sharoz-farhan-afridi.jpeg", link: "https://www.linkedin.com/in/sharoz-farhan-afridi/" },
   // Added 31 Oct 2026 at Deepesh's request. No role/employer: none confirmed by Deepesh, so the card shows "Datamarcos learner" only.

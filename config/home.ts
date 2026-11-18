@@ -419,6 +419,6 @@ export const learnerStories: LearnerStory[] = [
 export type LearnerNow = { name: string; initials: string; role: string; org: string; linkedin: string; image?: string };
 
 export const learnersNow: LearnerNow[] = [
-  { name: "Pravince Kumar", initials: "PK", role: "Product Manager", org: "Google (Google Maps & DeepMind)", linkedin: "https://www.linkedin.com/in/pravincesingh" },
-  { name: "Joydip Dutta", initials: "JD", role: "Project Associate, AOCTestbed", org: "IIT Madras", linkedin: "https://www.linkedin.com/in/joydip-dutta-b1878816b" }
+  { name: "Pravince Kumar", initials: "PK", role: "Product Manager", org: "Google (Google Maps & DeepMind)", linkedin: "https://www.linkedin.com/in/pravincesingh", image: "/images/student-placements/pravince-kumar.webp" },
+  { name: "Joydip Dutta", initials: "JD", role: "Project Associate, AOCTestbed", org: "IIT Madras", linkedin: "https://www.linkedin.com/in/joydip-dutta-b1878816b", image: "/images/student-placements/joydip-dutta.webp" }
 ];
