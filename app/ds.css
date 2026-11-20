@@ -736,7 +736,7 @@ html[data-theme] .fx-nav li a.is-active { background: var(--ds-blue-50); color: 
 :root {
   --ds-amber: #f59e0b; --ds-amber-ink: #b45309; --ds-amber-50: #fff7e6;
   --ds-green: #16a34a; --ds-green-50: #eafaf0;
-  --ds-teal: #0d9488; --ds-teal-50: #e6f7f5;
+  --ds-teal: #0f766e; --ds-teal-50: #e6f7f5;
   --ds-violet: #7c3aed; --ds-violet-50: #f3edff;
 }
 .ds-kicker { background: var(--ds-green-50) !important; color: #0f6b3a !important; border-color: #c9efd8 !important; }
@@ -1200,3 +1200,94 @@ html[data-theme] .footer.dmf .dmf-contact a { display: inline; margin: 0; color:
 @media (min-width: 768px) { .dmf-copy { padding-right: 180px; } } /* keep text clear of the fixed Contact Us button */
 .dmf-news-form input[type="tel"] { border-left: 1px solid #e2e8f0; border-radius: 0; }
 @media (max-width: 767px) { .dmf-news-form input[type="tel"] { border-left: 0; border-top: 1px solid #e2e8f0; } }
+/* intl hero panel + format */
+.ds-intl-panel { padding: 24px; border-radius: var(--ds-r-lg); background: #fff; border: 1px solid var(--ds-line); box-shadow: 0 24px 60px rgba(10, 27, 68, .12); }
+.ds-intl-panel .ds-checks { margin: 10px 0 14px; }
+.ds-format { display: grid; grid-template-columns: .8fr 1.2fr; gap: var(--ds-s6); align-items: start; }
+.ds-format p { margin: 0 0 12px; color: var(--ds-text); line-height: 1.6; }
+@media (max-width: 900px) { .ds-format { grid-template-columns: 1fr; gap: 8px; } }
+@media (max-width: 640px) { .ds-course .ds-intl-panel { display: none; } }
+
+/* P1 contrast: legacy mint (#8CF7AD) text on light surfaces */
+html[data-theme] .eyebrow, html[data-theme] .dmh-kicker, html[data-theme] .dmh-expert .dmh-expert-label, html[data-theme] .dmx-course-copy small, html[data-theme] .dmx-drawer-label, html[data-theme] .dmx-mega-label, html[data-theme] .dmx-drawer-contact a:first-child, html[data-theme] .dma-verify, html[data-theme] .dmh-teams-trained a, html[data-theme] .rp-body a, html[data-theme] .stack-layer span { color: #0B3D30; }
+html[data-theme] .dma-verify { border-color: rgba(11, 61, 48, .25); background: #ecfdf5; }
+html[data-theme] .visual-node svg, html[data-theme] .dmh-final-points svg, html[data-theme] .dmx-icon, html[data-theme] .rp-summary-title svg, html[data-theme] .rp-summary li svg, html[data-theme] .rp-examples svg, html[data-theme] .rp-card svg, html[data-theme] .rp-safe svg, html[data-theme] .rp-contact svg, html[data-theme] .fx-apply-list .fx-apply-refund svg, html[data-theme] .dmh-refund svg { color: #047857; }
+html[data-theme] .dmx-announce-dot { background: #22c55e; }
+
+/* =====================================================================
+   Course pages UI pass (20 Nov 2026): tap targets, contrast, FAB, rhythm
+   ===================================================================== */
+/* Tap targets: every link/button a thumb can hit is at least 44px tall */
+.ds-fde .ds-hero-links { gap: 4px 18px; }
+.ds-fde .ds-hero-links :is(a, button), .ds-fde .ds-hero-links .dm-view-fees { min-height: 44px; display: inline-flex; align-items: center; }
+.ds-fde .ds-hero-links .ds-btn-ghost { padding: 0; border: 0; background: none; box-shadow: none; color: var(--ds-blue); font-weight: 650; }
+.ds-cj-chips button { min-height: 44px; padding: 0 16px; }
+.ds-verify, .ds-fde .fx-link, .ds-risk a, .ds-risk button.ds-link, .ds-soft-cta .ds-link, .ds-course-proof .ds-link, .ds-now-li { min-height: 44px; display: inline-flex; align-items: center; }
+.ds-faq summary { min-height: 52px; }
+.ds-fde .fx-nav li a { min-height: 40px; display: inline-flex; align-items: center; }
+.ds-apply-list a, .ds-related a { min-height: 44px; }
+html[data-theme] .dmx-announce button { min-height: 40px; color: #fff; }
+/* Contrast: small green labels in the CareerOS journey, eyebrows on soft surfaces */
+.cos-upload small, .cos-col:nth-child(4) p { color: var(--ds-success); }
+/* Mentor sits on white so fit (soft) / mentor (white) / stories (soft) alternate */
+.ds-fde #mentor.ds-soft { background: #fff; }
+/* Section rhythm on phones: a little tighter, so pages scroll less */
+@media (max-width: 640px) {
+  .ds-fde .ds-section { padding: 56px 0; }
+  .ds-fde .ds-section-tight { padding: 44px 0; }
+  .ds-fde .ds-head { margin-bottom: 28px; }
+  .ds-fde .ds-head h2 { font-size: 1.75rem; }
+  .ds-fde .ds-sub { font-size: 1rem; }
+}
+
+/* WhatsApp button: one compact circle in the brand-safe green (white icon passes 3:1), never over text */
+html[data-theme] body .button.primary.whatsapp { display: grid; place-items: center; width: 52px !important; height: 52px !important; min-height: 0 !important; padding: 0 !important; right: 18px !important; bottom: 18px !important; border-radius: 50% !important; background: #16a34a; color: #fff; border: 2px solid #fff; box-shadow: 0 10px 24px rgba(10, 27, 68, .22); }
+html[data-theme] body .button.primary.whatsapp:hover { background: #12805c; }
+html[data-theme] body .button.primary.whatsapp span { display: none !important; }
+/* Course pages on phones: WhatsApp lives inside the bottom CTA bar instead of floating over content */
+@media (max-width: 760px) {
+  body:has(.fx-mbar) .button.primary.whatsapp { display: none !important; }
+  .ds-fde .fx-mbar { grid-template-columns: auto 48px 1fr; }
+  .ds-fde .fx-mbar a.fx-mbar-wa { padding: 0; background: #16a34a; color: #fff; }
+}
+.fx-mbar-wa { display: none; }
+@media (max-width: 760px) { .fx-mbar-wa { display: inline-flex; } }
+
+/* ADE on the shared course layout: hero photo + two-track curriculum */
+.ds-course-photo { aspect-ratio: 4 / 3; }
+.ds-course-photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.ds-ade-curr { display: grid; grid-template-columns: 1fr 1fr; gap: var(--ds-s5); margin-bottom: var(--ds-s6); }
+.ds-ade-track { padding: var(--ds-s5); border-radius: var(--ds-r-lg); background: #fff; border: 1px solid var(--ds-line); box-shadow: var(--ds-shadow); }
+.ds-ade-track header { margin-bottom: var(--ds-s4); }
+.ds-ade-track header > span { display: inline-block; padding: 4px 10px; border-radius: 999px; background: var(--ds-blue-50); color: var(--ds-blue-700); font-size: .72rem; font-weight: 700; letter-spacing: .08em; }
+.ds-ade-track header small { margin-left: 10px; color: var(--ds-muted); font-size: .82rem; }
+.ds-ade-track h3 { margin: 10px 0 6px; font-size: 1.3rem; color: var(--ds-navy); }
+.ds-ade-track header p { margin: 0; color: var(--ds-text); font-size: .94rem; line-height: 1.55; }
+.ds-ade-track ol { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.ds-ade-track details { border: 1px solid var(--ds-line); border-radius: 12px; background: var(--ds-soft); }
+.ds-ade-track details[open] { background: #fff; border-color: var(--ds-blue-100); }
+.ds-ade-track summary { display: flex; gap: 12px; align-items: center; min-height: 56px; padding: 10px 14px; cursor: pointer; list-style: none; }
+.ds-ade-track summary::-webkit-details-marker { display: none; }
+.ds-ade-track summary > b { display: grid; place-items: center; flex: none; width: 34px; height: 34px; border-radius: 10px; background: var(--ds-navy); color: #fff; font-size: .8rem; }
+.ds-ade-track summary span { display: grid; gap: 2px; }
+.ds-ade-track summary small { color: var(--ds-muted); font-size: .74rem; font-weight: 600; }
+.ds-ade-track summary strong { color: var(--ds-navy); font-size: .98rem; }
+.ds-ade-track details ul { display: grid; gap: 6px; margin: 0; padding: 0 14px 6px 60px; list-style: none; }
+.ds-ade-track details li { display: flex; gap: 8px; align-items: flex-start; color: var(--ds-text); font-size: .9rem; line-height: 1.45; }
+.ds-ade-track details li svg { flex: none; margin-top: 3px; color: var(--ds-blue); }
+.ds-ade-track details p { margin: 4px 0 0; padding: 0 14px 14px 60px; color: var(--ds-text); font-size: .88rem; }
+.ds-ade-track details p b { color: var(--ds-navy); }
+@media (max-width: 900px) { .ds-ade-curr { grid-template-columns: 1fr; } }
+@media (max-width: 640px) { .ds-ade-track { padding: var(--ds-s4); } .ds-ade-track details ul, .ds-ade-track details p { padding-left: 14px; } }
+html[data-theme] .ds-fde .ds-hero-links .dm-view-fees a { min-height: 44px; padding: 0; border-bottom: 0; color: var(--ds-blue); font-weight: 650; text-decoration: underline; text-underline-offset: 4px; text-decoration-color: rgba(21, 87, 229, .4); }
+/* Mobile CTA bar: the main button was white text on a near-white chip (theme-light override won); make it solid blue */
+html[data-theme] .ds-fde .fx-mbar a { color: var(--ds-navy); background: var(--ds-soft); border: 1px solid var(--ds-line); }
+html[data-theme] .ds-fde .fx-mbar a.fx-mbar-main { color: #fff; background: var(--ds-blue); border-color: var(--ds-blue); }
+html[data-theme] .ds-fde .fx-mbar a.fx-mbar-wa { color: #fff; background: #16a34a; border-color: #16a34a; }
+/* Learner reel label sits on a navy chip: white text */
+html[data-theme] :is(.ds-home, .ds-fde) .dmh-reel-course { color: #fff; }
+/* FDE tap targets */
+.ds-fde .fx-roles-toggle button { min-height: 44px; }
+.ds-fde .dmh-reel-link { min-height: 44px; display: inline-flex; align-items: center; }
+.ds-fde .ds-section .ds-card .ds-link, .ds-fde #career .ds-link { min-height: 44px; }
+@media (max-width: 760px) { html[data-theme] .ds-fde .fx-mbar a { white-space: nowrap; padding: 0 12px; font-size: .88rem; } }

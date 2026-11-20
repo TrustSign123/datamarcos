@@ -27,6 +27,25 @@ export function CourseProof({ course, ctaPrefix, courseName }: { course: string;
   );
 }
 
+/** Why us + learner stories only (course pages place the CareerOS journey next to fees). */
+export function LearnerProof({ course, ctaPrefix, courseName }: { course: string; ctaPrefix: string; courseName: string }) {
+  const stories = learnerStories.filter((story) => story.kind !== "peer").slice(0, 3);
+  return (
+    <div className="ds-course-proof">
+      <section className="ds-section ds-soft" id="learner-stories" aria-labelledby={`${ctaPrefix}-stories-title`}>
+        <div className="ds-wrap">
+          <SectionHead id={`${ctaPrefix}-stories-title`} eyebrow="Learner stories" title={<>Learners who trained <em>with Deepesh.</em></>} sub="In their own words. Every story links to its source." />
+          <div className="ds-stories">{stories.map((story) => <StoryCard key={story.id} story={story} />)}</div>
+          <LearnersNow />
+          <p className="ds-soft-cta"><button type="button" className="ds-link" data-dm-lead data-course={course} data-cta={`${ctaPrefix} stories - Talk to a counsellor`}>Ask a counsellor about learner journeys <ArrowRight size={14} aria-hidden="true" /></button></p>
+          <p className="ds-fine">Stories are shared by learners. No placement, salary or hike is guaranteed; outcomes depend on each learner.</p>
+        </div>
+      </section>
+      <WhyDatamarcos variant="course" title={<>Why learn {courseName} <em>with us.</em></>} />
+    </div>
+  );
+}
+
 /** Risk reducers shown right above Fees & enrolment. */
 export function RiskStrip({ course, ctaPrefix, india }: { course: string; ctaPrefix: string; india: boolean }) {
   return (

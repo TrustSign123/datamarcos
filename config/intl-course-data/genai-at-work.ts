@@ -166,7 +166,7 @@ export const genaiAtWorkCourse: IntlCourse = {
     { q: "Is there a refund policy?", a: "Yes. Datamarcos has a 7-day refund policy. If the program is not right for you, ask within 7 days of enrollment." }
   ],
   brochure: "/brochures/Datamarcos_GenAI_at_Work_Brochure.pdf",
-  image: "/images/intl-courses/genai-at-work-cover.webp",
+  image: "/images/program-thumbs/genai-at-work.webp",
   imageAlt: "Typographic poster for the Datamarcos GenAI at Work program",
   metaTitle: "GenAI at Work: AI Tools & No-code Automation, 6 Weeks Live | Datamarcos",
   metaDescription: "A 6-week live online program on everyday AI assistants and no-code automation for working professionals. No coding required. Fees and EMI options shared on a counsellor call.",

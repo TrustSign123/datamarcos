@@ -11,12 +11,14 @@ import { FdeCurriculum, type CurriculumPhase } from "@/components/program/fde/Fd
 import { ToolWall, type ToolGroup } from "@/components/program/ToolWall";
 import { RelatedGuides } from "@/components/guides/RelatedGuides";
 import { CareerJourney } from "@/components/ds/CareerJourney";
-import { CourseProof, RiskStrip } from "@/components/ds/CourseTrust";
+import { LearnerProof, RiskStrip } from "@/components/ds/CourseTrust";
+import { CareerOSJourney } from "@/components/ds/CareerOSJourney";
 import type { JourneyStep } from "@/lib/journey";
 import { DEEPESH_LINKEDIN } from "@/config/home";
 import { APPLY_FEE_INTRO, type FeeSlug } from "@/config/fees";
 import { PLACEMENT_LABEL, PLACEMENT_URL } from "@/config/placement";
 import { NEXT_COHORT_LONG } from "@/config/cohort";
+import { faqsPointingToFees } from "@/lib/geo";
 
 export type LandingFaq = { q: string; a: string; link?: { href: string; label: string } };
 export type LandingLevel = { level: string; who: string; next: string };
@@ -59,7 +61,11 @@ export type CourseLandingProps = {
   projectsTitle?: React.ReactNode;
   toolGroups?: ToolGroup[];
   faqs: LandingFaq[];
-  objections: { q: string; a: string }[];
+  objections?: { q: string; a: string }[];
+  /** Skills and work products (not outcomes promises). Shown when there are no role cards. */
+  outcomes?: string[];
+  /** Format and schedule paragraphs. */
+  format?: { title: React.ReactNode; paragraphs: string[] };
   india: boolean;
   apply: { eyebrow: string; title: React.ReactNode; body: string; bullets: string[]; formTitle: string; submitLabel: string; trust: string[]; successBody: string };
   relatedGuides?: string[];
@@ -94,11 +100,11 @@ export function CourseLanding(p: CourseLandingProps) {
   );
   const nav: FdeNavItem[] = [
     { id: "fit", label: "Who it's for" },
+    { id: "mentor", label: "Mentor" },
+    { id: "learner-stories", label: "Learners" },
     { id: "journey", label: "Journey" },
     { id: "curriculum", label: "Curriculum" },
     { id: "projects", label: "Projects" },
-    { id: "mentor", label: "Mentor" },
-    { id: "learner-stories", label: "Learners" },
     { id: "placement", label: "Placement" },
     ...(p.feeSlug ? [{ id: "fees", label: "Fees" }] : []),
     { id: "faq", label: "FAQ" }
@@ -151,6 +157,15 @@ export function CourseLanding(p: CourseLandingProps) {
         </section>
       )}
 
+      {p.outcomes && p.outcomes.length > 0 && (
+        <section className="ds-section ds-section-tight" id="outcomes" aria-labelledby="course-out-title">
+          <div className="ds-wrap">
+            <Head id="course-out-title" eyebrow="Outcomes" title={<>What you will be able <em>to do.</em></>} body="Skills and work products from the program, not placement, salary or promotion promises." />
+            <ul className="ds-rolecards">{p.outcomes.map((o, i) => <li key={o}><span>{String(i + 1).padStart(2, "0")}</span><small>{o}</small></li>)}</ul>
+          </div>
+        </section>
+      )}
+
       {/* 3. IS THIS FOR YOU? audience, readiness levels, fit */}
       <section className="ds-section ds-soft" id="fit" aria-labelledby="course-fit-title">
         <div className="ds-wrap">
@@ -193,6 +208,28 @@ export function CourseLanding(p: CourseLandingProps) {
         </div>
       </section>
 
+      {/* 7. MENTOR */}
+      <section className="ds-section ds-soft" id="mentor" aria-labelledby="course-mentor-title">
+        <div className="ds-wrap">
+          <Head id="course-mentor-title" eyebrow="Your mentor" title={<>Learn from <em>a practitioner.</em></>} />
+          <div className="ds-mentors ds-mentors-fde">
+            <article className="ds-mentor ds-mentor-lead">
+              <div className="ds-mentor-photo"><Image src="/images/deepesh-mishra-founder.jpeg" alt="Deepesh Mishra, founder and lead mentor at Datamarcos" width={600} height={720} sizes="(max-width: 760px) 80vw, 340px" /></div>
+              <div className="ds-mentor-copy">
+                <span className="ds-tag">Founder &amp; lead mentor</span>
+                <h3>Deepesh Mishra</h3>
+                <p className="ds-mentor-role">Solution Architect · Corporate Trainer · BITS Pilani alumnus</p>
+                <p>18+ years in technology. Has trained 25,000+ professionals across 200+ organizations, live.</p>
+                <div className="ds-row"><a className="ds-btn ds-btn-ghost" href={DEEPESH_LINKEDIN} target="_blank" rel="noreferrer"><Linkedin size={16} aria-hidden="true" /> Recommendations on LinkedIn</a></div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      {/* 8. PROOF: why us + learner stories, right after the mentor */}
+      <LearnerProof course={p.course} ctaPrefix={p.name} courseName={p.name} />
+
       {/* 4. CAREER JOURNEY */}
       <CareerJourney course={p.course} ctaPrefix={p.name} duration={p.journey.duration} title={p.journey.title} objective={p.journey.objective} steps={p.journey.steps} careerPrep={p.journey.careerPrep} />
 
@@ -232,29 +269,17 @@ export function CourseLanding(p: CourseLandingProps) {
         </section>
       )}
 
-      {/* 7. MENTOR */}
-      <section className="ds-section ds-soft" id="mentor" aria-labelledby="course-mentor-title">
-        <div className="ds-wrap">
-          <Head id="course-mentor-title" eyebrow="Your mentor" title={<>Learn from <em>a practitioner.</em></>} />
-          <div className="ds-mentors ds-mentors-fde">
-            <article className="ds-mentor ds-mentor-lead">
-              <div className="ds-mentor-photo"><Image src="/images/deepesh-mishra-founder.jpeg" alt="Deepesh Mishra, founder and lead mentor at Datamarcos" width={600} height={720} sizes="(max-width: 760px) 80vw, 340px" /></div>
-              <div className="ds-mentor-copy">
-                <span className="ds-tag">Founder &amp; lead mentor</span>
-                <h3>Deepesh Mishra</h3>
-                <p className="ds-mentor-role">Solution Architect · Corporate Trainer · BITS Pilani alumnus</p>
-                <p>18+ years in technology. Has trained 25,000+ professionals across 200+ organizations, live.</p>
-                <div className="ds-row"><a className="ds-btn ds-btn-ghost" href={DEEPESH_LINKEDIN} target="_blank" rel="noreferrer"><Linkedin size={16} aria-hidden="true" /> Recommendations on LinkedIn</a></div>
-              </div>
-            </article>
+      {p.format && (
+        <section className="ds-section ds-section-tight" id="format" aria-labelledby="course-format-title">
+          <div className="ds-wrap ds-format">
+            <Head id="course-format-title" eyebrow="Format and schedule" title={p.format.title} align="left" />
+            <div>{p.format.paragraphs.map((t) => <p key={t}>{t}</p>)}</div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
-      {/* 8–9. LEARNER STORIES + PLACEMENT JOURNEY + WHY US */}
-      <CourseProof course={p.course} ctaPrefix={p.name} courseName={p.name} />
-
-      {/* 10. RISK STRIP + FEES */}
+      {/* 10. PLACEMENT JOURNEY (CareerOS) + RISK REDUCERS + FEES */}
+      <CareerOSJourney id="placement" course={p.course} ctaPrefix={`${p.name} CareerOS`} />
       {p.feeSlug && (
         <>
           <RiskStrip course={p.course} ctaPrefix={p.name} india={p.india} />
@@ -267,11 +292,11 @@ export function CourseLanding(p: CourseLandingProps) {
         <div className="ds-wrap ds-faq-grid">
           <div>
             <Head id="course-faq-title" eyebrow="FAQ" title={<>Questions, <em>answered.</em></>} align="left" />
-            <ul className="ds-worries">{p.objections.map((o) => <li key={o.q}><b>{o.q}</b><span>{o.a}</span></li>)}</ul>
+            {p.objections && p.objections.length > 0 ? <ul className="ds-worries">{p.objections.map((o) => <li key={o.q}><b>{o.q}</b><span>{o.a}</span></li>)}</ul> : <p className="ds-sub">Can&rsquo;t find yours? A counsellor will answer it on a short call.</p>}
             {lead("Ask a counsellor", "FAQ (counsellor)", "navy")}
           </div>
           <div className="ds-faq">
-            {p.faqs.map((faq, index) => (
+            {faqsPointingToFees(p.faqs).map((faq, index) => (
               <details key={faq.q} open={index === 0}>
                 <summary><span>{faq.q}</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></summary>
                 <FaqAnswer faq={faq} />
@@ -300,7 +325,7 @@ export function CourseLanding(p: CourseLandingProps) {
             <ul className="ds-apply-list">
               {p.apply.bullets.map((b) => <li key={b}><Rocket size={17} aria-hidden="true" /> {b}</li>)}
               <li><UsersRound size={17} aria-hidden="true" /> Live, mentor-led sessions with Deepesh Mishra</li>
-              <li><ShieldCheck size={17} aria-hidden="true" /> Honest outcomes: no placement or salary guarantees</li>
+              {!p.apply.bullets.some((b) => /guarantee/i.test(b)) && <li><ShieldCheck size={17} aria-hidden="true" /> Placement support, not a job guarantee</li>}
               <li><RotateCcw size={17} aria-hidden="true" /> <span><Link href="/refund-policy">7-day refund policy</Link>: ask within 7 days for a refund.</span></li>
               <li><PhoneCall size={17} aria-hidden="true" /> Next cohort starts {NEXT_COHORT_LONG}</li>
             </ul>

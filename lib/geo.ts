@@ -53,6 +53,14 @@ export function faqsForJsonLd<T extends FaqLike>(faqs: T[]): T[] {
   return faqs.map((faq) => (FEE_AMOUNT_RE.test(faq.a) ? { ...faq, a: SNIPPET_FEE_FAQ_ANSWER } : faq));
 }
 
+/** Course-page FAQ answer that points to the fees block, so prices appear only in Fees & enrolment. */
+export const FEES_SECTION_FAQ_ANSWER = "The fee, seat booking and EMI options are listed in the Fees & enrolment section on this page. A counsellor can help you choose.";
+
+/** Visible course-page FAQs: any answer with an amount is replaced by a pointer to the Fees & enrolment section (display only; pricing logic is unchanged). */
+export function faqsPointingToFees<T extends FaqLike & { link?: { href: string; label: string } }>(faqs: T[]): T[] {
+  return faqs.map((faq) => (FEE_AMOUNT_RE.test(faq.a) ? { ...faq, a: FEES_SECTION_FAQ_ANSWER, link: { href: "#fees", label: "Fees & enrolment" } } : faq));
+}
+
 /** Visible FAQs are already market-specific (see faqsWithProgramFees). This only rewrites India-centric phrasing for international visitors. JSON-LD stays fee-free via faqsForJsonLd. */
 export function faqsForMarket<T extends FaqLike>(market: Market, faqs: T[]): T[] {
   if (isIndiaMarket(market)) return faqs;

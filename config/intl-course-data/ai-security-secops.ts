@@ -127,7 +127,7 @@ export const aiSecuritySecopsCourse: IntlCourse = {
     { q: "Is there a refund policy?", a: "Yes. Datamarcos has a 7-day refund policy. If the program is not right for you, ask within 7 days of enrollment." }
   ],
   brochure: "/brochures/Datamarcos_AI_Security_SecOps_Brochure.pdf",
-  image: "/images/intl-courses/ai-security-secops-cover.webp",
+  image: "/images/program-thumbs/ai-security-secops.webp",
   imageAlt: "Typographic poster for the Datamarcos AI Security and SecOps program",
   metaTitle: "AI Security & SecOps, 8 Weeks Live | Datamarcos",
   metaDescription: "An 8-week live, lab-heavy program on securing LLM and agent applications and on AI-powered SecOps: threat modelling, red-teaming, guardrails, and SIEM/SOAR workflows with human gates. Fees and EMI options shared on a counsellor call.",

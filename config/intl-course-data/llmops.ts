@@ -214,7 +214,7 @@ export const llmopsCourse: IntlCourse = {
     { q: "Is there a refund policy?", a: "Yes. Datamarcos has a 7-day refund policy. If the program is not right for you, ask within 7 days of enrollment." }
   ],
   brochure: "/brochures/Datamarcos_LLMOps_AI_Evaluation_Brochure.pdf",
-  image: "/images/intl-courses/llmops-ai-evaluation-cover.webp",
+  image: "/images/program-thumbs/llmops-ai-evaluation.webp",
   imageAlt: "Typographic poster for the Datamarcos LLMOps and AI Evaluation program",
   metaTitle: "LLMOps & AI Evaluation in Production, 8 Weeks Live | Datamarcos",
   metaDescription: "An 8-week live online program for engineers who will evaluate, observe, deploy and harden LLM applications in production. Fees and EMI options shared on a counsellor call.",
