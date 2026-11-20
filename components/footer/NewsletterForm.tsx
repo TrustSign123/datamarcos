@@ -5,6 +5,7 @@ import { ArrowRight, Check, Loader2 } from "lucide-react";
 import { LEAD_NOT_SURE, leadEndpoint } from "@/config/lead";
 import { site } from "@/config/site";
 import { readAttribution } from "@/lib/analytics";
+import { PHONE_ERROR, readDetectedPhoneCountry, toE164 } from "@/lib/phone";
 
 /**
  * Footer newsletter signup. Posts to the same site-wide lead endpoint (Google Sheet) as every other form,
@@ -21,6 +22,8 @@ export function NewsletterForm() {
     if (String(data.get("website") || "")) { setState("done"); return; } // honeypot
     const email = String(data.get("email") || "").trim();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { setState("error"); setMessage("Please enter a valid email address."); return; }
+    const phone = toE164(String(data.get("phone") || "").trim(), readDetectedPhoneCountry() || "IN");
+    if (!phone) { setState("error"); setMessage(PHONE_ERROR); return; }
     setState("loading"); setMessage("");
     const attribution = readAttribution() as Record<string, string>;
     try {
@@ -29,7 +32,7 @@ export function NewsletterForm() {
         method: "POST",
         headers: { "Content-Type": "text/plain;charset=utf-8" },
         body: JSON.stringify({
-          name: "Newsletter subscriber", email, phone: "", course: LEAD_NOT_SURE,
+          name: "Newsletter subscriber", email, phone, course: LEAD_NOT_SURE,
           cta: "Footer - Newsletter Subscribe", intent: "newsletter", source: "newsletter",
           page: window.location.href,
           utm_source: attribution.utm_source || "", utm_medium: attribution.utm_medium || "", utm_campaign: attribution.utm_campaign || "",
@@ -55,6 +58,8 @@ export function NewsletterForm() {
     <form className="dmf-news-form" onSubmit={onSubmit} noValidate>
       <label className="dmf-sr" htmlFor="dmf-news-email">Email address</label>
       <input id="dmf-news-email" name="email" type="email" inputMode="email" autoComplete="email" placeholder="Enter your email" required aria-invalid={state === "error"} aria-describedby={message ? "dmf-news-msg" : undefined} />
+      <label className="dmf-sr" htmlFor="dmf-news-phone">WhatsApp number</label>
+      <input id="dmf-news-phone" name="phone" type="tel" inputMode="tel" autoComplete="tel" placeholder="WhatsApp number" required />
       <input className="dmf-hp" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" />
       <button type="submit" disabled={state === "loading"}>
         {state === "loading" ? <Loader2 className="dmf-spin" size={16} aria-hidden="true" /> : null}
