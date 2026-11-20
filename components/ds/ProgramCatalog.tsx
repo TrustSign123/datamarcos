@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
-import { ArrowDownToLine, ArrowRight, ArrowUpRight, BarChart3, Bot, BrainCircuit, Briefcase, CalendarClock, Database, GraduationCap, LineChart, Lock, Rocket, ShieldCheck, Sparkles, Star, Workflow } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { ArrowDownToLine, BadgeCheck, Clock3, ArrowRight, ArrowUpRight, BarChart3, Bot, BrainCircuit, Briefcase, CalendarClock, Database, GraduationCap, LineChart, Lock, Rocket, ShieldCheck, Sparkles, Star, Workflow } from "lucide-react";
 import { NEXT_COHORT_SHORT } from "@/config/cohort";
 
 export type CatalogCategory = "flagship" | "data" | "pro" | "security";
@@ -64,19 +64,21 @@ export function CourseThumb({ item, size = "md" }: { item: Pick<CatalogItem, "sl
   );
 }
 
-function FlagshipCard({ p, ctaPrefix }: { p: CatalogItem; ctaPrefix: string }) {
+function FlagshipCard({ p, ctaPrefix, index }: { p: CatalogItem; ctaPrefix: string; index: number }) {
   const I = ICONS[p.slug] ?? Sparkles;
   const href = `/programs/${p.slug}`;
   return (
-    <article className="ds-fcard">
+    <article className="ds-fcard" data-index={index}>
       <div className="ds-fcard-top">
-        <span className="ds-fcard-badge"><Star size={12} aria-hidden="true" /> Flagship</span>
-        <span className="ds-fcard-icon" aria-hidden="true"><I size={24} aria-hidden /></span>
+        <div className="ds-fcard-row">
+          <span className="ds-fcard-icon" aria-hidden="true"><I size={22} aria-hidden /></span>
+          <span className="ds-fcard-badge"><Star size={11} aria-hidden="true" /> Flagship</span>
+        </div>
+        <span className="ds-fcard-kicker">{p.tag}</span>
         <h4><Link href={href}>{p.title}</Link></h4>
-        <span className="ds-fcard-meta"><span>{p.duration}</span><em>{p.level}</em></span>
+        <span className="ds-fcard-meta"><span><Clock3 size={13} aria-hidden="true" /> {p.duration}</span><em><BadgeCheck size={13} aria-hidden="true" /> Job-ready</em></span>
       </div>
       <div className="ds-fcard-body">
-        <span className="ds-fcard-tag">{p.tag}</span>
         <p>{p.summary}</p>
         <div className="ds-fcard-actions">
           <Link className="ds-btn ds-btn-primary" href={href}>Explore <ArrowUpRight size={16} aria-hidden="true" /></Link>
@@ -84,6 +86,41 @@ function FlagshipCard({ p, ctaPrefix }: { p: CatalogItem; ctaPrefix: string }) {
         </div>
       </div>
     </article>
+  );
+}
+
+/** Desktop/tablet: grid. Mobile (<768px): CSS scroll-snap carousel with dot indicators. */
+function FlagshipRow({ items, ctaPrefix }: { items: CatalogItem[]; ctaPrefix: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(0);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const onScroll = () => {
+      const first = el.children[0] as HTMLElement | undefined;
+      if (!first) return;
+      const step = first.offsetWidth + parseFloat(getComputedStyle(el).columnGap || "0");
+      setActive(Math.max(0, Math.min(items.length - 1, Math.round(el.scrollLeft / step))));
+    };
+    el.addEventListener("scroll", onScroll, { passive: true });
+    return () => el.removeEventListener("scroll", onScroll);
+  }, [items.length]);
+  const go = (i: number) => {
+    const el = ref.current;
+    const card = el?.children[i] as HTMLElement | undefined;
+    if (el && card) el.scrollTo({ left: card.offsetLeft - el.offsetLeft, behavior: "smooth" });
+  };
+  return (
+    <>
+      <div className="ds-flagship" ref={ref}>
+        {items.map((p, i) => <FlagshipCard key={p.slug} p={p} index={i} ctaPrefix={ctaPrefix} />)}
+      </div>
+      <div className="ds-fdots" role="tablist" aria-label="Flagship programs">
+        {items.map((p, i) => (
+          <button key={p.slug} type="button" role="tab" aria-selected={active === i} aria-label={`Show ${p.title}`} onClick={() => go(i)}><span /></button>
+        ))}
+      </div>
+    </>
   );
 }
 
@@ -111,12 +148,10 @@ export function ProgramCatalog({ items, ctaPrefix = "Home program card" }: { ite
   return (
     <div className="ds-catalog">
       <div className="ds-catalog-bar">
-        <h3 className="ds-catalog-h"><Star size={18} aria-hidden="true" /> Flagship career programs</h3>
+        <h3 className="ds-catalog-h">Flagship career programs</h3>
         <span className="ds-catalog-cohort"><CalendarClock size={15} aria-hidden="true" /> Next cohort: {NEXT_COHORT_SHORT}</span>
       </div>
-      <div className="ds-flagship">
-        {flagship.map((p) => <FlagshipCard key={p.slug} p={p} ctaPrefix={ctaPrefix} />)}
-      </div>
+      <FlagshipRow items={flagship} ctaPrefix={ctaPrefix} />
 
       <div className="ds-catalog-bar ds-catalog-bar-2">
         <h3 className="ds-catalog-h">More programs by category</h3>
