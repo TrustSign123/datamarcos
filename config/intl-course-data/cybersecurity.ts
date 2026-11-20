@@ -199,7 +199,7 @@ export const cybersecurityCourse: IntlCourse = {
     { q: "Is there a refund policy?", a: "Yes. Datamarcos has a 7-day refund policy. If the program is not right for you, ask within 7 days of enrollment." }
   ],
   brochure: "/brochures/Datamarcos_Cybersecurity_with_AI_Brochure.pdf",
-  image: "/images/intl-courses/cybersecurity-with-ai-cover.webp",
+  image: "/images/program-thumbs/cybersecurity-with-ai.webp",
   imageAlt: "Typographic poster for the Datamarcos Cybersecurity with AI program",
   metaTitle: "Cybersecurity with AI, 8 Weeks Live | Datamarcos",
   metaDescription: "An 8-week live online program on AI in security operations and on securing LLM and agent applications, including OWASP LLM risks, prompt injection and red-teaming. Fees and EMI options shared on a counsellor call.",

@@ -36,7 +36,7 @@ export function InlineLeadForm({
                 <ul className="benefits">
                   {benefits.map((benefit, index) => (
                     <li key={index}>
-                      <svg viewBox="0 0 24 24" fill="none" stroke="#ff7a3d" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
+                      <svg viewBox="0 0 24 24" fill="none" stroke="#1557e5" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
                       <span>{benefit}</span>
                     </li>
                   ))}

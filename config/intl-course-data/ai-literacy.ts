@@ -142,7 +142,7 @@ export const literacyCourse: IntlCourse = {
     { q: "Is there a refund policy?", a: "Yes. Datamarcos has a 7-day refund policy. If the program is not right for you, ask within 7 days of enrollment." }
   ],
   brochure: "/brochures/Datamarcos_AI_Literacy_Responsible_AI_Brochure.pdf",
-  image: "/images/intl-courses/ai-literacy-responsible-ai-cover.webp",
+  image: "/images/program-thumbs/ai-literacy-responsible-ai.webp",
   imageAlt: "Typographic poster for the Datamarcos AI Literacy and Responsible AI program",
   metaTitle: "AI Literacy & Responsible AI, 4 Weeks Live | Datamarcos",
   metaDescription: "A 4-week live online AI literacy program for managers and professionals, covering practical responsible use and EU AI Act staff-literacy duties. Fees and EMI options shared on a counsellor call.",

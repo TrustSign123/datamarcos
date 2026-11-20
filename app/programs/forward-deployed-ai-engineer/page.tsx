@@ -39,7 +39,7 @@ import type { LucideIcon } from "lucide-react";
 import { site } from "@/config/site";
 import { NEXT_COHORT_ISO, NEXT_COHORT_LONG, NEXT_COHORT_STARTS } from "@/config/cohort";
 import { APPLY_FEE_INTRO, faqsWithProgramFees } from "@/config/fees";
-import { faqsForJsonLd, faqsForMarket, isIndiaMarket } from "@/lib/geo";
+import { faqsForJsonLd, faqsForMarket, faqsPointingToFees, isIndiaMarket } from "@/lib/geo";
 import { brochureHrefForMarket } from "@/config/lead";
 import { getMarket } from "@/lib/geo-server";
 import { RelatedGuides } from "@/components/guides/RelatedGuides";
@@ -65,11 +65,11 @@ const nav: FdeNavItem[] = [
   { id: "role", label: "The role" },
   { id: "fit", label: "Who it's for" },
   { id: "readiness", label: "Readiness" },
+  { id: "mentor", label: "Mentor" },
+  { id: "learners", label: "Learners" },
   { id: "curriculum", label: "Curriculum" },
   { id: "journey", label: "Journey" },
   { id: "projects", label: "Projects" },
-  { id: "mentor", label: "Mentor" },
-  { id: "learners", label: "Learners" },
   { id: "career", label: "Placement" },
   { id: "fees", label: "Fees" },
   { id: "faq", label: "FAQ" }
@@ -258,7 +258,7 @@ const fdeReadinessLevels = [
 export default async function ForwardDeployedAIEngineerPage() {
   const market = await getMarket();
   const india = isIndiaMarket(market);
-  const faqs = faqsForMarket(market, faqsWithProgramFees(market, fdeFaqs, "forward-deployed-ai-engineer"));
+  const faqs = faqsPointingToFees(faqsForMarket(market, faqsWithProgramFees(market, fdeFaqs, "forward-deployed-ai-engineer")));
   const successLinks = [{ label: "Download the brochure", href: brochureHrefForMarket(FDE_BROCHURE, market), download: true }];
   const stories = learnerStories.filter((story) => story.kind !== "peer").slice(0, 3);
   const objections = [
@@ -361,8 +361,6 @@ export default async function ForwardDeployedAIEngineerPage() {
         </div>
       </section>
 
-      <WhyDatamarcos variant="fde" />
-
       {/* 4. AUDIENCE + TRANSITIONS */}
       <section className="ds-section" id="fit" aria-labelledby="fx-fit-title">
         <div className="ds-wrap">
@@ -414,6 +412,44 @@ export default async function ForwardDeployedAIEngineerPage() {
           </div>
         </div>
       </section>
+
+      {/* 8. MENTOR */}
+      <section className="ds-section" id="mentor" aria-labelledby="fx-mentor-title">
+        <div className="ds-wrap">
+          <Head id="fx-mentor-title" eyebrow="Your mentor" title={<>Learn from <em>a practitioner.</em></>} />
+          <div className="ds-mentors ds-mentors-fde">
+            <article className="ds-mentor ds-mentor-lead">
+              <div className="ds-mentor-photo"><Image src="/images/deepesh-mishra-founder.jpeg" alt="Deepesh Mishra, founder and lead mentor at Datamarcos" width={600} height={720} sizes="(max-width: 760px) 80vw, 340px" /></div>
+              <div className="ds-mentor-copy">
+                <span className="ds-tag">Founder &amp; lead mentor</span>
+                <h3 id="fx-mentor-name">Deepesh Mishra</h3>
+                <p className="ds-mentor-role">Solution Architect · Corporate Trainer · BITS Pilani alumnus</p>
+                {/* 31 Oct 2026 (brief 0.1): this page keeps only the 200+ organizations figure for the mentor. */}
+                <p>Has trained teams at 200+ organizations. Teaches the work in its real order: scope, build, secure, deploy, hand over.</p>
+                <div className="ds-row">
+                  <a className="ds-btn ds-btn-ghost" href={DEEPESH_LINKEDIN} target="_blank" rel="noreferrer"><Linkedin size={16} aria-hidden="true" /> Recommendations on LinkedIn</a>
+                </div>
+              </div>
+            </article>
+            <Placeholder className="ds-mentor" label="Mentor intro video" need="a 60–90 s video of Deepesh introducing the FDE program" />
+          </div>
+        </div>
+      </section>
+
+      {/* 9. LEARNERS */}
+      <section className="ds-section ds-soft" id="learners" aria-labelledby="fx-learn-title">
+        <div className="ds-wrap">
+          <Head id="fx-learn-title" eyebrow="Learner experiences" title={<>Learners who trained <em>with Deepesh.</em></>} body="In their own words. Every story links to its source." />
+          <div className="ds-stories">{stories.map((story) => <StoryCard key={story.id} story={story} />)}</div>
+          <LearnersNow />
+          <div className="ds-reels ds-reels-3">{learnerVideos.slice(0, 3).map((video) => <LearnerVideoCard key={video.id} video={video} />)}</div>
+          <p className="ds-soft-cta"><a className="ds-link" href="#apply" data-dm-lead data-course={FDE_COURSE} data-cta="FDE learners - Talk to a counsellor">Ask a counsellor about learner journeys <ArrowRight size={14} aria-hidden="true" /></a></p>
+          <Placeholder label="FDE cohort career journeys" need="stories from FDE program learners (none published yet; the stories above are from other Datamarcos training)" />
+        </div>
+      </section>
+
+      {/* Why Datamarcos sits with the proof: mentor, learners, then why us */}
+      <WhyDatamarcos variant="fde" />
 
       {/* 6. CURRICULUM: visual phase journey */}
       <section className="ds-section" id="curriculum" aria-labelledby="fx-curr-title">
@@ -472,41 +508,6 @@ export default async function ForwardDeployedAIEngineerPage() {
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* 8. MENTOR */}
-      <section className="ds-section ds-soft" id="mentor" aria-labelledby="fx-mentor-title">
-        <div className="ds-wrap">
-          <Head id="fx-mentor-title" eyebrow="Your mentor" title={<>Learn from <em>a practitioner.</em></>} />
-          <div className="ds-mentors ds-mentors-fde">
-            <article className="ds-mentor ds-mentor-lead">
-              <div className="ds-mentor-photo"><Image src="/images/deepesh-mishra-founder.jpeg" alt="Deepesh Mishra, founder and lead mentor at Datamarcos" width={600} height={720} sizes="(max-width: 760px) 80vw, 340px" /></div>
-              <div className="ds-mentor-copy">
-                <span className="ds-tag">Founder &amp; lead mentor</span>
-                <h3 id="fx-mentor-name">Deepesh Mishra</h3>
-                <p className="ds-mentor-role">Solution Architect · Corporate Trainer · BITS Pilani alumnus</p>
-                {/* 31 Oct 2026 (brief 0.1): this page keeps only the 200+ organizations figure for the mentor. */}
-                <p>Has trained teams at 200+ organizations. Teaches the work in its real order: scope, build, secure, deploy, hand over.</p>
-                <div className="ds-row">
-                  <a className="ds-btn ds-btn-ghost" href={DEEPESH_LINKEDIN} target="_blank" rel="noreferrer"><Linkedin size={16} aria-hidden="true" /> Recommendations on LinkedIn</a>
-                </div>
-              </div>
-            </article>
-            <Placeholder className="ds-mentor" label="Mentor intro video" need="a 60–90 s video of Deepesh introducing the FDE program" />
-          </div>
-        </div>
-      </section>
-
-      {/* 9. LEARNERS */}
-      <section className="ds-section" id="learners" aria-labelledby="fx-learn-title">
-        <div className="ds-wrap">
-          <Head id="fx-learn-title" eyebrow="Learner experiences" title={<>Learners who trained <em>with Deepesh.</em></>} body="In their own words. Every story links to its source." />
-          <div className="ds-stories">{stories.map((story) => <StoryCard key={story.id} story={story} />)}</div>
-          <LearnersNow />
-          <div className="ds-reels ds-reels-3">{learnerVideos.slice(0, 3).map((video) => <LearnerVideoCard key={video.id} video={video} />)}</div>
-          <p className="ds-soft-cta"><a className="ds-link" href="#apply" data-dm-lead data-course={FDE_COURSE} data-cta="FDE learners - Talk to a counsellor">Ask a counsellor about learner journeys <ArrowRight size={14} aria-hidden="true" /></a></p>
-          <Placeholder label="FDE cohort career journeys" need="stories from FDE program learners (none published yet; the stories above are from other Datamarcos training)" />
         </div>
       </section>
 
