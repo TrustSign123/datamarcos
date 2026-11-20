@@ -1291,3 +1291,36 @@ html[data-theme] :is(.ds-home, .ds-fde) .dmh-reel-course { color: #fff; }
 .ds-fde .dmh-reel-link { min-height: 44px; display: inline-flex; align-items: center; }
 .ds-fde .ds-section .ds-card .ds-link, .ds-fde #career .ds-link { min-height: 44px; }
 @media (max-width: 760px) { html[data-theme] .ds-fde .fx-mbar a { white-space: nowrap; padding: 0 12px; font-size: .88rem; } }
+
+/* ── Homepage learner video strip (#learner-videos) ── */
+.ds-vsec { padding-top: var(--ds-s8); }
+.ds-vstrip { --vg: 16px; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--vg); align-items: stretch; }
+.ds-vstrip .dmh-reel { display: flex; flex-direction: column; height: 100%; }
+.ds-vstrip .dmh-reel-media, .ds-vstrip .dmh-reel-media.is-vertical { aspect-ratio: 4 / 5; flex: none; }
+.ds-vstrip .dmh-reel-poster.is-video img { object-position: center 35%; }
+.ds-vstrip .dmh-reel-play { width: 60px; height: 60px; }
+.ds-vstrip .dmh-reel-body { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+.ds-vstrip .dmh-reel-headline { font-size: .74rem; }
+.ds-vstrip .dmh-reel-link { min-height: 44px; margin-top: auto; align-self: flex-start; }
+.ds-vstrip .dmh-reel-person small { display: block; line-height: 1.4; }
+.ds-vdots { display: none; }
+.ds-vsec-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px 24px; margin: var(--ds-s6) 0 var(--ds-s3); }
+.ds-vsec-foot .ds-link { min-height: 44px; display: inline-flex; align-items: center; gap: 6px; }
+@media (max-width: 1100px) {
+  .ds-vstrip { grid-auto-flow: column; grid-auto-columns: calc((100% - 2 * var(--vg)) / 3); grid-template-columns: none; margin: 0 -20px; padding: 4px 20px 18px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scroll-padding-inline: 20px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .ds-vstrip::-webkit-scrollbar { display: none; }
+  .ds-vstrip > * { scroll-snap-align: start; }
+  .ds-vdots { display: flex; justify-content: center; gap: 2px; }
+  .ds-vdots button { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 0; background: transparent; cursor: pointer; }
+  .ds-vdots span { display: block; width: 8px; height: 8px; border-radius: 999px; background: #c7d4ee; transition: width .25s, background .25s; }
+  .ds-vdots button[aria-selected="true"] span { width: 22px; background: var(--ds-blue); }
+}
+@media (max-width: 700px) {
+  .ds-vsec { padding-top: 56px; padding-bottom: 56px; }
+  .ds-vstrip { --vg: 12px; grid-auto-columns: 78%; margin: 0 -16px; padding: 4px 16px 14px; scroll-padding-inline: 16px; }
+  .ds-vstrip { align-items: start; }
+  .ds-vstrip .dmh-reel { height: auto; }
+  .ds-vsec-foot { flex-direction: column; margin-top: var(--ds-s4); }
+  .ds-vsec-foot .ds-btn { width: 100%; justify-content: center; }
+}
+@media (prefers-reduced-motion: reduce) { .ds-vdots span { transition: none; } }

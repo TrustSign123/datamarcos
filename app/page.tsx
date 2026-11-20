@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ArrowRight, ArrowUpRight, BadgeCheck, Briefcase, Building2, CalendarClock, Check, ChevronDown, Clock3, Gauge, GraduationCap, Hammer, Linkedin, MessageCircle, MessageSquareQuote, PhoneCall, RotateCcw, ShieldCheck, Sparkles, UserRoundCheck, UsersRound } from "lucide-react";
 import { LearnerSpotlight, type SpotlightLearner } from "@/components/home/LearnerSpotlight";
 import { HeroSyllabusMenu } from "@/components/home/HeroSyllabusMenu";
-import { LearnerVideoCard } from "@/components/home/LearnerVideoCard";
+import { LearnerVideoStrip } from "@/components/home/LearnerVideoStrip";
 import { DEEPESH_LINKEDIN, homeFaqs, homePrograms, learnerStories, learnerVideos } from "@/config/home";
 import { faqsWithProgramFees } from "@/config/fees";
 import { intlProgramCards } from "@/config/intl-courses";
@@ -100,6 +100,9 @@ function faqSchemaFor(faqs: typeof homeFaqs) {
   };
 }
 
+/** Homepage video order: career-change stories with a named role first, then live-class feedback. All 5 entries of learnerVideos are shown. */
+const homeVideoOrder = ["krishna-kumar", "hema-natarajan", "mike-hamata", "ayushi-soni", "raghul-k"];
+
 const careerCallCta = "Not sure which program fits? Book a free 15-min career call";
 
 /** "Is this for me?" Each line restates the program's own who-it's-for copy (config/home.ts). */
@@ -182,6 +185,20 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* 2b. SOCIAL PROOF IN THEIR OWN VOICE: learner video feedback, right after the hero proof and reach band,
+          before visitors explore programs. All videos are real (config/home.ts); click-to-play, nothing loads until tapped. */}
+      <section className="ds-section ds-vsec" id="learner-videos" aria-labelledby="home-videos-title">
+        <div className="ds-wrap">
+          <SectionHead id="home-videos-title" eyebrow="Video feedback" title={<>Hear from <em>our learners.</em></>} sub="Real Datamarcos learners on the live classes and what they built. Tap a video to play." />
+          <LearnerVideoStrip videos={homeVideoOrder.map((id) => learnerVideos.find((v) => v.id === id)).filter((v): v is (typeof learnerVideos)[number] => Boolean(v)).concat(learnerVideos.filter((v) => !homeVideoOrder.includes(v.id)))} />
+          <div className="ds-vsec-foot">
+            <button type="button" className="ds-btn ds-btn-primary" data-dm-lead data-cta="Home videos - Book a free career call">Book a free career call <ArrowRight size={16} aria-hidden="true" /></button>
+            <a className="ds-link" href="https://www.instagram.com/datamarcos_official/" target="_blank" rel="noreferrer">More on Instagram <ArrowUpRight size={14} aria-hidden="true" /></a>
+          </div>
+          <p className="ds-fine ds-center">Shared by the learners themselves. Placement support, not a job guarantee; outcomes depend on each learner.</p>
+        </div>
+      </section>
+
       {/* 3. EXPLORE: one tabbed section (programs, stories, placement, mentors, why us) */}
       <section className="ds-section ds-soft ds-tabs-sec" aria-labelledby="home-tabs-title">
         <div className="ds-wrap">
@@ -220,8 +237,7 @@ export default async function Home() {
           <SectionHead id="home-stories-title" eyebrow="Success stories" title={<>Real learners. <em>Their own words.</em></>} sub="Every story links to its source." action={<a className="ds-link" href={DEEPESH_LINKEDIN} target="_blank" rel="noreferrer">All recommendations on LinkedIn <ArrowUpRight size={14} aria-hidden="true" /></a>} align="left" />
           <div className="ds-stories">{learners.map((story) => <StoryCard key={story.id} story={story} />)}</div>
           <LearnersNow />
-          <h3 className="ds-subhead">Hear from our learners</h3>
-          <div className="ds-reels">{learnerVideos.map((video) => <LearnerVideoCard key={video.id} video={video} />)}</div>
+          <p className="ds-soft-cta"><a className="ds-link" href="#learner-videos">Watch learner video feedback <ArrowRight size={14} aria-hidden="true" /></a></p>
           {peer && <p className="ds-peer"><b>Industry peer · {peer.name}, {peer.role}{peer.company ? `, ${peer.company}` : ""}:</b> “{peer.quote}” <a href={peer.verify.href} target="_blank" rel="noreferrer">{peer.verify.label}</a></p>}
           <p className="ds-soft-cta"><button type="button" className="ds-link" data-dm-lead data-cta="Home stories - Start your story">Start your own story: book a free career call <ArrowRight size={14} aria-hidden="true" /></button></p>
           <p className="ds-fine">Learner stories are shared by the learners themselves. No placement, salary or hike is guaranteed; outcomes depend on each learner.</p>
