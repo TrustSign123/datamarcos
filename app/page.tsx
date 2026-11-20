@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowDownToLine, ArrowRight, ArrowUpRight, BadgeCheck, Briefcase, Building2, CalendarClock, Check, ChevronDown, Clock3, Gauge, GraduationCap, Hammer, Linkedin, MessageCircle, MessageSquareQuote, PhoneCall, RotateCcw, ShieldCheck, Sparkles, UserRoundCheck, UsersRound } from "lucide-react";
+import { ArrowRight, ArrowUpRight, BadgeCheck, Briefcase, Building2, CalendarClock, Check, ChevronDown, Clock3, Gauge, GraduationCap, Hammer, Linkedin, MessageCircle, MessageSquareQuote, PhoneCall, RotateCcw, ShieldCheck, Sparkles, UserRoundCheck, UsersRound } from "lucide-react";
 import { LearnerSpotlight, type SpotlightLearner } from "@/components/home/LearnerSpotlight";
 import { HeroSyllabusMenu } from "@/components/home/HeroSyllabusMenu";
 import { LearnerVideoCard } from "@/components/home/LearnerVideoCard";
@@ -22,6 +22,8 @@ import { Placeholder } from "@/components/ds/Placeholder";
 import { WhyDatamarcos } from "@/components/ds/WhyDatamarcos";
 import { LearnersNow } from "@/components/ds/LearnersNow";
 import { DsTabs } from "@/components/ds/Tabs";
+import { ProgramCatalog } from "@/components/ds/ProgramCatalog";
+import { catalogItems } from "@/config/catalog";
 import { CareerOSJourney } from "@/components/ds/CareerOSJourney";
 
 const ogTitle = "4 Live Online AI & Data Engineering Courses with Deepesh Mishra | Datamarcos";
@@ -204,29 +206,7 @@ export default async function Home() {
               </li>
             ))}
           </ul>
-          <div className="ds-programs">
-            {homePrograms.map((program) => (
-              <article className="ds-program" key={program.slug}>
-                <Link className="ds-program-img" href={`/programs/${program.slug}`} tabIndex={-1} aria-hidden="true">
-                  <Image src={program.image} alt={program.imageAlt} width={720} height={720} sizes="(max-width: 640px) 92vw, (max-width: 1100px) 45vw, 280px" quality={70} />
-                </Link>
-                <div className="ds-program-body">
-                  <span className="ds-tag">{program.tag}</span>
-                  <h3><Link href={`/programs/${program.slug}`}>{program.title}</Link></h3>
-                  <ul className="ds-meta">{program.facts.slice(0, 3).map((fact) => <li key={fact}>{fact}</li>)}</ul>
-                  <p>{program.summary}</p>
-                  <div className="ds-program-actions">
-                    <Link className="ds-btn ds-btn-primary" href={`/programs/${program.slug}`}>{program.slug === "forward-deployed-ai-engineer" ? "Explore FDE" : "Explore"} <ArrowUpRight size={16} aria-hidden="true" /></Link>
-                    <a className="ds-btn ds-btn-ghost" href={brochureHrefForMarket(program.brochure, market)} download data-course={program.leadCourse} data-cta={`Home program card - Download Syllabus - ${program.leadCourse}`} aria-label={`Download the ${program.title} syllabus`}><ArrowDownToLine size={16} aria-hidden="true" /> Syllabus</a>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-          <div className="ds-more">
-            <strong>More live courses</strong>
-            <div>{intlProgramCards.map((program) => <Link key={program.slug} href={`/programs/${program.slug}`}>{program.title}</Link>)}</div>
-          </div>
+          <ProgramCatalog items={catalogItems(market)} />
           <div className="ds-callbar">
             <p><PhoneCall size={18} aria-hidden="true" /> Not sure which program is right for you?</p>
             <button type="button" className="ds-btn ds-btn-navy" data-dm-lead data-cta={careerCallCta}>Get a free career call <ArrowRight size={16} aria-hidden="true" /></button>
