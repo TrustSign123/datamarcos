@@ -10,8 +10,8 @@ export const guide: Guide = {
   "h1": "What Is a Forward Deployed Engineer? A Practical Guide for Engineers in India",
   "description": "What a forward deployed engineer (FDE) does, how the role differs from software and AI engineers, the skills it needs, and a practical roadmap for India.",
   "datePublished": "2026-10-30",
-  "dateModified": "2026-10-30",
-  "lastReviewed": "2026-10-30",
+  "dateModified": "2026-11-17",
+  "lastReviewed": "2026-11-17",
   "author": "Deepesh Mishra, Founder & CEO, Datamarcos",
   "authorPerson": {
     "name": "Deepesh Mishra",
@@ -27,7 +27,7 @@ export const guide: Guide = {
   "body": [
     {
       "type": "p",
-      "text": "**Short answer:** A forward deployed engineer (FDE) is a software engineer who works inside a customer's environment to turn a product, often an AI model or platform, into a working solution for that customer. The FDE talks to stakeholders, scopes the real problem, writes production code against the customer's data and systems, gets it through security review, and stays until people actually use it. It is part engineering and part consulting, and the FDE owns the outcome rather than just a ticket. Salesforce calls it one of today's hottest roles ([Salesforce](https://www.salesforce.com/ap/blog/forward-deployed-engineer/)). (If you want to learn the role hands-on, see our [Forward Deployed Engineer course](/programs/forward-deployed-ai-engineer).)"
+      "text": "**Short answer:** A forward deployed engineer (FDE, often searched as \"FDE engineer\") is a software engineer who works inside a customer's environment to turn a product, often an AI model or platform, into a working solution for that customer. The FDE talks to stakeholders, scopes the real problem, writes production code against the customer's data and systems, gets it through security review, and stays until people actually use it. It is part engineering and part consulting, and the FDE owns the outcome rather than just a ticket. Salesforce calls it one of today's hottest roles ([Salesforce](https://www.salesforce.com/ap/blog/forward-deployed-engineer/)). (If you want to learn the role hands-on, see our [Forward Deployed Engineer course](/programs/forward-deployed-ai-engineer).)"
     },
     {
       "type": "h2",
@@ -344,6 +344,10 @@ export const guide: Guide = {
     }
   ],
   "faqs": [
+    {
+      "q": "What is an FDE engineer?",
+      "a": "An FDE engineer, or forward deployed engineer, is a software engineer who works directly with a customer to make a product, usually an AI system, work with that customer's real data, systems and security rules. They scope the problem, write production code, deploy it and stay until people actually use it."
+    },
     {
       "q": "What does a forward deployed engineer do in simple words?",
       "a": "They take a product, often an AI system, and make it work inside one customer's real environment, from understanding the problem to running it in production."

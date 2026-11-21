@@ -173,6 +173,10 @@ export const guide: Guide = {
     },
     {
       "type": "p",
+      "text": "For a step-by-step build you can run locally, see [how to build a RAG pipeline](/guides/how-to-build-a-rag-pipeline)."
+    },
+    {
+      "type": "p",
       "text": "In the [Generative AI & Agentic AI Engineer program](/programs/genai-agentic-ai-engineer), weeks 4–7 cover RAG systems:"
     },
     {
