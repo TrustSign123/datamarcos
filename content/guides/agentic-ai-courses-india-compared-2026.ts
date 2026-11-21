@@ -10,8 +10,8 @@ export const guide: Guide = {
   "h1": "Agentic AI Courses in India Compared (2026)",
   "description": "Compare agentic AI courses in India by format, duration, live hours, frameworks and certificate: GUVI, Simplilearn, Analytics Vidhya, IIT Bombay, JHU.",
   "datePublished": "2026-10-29",
-  "dateModified": "2026-10-29",
-  "lastReviewed": "2026-10-29",
+  "dateModified": "2026-11-21",
+  "lastReviewed": "2026-11-21",
   "author": "Deepesh Mishra, Founder & CEO, Datamarcos",
   "authorPerson": {
     "name": "Deepesh Mishra",
@@ -216,6 +216,10 @@ export const guide: Guide = {
     }
   ],
   "faqs": [
+    {
+      "q": "How do I compare two agentic AI courses, such as Simplilearn's and another provider's?",
+      "a": "Open both course pages side by side and compare five things: live versus recorded hours, what you actually build (a working agent with tools, memory and evaluation, not just slides), which frameworks are taught, who issues the certificate, and the prerequisites. Agentic AI curricula change often, so check each provider's own page before you decide."
+    },
     {
       "q": "What is the best agentic AI course in India?",
       "a": "There's no single best course. It depends on whether you want a short introduction, a short live build course, a Microsoft-aligned credential or a university certificate. Compare live hours, projects and who issues the certificate, using the table above."
