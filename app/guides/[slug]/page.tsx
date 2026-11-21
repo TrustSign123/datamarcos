@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowRight } from "lucide-react";
@@ -110,6 +111,17 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
               </details>
             ))}
           </section>
+        )}
+
+        {guide.authorBox && (
+          <aside className="guide-author" aria-label="About the author">
+            {guide.authorBox.image && <Image src={guide.authorBox.image} alt="" width={72} height={72} sizes="72px" />}
+            <div>
+              <p className="guide-author-name"><strong>{guide.authorBox.name}</strong> · {guide.authorBox.role}</p>
+              <p>{guide.authorBox.bio}</p>
+              <p className="guide-author-meta">Reviewed on <time dateTime={guide.authorBox.reviewedOn}>{formatGuideDate(guide.authorBox.reviewedOn)}</time>{guide.authorBox.profileUrl && <> · <a href={guide.authorBox.profileUrl} target="_blank" rel="noopener noreferrer">LinkedIn profile</a></>}</p>
+            </div>
+          </aside>
         )}
 
         <section className="guide-program" aria-label="Related program">

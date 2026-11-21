@@ -244,7 +244,7 @@ export const guide: Guide = {
     },
     {
       "type": "p",
-      "text": "For the full stage-by-stage path with a project at every step, see the [agentic AI roadmap](/guides/agentic-ai-roadmap)."
+      "text": "For the full stage-by-stage path with a project at every step, see the [agentic AI roadmap](/guides/agentic-ai-roadmap). Prompting and choosing what the model sees are different skills: see [prompt engineering vs context engineering](/guides/prompt-engineering-vs-context-engineering)."
     },
     {
       "type": "h2",
