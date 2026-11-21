@@ -51,6 +51,8 @@ const organizationSchema = {
     "https://www.linkedin.com/company/90980108/",
     "https://www.youtube.com/channel/UC9THirTqqPuvaLiuYfydCXw",
     "https://dev.to/datamarcos",
+    "https://github.com/datamarcos-official",
+    "https://huggingface.co/datamarcos",
     "https://www.instagram.com/datamarcos_official/",
     "https://www.quora.com/profile/Deepesh-Mishra-125",
     "https://www.slideshare.net/deepeshdatamarcos",
