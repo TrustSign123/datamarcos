@@ -1324,3 +1324,13 @@ html[data-theme] :is(.ds-home, .ds-fde) .dmh-reel-course { color: #fff; }
   .ds-vsec-foot .ds-btn { width: 100%; justify-content: center; }
 }
 @media (prefers-reduced-motion: reduce) { .ds-vdots span { transition: none; } }
+
+/* Guide author box (guides with `authorBox`) */
+.guide-author { display: flex; gap: 16px; align-items: flex-start; margin: 40px 0 0; padding: 20px; border: 1px solid var(--ds-blue-100); border-radius: 16px; background: var(--ds-blue-50); }
+.guide-author img { flex: none; width: 72px; height: 72px; border-radius: 50%; object-fit: cover; }
+.guide-author p { margin: 0 0 6px; line-height: 1.6; color: var(--ds-ink); }
+.guide-author .guide-author-meta { margin: 0; font-size: .9rem; color: var(--ds-muted); }
+.guide-author a { color: var(--ds-blue); }
+@media (max-width: 640px) { .guide-author { flex-direction: column; } }
+/* Wide comparison tables (7+ columns): give each column room and let the wrapper scroll horizontally. */
+.guide-table:has(thead th:nth-child(7)) { min-width: 1280px; }
