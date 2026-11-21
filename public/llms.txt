@@ -1,0 +1,32 @@
+# Datamarcos
+
+> Datamarcos is a technology learning company based in Noida, India. It runs live, mentor-led online courses in AI and data engineering for students and working professionals, taught by founder Deepesh Mishra, and also trains teams at organizations. Placement support, not a job guarantee.
+
+## Flagship courses (live online, mentor-led)
+
+- [Forward Deployed AI Engineer](https://www.datamarcos.com/programs/forward-deployed-ai-engineer): 22 weeks for working engineers. Scope, build, secure and deploy production AI (RAG, agents, MCP, LLMOps) through four client-style engagements, from customer discovery to handover.
+- [Generative AI & Agentic AI Engineer](https://www.datamarcos.com/programs/genai-agentic-ai-engineer): 18 weeks. Build, evaluate, secure and deploy GenAI and agentic AI systems, with three client-style projects and a capstone.
+- [Applied Agentic AI Certification](https://www.datamarcos.com/programs/applied-agentic-ai-certification): 8 weeks, no prior AI experience needed. RAG, tool-using agents, multi-agent workflows and automation, with a project every module and a capstone.
+- [Advance Data Engineering with Applied GenAI & Agentic AI](https://www.datamarcos.com/programs/advance-data-engineering-genai): a four-month cloud data engineering foundation (Python, SQL, Azure, PySpark, Databricks, streaming), then an advanced track in RAG, agents and an integrated capstone.
+- [All programs](https://www.datamarcos.com/programs)
+
+## Guides
+
+- [Guides hub](https://www.datamarcos.com/guides): free, sourced guides on forward deployed engineering, agentic AI, generative AI and data engineering.
+- [What is a forward deployed engineer?](https://www.datamarcos.com/guides/what-is-a-forward-deployed-engineer)
+- [Forward deployed engineer courses in India compared (2026)](https://www.datamarcos.com/guides/forward-deployed-engineer-courses-india-compared-2026)
+- [Forward deployed engineer interview questions](https://www.datamarcos.com/guides/forward-deployed-engineer-interview-questions)
+- [What is agentic AI?](https://www.datamarcos.com/guides/what-is-agentic-ai)
+- [Agentic AI roadmap](https://www.datamarcos.com/guides/agentic-ai-roadmap)
+- [Agentic AI courses in India compared (2026)](https://www.datamarcos.com/guides/agentic-ai-courses-india-compared-2026)
+- [LangGraph vs CrewAI vs AutoGen](https://www.datamarcos.com/guides/langgraph-vs-crewai-vs-autogen)
+- [How to build an MCP server](https://www.datamarcos.com/guides/how-to-build-an-mcp-server)
+- [RAG vs fine-tuning](https://www.datamarcos.com/guides/rag-vs-fine-tuning)
+- [Data engineering roadmap](https://www.datamarcos.com/guides/data-engineering-roadmap)
+
+## About and contact
+
+- [About Datamarcos and founder Deepesh Mishra](https://www.datamarcos.com/about)
+- [Corporate training for teams](https://www.datamarcos.com/corporate-training)
+- [Contact](https://www.datamarcos.com/contact): hello@datamarcos.com, +91 88519 30644
+- [Refund policy](https://www.datamarcos.com/refund-policy): 7-day refund policy

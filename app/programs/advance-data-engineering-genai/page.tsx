@@ -3,11 +3,11 @@ import Image from "next/image";
 import { Check } from "lucide-react";
 import { CourseLanding } from "@/components/program/landing/CourseLanding";
 import { site } from "@/config/site";
-import { courseJsonLd } from "@/lib/seo";
-import { isIndiaMarket } from "@/lib/geo";
+import { faqsForJsonLd, isIndiaMarket } from "@/lib/geo";
 import { getMarket } from "@/lib/geo-server";
 import { brochureHrefForMarket } from "@/config/lead";
-import { NEXT_COHORT_FAQ_ANSWER, NEXT_COHORT_LONG, NEXT_COHORT_STARTS } from "@/config/cohort";
+import { NEXT_COHORT_FAQ_ANSWER, NEXT_COHORT_ISO, NEXT_COHORT_LONG, NEXT_COHORT_STARTS } from "@/config/cohort";
+import { DEEPESH_LINKEDIN } from "@/config/home";
 import {
   ADE_BROCHURE, ADE_COURSE, ADE_COVER, adeAudience, adeBuildItems, adeJourney, adePhases, adePrereqs, adeToolGroups, adeTracks
 } from "@/config/ade";
@@ -32,7 +32,6 @@ export const metadata: Metadata = {
   }
 };
 
-const courseSchema = courseJsonLd({ name: "Advance Data Engineering with Applied GenAI & Agentic AI", description: metadata.description as string, path: "/programs/advance-data-engineering-genai", duration: "P4M" });
 
 /** Every answer restates what the program brochure / previous page already said. No fees here: they live in Fees & enrolment. */
 const adeFaqs = [
@@ -42,8 +41,52 @@ const adeFaqs = [
   { q: "What will I build?", a: "Scalable data pipelines, a production-style RAG assistant, a tool-using agent and an integrated capstone that brings data engineering, GenAI and agentic patterns together." },
   { q: "Is there placement support?", a: "Yes. Resume and interview preparation start in Month 4, then CareerOS gives you practice rounds, live openings and a job tracker. Placement support, not a job guarantee." },
   { q: "Is there a refund policy?", a: "Yes. Datamarcos has a 7-day refund policy. If the program is not right for you, ask within 7 days of enrollment." },
-  { q: "When does the next cohort start?", a: NEXT_COHORT_FAQ_ANSWER }
+  { q: "When does the next cohort start?", a: NEXT_COHORT_FAQ_ANSWER },
+  { q: "Who is this program for?", a: "Professionals who already work with data or want to: analytics and BI professionals moving beyond dashboards, ETL and integration engineers modernizing their stack, software and backend developers expanding into data systems, and database administrators moving toward data platforms and AI." },
+  { q: "Which tools and platforms will I use?", a: "Azure, AWS, Databricks, Snowflake and Delta Lake for data platforms; PySpark, Kafka, Airflow, dbt, Great Expectations, SQL, Python and Git for pipelines and quality; and LangChain, LangGraph, CrewAI, vector databases, Snowflake Cortex AI and Databricks Agent Bricks for GenAI and agents." },
+  { q: "Do I finish the data engineering foundation before the GenAI track?", a: "Yes. The four-month Data Engineering Foundation comes first and ends with a foundation capstone. The Applied GenAI & Agentic AI track follows as an advanced specialization and ends with an integrated capstone." }
 ];
+
+const ADE_URL = `${site.url}/programs/advance-data-engineering-genai`;
+const ORG_ID = `${site.url}/#organization`;
+const MENTOR_ID = `${site.url}/#deepesh-mishra`;
+
+/** Course (+ CourseInstance, Syllabus), mentor, breadcrumb and FAQ. Deliberately NO offers / price / fees. */
+function adeJsonLd(faqs: typeof adeFaqs) {
+  return [
+    {
+      "@context": "https://schema.org",
+      "@type": "Course",
+      "@id": `${ADE_URL}#course`,
+      name: ADE_COURSE,
+      description: metadata.description,
+      url: ADE_URL,
+      image: `${site.url}${ADE_COVER}`,
+      inLanguage: "en-IN",
+      coursePrerequisites: adePrereqs,
+      teaches: ["Python and SQL for data engineering", "Azure Data Lake, Azure Data Factory and PySpark pipelines", "AWS, Databricks lakehouse and Spark Structured Streaming", "Data quality with dbt-style transformations and Great Expectations", "RAG with embeddings, vector databases and LangChain", "Agentic workflows with LangGraph, CrewAI and MCP", "Snowflake Cortex AI and Databricks Agent Bricks"],
+      syllabusSections: adePhases.map((phase) => ({ "@type": "Syllabus", name: `${phase.title} (${phase.weeks})`, description: phase.summary })),
+      provider: { "@type": "Organization", "@id": ORG_ID, name: site.name, url: site.url },
+      hasCourseInstance: {
+        "@type": "CourseInstance",
+        courseMode: "online",
+        startDate: NEXT_COHORT_ISO,
+        instructor: { "@id": MENTOR_ID }
+      }
+    },
+    { "@context": "https://schema.org", "@type": "Person", "@id": MENTOR_ID, name: site.founder.name, jobTitle: "Founder and Lead Mentor", image: `${site.url}${site.founder.image}`, worksFor: { "@id": ORG_ID }, sameAs: [DEEPESH_LINKEDIN] },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: `${site.url}/` },
+        { "@type": "ListItem", position: 2, name: "Programs", item: `${site.url}/programs` },
+        { "@type": "ListItem", position: 3, name: ADE_COURSE, item: ADE_URL }
+      ]
+    },
+    { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqs.map((faq) => ({ "@type": "Question", name: faq.q, acceptedAnswer: { "@type": "Answer", text: faq.a } })) }
+  ];
+}
 
 function AdeCurriculum() {
   return (
@@ -73,7 +116,7 @@ export default async function AdvanceDataEngineeringGenAIPage() {
   const india = isIndiaMarket(market);
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(courseSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(adeJsonLd(faqsForJsonLd(adeFaqs))) }} />
       <CourseLanding
         course={ADE_COURSE}
         feeSlug="advance-data-engineering-genai"
