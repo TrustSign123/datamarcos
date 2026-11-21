@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, MessageCircle } from "lucide-react";
+import { env } from "@/config/site";
 
 export type FdeNavItem = { id: string; label: string };
 
@@ -87,6 +88,7 @@ export function FdeSectionNav({ items, course, brand, ctaPrefix = "FDE" }: {
       </nav>
       <div className={`fx-mbar${showBar ? " is-on" : ""}`} aria-hidden={!showBar}>
         <a href="#brochure" data-dm-download data-course={course} data-cta={`${ctaPrefix} mobile bar (syllabus)`} tabIndex={showBar ? 0 : -1}>Syllabus</a>
+        <a className="fx-mbar-wa" href={env.whatsappUrl} target="_blank" rel="noreferrer" aria-label="Chat on WhatsApp" tabIndex={showBar ? 0 : -1}><MessageCircle size={20} aria-hidden="true" /></a>
         <a className="fx-mbar-main" href="#apply" data-dm-lead data-cta={`${ctaPrefix} mobile bar (counsellor)`} data-course={course} tabIndex={showBar ? 0 : -1}>Talk to a counsellor <ArrowRight size={16} aria-hidden="true" /></a>
       </div>
     </>

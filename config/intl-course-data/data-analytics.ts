@@ -317,7 +317,7 @@ export const analyticsCourse: IntlCourse = {
     { q: "Is there a refund policy?", a: "Yes. Datamarcos has a 7-day refund policy. If the program is not right for you, ask within 7 days of enrollment." }
   ],
   brochure: "/brochures/Datamarcos_Data_Analytics_with_AI_Brochure.pdf",
-  image: "/images/intl-courses/data-analytics-with-ai-cover.webp",
+  image: "/images/program-thumbs/data-analytics-with-ai.webp",
   imageAlt: "Typographic poster for the Datamarcos Data Analytics with AI program",
   metaTitle: "Data Analytics with AI (SQL, Python, BI), 16 Weeks Live | Datamarcos",
   metaDescription: "A 16-week live online program in spreadsheets, SQL, Python, BI and careful AI-assisted analysis. Fees and EMI options shared on a counsellor call.",

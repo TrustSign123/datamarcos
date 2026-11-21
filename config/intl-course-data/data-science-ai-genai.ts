@@ -163,7 +163,7 @@ export const dataScienceCourse: IntlCourse = {
     { q: "Is there a refund policy?", a: "Yes. Datamarcos has a 7-day refund policy. If the program is not right for you, ask within 7 days of enrollment." }
   ],
   brochure: "/brochures/Datamarcos_Data_Science_AI_GenAI_Brochure.pdf",
-  image: "/images/intl-courses/data-science-ai-genai-cover.webp",
+  image: "/images/program-thumbs/data-science-ai-genai.webp",
   imageAlt: "Typographic poster for the Datamarcos Data Science and AI with GenAI program",
   metaTitle: "Data Science & AI with GenAI, 24 Weeks Live | Datamarcos",
   metaDescription: "A 24-week live online program from Python and statistics to machine learning, intro deep learning and practical GenAI, ending in a capstone. Fees and EMI options shared on a counsellor call.",

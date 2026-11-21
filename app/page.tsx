@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowDownToLine, ArrowRight, ArrowUpRight, Building2, Check, ChevronDown, MessageCircle, ShieldCheck } from "lucide-react";
+import { ArrowRight, ArrowUpRight, BadgeCheck, Briefcase, Building2, CalendarClock, Check, ChevronDown, Clock3, Gauge, GraduationCap, Hammer, Linkedin, MessageCircle, MessageSquareQuote, PhoneCall, RotateCcw, ShieldCheck, Sparkles, UserRoundCheck, UsersRound } from "lucide-react";
 import { LearnerSpotlight, type SpotlightLearner } from "@/components/home/LearnerSpotlight";
 import { HeroSyllabusMenu } from "@/components/home/HeroSyllabusMenu";
-import { LearnerVideoCard } from "@/components/home/LearnerVideoCard";
-import { AlumniOutcomes } from "@/components/home/AlumniOutcomes";
-import { homeFaqs, homePrograms, learnerFeedback, learnerVideos } from "@/config/home";
+import { LearnerVideoStrip } from "@/components/home/LearnerVideoStrip";
+import { DEEPESH_LINKEDIN, homeFaqs, homePrograms, learnerStories, learnerVideos } from "@/config/home";
 import { faqsWithProgramFees } from "@/config/fees";
 import { intlProgramCards } from "@/config/intl-courses";
 import { faqsForJsonLd, faqsForMarket, isIndiaMarket } from "@/lib/geo";
@@ -14,6 +13,18 @@ import { brochureHrefForMarket } from "@/config/lead";
 import { getMarket } from "@/lib/geo-server";
 import { env, site } from "@/config/site";
 import { corporateProgrammes, programmeLabel } from "@/config/corporate";
+import { NEXT_COHORT_LONG } from "@/config/cohort";
+import { PLACEMENT_LABEL, PLACEMENT_URL } from "@/config/placement";
+import { SectionHead } from "@/components/ds/Section";
+import { LogoMarquee } from "@/components/ds/LogoMarquee";
+import { StoryCard } from "@/components/ds/StoryCard";
+import { Placeholder } from "@/components/ds/Placeholder";
+import { WhyDatamarcos } from "@/components/ds/WhyDatamarcos";
+import { LearnersNow } from "@/components/ds/LearnersNow";
+import { DsTabs } from "@/components/ds/Tabs";
+import { ProgramCatalog } from "@/components/ds/ProgramCatalog";
+import { catalogItems } from "@/config/catalog";
+import { CareerOSJourney } from "@/components/ds/CareerOSJourney";
 
 const ogTitle = "4 Live Online AI & Data Engineering Courses with Deepesh Mishra | Datamarcos";
 const ogDescription = "Forward Deployed AI Engineer, Generative AI & Agentic AI Engineer, Applied Agentic AI Certification and Advance Data Engineering with Applied GenAI & Agentic AI. Live online courses for students and working professionals, mentor-led by Deepesh Mishra.";
@@ -64,42 +75,18 @@ export const metadata: Metadata = {
 
 /** Real Datamarcos learners. Employer is shown only where the learner's profile names one. */
 const learnerProfiles: SpotlightLearner[] = [
-  { name: "Richard Leclézio", role: "Professional learner", image: "/images/student-placements/richard-leclezio.jpeg", link: "https://www.linkedin.com/in/richard-leclezio/" },
+  { name: "Pravince Kumar", role: "Product Manager", employer: "Google", image: "/images/student-placements/pravince-kumar.webp", link: "https://www.linkedin.com/in/pravincesingh/" },
   { name: "Lakshan J", role: "Software Engineer", employer: "Hexaware Technologies", image: "/images/student-placements/lakshan-j.png", link: "https://www.linkedin.com/in/lakshan013/" },
+  // Confirmed Datamarcos learners (Deepesh, 17 Nov 2026). Role and employer exactly as their public LinkedIn shows. Photos shared by Deepesh (18 Nov 2026); Pravince shown first at his request.
   { name: "Uphar Tandon", role: "Technology professional", employer: "Microsoft", image: "/images/student-placements/uphar-tandon.png", link: "https://www.linkedin.com/in/uphar-tandon-2563a636/" },
+  { name: "Joydip Dutta", role: "Project Associate, AOCTestbed", employer: "IIT Madras", image: "/images/student-placements/joydip-dutta.webp", link: "https://www.linkedin.com/in/joydip-dutta-b1878816b/" },
+  { name: "Richard Leclézio", role: "Professional learner", image: "/images/student-placements/richard-leclezio.jpeg", link: "https://www.linkedin.com/in/richard-leclezio/" },
   { name: "Sharoz Farhan Afridi", role: "Technology professional", image: "/images/student-placements/sharoz-farhan-afridi.jpeg", link: "https://www.linkedin.com/in/sharoz-farhan-afridi/" },
   // Added 31 Oct 2026 at Deepesh's request. No role/employer: none confirmed by Deepesh, so the card shows "Datamarcos learner" only.
   { name: "Manav Chhouda", image: "/images/student-placements/manav-chhouda.webp", link: "https://www.linkedin.com/in/manav-chhouda-738784268/" }
 ];
 
-/** Short quotes for the community strip. People featured in the learner report (AlumniOutcomes) are kept there only. */
-const learnerQuotes = [
-  { initials: "GT", name: "Gourav Thadhani", role: "Data Science and AI, ZS Associates", quote: "Many thanks for the great Databricks training at ZS!" }
-];
 
-type MarqueeItem =
-  | ({ kind: "learner" } & (typeof learnerProfiles)[number])
-  | ({ kind: "quote" } & (typeof learnerQuotes)[number]);
-
-const marqueeItems: MarqueeItem[] = learnerProfiles.flatMap((learner, i) => {
-  const items: MarqueeItem[] = [{ kind: "learner", ...learner }];
-  if (learnerQuotes[i - 1]) items.push({ kind: "quote", ...learnerQuotes[i - 1] });
-  return items;
-});
-
-/** Learner-relevant numbers that are already published on the site. */
-const heroStats = [
-  { value: "4", label: "Flagship live online courses" },
-  { value: "25,000+", label: "Professionals trained" },
-  { value: "18+", label: "Years of industry experience" }
-];
-
-const learningSteps = [
-  ["Build the data foundation", "Pipelines, cloud data platforms, orchestration and quality."],
-  ["Engineer with language models", "RAG, evaluation, model integration and useful AI applications."],
-  ["Create agentic workflows", "Tool use, MCP, multi-step reasoning and human oversight."],
-  ["Take systems to production", "Security, deployment, monitoring and enterprise context."]
-];
 
 function faqSchemaFor(faqs: typeof homeFaqs) {
   return {
@@ -113,264 +100,273 @@ function faqSchemaFor(faqs: typeof homeFaqs) {
   };
 }
 
+/** Homepage video order: career-change stories with a named role first, then live-class feedback. All 5 entries of learnerVideos are shown. */
+const homeVideoOrder = ["krishna-kumar", "hema-natarajan", "mike-hamata", "ayushi-soni", "raghul-k"];
+
 const careerCallCta = "Not sure which program fits? Book a free 15-min career call";
+
+/** "Is this for me?" Each line restates the program's own who-it's-for copy (config/home.ts). */
+const pathFinder = [
+  { who: "Java, backend or full-stack engineer (2+ years)", goal: "Ship AI inside real companies", slug: "forward-deployed-ai-engineer" },
+  { who: "Python developer, QA or DevOps engineer", goal: "Build LLM apps, RAG and agents", slug: "genai-agentic-ai-engineer" },
+  { who: "Data, SQL or analytics professional", goal: "Become a modern data engineer", slug: "advance-data-engineering-genai" },
+  { who: "Working professional, any role", goal: "Build practical AI workflows and agents", slug: "applied-agentic-ai-certification" }
+] as const;
+
+/** Real reach figures (config/site.ts). Kept exactly as published. */
+const reach = [
+  { value: "25,000+", label: "Professionals trained" },
+  { value: "200+", label: "Organizations" },
+  { value: "18+", label: "Years of experience" },
+  { value: "10+", label: "Countries reached" }
+];
+
+/** The learning experience, in four lines. Facts from the program pages. */
+const experience = [
+  { icon: UsersRound, title: "Live, mentor-led classes", body: "Weekend and evening live batches. Ask questions as you learn." },
+  { icon: Hammer, title: "Real projects and capstones", body: "Build systems you can show in an interview." },
+  { icon: GraduationCap, title: "Career track", body: "Resume, LinkedIn, portfolio and mock interviews." },
+  { icon: BadgeCheck, title: "Placement support", body: "Verified capstone, then CareerOS for live openings." }
+];
 
 export default async function Home() {
   const market = await getMarket();
   const india = isIndiaMarket(market);
   const faqs = faqsForMarket(market, faqsWithProgramFees(market, homeFaqs));
+  const learners = learnerStories.filter((story) => story.kind !== "peer");
+  const peer = learnerStories.find((story) => story.kind === "peer");
+  const programBySlug = Object.fromEntries(homePrograms.map((program) => [program.slug, program]));
+  const worries = [
+    { q: "“I work full time.”", a: "Live classes run on weekends and evenings. Plan about 8–14 hours a week, depending on the program." },
+    { q: "“I’m not sure I’m ready.”", a: "Each program states who it is for. FDE includes bridge pre-work in Python, Linux, Git and SQL. A counsellor checks your fit first." },
+    { q: "“Is it worth the money?”", a: `Live mentors, real projects and career prep. ${india ? "EMI options available" : "Flexible instalments available"}, and a 7-day refund policy.` }
+  ];
   return (
-    <div className="dmh-page">
-      <section className="dmh-hero" aria-labelledby="home-hero-title">
-        <div className="container dmh-hero-grid">
-          <div className="dmh-hero-copy">
-            <p className="dmh-eyebrow">4 flagship live online courses · For students &amp; working professionals</p>
-            <h1 id="home-hero-title">Become the engineer who <span>ships real AI &amp; data systems.</span></h1>
-            <p className="dmh-sub">Pick one of our <b>4 flagship courses</b>: <b>Forward Deployed AI Engineer</b>, <b>Generative AI &amp; Agentic AI Engineer</b>, <b>Applied Agentic AI Certification</b> or <b>Advance Data Engineering with Applied GenAI &amp; Agentic AI</b>. Learn live with Deepesh Mishra (18+ years, 25,000+ professionals trained across 200+ organizations) and build real projects.</p>
-            <div className="dmh-actions">
-              <Link className="button primary dmh-apply" href="/programs" data-dm-lead data-cta="Home hero - Apply Now">Apply Now <ArrowRight size={18} /></Link>
+    <div className="ds-home">
+      {/* 1. HERO: outcome, who it's for, two clear next steps, low-risk line */}
+      <section className="ds-hero" aria-labelledby="home-hero-title">
+        <div className="ds-wrap ds-hero-grid">
+          <div className="ds-hero-copy">
+            <p className="ds-kicker"><span className="ds-dot" aria-hidden="true" /> Admissions open · All batches start {NEXT_COHORT_LONG}</p>
+            <h1 id="home-hero-title">AI is changing tech jobs. <span>Be the one who builds it.</span></h1>
+            <p className="ds-lead"><span className="ds-lead-long">Turn your Java, backend, data, DevOps or Python experience into an AI role. Live, mentor-led programs in <b>Forward Deployed AI</b>, <b>GenAI &amp; Agentic AI</b> and <b>Data Engineering</b>.</span><span className="ds-lead-short">Live, mentor-led AI programs for working engineers.</span></p>
+            <div className="ds-actions">
+              <button type="button" className="ds-btn ds-btn-primary ds-btn-lg" data-dm-lead data-cta="Home hero - Book a free career call">Book a free career call <ArrowRight size={18} aria-hidden="true" /></button>
               <HeroSyllabusMenu files={[...homePrograms, ...intlProgramCards].map((program) => ({ course: program.leadCourse, title: program.title, href: brochureHrefForMarket(program.brochure, market) }))} />
             </div>
-            <p className="dmh-proof"><span>{india ? "Live online classes" : "Live online, learn from anywhere"}</span><span>Real projects &amp; capstones</span><span>{india ? "EMI options available" : "Flexible instalments available"}</span></p>
+            <ul className="ds-assure">
+              <li><Check size={15} aria-hidden="true" /> Free 15-min call</li>
+              <li><Check size={15} aria-hidden="true" /> {india ? "EMI options" : "Flexible instalments"}</li>
+              <li><Check size={15} aria-hidden="true" /> <Link href="/refund-policy">7-day refund policy</Link></li>
+            </ul>
+            <p className="ds-hero-links">
+              <Link className="ds-link" href="/programs/forward-deployed-ai-engineer#readiness" data-cta="Home hero - Check my readiness"><Gauge size={15} aria-hidden="true" /> Check your readiness in 30 seconds <ArrowRight size={14} aria-hidden="true" /></Link>
+              <a className="ds-link" href={PLACEMENT_URL} target="_blank" rel="noopener noreferrer"><Briefcase size={15} aria-hidden="true" /> {PLACEMENT_LABEL} <ArrowUpRight size={14} aria-hidden="true" /></a>
+            </p>
           </div>
-          <LearnerSpotlight learners={learnerProfiles} />
-        </div>
-        <div className="container dmh-stats">
-          {heroStats.map((stat) => <div key={stat.label}><strong>{stat.value}</strong><span>{stat.label}</span></div>)}
-        </div>
-      </section>
-
-      <section className="dmh-marquee" aria-labelledby="home-marquee-title">
-        <div className="container dmh-marquee-head"><h2 id="home-marquee-title">Learners from the Datamarcos community</h2></div>
-        <div className="dmh-marquee-viewport">
-          <div className="dmh-marquee-track">
-            {[...marqueeItems, ...marqueeItems].map((item, index) => {
-              const clone = index >= marqueeItems.length;
-              return item.kind === "learner" ? (
-                <a key={`${item.name}-${index}`} className="dmh-chip" href={item.link} target="_blank" rel="noopener noreferrer" aria-hidden={clone || undefined} tabIndex={clone ? -1 : undefined}>
-                  <Image src={item.image} alt={clone ? "" : item.name} width={52} height={52} sizes="52px" />
-                  <span><b>{item.name}</b><small>{item.employer && item.role ? `${item.role} · ${item.employer}` : item.role ? `${item.role} · Datamarcos learner` : "Datamarcos learner"}</small></span>
-                </a>
-              ) : (
-                <figure key={`${item.name}-${index}`} className="dmh-quote" aria-hidden={clone || undefined}>
-                  <blockquote>“{item.quote}”</blockquote>
-                  <figcaption><span className="dmh-initials">{item.initials}</span><span><b>{item.name}</b><small>{item.role}</small></span></figcaption>
-                </figure>
-              );
-            })}
+          <div className="ds-hero-visual">
+            <LearnerSpotlight learners={learnerProfiles} />
+            <a className="ds-hero-proof" href={DEEPESH_LINKEDIN} target="_blank" rel="noreferrer">
+              <span className="ds-hero-proof-icon" aria-hidden="true"><Linkedin size={18} /></span>
+              <span><b>Learner recommendations</b><small>Read them on LinkedIn</small></span>
+            </a>
           </div>
         </div>
       </section>
 
-      <nav className="dmh-tracks" aria-label="Our live programs">
-        <div className="container">
-          <strong>Explore our live programs</strong>
-          <div className="dmh-track-row">
-            {homePrograms.map((program) => <Link key={program.slug} href={`/programs/${program.slug}`}>{program.title}</Link>)}
-            {intlProgramCards.map((program) => <Link key={program.slug} href={`/programs/${program.slug}`}>{program.title}</Link>)}
-          </div>
+      {/* 2. BRAND CREDIBILITY: reach + company network */}
+      <section className="ds-reach" aria-label="Datamarcos in numbers">
+        <div className="ds-wrap">
+          <dl className="ds-stats">
+            {reach.map((stat) => <div key={stat.label}><dd>{stat.value}</dd><dt>{stat.label}</dt></div>)}
+          </dl>
+          <p className="ds-fine ds-center">As published by Datamarcos.</p>
+          <LogoMarquee />
         </div>
-      </nav>
+      </section>
 
-      <section className="dmh-section" id="programs" aria-labelledby="home-programs-title">
-        <div className="container">
-          <div className="dmh-section-head">
-            <div>
-              <p className="dmh-kicker">Programs · live online · mentor-led</p>
-              <h2 id="home-programs-title">Choose your program.</h2>
-              <p>Four live programs mentor-led by Deepesh Mishra, each built around real projects. Download the syllabus or open the program for the full roadmap.</p>
-            </div>
-            <Link className="dmh-ghost" href="/programs">All programs <ArrowRight size={16} /></Link>
+      {/* 2b. SOCIAL PROOF IN THEIR OWN VOICE: learner video feedback, right after the hero proof and reach band,
+          before visitors explore programs. All videos are real (config/home.ts); click-to-play, nothing loads until tapped. */}
+      <section className="ds-section ds-vsec" id="learner-videos" aria-labelledby="home-videos-title">
+        <div className="ds-wrap">
+          <SectionHead id="home-videos-title" eyebrow="Video feedback" title={<>Hear from <em>our learners.</em></>} sub="Real Datamarcos learners on the live classes and what they built. Tap a video to play." />
+          <LearnerVideoStrip videos={homeVideoOrder.map((id) => learnerVideos.find((v) => v.id === id)).filter((v): v is (typeof learnerVideos)[number] => Boolean(v)).concat(learnerVideos.filter((v) => !homeVideoOrder.includes(v.id)))} />
+          <div className="ds-vsec-foot">
+            <button type="button" className="ds-btn ds-btn-primary" data-dm-lead data-cta="Home videos - Book a free career call">Book a free career call <ArrowRight size={16} aria-hidden="true" /></button>
+            <a className="ds-link" href="https://www.instagram.com/datamarcos_official/" target="_blank" rel="noreferrer">More on Instagram <ArrowUpRight size={14} aria-hidden="true" /></a>
           </div>
-          <div className="dmh-prog-grid">
-            {homePrograms.map((program) => (
-              <article className="dmh-prog" key={program.slug}>
-                <Link className="dmh-prog-poster" href={`/programs/${program.slug}`} tabIndex={-1} aria-hidden="true">
-                  <Image src={program.image} alt={program.imageAlt} width={720} height={720} sizes="(max-width: 640px) 92vw, (max-width: 1100px) 45vw, 290px" quality={70} />
-                  <span className="dmh-prog-tag">{program.tag}</span>
+          <p className="ds-fine ds-center">Shared by the learners themselves. Placement support, not a job guarantee; outcomes depend on each learner.</p>
+        </div>
+      </section>
+
+      {/* 3. EXPLORE: one tabbed section (programs, stories, placement, mentors, why us) */}
+      <section className="ds-section ds-soft ds-tabs-sec" aria-labelledby="home-tabs-title">
+        <div className="ds-wrap">
+          <SectionHead id="home-tabs-title" eyebrow="Explore Datamarcos" title={<>Everything you need <em>to decide.</em></>} />
+        </div>
+        <DsTabs
+          label="Explore Datamarcos"
+          tabs={[
+            { id: "programs", label: "Programs", icon: <GraduationCap size={17} aria-hidden="true" />, content: (
+      <section className="ds-section" aria-labelledby="home-programs-title">
+        <div className="ds-wrap">
+          <SectionHead id="home-programs-title" eyebrow="Find your program" title={<>Is this for you? <em>Start from your role.</em></>} sub="Pick your background. We’ll point you to the right AI program." />
+          <ul className="ds-finder">
+            {pathFinder.map((item) => (
+              <li key={item.slug}>
+                <Link href={`/programs/${item.slug}`}>
+                  <small>I am a</small>
+                  <b>{item.who}</b>
+                  <span className="ds-finder-goal">{item.goal}</span>
+                  <span className="ds-finder-to">{programBySlug[item.slug]?.title} <ArrowRight size={15} aria-hidden="true" /></span>
                 </Link>
-                <div className="dmh-prog-body">
-                  <h3><Link href={`/programs/${program.slug}`}>{program.title}</Link></h3>
-                  <ul className="dmh-prog-facts">{program.facts.map((fact) => <li key={fact}>{fact}</li>)}</ul>
-                  <p className="dmh-prog-summary">{program.summary}</p>
-                  <p className="dmh-prog-who"><b>Who it’s for:</b> {program.whoFor}</p>
-                  <div className="dmh-prog-actions">
-                    <a className="dmh-btn dmh-btn-solid" href={brochureHrefForMarket(program.brochure, market)} download data-course={program.leadCourse} data-cta={`Home program card - Download Syllabus - ${program.leadCourse}`}><ArrowDownToLine size={16} /> Download Syllabus</a>
-                    <Link className="dmh-btn dmh-btn-line" href={`/programs/${program.slug}`}>{program.ctaLabel ?? "View Program"} <ArrowUpRight size={16} /></Link>
-                  </div>
+              </li>
+            ))}
+          </ul>
+          <ProgramCatalog items={catalogItems(market)} />
+          <div className="ds-callbar">
+            <p><PhoneCall size={18} aria-hidden="true" /> Not sure which program is right for you?</p>
+            <button type="button" className="ds-btn ds-btn-navy" data-dm-lead data-cta={careerCallCta}>Get a free career call <ArrowRight size={16} aria-hidden="true" /></button>
+          </div>
+        </div>
+      </section>
+            ) },
+            { id: "learner-stories", label: "Learner stories", icon: <MessageSquareQuote size={17} aria-hidden="true" />, aliases: ["stories"], content: (
+      <section className="ds-section" aria-labelledby="home-stories-title">
+        <div className="ds-wrap">
+          <SectionHead id="home-stories-title" eyebrow="Success stories" title={<>Real learners. <em>Their own words.</em></>} sub="Every story links to its source." action={<a className="ds-link" href={DEEPESH_LINKEDIN} target="_blank" rel="noreferrer">All recommendations on LinkedIn <ArrowUpRight size={14} aria-hidden="true" /></a>} align="left" />
+          <div className="ds-stories">{learners.map((story) => <StoryCard key={story.id} story={story} />)}</div>
+          <LearnersNow />
+          <p className="ds-soft-cta"><a className="ds-link" href="#learner-videos">Watch learner video feedback <ArrowRight size={14} aria-hidden="true" /></a></p>
+          {peer && <p className="ds-peer"><b>Industry peer · {peer.name}, {peer.role}{peer.company ? `, ${peer.company}` : ""}:</b> “{peer.quote}” <a href={peer.verify.href} target="_blank" rel="noreferrer">{peer.verify.label}</a></p>}
+          <p className="ds-soft-cta"><button type="button" className="ds-link" data-dm-lead data-cta="Home stories - Start your story">Start your own story: book a free career call <ArrowRight size={14} aria-hidden="true" /></button></p>
+          <p className="ds-fine">Learner stories are shared by the learners themselves. No placement, salary or hike is guaranteed; outcomes depend on each learner.</p>
+        </div>
+      </section>
+            ) },
+            { id: "placement", label: "Placement journey", icon: <Briefcase size={17} aria-hidden="true" />, aliases: ["placements"], content: (
+              <CareerOSJourney id="cos-tab" variant="compact" ctaPrefix="Home tab CareerOS" />
+            ) },
+            { id: "mentor", label: "Mentors", icon: <UserRoundCheck size={17} aria-hidden="true" />, aliases: ["mentors"], content: (
+      <section className="ds-section" aria-labelledby="home-mentor-title">
+        <div className="ds-wrap">
+          <SectionHead id="home-mentor-title" eyebrow="Instructors & mentors" title={<>Learn from <em>practitioners.</em></>} />
+          <div className="ds-mentors">
+            <article className="ds-mentor ds-mentor-lead">
+              <div className="ds-mentor-photo"><Image src={site.founder.image} alt={site.founder.imageAlt} width={620} height={691} sizes="(max-width: 900px) 80vw, 340px" /></div>
+              <div className="ds-mentor-copy">
+                <span className="ds-tag">Founder &amp; lead mentor</span>
+                <h3>Deepesh Mishra</h3>
+                <p className="ds-mentor-role">BITS Pilani alumnus · Solution architect · Corporate trainer</p>
+                <p>18+ years in technology. Has trained 25,000+ professionals across 200+ organizations.</p>
+                <p className="ds-mentor-ex"><small>Worked with</small> {site.founder.workedWith.slice(0, 6).join(" · ")}</p>
+                <div className="ds-row">
+                  <a className="ds-btn ds-btn-ghost" href={DEEPESH_LINKEDIN} target="_blank" rel="noreferrer"><Linkedin size={16} aria-hidden="true" /> LinkedIn</a>
+                  <Link className="ds-btn ds-btn-ghost" href="/about">About Deepesh <ArrowUpRight size={16} aria-hidden="true" /></Link>
                 </div>
-              </article>
-            ))}
-          </div>
-          <div className="dmh-section-head dmh-more-head">
-            <div>
-              <p className="dmh-kicker">More live courses</p>
-              <h3 className="dmh-subhead">Additional part-time programs.</h3>
-              <p>Live, mentor-led courses with weekend and evening batches.</p>
-            </div>
-          </div>
-          <div className="dmh-prog-grid dmh-prog-grid-more">
-            {intlProgramCards.map((program) => (
-              <article className="dmh-prog" key={program.slug}>
-                <Link className="dmh-prog-poster" href={`/programs/${program.slug}`} tabIndex={-1} aria-hidden="true">
-                  <Image src={program.image} alt={program.imageAlt} width={720} height={720} sizes="(max-width: 640px) 92vw, (max-width: 1100px) 45vw, 290px" quality={70} />
-                  <span className="dmh-prog-tag">{program.tag}</span>
-                </Link>
-                <div className="dmh-prog-body">
-                  <h3><Link href={`/programs/${program.slug}`}>{program.title}</Link></h3>
-                  <ul className="dmh-prog-facts">{program.facts.map((fact) => <li key={fact}>{fact}</li>)}</ul>
-                  <p className="dmh-prog-summary">{program.summary}</p>
-                  <p className="dmh-prog-who"><b>Who it’s for:</b> {program.whoFor}</p>
-                  <div className="dmh-prog-actions">
-                    <a className="dmh-btn dmh-btn-solid" href={brochureHrefForMarket(program.brochure, market)} download data-course={program.leadCourse} data-cta={`Home program card - Download Syllabus - ${program.leadCourse}`}><ArrowDownToLine size={16} /> Download Syllabus</a>
-                    <Link className="dmh-btn dmh-btn-line" href={`/programs/${program.slug}`}>View Program <ArrowUpRight size={16} /></Link>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* B2B, secondary to the four courses above: plain-text names only, no logos (facts: config/corporate.ts). */}
-      <aside className="dmh-teams-trained" aria-labelledby="home-teams-title">
-        <div className="container">
-          <p className="dmh-teams-head"><b id="home-teams-title">Teams we&apos;ve trained</b> Our founder-led team has trained teams across 200+ organizations, including:</p>
-          <ul>{corporateProgrammes.filter((p) => p.strip).map((p) => <li key={p.org}>{programmeLabel(p)}</li>)}</ul>
-          <Link href="/corporate-training">Corporate training for your team <ArrowRight size={15} /></Link>
-        </div>
-      </aside>
-
-      <section className="dmh-section dmh-reels-section" id="learner-stories" aria-labelledby="home-reels-title">
-        <div className="container">
-          <div className="dmh-section-head">
-            <div>
-              <p className="dmh-kicker">Alumni outcomes · Learner report</p>
-              <h2 id="home-reels-title">Where our learners are now.</h2>
-              <p>Real learners and teams who trained with Deepesh Mishra, in their own words. Every story links to its source.</p>
-            </div>
-          </div>
-          <AlumniOutcomes />
-          <div className="dmh-section-head dmh-reels-head">
-            <div>
-              <h3 className="dmh-subhead">Hear from our learners.</h3>
-              <p>Real Datamarcos learners on what they built and how the live sessions helped. Tap a card to play; videos load only when you press play.</p>
-            </div>
-            <a className="dmh-ghost" href="https://www.instagram.com/datamarcos_official/" target="_blank" rel="noreferrer">More on Instagram <ArrowUpRight size={16} /></a>
-          </div>
-          <div className="dmh-reels">
-            {learnerVideos.map((video) => <LearnerVideoCard key={video.id} video={video} />)}
-          </div>
-          <div className="dmh-wall" aria-label="Written learner feedback">
-            {learnerFeedback.map((item) => (
-              <figure className="dmh-wall-card" key={item.id}>
-                <span className="dmh-wall-source">{item.source}</span>
-                <blockquote>“{item.quote}”</blockquote>
-                <figcaption>
-                  <span><b>{item.name}</b><small>{item.role}</small></span>
-                  {item.image && (
-                    <a className="dmh-wall-original" href={item.image} target="_blank" rel="noreferrer" aria-label={`See the original: ${item.imageAlt}`}>
-                      <Image src={item.image} alt={item.imageAlt || `Original feedback from ${item.name}`} width={56} height={56} sizes="56px" />
-                      <span>See original</span>
-                    </a>
-                  )}
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="dmh-section" aria-labelledby="home-stack-title">
-        <div className="container dmh-split">
-          <div>
-            <p className="dmh-kicker">What you’ll learn to build</p>
-            <h2 id="home-stack-title">Understand the stack. Build what runs on it.</h2>
-            <p>Strong AI work starts with good data and ends with systems people can use. Our programs connect the layers in between.</p>
-            <Link className="dmh-ghost" href="/programs/advance-data-engineering-genai">See the Data + AI pathway <ArrowRight size={16} /></Link>
-          </div>
-          <div className="dmh-steps">
-            {learningSteps.map(([title, detail], index) => <article key={title}><span>0{index + 1}</span><h3>{title}</h3><p>{detail}</p></article>)}
-          </div>
-        </div>
-      </section>
-
-      <section className="dmh-section dmh-mentor-section" id="mentor" aria-labelledby="home-mentor-title">
-        <div className="container dmh-mentor">
-          <div className="dmh-mentor-photo"><Image src={site.founder.image} alt={site.founder.imageAlt} width={620} height={691} sizes="(max-width: 900px) 70vw, 420px" /></div>
-          <div className="dmh-mentor-copy">
-            <p className="dmh-kicker">Your mentor</p>
-            <h2 id="home-mentor-title">Learn live with Deepesh Mishra.</h2>
-            <p className="dmh-mentor-role">{site.founder.title} · BITS Pilani alumnus · Technology trainer and solution architect</p>
-            <p>Deepesh has 18+ years in technology and has trained 25,000+ professionals across 200+ organizations. His teaching connects clear concepts with hands-on work and real-world examples.</p>
-            <div className="dmh-chips">{site.founder.teaches.slice(0, 6).map((item) => <span key={item}>{item}</span>)}</div>
-            <div className="dmh-mentor-stats">
-              <div><strong>18+</strong><span>Years of experience</span></div>
-              <div><strong>25,000+</strong><span>Professionals trained</span></div>
-              <div><strong>200+</strong><span>Organizations</span></div>
-            </div>
-            <Link href="/about" className="dmh-ghost">More about Deepesh <ArrowUpRight size={16} /></Link>
-            <div className="dmh-expert">
-              <Image src="/images/trainers/eshank-agarwal.jpeg" alt="Eshank Agarwal" width={72} height={72} sizes="72px" />
-              <div>
-                <p className="dmh-expert-label">Industry expert · GenAI</p>
-                <h3>Eshank Agarwal</h3>
-                <p>Founder &amp; CEO, GenAI consultant and Data Science corporate trainer.</p>
               </div>
-              <a href="https://www.linkedin.com/in/eshankagarwal/" target="_blank" rel="noreferrer" className="dmh-ghost">LinkedIn <ArrowUpRight size={16} /></a>
-            </div>
+            </article>
+            <article className="ds-mentor">
+              <Image className="ds-mentor-avatar" src="/images/trainers/eshank-agarwal.jpeg" alt="Eshank Agarwal" width={88} height={88} sizes="88px" />
+              <span className="ds-tag">Industry expert · GenAI</span>
+              <h3>Eshank Agarwal</h3>
+              <p>Founder &amp; CEO, GenAI consultant and Data Science corporate trainer.</p>
+              <a className="ds-link" href="https://www.linkedin.com/in/eshankagarwal/" target="_blank" rel="noreferrer">LinkedIn <ArrowUpRight size={14} aria-hidden="true" /></a>
+            </article>
+            <Placeholder className="ds-mentor" label="More mentor profiles" need="names, photos, roles and LinkedIn links of the other mentors" />
+            <Placeholder className="ds-mentor" label="Mentor intro video" need="a 60–90 s intro video from Deepesh (and each mentor)" />
+          </div>
+          <p className="ds-soft-cta"><button type="button" className="ds-link" data-dm-lead data-cta="Home mentors - Talk to the team">Talk to our team about your goals <ArrowRight size={14} aria-hidden="true" /></button></p>
+        </div>
+      </section>
+            ) },
+            { id: "why", label: "Why Datamarcos", icon: <Sparkles size={17} aria-hidden="true" />, aliases: ["why-datamarcos"], content: (
+<WhyDatamarcos />
+            ) }
+          ]}
+        />
+      </section>
+
+      {/* PLACEMENT USP: CareerOS scroll journey */}
+      <CareerOSJourney id="careeros" ctaPrefix="Home CareerOS" />
+
+
+      {/* 6. HOW YOU LEARN: the experience in one band */}
+      <section className="ds-experience" aria-labelledby="home-exp-title">
+        <div className="ds-wrap ds-experience-grid">
+          <div className="ds-experience-big">
+            <p className="ds-eyebrow ds-eyebrow-light">Trusted by professionals</p>
+            <strong>25,000+</strong>
+            <span>professionals trained</span>
+          </div>
+          <div>
+            <h2 id="home-exp-title">The Datamarcos learning experience</h2>
+            <ul>{experience.map((item) => <li key={item.title}><item.icon size={20} aria-hidden="true" /><span><b>{item.title}</b>{item.body}</span></li>)}</ul>
+            <button type="button" className="ds-btn ds-btn-white ds-exp-cta" data-dm-lead data-cta="Home experience - Check my fit">Check which program fits me <ArrowRight size={16} aria-hidden="true" /></button>
           </div>
         </div>
       </section>
 
-      <section className="dmh-section dmh-faq-section" id="faq" aria-labelledby="home-faq-title">
+      {/* 8. INSTITUTIONAL CREDIBILITY: teams trained */}
+      <section className="ds-section ds-soft ds-section-tight" aria-labelledby="home-teams-title">
+        <div className="ds-wrap">
+          <SectionHead id="home-teams-title" eyebrow="Trusted by teams" title={<>Teams we’ve <em>trained.</em></>} sub="Our founder-led team has trained teams across 200+ organizations, including:" />
+          <ul className="ds-chips">{corporateProgrammes.filter((p) => p.strip).map((p) => <li key={p.org}>{programmeLabel(p)}</li>)}</ul>
+          <p className="ds-center ds-teams-links">
+            <a className="ds-link" href="https://g.page/r/CVK_Lds6x490EBM/review" target="_blank" rel="noopener noreferrer">Review us on Google <ArrowUpRight size={14} aria-hidden="true" /></a>
+            <Link className="ds-link" href="/corporate-training"><Building2 size={15} aria-hidden="true" /> Corporate training <ArrowRight size={14} aria-hidden="true" /></Link>
+          </p>
+          <Placeholder label="Recognitions & accreditations" need="any certificates of recognition or partnerships Datamarcos actually holds (none are on the site today)" />
+        </div>
+      </section>
+
+      {/* 9. OBJECTIONS + FAQ */}
+      <section className="ds-section" id="faq" aria-labelledby="home-faq-title">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchemaFor(faqsForJsonLd(faqsWithProgramFees("in", homeFaqs)))) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
-        <div className="container dmh-faq-grid">
+        <div className="ds-wrap ds-faq-grid">
           <div>
-            <p className="dmh-kicker">FAQ</p>
-            <h2 id="home-faq-title">Questions learners ask before joining.</h2>
-            <p>Still unsure? Our counsellor can walk you through prerequisites, batch dates and {india ? "EMI options" : "fees"}.</p>
-            <a className="dmh-ghost" href={env.whatsappUrl} target="_blank" rel="noreferrer"><MessageCircle size={16} /> Ask on WhatsApp</a>
-            <Link className="dmh-refund" href="/refund-policy"><ShieldCheck size={16} aria-hidden="true" /> <span><b>7-day refund policy.</b> Not right for you? Ask within 7 days for a refund.</span></Link>
+            <SectionHead id="home-faq-title" eyebrow="Before you join" title={<>Questions, <em>answered.</em></>} align="left" />
+            <ul className="ds-worries">{worries.map((w) => <li key={w.q}><b>{w.q}</b><span>{w.a}</span></li>)}</ul>
+            <a className="ds-btn ds-btn-ghost" href={env.whatsappUrl} target="_blank" rel="noreferrer"><MessageCircle size={16} aria-hidden="true" /> Ask on WhatsApp</a>
           </div>
-          <div className="dmh-faq">
+          <div className="ds-faq">
             {faqs.map((item) => (
               <details key={item.q}>
                 <summary><span>{item.q}</span><ChevronDown size={18} aria-hidden="true" /></summary>
                 <p>{item.a}</p>
-                {item.link && <p><Link href={item.link.href}>{item.link.label} <ArrowRight size={14} /></Link></p>}
+                {item.link && <p><Link href={item.link.href}>{item.link.label} <ArrowRight size={14} aria-hidden="true" /></Link></p>}
               </details>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="dmh-final" aria-labelledby="home-final-title">
-        <div className="container dmh-final-card">
-          <h2 id="home-final-title">Not sure which program fits?</h2>
-          <p>Book a free 15-minute career call. We’ll look at your background and goals and suggest the right track.</p>
-          <div className="dmh-final-actions">
-            <button type="button" className="button primary dmh-apply" data-dm-lead data-cta={careerCallCta}>Book a free 15-min career call <ArrowRight size={18} /></button>
-            <a className="dmh-btn dmh-btn-wa" href={env.whatsappUrl} target="_blank" rel="noreferrer"><MessageCircle size={18} /> Chat on WhatsApp</a>
+      {/* 10. FINAL CTA with risk reversal */}
+      <section className="ds-final" aria-labelledby="home-final-title">
+        <div className="ds-wrap ds-final-card">
+          <div>
+            <h2 id="home-final-title">Not sure which program fits?</h2>
+            <p>Book a free 15-minute career call. We’ll look at your background and goals and suggest the right track.</p>
+            <div className="ds-actions">
+              <button type="button" className="ds-btn ds-btn-white ds-btn-lg" data-dm-lead data-cta={careerCallCta}>Book a free career call <ArrowRight size={18} aria-hidden="true" /></button>
+              <a className="ds-btn ds-btn-outline-light ds-btn-lg" href={env.whatsappUrl} target="_blank" rel="noreferrer"><MessageCircle size={18} aria-hidden="true" /> Chat on WhatsApp</a>
+            </div>
           </div>
-          <ul className="dmh-final-points">
-            <li><Check size={15} /> {india ? "Live online" : "Live online, learn from anywhere"}</li><li><Check size={15} /> Real projects</li><li><Check size={15} /> {india ? "EMI options available" : "Flexible instalments available"}</li><li><Check size={15} /> <Link href="/refund-policy">7-day refund policy</Link></li>
+          <ul>
+            <li><CalendarClock size={18} aria-hidden="true" /> All batches start {NEXT_COHORT_LONG}</li>
+            <li><Clock3 size={18} aria-hidden="true" /> {india ? "Live online, weekend & evening batches" : "Live online, learn from anywhere"}</li>
+            <li><ShieldCheck size={18} aria-hidden="true" /> {india ? "EMI options available" : "Flexible instalments available"}</li>
+            <li><RotateCcw size={18} aria-hidden="true" /> <Link href="/refund-policy">7-day refund policy</Link></li>
+            <li><Gauge size={18} aria-hidden="true" /> <Link href="/programs/forward-deployed-ai-engineer#readiness">Check your FDE readiness</Link></li>
+            <li><Briefcase size={18} aria-hidden="true" /> <a href={PLACEMENT_URL} target="_blank" rel="noopener noreferrer">{PLACEMENT_LABEL} (CareerOS)</a></li>
           </ul>
         </div>
       </section>
 
-      <aside className="dmh-team-strip" aria-label="Team training">
-        <div className="container">
-          <Building2 size={20} aria-hidden="true" />
-          <p><b>Training a team?</b> Role-based AI, data and cloud programs for organizations.</p>
-          <Link href="/corporate-training">Corporate training <ArrowRight size={16} /></Link>
-        </div>
-      </aside>
-
-      <div className="dmh-mobilebar" role="region" aria-label="Quick actions">
-        <button type="button" className="dmh-mobilebar-apply" data-dm-lead data-cta="Mobile sticky bar - Apply Now">Apply Now <ArrowRight size={18} /></button>
-        <a className="dmh-mobilebar-wa" href={env.whatsappUrl} target="_blank" rel="noreferrer" aria-label="Chat on WhatsApp"><MessageCircle size={22} /></a>
+      <div className="ds-mobilebar" role="region" aria-label="Quick actions">
+        <button type="button" className="ds-btn ds-btn-primary" data-dm-lead data-cta="Mobile sticky bar - Book a free career call">Book a free career call</button>
+        <a className="ds-mobilebar-wa" href={env.whatsappUrl} target="_blank" rel="noreferrer" aria-label="Chat on WhatsApp"><MessageCircle size={22} /></a>
       </div>
     </div>
   );

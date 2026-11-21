@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { ArrowRight, ArrowUpRight, Building2, ChevronDown, Clock3, Menu, MessageCircle, Phone, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { resourceMenu } from "@/config/navigation";
-import { ThemeSync, ThemeToggle } from "@/components/ThemeToggle";
+import { PLACEMENT_URL } from "@/config/placement";
 import { EMI_NOTE, homePrograms } from "@/config/home";
 import { NEXT_COHORT_CARD, NEXT_COHORT_STARTS } from "@/config/cohort";
 import { intlProgramCards } from "@/config/intl-courses";
@@ -16,8 +16,9 @@ import { useMarket } from "@/components/MarketProvider";
 
 /** Learner-first navigation. Anchors point at homepage sections so they work from any page. */
 const sectionLinks = [
+  { label: "Placements", href: "/#placement" },
   { label: "Learner Stories", href: "/#learner-stories" },
-  { label: "Mentor", href: "/#mentor" },
+  { label: "Mentors", href: "/#mentor" },
   { label: "FAQ", href: "/#faq" }
 ];
 
@@ -87,7 +88,6 @@ export function Header() {
 
   return (
     <>
-      <ThemeSync />
       <div className="dmx-announce" role="note">
         <div className="container">
           <span className="dmx-announce-dot" aria-hidden="true" />
@@ -155,6 +155,7 @@ export function Header() {
                   ) : (
                     <Link key={entry.title} className="dmx-res" href={entry.href} onClick={closeAll}><strong>{entry.title}</strong><span>{entry.description}</span></Link>
                   ))}
+                  <a className="dmx-res" href={PLACEMENT_URL} target="_blank" rel="noopener noreferrer" onClick={closeAll}><strong>Placement support (CareerOS) <ArrowUpRight size={13} aria-hidden="true" /></strong><span>Live AI &amp; data openings, mock interviews and your job tracker.</span></a>
                   {/* Corporate training is secondary (B2C positioning): moved here from the header action bar. */}
                   <Link className="dmx-res" href="/corporate-training" onClick={closeAll}><strong><Building2 size={13} aria-hidden="true" /> For Teams</strong><span>Corporate technology training for your team.</span></Link>
                 </div>
@@ -162,7 +163,6 @@ export function Header() {
             </div>
           </nav>
           <div className="dmx-actions">
-            <ThemeToggle />
             <a className="dmx-icon" href={env.whatsappUrl} target="_blank" rel="noreferrer" aria-label="Chat on WhatsApp" title="Chat on WhatsApp"><MessageCircle size={19} /></a>
             <Link className="dmx-apply" href="/programs" data-dm-lead data-cta="Header - Apply Now">Apply Now <ArrowRight size={16} /></Link>
           </div>
@@ -206,13 +206,13 @@ export function Header() {
                 ? <a key={entry.title} href={entry.href} target="_blank" rel="noopener noreferrer" onClick={closeAll}>{entry.title}</a>
                 : <Link key={entry.title} href={entry.href} onClick={closeAll}>{entry.title}</Link>)}
             </details>
+            <a href={PLACEMENT_URL} target="_blank" rel="noopener noreferrer" onClick={closeAll}>Placement support (CareerOS)</a>
             <Link href="/about" onClick={closeAll}>About</Link>
             <Link href="/corporate-training" onClick={closeAll}>For Teams (corporate training)</Link>
             <Link href="/contact" onClick={closeAll}>Contact</Link>
           </div>
         </div>
         <div className="dmx-drawer-foot">
-          <ThemeToggle variant="row" />
           <button type="button" className="dmx-apply dmx-apply-block" data-dm-lead data-cta="Mobile menu - Apply Now" onClick={closeAll}>Apply Now <ArrowRight size={17} /></button>
           <div className="dmx-drawer-contact">
             <a href={env.whatsappUrl} target="_blank" rel="noreferrer"><MessageCircle size={17} /> WhatsApp</a>

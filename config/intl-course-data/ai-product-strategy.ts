@@ -176,7 +176,7 @@ export const leadersCourse: IntlCourse = {
     { q: "Is there a refund policy?", a: "Yes. Datamarcos has a 7-day refund policy. If the program is not right for you, ask within 7 days of enrollment." }
   ],
   brochure: "/brochures/Datamarcos_AI_Product_Strategy_Leaders_Brochure.pdf",
-  image: "/images/intl-courses/ai-product-strategy-for-leaders-cover.webp",
+  image: "/images/program-thumbs/ai-product-strategy-for-leaders.webp",
   imageAlt: "Typographic poster for the Datamarcos AI Product and Strategy for Leaders program",
   metaTitle: "AI Product & Strategy for Leaders, 6 Weeks Live | Datamarcos",
   metaDescription: "A 6-week live online program for product and business leaders: frame AI opportunities, judge build versus buy, and write a strategy brief. Fees and EMI options shared on a counsellor call.",

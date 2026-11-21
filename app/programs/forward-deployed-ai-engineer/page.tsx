@@ -2,23 +2,33 @@ import type React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
+import { CareerJourney } from "@/components/ds/CareerJourney";
+import { journeyFromPhases } from "@/lib/journey";
 import {
-  ArrowDownToLine, ArrowRight, ArrowUpRight, Award, BadgeCheck, Bot, CalendarClock, Check, Cloud, Compass, FileCheck2,
-  Hammer, Handshake, Linkedin, MessageSquareText, Minus, Presentation, Rocket, ShieldCheck, UsersRound, X, RotateCcw } from "lucide-react";
+  ArrowDownToLine, ArrowRight, ArrowUpRight, Award, BadgeCheck, Bot, Check, Cloud, Compass, FileCheck2,
+  Hammer, Handshake, Linkedin, MessageSquareText, PhoneCall, Rocket, ShieldCheck, UsersRound, X, RotateCcw } from "lucide-react";
 import { FeesEnrolment } from "@/components/program/FeesEnrolment";
 import { ViewFeesLink } from "@/components/program/ViewFeesLink";
 import { InlineLeadForm } from "@/components/lead/InlineLeadForm";
 import { GatedBrochureFrame } from "@/components/lead/GatedBrochureFrame";
-import { AlumniOutcomes } from "@/components/home/AlumniOutcomes";
 import { FdeSectionNav, type FdeNavItem } from "@/components/program/fde/FdeSectionNav";
 import { FdeRoleExplainer } from "@/components/program/fde/FdeRoleExplainer";
 import { FdeCurriculum } from "@/components/program/fde/FdeCurriculum";
-import { FdeHeroVisual } from "@/components/program/fde/FdeHeroVisual";
 import { DEEPESH_LINKEDIN } from "@/config/home";
 import {
-  FDE_BROCHURE, FDE_COURSE, fdeAdjacentRoleRows, fdeCompare, fdeEngagements, fdeFaqs, fdeHirers, fdeJobSkillMap, fdeJourneys, fdeMarketFacts,
-  fdePhases, fdeRoleRows, fdeToolkit, type FdeFaq
+  FDE_BROCHURE, FDE_COURSE, fdeAudience, fdeCareerTimeline, fdeCompare, fdeEngagements, fdeFaqs, fdeHirers, fdeHiringPaths, fdeJourneys, fdeMarketFacts,
+  fdePhases, fdeReadyRoles, fdeRoleRows, fdeToolkit, type FdeFaq
 } from "@/config/fde";
+import { FdeReadinessCheck } from "@/components/program/fde/FdeReadinessCheck";
+import { FdeEngagementShowcase } from "@/components/program/fde/FdeEngagementShowcase";
+import { StoryCard } from "@/components/ds/StoryCard";
+import { Placeholder } from "@/components/ds/Placeholder";
+import { WhyDatamarcos } from "@/components/ds/WhyDatamarcos";
+import { CareerOSJourney } from "@/components/ds/CareerOSJourney";
+import { LearnersNow } from "@/components/ds/LearnersNow";
+import { LearnerVideoCard } from "@/components/home/LearnerVideoCard";
+import { learnerStories, learnerVideos } from "@/config/home";
+import { PLACEMENT_DISCLAIMER, PLACEMENT_LABEL, PLACEMENT_URL } from "@/config/placement";
 import {
   siAnthropic, siApachekafka, siAuth0, siDatabricks, siDocker, siCrewai, siElasticsearch, siFastapi, siGithub, siGithubactions,
   siGooglegemini, siGooglecloud, siGraphql, siGrafana, siHuggingface, siJira, siKubernetes, siLangchain, siLanggraph, siLinux,
@@ -29,7 +39,7 @@ import type { LucideIcon } from "lucide-react";
 import { site } from "@/config/site";
 import { NEXT_COHORT_ISO, NEXT_COHORT_LONG, NEXT_COHORT_STARTS } from "@/config/cohort";
 import { APPLY_FEE_INTRO, faqsWithProgramFees } from "@/config/fees";
-import { faqsForJsonLd, faqsForMarket, isIndiaMarket } from "@/lib/geo";
+import { faqsForJsonLd, faqsForMarket, faqsPointingToFees, isIndiaMarket } from "@/lib/geo";
 import { brochureHrefForMarket } from "@/config/lead";
 import { getMarket } from "@/lib/geo-server";
 import { RelatedGuides } from "@/components/guides/RelatedGuides";
@@ -52,16 +62,15 @@ export const metadata: Metadata = {
 };
 
 const nav: FdeNavItem[] = [
-  { id: "why", label: "Why FDE" },
   { id: "role", label: "The role" },
-  { id: "jobs", label: "FDE jobs" },
   { id: "fit", label: "Who it's for" },
-  { id: "curriculum", label: "Curriculum" },
-  { id: "projects", label: "Projects" },
-  { id: "tools", label: "Tools" },
+  { id: "readiness", label: "Readiness" },
   { id: "mentor", label: "Mentor" },
   { id: "learners", label: "Learners" },
-  { id: "compare", label: "Compare" },
+  { id: "curriculum", label: "Curriculum" },
+  { id: "journey", label: "Journey" },
+  { id: "projects", label: "Projects" },
+  { id: "career", label: "Placement" },
   { id: "fees", label: "Fees" },
   { id: "faq", label: "FAQ" }
 ];
@@ -104,23 +113,8 @@ const careerSupport = [
   "Offer evaluation and negotiation"
 ];
 
-const chooseChecklist = [
-  "Does it make you deploy into a client-style environment, or only build demos?",
-  "Do you write discovery notes, a scope or SOW, and a handover runbook?",
-  "Is security (prompt injection, PII, access control) taught as its own topic?",
-  "How many hours are live, and who reviews your work?",
-  "Is the certificate honest about who issues it?",
-  "Does the provider say plainly that it doesn't guarantee jobs?"
-];
-
 /** Last real change to the FDE brochure PDF (git history: 19 Oct 2026). Update only when the syllabus actually changes. */
 const SYLLABUS_UPDATED = "Oct 2026";
-
-const adjacentRoles = [
-  { key: "se", label: "Solutions / sales engineer" },
-  { key: "aie", label: "AI engineer" },
-  { key: "con", label: "Consultant" }
-];
 
 const HINDU_BL = "https://www.thehindubusinessline.com/info-tech/gccs-outpace-indian-it-services-firms-in-hiring-forward-deployed-engineers/article71336534.ece";
 
@@ -164,7 +158,6 @@ const toolGroups: ToolGroup[] = [
 
 /** Static sprite (public/images/forward-deployed-ai-engineer/tool-icons.svg, generated from simple-icons) keeps ~100 KB of SVG paths out of the HTML. */
 const TOOL_SPRITE = "/images/forward-deployed-ai-engineer/tool-icons.svg";
-const accents = ["#f4511e", "#2f6bff", "#0e9f84", "#b04cff"];
 
 const ORG_ID = `${site.url}/#organization`;
 const MENTOR_ID = `${site.url}/#deepesh-mishra`;
@@ -234,353 +227,366 @@ function jsonLdFor(faqs: typeof fdeFaqs) {
 ];
 }
 
-function Cta({ label = "Talk to a counsellor", cta, variant = "primary" }: { label?: string; cta: string; variant?: "primary" | "ghost" | "dark" }) {
-  return <a className={`fx-btn fx-btn-${variant}`} href="#apply" data-dm-lead data-cta={cta} data-course={FDE_COURSE}>{label} <ArrowRight size={17} aria-hidden="true" /></a>;
+function Cta({ label = "Talk to a counsellor", cta, variant = "primary" }: { label?: string; cta: string; variant?: "primary" | "ghost" | "navy" | "white" }) {
+  return <a className={`ds-btn ds-btn-${variant}`} href="#apply" data-dm-lead data-cta={cta} data-course={FDE_COURSE}>{label} <ArrowRight size={17} aria-hidden="true" /></a>;
 }
 
-async function Syllabus({ cta, variant = "ghost", label = "Download syllabus" }: { cta: string; variant?: "ghost" | "light" | "dark"; label?: string }) {
+async function Syllabus({ cta, variant = "ghost", label = "Download syllabus" }: { cta: string; variant?: "ghost" | "white" | "navy" | "outline-light"; label?: string }) {
   const href = brochureHrefForMarket(FDE_BROCHURE, await getMarket());
-  return <a className={`fx-btn fx-btn-${variant}`} href={href} data-dm-download data-file={href} data-course={FDE_COURSE} data-cta={cta}><ArrowDownToLine size={17} aria-hidden="true" /> {label}</a>;
+  return <a className={`ds-btn ds-btn-${variant}`} href={href} data-dm-download data-file={href} data-course={FDE_COURSE} data-cta={cta}><ArrowDownToLine size={17} aria-hidden="true" /> {label}</a>;
 }
 
-function Head({ eyebrow, title, body, id, align }: { eyebrow: string; title: React.ReactNode; body?: React.ReactNode; id: string; align?: "center" }) {
+function Head({ eyebrow, title, body, id, align = "center" }: { eyebrow: string; title: React.ReactNode; body?: React.ReactNode; id: string; align?: "center" | "left" }) {
   return (
-    <header className={`fx-head${align ? " fx-head-center" : ""}`}>
-      <p className="fx-eyebrow">{eyebrow}</p>
-      <h2 id={id}>{title}</h2>
-      {body && <p className="fx-head-body">{body}</p>}
+    <header className={`ds-head ds-head-${align}`}>
+      <div>
+        <p className="ds-eyebrow">{eyebrow}</p>
+        <h2 id={id}>{title}</h2>
+        {body && <p className="ds-sub">{body}</p>}
+      </div>
     </header>
   );
 }
 
+/** Readiness levels: the same outcomes the readiness check gives (components/program/fde/FdeReadinessCheck.tsx). */
+const fdeReadinessLevels = [
+  { level: "Ready now", who: "2+ years shipping code in Java, JavaScript, Python, backend, data or DevOps.", next: "Apply. A short diagnostic and mentor call confirm your seat." },
+  { level: "Ready with bridge pre-work", who: "You code, but Python, Linux, Git or SQL are rusty.", next: "Bridge pre-work covers them before Day 1." },
+  { level: "Start one step earlier", who: "No hands-on coding experience yet.", next: "Begin with GenAI & Agentic AI Engineer, then move to FDE." }
+];
+
 export default async function ForwardDeployedAIEngineerPage() {
   const market = await getMarket();
   const india = isIndiaMarket(market);
-  const faqs = faqsForMarket(market, faqsWithProgramFees(market, fdeFaqs, "forward-deployed-ai-engineer"));
+  const faqs = faqsPointingToFees(faqsForMarket(market, faqsWithProgramFees(market, fdeFaqs, "forward-deployed-ai-engineer")));
   const successLinks = [{ label: "Download the brochure", href: brochureHrefForMarket(FDE_BROCHURE, market), download: true }];
+  const stories = learnerStories.filter((story) => story.kind !== "peer").slice(0, 3);
+  const objections = [
+    { q: "“I have a full-time job.”", a: "Two live weekend sessions plus a weekday evening lab. Plan for 10–14 hours a week." },
+    { q: "“I don’t have AI experience.”", a: "You don’t need it. Solid Python and engineering basics are enough; AI starts in Week 5." },
+    { q: "“I code in Java or JavaScript, not Python.”", a: "Bridge pre-work covers Python, Linux, Git and SQL before Day 1." },
+    { q: "“Is it worth it?”", a: `Four deployed, client-style engagements for your portfolio, live mentoring and FDE interview prep. ${india ? "EMI options" : "Flexible instalments"} and a 7-day refund policy.` }
+  ];
   return (
-    <article className="fde-page fx">
+    <article className="ds-fde">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFor(faqsForJsonLd(faqsWithProgramFees("in", fdeFaqs, "forward-deployed-ai-engineer")))) }} />
 
-      {/* HERO */}
-      <section className="fx-hero" id="top" aria-labelledby="fx-title">
-        <div className="fx-hero-glow" aria-hidden="true" />
-        <div className="fx-wrap fx-hero-grid">
-          <div className="fx-hero-copy">
-            <nav className="fx-crumbs" aria-label="Breadcrumb">
+      {/* 1. HERO: sell the career first */}
+      <section className="ds-hero ds-fde-hero" id="top" aria-labelledby="fx-title">
+        <div className="ds-wrap ds-hero-grid">
+          <div className="ds-hero-copy">
+            <nav className="ds-crumbs" aria-label="Breadcrumb">
               <ol>
                 <li><Link href="/">Home</Link></li>
                 <li><Link href="/programs">Programs</Link></li>
                 <li aria-current="page">Forward Deployed AI Engineer</li>
               </ol>
             </nav>
-            <p className="fx-hero-kicker"><span className="fx-dot" /> FDE course · Live online · 22 weeks · 170+ live hours · Application-based</p>
-            <h1 id="fx-title"><span>Forward Deployed Engineer Course:</span> <em className="fx-h1-sub">become the AI engineer companies send in.</em></h1>
-            <p className="fx-hero-deck">Make AI actually work inside real companies. Learn to scope a messy customer problem, ship a secure AI system into their real environment, and own the result.</p>
-            <ul className="fx-hero-promise">
-              <li><Check size={16} aria-hidden="true" /><span>Ship <b>4 client-style deployments</b>: BFSI copilot, multi-agent ops, production hardening, your capstone</span></li>
-              <li><Check size={16} aria-hidden="true" /><span>Go deep on what most AI courses skip: <b>security, governance, integration, LLMOps</b></span></li>
-              <li><Check size={16} aria-hidden="true" /><span>Learn the <b>consulting craft</b>: discovery, SOWs, UAT, ROI and executive demos</span></li>
-            </ul>
-            <div className="fx-hero-actions">
-              <Cta label="Talk to a counsellor" cta="FDE hero (counsellor)" />
-              <Syllabus cta="FDE hero (syllabus)" variant="light" />
+            <p className="ds-kicker"><span className="ds-dot" aria-hidden="true" /> FDE course · Live online · {NEXT_COHORT_STARTS}</p>
+            <h1 id="fx-title">Forward Deployed Engineer Course: <span>become the AI engineer companies send in.</span></h1>
+            <p className="ds-lead"><span className="ds-lead-long">Don’t fear AI. Learn to deploy it. Turn your Java, backend, data, DevOps or Python experience into one of AI’s fastest-growing roles: scope a real customer problem, ship a secure AI system and own the result.</span><span className="ds-lead-short">Don’t fear AI. Learn to deploy it, from your Java, backend, data, DevOps or Python base.</span></p>
+            <div className="ds-actions">
+              <a className="ds-btn ds-btn-primary ds-btn-lg" href="#readiness">Check your readiness <ArrowRight size={18} aria-hidden="true" /></a>
+              <Syllabus cta="FDE hero (syllabus)" />
             </div>
-            <ViewFeesLink />
-            <p className="fx-hero-note"><CalendarClock size={15} aria-hidden="true" /> <span><b>Next cohort:</b> {NEXT_COHORT_STARTS} · Weekend live sessions + weekday evening lab · Small cohorts</span></p>
+            <div className="ds-hero-links"><Cta label="Talk to a counsellor" cta="FDE hero (counsellor)" variant="ghost" /> <ViewFeesLink />  <a className="ds-link" href={PLACEMENT_URL} target="_blank" rel="noopener noreferrer">{PLACEMENT_LABEL} <ArrowUpRight size={14} aria-hidden="true" /></a>
+            </div>
           </div>
-          <FdeHeroVisual />
+          <div className="ds-fde-card">
+            <p className="ds-fde-card-title">The FDE engagement, end to end</p>
+            <ol>
+              {lifecycle.map((item, index) => (
+                <li key={item.step}>
+                  <span className="ds-fde-card-n">{index + 1}</span>
+                  <item.icon size={18} aria-hidden="true" />
+                  <span><b>{item.step}</b><small>{item.body}</small></span>
+                </li>
+              ))}
+            </ol>
+            <p className="ds-fde-card-foot"><BadgeCheck size={15} aria-hidden="true" /> You practise every step in 4 client-style engagements.</p>
+          </div>
         </div>
-        <div className="fx-wrap">
-          <dl className="fx-facts">
-            <div><dt>Duration</dt><dd>22 <small>weeks</small></dd></div>
-            <div><dt>Live learning</dt><dd>170+ <small>hours</small></dd></div>
+        <div className="ds-wrap">
+          <dl className="ds-facts">
+            <div><dt>Duration</dt><dd>22 weeks</dd></div>
+            <div><dt>Live learning</dt><dd>170+ hours</dd></div>
             <div><dt>Client-style engagements</dt><dd>4</dd></div>
-            <div><dt>Weekly commitment</dt><dd>10-14 <small>hrs</small></dd></div>
-            <div><dt>Format</dt><dd>Weekend <small>friendly</small></dd></div>
+            <div><dt>Weekly time</dt><dd>10–14 hrs</dd></div>
+            <div><dt>Next cohort</dt><dd>{NEXT_COHORT_LONG}</dd></div>
           </dl>
         </div>
       </section>
 
       <FdeSectionNav items={nav} course={FDE_COURSE} />
 
-      {/* HIRERS STRIP */}
-      <section className="fx-hirers" aria-label="Companies building FDE teams">
-        <div className="fx-wrap fx-hirers-inner">
-          <p>Companies publicly building FDE teams</p>
-          <ul>{fdeHirers.map((name) => <li key={name}>{name}</li>)}</ul>
-          <small>From public job postings and company announcements (sources below). Not Datamarcos hiring partners.</small>
-        </div>
-      </section>
-
-      {/* WHY NOW */}
-      <section className="fx-section fx-why" id="why" aria-labelledby="fx-why-title">
-        <div className="fx-wrap">
-          <div className="fx-split">
-            <Head id="fx-why-title" eyebrow="What is an FDE & why now" title={<>AI pilots are everywhere.<br /><em>Production is the gap.</em></>} />
-            <div className="fx-why-copy">
-              <p>A <b>Forward Deployed Engineer</b> works inside the customer&apos;s world. Palantir pioneered the role; OpenAI, Anthropic, Salesforce and Databricks now build FDE teams because a model on its own does not change a business. Someone has to connect it to legacy systems, messy data, security reviews and real users, then stay until it creates value.</p>
-              <p>That someone is part engineer, part consultant, and increasingly one of the most in-demand roles in AI.</p>
-              <p><Link className="fx-inline-link" href="/guides/what-is-a-forward-deployed-engineer">What does an FDE do day to day?</Link> Our free guide walks through a realistic engagement, from discovery to handover.</p>
-            </div>
-          </div>
-          <ul className="fx-stats">
+      {/* 2. DEMAND: why now, with sources */}
+      <section className="ds-section ds-section-tight" id="why" aria-labelledby="fx-why-title">
+        <div className="ds-wrap">
+          <Head id="fx-why-title" eyebrow="Industry demand" title={<>AI pilots are everywhere. <em>Production is the gap.</em></>} body="Companies need engineers who can take AI from demo to deployed. That engineer is the FDE." />
+          <ul className="ds-market">
             {fdeMarketFacts.map((fact) => (
               <li key={fact.value}>
                 <strong>{fact.value}</strong>
                 <p>{fact.label}</p>
-                <a href={fact.href} target="_blank" rel="noreferrer">{fact.source} · {fact.date} <ArrowUpRight size={13} aria-hidden="true" /></a>
+                <a href={fact.href} target="_blank" rel="noreferrer">{fact.source}, {fact.date} <ArrowUpRight size={12} aria-hidden="true" /></a>
               </li>
             ))}
           </ul>
-          <p className="fx-fine">Public sources, linked for verification. Job-market figures are directional and vary by source and geography. Datamarcos does not guarantee placement, salary or hikes.</p>
-          <ol className="fx-life" aria-label="The FDE engagement lifecycle">
-            {lifecycle.map((item, index) => (
-              <li key={item.step} style={{ "--d": `${index * 90}ms` } as React.CSSProperties}>
-                <span className="fx-life-n">{String(index + 1).padStart(2, "0")}</span>
-                <item.icon size={22} aria-hidden="true" />
-                <h3>{item.step}</h3>
-                <p>{item.body}</p>
+          <div className="ds-hirers">
+            <p>Companies publicly building FDE teams</p>
+            <ul>{fdeHirers.map((name) => <li key={name}>{name}</li>)}</ul>
+          </div>
+          <p className="ds-fine ds-center">From public job postings and announcements; not Datamarcos hiring partners. Figures are directional. India hiring: <a href={HINDU_BL} target="_blank" rel="noreferrer">The Hindu BusinessLine, 12 Aug 2026</a>. No placement, salary or hike is guaranteed.</p>
+        </div>
+      </section>
+
+      {/* 3. THE ROLE: what FDEs do + career opportunities */}
+      <section className="ds-section ds-soft" id="role" aria-labelledby="fx-role-title">
+        <div className="ds-wrap">
+          <Head id="fx-role-title" eyebrow="The role" title={<>Part engineer, part consultant. <em>Owns the outcome.</em></>} body="FDEs write production code and work with models, embedded with one customer." />
+          <FdeRoleExplainer rows={fdeRoleRows} />
+          <div className="ds-roles">
+            <div>
+              <h3>Roles you become ready for</h3>
+              <ul className="ds-chips">{fdeReadyRoles.map((r) => <li key={r}>{r}</li>)}</ul>
+              <p className="ds-fine">Role readiness, not a placement guarantee.</p>
+            </div>
+            <div>
+              <h3>Where graduates aim</h3>
+              <ul className="ds-paths">{fdeHiringPaths.map((p) => <li key={p.title}><b>{p.title}</b><span>{p.body}</span></li>)}</ul>
+            </div>
+          </div>
+          <p className="ds-center"><Link className="ds-link" href="/guides/what-is-a-forward-deployed-engineer">What does an FDE do day to day? Read the free guide <ArrowRight size={14} aria-hidden="true" /></Link></p>
+          <p className="ds-soft-cta"><a className="ds-link" href="#readiness">Could this be your next role? Check your readiness <ArrowRight size={14} aria-hidden="true" /></a></p>
+        </div>
+      </section>
+
+      {/* 4. AUDIENCE + TRANSITIONS */}
+      <section className="ds-section" id="fit" aria-labelledby="fx-fit-title">
+        <div className="ds-wrap">
+          <Head id="fx-fit-title" eyebrow="Is this for you?" title={<>Is this for you? <em>Start from your stack.</em></>} body="Built for working Java, JavaScript, Python, backend, data and DevOps engineers. The program fills the gaps." />
+          <ul className="ds-stacks">{fdeAudience.map((a) => <li key={a.stack}><b>{a.stack}</b><small>{a.note}</small></li>)}</ul>
+          <ol className="ds-levels" aria-label="Readiness levels">
+            {fdeReadinessLevels.map((level, index) => (
+              <li key={level.level} className={`ds-level ds-level-${index + 1}`}>
+                <span className="ds-level-n">{index + 1}</span>
+                <b>{level.level}</b>
+                <small>{level.who}</small>
+                <span>{level.next}</span>
               </li>
             ))}
           </ol>
-        </div>
-      </section>
-
-      {/* ROLE EXPLAINER */}
-      <section className="fx-section fx-paper" id="role" aria-labelledby="fx-role-title">
-        <div className="fx-wrap">
-          <Head id="fx-role-title" eyebrow="FDE vs ML engineer vs software engineer" title={<>Same code. <em>Very different job.</em></>} body="FDEs write production code like software engineers and work with models like ML engineers, but they do it embedded with one customer, and they own the outcome." />
-          <FdeRoleExplainer rows={fdeRoleRows} />
-        </div>
-      </section>
-
-      {/* FDE VS ADJACENT ROLES */}
-      <section className="fx-section" id="vs-roles" aria-labelledby="fx-vs-title">
-        <div className="fx-wrap">
-          <Head id="fx-vs-title" eyebrow="Titles that sound similar" title={<>FDE vs solutions engineer, <em>AI engineer and consultant.</em></>} body="The roles overlap, but the job after the contract is signed is very different." />
-          <FdeRoleExplainer rows={fdeAdjacentRoleRows} roles={adjacentRoles} label="FDE compared with solutions engineer, AI engineer and consultant" />
-          <p className="fx-fine">Titles vary by company. Read the job description, not just the title.</p>
-        </div>
-      </section>
-
-      {/* WHO IT'S FOR */}
-      <section className="fx-section" id="fit" aria-labelledby="fx-fit-title">
-        <div className="fx-wrap">
-          <Head id="fx-fit-title" eyebrow="Who it's for" title={<>Six ways engineers <em>become FDEs.</em></>} body="Built for working engineers. Your background becomes your edge; the program fills the gaps." />
-          <ul className="fx-journeys">
-            {fdeJourneys.map((j, index) => (
+          <p className="ds-center"><a className="ds-btn ds-btn-primary" href="#readiness" data-cta="FDE fit - Check my readiness">Check your readiness in 30 seconds <ArrowRight size={16} aria-hidden="true" /></a></p>
+          <ul className="ds-transitions">
+            {fdeJourneys.map((j) => (
               <li key={j.from}>
-                <span className="fx-journey-n">{String(index + 1).padStart(2, "0")}</span>
-                <p className="fx-journey-from"><b>{j.from}</b><small>{j.detail}</small></p>
-                <p className="fx-journey-to"><ArrowRight size={15} aria-hidden="true" /> {j.to}</p>
-                <p className="fx-journey-why">{j.why}</p>
+                <p className="ds-tr-from"><small>From</small><b>{j.from}</b></p>
+                <ArrowRight size={18} aria-hidden="true" />
+                <p className="ds-tr-to"><small>To</small><b>{j.to}</b></p>
+                <p className="ds-tr-why">{j.why}</p>
               </li>
             ))}
           </ul>
-          <div className="fx-fitgrid">
-            <div className="fx-fitbox fx-fit-yes">
+          <p className="ds-soft-cta"><a className="ds-link" href="#apply" data-dm-lead data-course={FDE_COURSE} data-cta="FDE fit - Map my transition">Map your transition with a counsellor <ArrowRight size={14} aria-hidden="true" /></a></p>
+        </div>
+      </section>
+
+      {/* 5. ELIGIBILITY + READINESS CHECK (conversion) */}
+      <section className="ds-section ds-soft" id="readiness" aria-labelledby="fx-ready-title">
+        <div className="ds-wrap">
+          <Head id="fx-ready-title" eyebrow="Eligibility" title={<>Are you ready for FDE? <em>Find out in 30 seconds.</em></>} />
+          <FdeReadinessCheck course={FDE_COURSE} />
+          <div className="ds-fitgrid">
+            <div className="ds-card">
               <h3>A strong fit if</h3>
-              <ul>{fitFor.map((f) => <li key={f}><Check size={16} aria-hidden="true" />{f}</li>)}</ul>
+              <ul className="ds-checks">{fitFor.map((f) => <li key={f}>{f}</li>)}</ul>
             </div>
-            <div className="fx-fitbox fx-fit-no">
+            <div className="ds-card">
               <h3>Not the right fit if</h3>
-              <ul>{notFor.map((f) => <li key={f}><X size={16} aria-hidden="true" />{f}</li>)}</ul>
+              <ul className="ds-crosses">{notFor.map((f) => <li key={f}><X size={15} aria-hidden="true" />{f}</li>)}</ul>
             </div>
-            <div className="fx-fitbox fx-admit">
+            <div className="ds-card">
               <h3>How admission works</h3>
-              <ol>{admission.map((a, i) => <li key={a.step}><span>{i + 1}</span><b>{a.step}</b><small>{a.body}</small></li>)}</ol>
-              <p>New to some basics? A bridge pre-work track covers Python, Linux, Git and SQL before Day 1.</p>
+              <ol className="ds-steps">{admission.map((a) => <li key={a.step}><b>{a.step}</b><small>{a.body}</small></li>)}</ol>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CURRICULUM */}
-      <section className="fx-section fx-paper" id="curriculum" aria-labelledby="fx-curr-title">
-        <div className="fx-wrap">
-          <div className="fx-split fx-split-end">
-            <Head id="fx-curr-title" eyebrow="Curriculum · 22 weeks · 5 phases" title={<>From first discovery call <em>to Demo Day.</em></>} body="Every week has live sessions, a hands-on lab and something you ship. Pick a phase, then open any week for topics, labs and what you ship." />
-            <Syllabus cta="FDE curriculum (full syllabus)" variant="dark" label="Get the full syllabus PDF" />
+      {/* 8. MENTOR */}
+      <section className="ds-section" id="mentor" aria-labelledby="fx-mentor-title">
+        <div className="ds-wrap">
+          <Head id="fx-mentor-title" eyebrow="Your mentor" title={<>Learn from <em>a practitioner.</em></>} />
+          <div className="ds-mentors ds-mentors-fde">
+            <article className="ds-mentor ds-mentor-lead">
+              <div className="ds-mentor-photo"><Image src="/images/deepesh-mishra-founder.jpeg" alt="Deepesh Mishra, founder and lead mentor at Datamarcos" width={600} height={720} sizes="(max-width: 760px) 80vw, 340px" /></div>
+              <div className="ds-mentor-copy">
+                <span className="ds-tag">Founder &amp; lead mentor</span>
+                <h3 id="fx-mentor-name">Deepesh Mishra</h3>
+                <p className="ds-mentor-role">Solution Architect · Corporate Trainer · BITS Pilani alumnus</p>
+                {/* 31 Oct 2026 (brief 0.1): this page keeps only the 200+ organizations figure for the mentor. */}
+                <p>Has trained teams at 200+ organizations. Teaches the work in its real order: scope, build, secure, deploy, hand over.</p>
+                <div className="ds-row">
+                  <a className="ds-btn ds-btn-ghost" href={DEEPESH_LINKEDIN} target="_blank" rel="noreferrer"><Linkedin size={16} aria-hidden="true" /> Recommendations on LinkedIn</a>
+                </div>
+              </div>
+            </article>
+            <Placeholder className="ds-mentor" label="Mentor intro video" need="a 60–90 s video of Deepesh introducing the FDE program" />
           </div>
-          <ul className="fx-rhythm" aria-label="Weekly rhythm">{rhythm.map((r) => <li key={r.k}><b>{r.k}</b><span>{r.v}</span></li>)}</ul>
-          <FdeCurriculum phases={fdePhases} />
-          <p className="fx-career-strip"><Presentation size={18} aria-hidden="true" /> <b>Career track runs every week:</b> portfolio · resume · LinkedIn · FDE interview loops · referrals</p>
         </div>
       </section>
 
-      {/* PROJECTS */}
-      <section className="fx-section fx-ink" id="projects" aria-labelledby="fx-proj-title">
-        <div className="fx-wrap">
-          <Head id="fx-proj-title" eyebrow="Engagement studio" title={<>Four client engagements. <em>No toy projects.</em></>} body="Each engagement comes with a client brief, stakeholders, constraints, security requirements and a panel review. Everything you build is deployed, documented and portfolio-ready." />
-          <ul className="fx-projects">
-            {fdeEngagements.map((p, index) => (
-              <li key={p.code} className="fx-project" style={{ "--acc": accents[index] } as React.CSSProperties}>
-                <div className="fx-project-art" aria-hidden="true"><span>{p.code}</span><i /><i /><i /></div>
-                <div className="fx-project-body">
-                  <p className="fx-project-meta">{p.weeks} · {p.client}</p>
-                  <h3>{p.name}</h3>
-                  <p className="fx-project-brief">{p.brief}</p>
-                  <ul className="fx-tags" aria-label="Stack">{p.stack.map((s) => <li key={s}>{s}</li>)}</ul>
-                  <p className="fx-project-deliv"><b>You deliver</b>{p.deliverables.join(" · ")}</p>
-                </div>
+      {/* 9. LEARNERS */}
+      <section className="ds-section ds-soft" id="learners" aria-labelledby="fx-learn-title">
+        <div className="ds-wrap">
+          <Head id="fx-learn-title" eyebrow="Learner experiences" title={<>Learners who trained <em>with Deepesh.</em></>} body="In their own words. Every story links to its source." />
+          <div className="ds-stories">{stories.map((story) => <StoryCard key={story.id} story={story} />)}</div>
+          <LearnersNow />
+          <div className="ds-reels ds-reels-3">{learnerVideos.slice(0, 3).map((video) => <LearnerVideoCard key={video.id} video={video} />)}</div>
+          <p className="ds-soft-cta"><a className="ds-link" href="#apply" data-dm-lead data-course={FDE_COURSE} data-cta="FDE learners - Talk to a counsellor">Ask a counsellor about learner journeys <ArrowRight size={14} aria-hidden="true" /></a></p>
+          <Placeholder label="FDE cohort career journeys" need="stories from FDE program learners (none published yet; the stories above are from other Datamarcos training)" />
+        </div>
+      </section>
+
+      {/* Why Datamarcos sits with the proof: mentor, learners, then why us */}
+      <WhyDatamarcos variant="fde" />
+
+      {/* 6. CURRICULUM: visual phase journey */}
+      <section className="ds-section" id="curriculum" aria-labelledby="fx-curr-title">
+        <div className="ds-wrap">
+          <Head id="fx-curr-title" eyebrow="Curriculum · 22 weeks · 5 phases" title={<>From first discovery call <em>to Demo Day.</em></>} />
+          <ol className="ds-phases">
+            {fdePhases.map((phase) => (
+              <li key={phase.id}>
+                <span className="ds-phase-n">{phase.number}</span>
+                <small>{phase.weeks}</small>
+                <b>{phase.title}</b>
+                <p>{phase.summary.split(":")[0]}.</p>
               </li>
             ))}
-          </ul>
-          <div className="fx-kit">
-            <div>
-              <p className="fx-eyebrow">The FDE toolkit</p>
-              <h3>Leave with the artifacts real FDE teams use.</h3>
-              <p>Reusable templates you build and keep across every engagement.</p>
-            </div>
+          </ol>
+          <ul className="ds-rhythm" aria-label="Weekly rhythm">{rhythm.map((r) => <li key={r.k}><b>{r.k}</b><span>{r.v}</span></li>)}</ul>
+          <details className="ds-weekly">
+            <summary>See the week-by-week plan <ChevronIcon /></summary>
+            <FdeCurriculum phases={fdePhases} />
+          </details>
+          <div className="ds-center ds-row ds-row-center"><Syllabus cta="FDE curriculum (full syllabus)" variant="navy" label="Get the full syllabus PDF" /></div>
+        </div>
+      </section>
+
+      {/* CAREER JOURNEY SIMULATION: month by month to job-ready */}
+      <CareerJourney course={FDE_COURSE} ctaPrefix="FDE" duration="22 weeks · ~6 months" title={<>Month by month, <em>to FDE-ready.</em></>} objective="Become the engineer companies send in: scope a real customer problem, build and secure the AI system, deploy it and own the outcome." steps={journeyFromPhases(fdePhases, { milestones: fdeCareerTimeline })} careerPrep="FDE interview loops and 1:1 mocks, plus resume and LinkedIn rewrites in the weekly career track" />
+
+      {/* 7. PROJECTS: interactive showcase */}
+      <section className="ds-section ds-navy" id="projects" aria-labelledby="fx-proj-title">
+        <div className="ds-wrap">
+          <Head id="fx-proj-title" eyebrow="Engagement studio" title={<>Four client engagements. <em>No toy projects.</em></>} body="Each comes with a client brief, constraints, security requirements and a panel review." />
+          <FdeEngagementShowcase engagements={fdeEngagements} demoSlot={<Placeholder className="ds-show-demo" label="Project demo video / live demo" need="a recorded walkthrough or hosted demo of each engagement (e.g. Project Sentinel)" />} />
+          <div className="ds-kit">
+            <p className="ds-eyebrow ds-eyebrow-light">You keep the FDE toolkit</p>
             <ul>{fdeToolkit.map((k) => <li key={k.name}><b>{k.name}</b><span>{k.items}</span></li>)}</ul>
           </div>
         </div>
       </section>
 
-      {/* TOOLS */}
-      <section className="fde-toolkit fx-tools" id="tools" aria-labelledby="fx-tools-title">
-        <div className="container">
-          <div className="fde-toolkit-heading">
-            <div><p className="fde-eyebrow">The technology</p><h2 id="fx-tools-title">The 40-tool stack production FDE teams use.</h2></div>
-            <p>Models, agents, retrieval, cloud, security and the enterprise systems you integrate with, including Databricks and Snowflake.</p>
-          </div>
-          <div className="fx-toolwall">
-            {toolGroups.map((group) => <div className="fx-toolrow" key={group.category}>
-              <h3>{group.category}</h3>
-              <ul>
-                {group.tools.map((tool) => <li key={tool.name} style={tool.icon ? { color: `#${tool.icon.hex}` } as React.CSSProperties : undefined}>
-                  {tool.icon ? <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href={`${TOOL_SPRITE}#si-${tool.icon.slug}`} /></svg> : tool.fallback && <tool.fallback size={20} strokeWidth={1.8} aria-hidden="true" />}
-                  <span>{tool.name}</span>
-                </li>)}
-              </ul>
-            </div>)}
-          </div>
-        </div>
-      </section>
-
-      {/* FDE JOBS IN INDIA */}
-      <section className="fx-section fx-paper" id="jobs" aria-labelledby="fx-jobs-title">
-        <div className="fx-wrap">
-          <div className="fx-split">
-            <Head id="fx-jobs-title" eyebrow="The job market" title={<>Forward deployed engineer jobs in India: <em>what employers ask for.</em></>} />
-            <div className="fx-why-copy">
-              <p>In India, FDE roles are opening at global capability centres (GCCs), at IT-services firms building AI practices, and at frontier AI, enterprise-software and cloud companies. Employers describe the same mix: strong engineering skills, RAG and agentic AI, and the business fluency to run a customer conversation and get a solution deployed.</p>
-              <p>The program maps to that mix week by week:</p>
-            </div>
-          </div>
-          <ul className="fx-jobmap">
-            {fdeJobSkillMap.map((row) => <li key={row.weeks}><b>{row.skill}</b><span>{row.weeks}</span></li>)}
-          </ul>
-          <p className="fx-fine">Source on India hiring: <a href={HINDU_BL} target="_blank" rel="noreferrer">The Hindu BusinessLine, “GCCs outpace Indian IT services firms in hiring Forward Deployed Engineers” (12 Aug 2026) <ArrowUpRight size={12} aria-hidden="true" /></a>. Market reports differ, and we don&apos;t guarantee placement, salary or hikes.</p>
-        </div>
-      </section>
-
-      {/* MENTOR */}
-      <section className="fx-section" id="mentor" aria-labelledby="fx-mentor-title">
-        <div className="fx-wrap fx-mentor">
-          <div className="fx-mentor-photo">
-            <Image src="/images/deepesh-mishra-founder.jpeg" alt="Deepesh Mishra, founder and lead mentor at Datamarcos" width={600} height={720} sizes="(max-width: 760px) 90vw, 420px" />
-            <span className="fx-mentor-badge"><BadgeCheck size={15} aria-hidden="true" /> Lead mentor</span>
-          </div>
-          <div>
-            <p className="fx-eyebrow">Learn from a practitioner</p>
-            <h2 id="fx-mentor-title">Deepesh Mishra</h2>
-            <p className="fx-mentor-role">Founder, Datamarcos · Solution Architect · Corporate Trainer · BITS Pilani alumnus</p>
-            {/* 31 Oct 2026 (brief 0.1): unconfirmed 25,000+ / 18+ years / 10+ countries removed; "delivered GenAI FDE programs for enterprise teams" held until Deepesh confirms it with a public source. */}
-            <p>Deepesh is the founder and lead mentor at Datamarcos. He has worked as a solution architect and corporate trainer in data and AI, and has trained teams at 200+ organizations. He teaches the work in its real order: scope first, then build, secure, deploy and hand over.</p>
-            <dl className="fx-mentor-stats">
-              <div><dt>Organizations trained</dt><dd>200+</dd></div>
-              <div><dt>Live online programs</dt><dd>4</dd></div>
-              <div><dt>Recommendations</dt><dd><a className="fx-link" href={DEEPESH_LINKEDIN} target="_blank" rel="noreferrer"><Linkedin size={16} aria-hidden="true" /> on LinkedIn <ArrowUpRight size={14} aria-hidden="true" /></a></dd></div>
-            </dl>
-          </div>
-        </div>
-      </section>
-
-      {/* LEARNERS */}
-      <section className="fx-section fx-learners" id="learners" aria-labelledby="fx-learn-title">
-        <div className="fx-wrap">
-          <Head id="fx-learn-title" eyebrow="Learner proof" title={<>Where our learners <em>are now.</em></>} body="Real learners and teams who trained with Deepesh Mishra, in their own words. Every story links to its source." />
-          <AlumniOutcomes hideStats={["Professionals trained", "Years in industry & training", "Countries reached"]} />
-        </div>
-      </section>
-
-      {/* COMPARE */}
-      <section className="fx-section fx-paper" id="compare" aria-labelledby="fx-cmp-title">
-        <div className="fx-wrap">
-          <Head id="fx-cmp-title" eyebrow="Compare before you choose" title={<>Why engineers choose <em>Datamarcos FDE.</em></>} body="How this program compares with the two most common alternatives." />
-          <div className="fx-cmp" role="table" aria-label="Datamarcos FDE program compared with a typical self-paced course and a generic bootcamp">
-            <div className="fx-cmp-row fx-cmp-head" role="row">
-              <span role="columnheader"><span className="fx-sr">Feature</span></span>
-              <span role="columnheader" className="fx-cmp-dm">Datamarcos FDE</span>
-              <span role="columnheader">Typical self-paced course</span>
-              <span role="columnheader">Generic AI bootcamp</span>
-            </div>
-            {fdeCompare.map((row) => (
-              <div className="fx-cmp-row" role="row" key={row.label}>
-                <span role="rowheader">{row.label}</span>
-                <span role="cell" className="fx-cmp-dm"><Check size={16} aria-hidden="true" />{row.dm}</span>
-                <span role="cell" data-label="Self-paced"><Minus size={14} aria-hidden="true" />{row.selfPaced}</span>
-                <span role="cell" data-label="Bootcamp"><Minus size={14} aria-hidden="true" />{row.bootcamp}</span>
+      {/* TOOLS (compact) */}
+      <section className="ds-section ds-section-tight" id="tools" aria-labelledby="fx-tools-title">
+        <div className="ds-wrap">
+          <Head id="fx-tools-title" eyebrow="The technology" title={<>The stack production <em>FDE teams use.</em></>} />
+          <div className="ds-tools">
+            {toolGroups.map((group) => (
+              <div key={group.category}>
+                <h3>{group.category}</h3>
+                <ul>
+                  {group.tools.map((tool) => (
+                    <li key={tool.name} style={tool.icon ? { color: `#${tool.icon.hex}` } as React.CSSProperties : undefined}>
+                      {tool.icon ? <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href={`${TOOL_SPRITE}#si-${tool.icon.slug}`} /></svg> : tool.fallback && <tool.fallback size={18} strokeWidth={1.8} aria-hidden="true" />}
+                      <span>{tool.name}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             ))}
           </div>
-          <p className="fx-fine">“Typical” and “generic” describe common formats in the market, not any specific provider. For named providers, read <Link className="fx-inline-link" href="/guides/forward-deployed-engineer-courses-india-compared-2026">how FDE courses in India compare</Link>.</p>
-          <div className="fx-cta-band">
-            <p><b>Still comparing?</b> A counsellor can walk you through the syllabus, the {NEXT_COHORT_LONG} start date and {india ? "EMI options" : "fees"} in 15 minutes.</p>
-            <Cta cta="FDE compare (counsellor)" />
-          </div>
         </div>
       </section>
 
-      {/* CERTIFICATE + CAREER */}
-      <section className="fx-section" id="certificate" aria-labelledby="fx-cert-title">
-        <div className="fx-wrap fx-cert">
-          <div className="fx-cert-card" aria-hidden="true">
-            <div className="fx-cert-inner">
-              <span className="fx-cert-logo">DATAMARCOS</span>
-              <small>Executive Certificate in</small>
-              <strong>Forward Deployed AI Engineering</strong>
-              <span className="fx-cert-line" />
-              <small>Awarded on completion and capstone defence</small>
-              <Award className="fx-cert-seal" size={44} />
+      {/* 10. PLACEMENT: career prep + support */}
+      <section className="ds-section ds-soft" id="career" aria-labelledby="fx-career-title">
+        <div className="ds-wrap">
+          <Head id="fx-career-title" eyebrow="Career launch & placement support" title={<>Built around how <em>FDEs actually get hired.</em></>} body="FDE roles are often filled through targeted applications and referrals. The career track prepares you for that from Week 1." />
+          <ol className="ds-timeline">
+            {fdeCareerTimeline.map((row) => <li key={row.weeks}><small>{row.weeks}</small><b>{row.milestone}</b><span>{row.output}</span></li>)}
+          </ol>
+          <div className="ds-career-grid">
+            <div className="ds-card">
+              <h3>Career support you get</h3>
+              <ul className="ds-checks">{careerSupport.map((c) => <li key={c}>{c}</li>)}</ul>
+              <Link className="ds-link" href="/resources/interview-prep">FDE interview prep resources <ArrowRight size={14} aria-hidden="true" /></Link>
+            </div>
+            <div className="ds-card ds-card-blue">
+              <span className="ds-tag">CareerOS by Datamarcos</span>
+              <h3>After your capstone is verified</h3>
+              <p>Match live AI and data openings, practise mock interviews and track every application.</p>
+              <a className="ds-btn ds-btn-white" href={PLACEMENT_URL} target="_blank" rel="noopener noreferrer">Open the placement portal <ArrowUpRight size={16} aria-hidden="true" /></a>
+            </div>
+            <div className="ds-card ds-cert">
+              <Award size={34} aria-hidden="true" />
+              <h3>Executive Certificate in Forward Deployed AI Engineering</h3>
+              <p>Awarded on completion and capstone defence at Demo Day. Issued by Datamarcos.</p>
             </div>
           </div>
-          <div>
-            <Head id="fx-cert-title" eyebrow="Certificate & career support" title={<>A certificate backed by <em>work you can show.</em></>} body="The Datamarcos Executive Certificate in Forward Deployed AI Engineering is awarded after you complete the program and defend your capstone at Demo Day. Your strongest credential is the portfolio: four deployed engagements and the artifacts behind them." />
-            <ul className="fx-career">{careerSupport.map((c) => <li key={c}><Check size={16} aria-hidden="true" />{c}</li>)}</ul>
-            <p className="fx-career-more"><Link className="fx-link" href="/resources/interview-prep">FDE interview prep resources <ArrowRight size={14} aria-hidden="true" /></Link></p>
-            <p className="fx-fine">We do not guarantee placement, salary or hikes. Outcomes depend on each learner.</p>
+          <Placeholder label="Verified FDE outcomes" need="real, verifiable outcome data from completed FDE cohorts (none exists yet, so no numbers are shown)" />
+          <p className="ds-fine ds-center">{PLACEMENT_DISCLAIMER}</p>
+        </div>
+      </section>
+
+      <CareerOSJourney id="placement" course={FDE_COURSE} ctaPrefix="FDE CareerOS" />
+
+      {/* 11. COMPARE */}
+      <section className="ds-section" id="compare" aria-labelledby="fx-cmp-title">
+        <div className="ds-wrap">
+          <Head id="fx-cmp-title" eyebrow="Compare before you choose" title={<>Why engineers choose <em>Datamarcos FDE.</em></>} />
+          <div className="ds-table-wrap">
+            <table className="ds-table">
+              <thead><tr><th scope="col"><span className="fx-sr">Feature</span></th><th scope="col" className="ds-table-dm">Datamarcos FDE</th><th scope="col">Typical self-paced course</th><th scope="col">Generic AI bootcamp</th></tr></thead>
+              <tbody>
+                {fdeCompare.map((row) => (
+                  <tr key={row.label}><th scope="row">{row.label}</th><td className="ds-table-dm"><Check size={15} aria-hidden="true" /> {row.dm}</td><td>{row.selfPaced}</td><td>{row.bootcamp}</td></tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="ds-fine">“Typical” and “generic” describe common formats, not any specific provider. See <Link href="/guides/forward-deployed-engineer-courses-india-compared-2026">how FDE courses in India compare</Link>.</p>
+          <div className="ds-callbar">
+            <p><PhoneCall size={18} aria-hidden="true" /> Still comparing? Get the syllabus, start date and {india ? "EMI options" : "fees"} in a 15-minute call.</p>
+            <Cta cta="FDE compare (counsellor)" variant="navy" />
           </div>
         </div>
       </section>
 
-      {/* HOW TO CHOOSE (brief 1.7): non-comparative, no provider names */}
-      <section className="fx-section fx-choose" id="choose" aria-labelledby="fx-choose-title">
-        <div className="fx-wrap">
-          <Head id="fx-choose-title" eyebrow="Before you enrol anywhere" title={<>How to choose a <em>forward deployed engineer course.</em></>} body="Six questions to ask any FDE program, including ours." />
-          <ol className="fx-choose-list">
-            {chooseChecklist.map((item, index) => <li key={item}><span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span><p>{item}</p></li>)}
-          </ol>
-          <p className="fx-choose-more"><Link className="fx-link" href="/guides/forward-deployed-engineer-courses-india-compared-2026">See how Indian FDE programs compare on these points <ArrowRight size={14} aria-hidden="true" /></Link></p>
+      {/* Risk reducers sit right next to the price */}
+      <div className="ds-risk" role="note" aria-label="Before you pay">
+        <div className="ds-wrap">
+          <span><RotateCcw size={17} aria-hidden="true" /> <Link href="/refund-policy">7-day refund policy</Link></span>
+          <span><ShieldCheck size={17} aria-hidden="true" /> {india ? "EMI options, subject to approval" : "Flexible instalments, subject to approval"}</span>
+          <span><PhoneCall size={17} aria-hidden="true" /> <a href="#apply" data-dm-lead data-course={FDE_COURSE} data-cta="FDE fees - Free counselling call">Free counselling call first</a></span>
         </div>
-      </section>
-
+      </div>
       <FeesEnrolment slug="forward-deployed-ai-engineer" />
 
-      {/* FAQ */}
-      <section className="fx-section fx-paper" id="faq" aria-labelledby="fx-faq-title">
-        <div className="fx-wrap fx-faq">
+      {/* 12. OBJECTIONS + FAQ */}
+      <section className="ds-section ds-soft" id="faq" aria-labelledby="fx-faq-title">
+        <div className="ds-wrap ds-faq-grid">
           <div>
-            <Head id="fx-faq-title" eyebrow="FAQ" title={<>Questions, <em>answered.</em></>} body="Can't find yours? A counsellor will answer it on a short call." />
-            <Cta cta="FDE FAQ (counsellor)" variant="dark" label="Ask a counsellor" />
-            <p className="fx-faq-guide">New to the role? Read <Link href="/guides/what-is-a-forward-deployed-engineer">what a forward deployed engineer does</Link>. Practising interviews? See <Link href="/guides/forward-deployed-engineer-interview-questions">FDE interview questions</Link>.</p>
+            <Head id="fx-faq-title" eyebrow="FAQ" title={<>Questions, <em>answered.</em></>} align="left" />
+            <ul className="ds-worries">{objections.map((o) => <li key={o.q}><b>{o.q}</b><span>{o.a}</span></li>)}</ul>
+            <Cta cta="FDE FAQ (counsellor)" variant="navy" label="Ask a counsellor" />
           </div>
-          <div className="fx-faq-list">
+          <div className="ds-faq">
             {faqs.map((faq, index) => (
               <details key={faq.q} open={index === 0}>
-                <summary>{faq.q}<span aria-hidden="true" /></summary>
+                <summary><span>{faq.q}</span><ChevronIcon /></summary>
                 <FaqAnswer faq={faq} />
               </details>
             ))}
@@ -588,34 +594,29 @@ export default async function ForwardDeployedAIEngineerPage() {
         </div>
       </section>
 
-      {/* BROCHURE */}
-      <RelatedGuides slugs={["forward-deployed-engineer-courses-india-compared-2026", "what-is-a-forward-deployed-engineer", "forward-deployed-engineer-interview-questions"]} wrapClassName="fx-wrap" />
-      <section className="fx-section fx-brochure" id="brochure" aria-labelledby="fx-bro-title">
-        <div className="fx-wrap">
-          <div className="fx-split fx-split-end">
-            <Head id="fx-bro-title" eyebrow="The full program guide" title={<>Read the 22-week <em>syllabus.</em></>} body={<>Week-by-week topics, labs, tools, engagements and admission details in one PDF. <span className="fx-updated">Syllabus updated: {SYLLABUS_UPDATED}</span></>} />
-            <Syllabus cta="FDE brochure section" variant="dark" label="Download PDF" />
-          </div>
-          <div className="fx-pdf"><GatedBrochureFrame src={FDE_BROCHURE} title="Forward Deployed AI Engineer program brochure" course={FDE_COURSE} cover="/images/forward-deployed-ai-engineer/brochure-cover-preview.webp" /></div>
+      {/* 13. GATED BROCHURE */}
+      <section className="ds-section ds-section-tight" id="brochure" aria-labelledby="fx-bro-title">
+        <div className="ds-wrap">
+          <Head id="fx-bro-title" eyebrow="The full program guide" title={<>Read the 22-week <em>syllabus.</em></>} body={<>Topics, labs, tools and admission details in one PDF. Updated {SYLLABUS_UPDATED}.</>} />
+          <div className="ds-pdf"><GatedBrochureFrame src={FDE_BROCHURE} title="Forward Deployed AI Engineer program brochure" course={FDE_COURSE} cover="/images/forward-deployed-ai-engineer/brochure-cover-preview.webp" /></div>
         </div>
       </section>
+      <RelatedGuides slugs={["forward-deployed-engineer-courses-india-compared-2026", "what-is-a-forward-deployed-engineer", "forward-deployed-engineer-interview-questions"]} wrapClassName="ds-wrap" />
 
-      {/* APPLY */}
-      <section className="fx-apply" id="apply" aria-labelledby="fx-apply-title">
-        <div className="fx-hero-glow" aria-hidden="true" />
-        <div className="fx-wrap fx-apply-grid">
+      {/* 14. APPLY: counselling call, risk reversal */}
+      <section className="ds-apply" id="apply" aria-labelledby="fx-apply-title">
+        <div className="ds-wrap ds-apply-grid">
           <div>
-            <p className="fx-eyebrow">Application-based admission · small cohorts</p>
+            <p className="ds-eyebrow ds-eyebrow-light">Application-based · small cohorts</p>
             <h2 id="fx-apply-title">Be the engineer <em>they send in.</em></h2>
-            <p>Share a few details. A counsellor will talk through your background, program fit, the cohort starting {NEXT_COHORT_LONG}, {india ? "EMI options" : "fees"} and scholarships. No pressure, no spam.</p>
-            <ul className="fx-apply-list">
+            <p>Share a few details. A counsellor will talk through your fit, the {NEXT_COHORT_LONG} cohort, {india ? "EMI options" : "fees"} and scholarships. No pressure, no spam.</p>
+            <ul className="ds-apply-list">
               <li><Rocket size={17} aria-hidden="true" /> 4 client-style engagements, deployed and portfolio-ready</li>
               <li><UsersRound size={17} aria-hidden="true" /> 170+ live hours with mentor Deepesh Mishra</li>
-              <li><Bot size={17} aria-hidden="true" /> RAG, agents, MCP, security, governance and LLMOps</li>
               <li><ShieldCheck size={17} aria-hidden="true" /> Honest outcomes: no placement or salary guarantees</li>
-              <li className="fx-apply-refund"><RotateCcw size={17} aria-hidden="true" /> <span><Link href="/refund-policy">7-day refund policy</Link>: not right for you? Ask within 7 days for a refund.</span></li>
+              <li><RotateCcw size={17} aria-hidden="true" /> <span><Link href="/refund-policy">7-day refund policy</Link>: ask within 7 days for a refund.</span></li>
             </ul>
-            <Syllabus cta="FDE apply (syllabus)" variant="light" label="Prefer to read first? Get the syllabus" />
+            <Syllabus cta="FDE apply (syllabus)" variant="outline-light" label="Prefer to read first? Get the syllabus" />
           </div>
           <InlineLeadForm
             idPrefix="fde-apply"
@@ -636,4 +637,8 @@ export default async function ForwardDeployedAIEngineerPage() {
       </section>
     </article>
   );
+}
+
+function ChevronIcon() {
+  return <span className="ds-chev" aria-hidden="true" />;
 }

@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
-// Light theme (31 Oct 2026): overrides apply only under <html data-theme="light">; dark is the default. See lib/theme.ts.
+// Blue/white redesign (17 Nov 2026, Deepesh's choice): one light theme for every page.
+// theme-light.generated.css = site-wide light + blue overrides of globals.css (scripts/gen-bluewhite-theme.py);
+// ds.css = the Datamarcos design system (tokens, type, buttons, cards, header, footer, homepage, FDE page). Loads last.
 import "./theme-light.generated.css";
-import "./theme-light.css";
+import "./ds.css";
+import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { WhatsAppCTA } from "@/components/Integrations";
@@ -10,7 +13,6 @@ import { AnalyticsTags } from "@/components/AnalyticsTags";
 import { AnalyticsListeners } from "@/components/AnalyticsListeners";
 import { LeadModal } from "@/components/lead/LeadModal";
 import { site } from "@/config/site";
-import { themeBootScript } from "@/lib/theme";
 import { getMarket } from "@/lib/geo-server";
 import { MarketProvider } from "@/components/MarketProvider";
 
@@ -30,14 +32,13 @@ export const metadata: Metadata = {
   verification: { google: "qCP91hcqOuO9xyGKStYqX5uEO_m7KVuapv6EYGCdhQg" }
 };
 
+const fontBody = Inter({ subsets: ["latin"], variable: "--ds-font-body", display: "swap" });
+const fontDisplay = Plus_Jakarta_Sans({ subsets: ["latin"], weight: ["500", "600", "700", "800"], variable: "--ds-font-display", display: "swap" });
+
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const market = await getMarket();
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        {/* Applies a saved light-theme choice before the first paint (no flash). Dark is the default; OS setting ignored. */}
-        <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />
-      </head>
+    <html lang="en" data-theme="light" className={`${fontBody.variable} ${fontDisplay.variable}`} suppressHydrationWarning>
       <body>
         <MarketProvider market={market}>
           <AnalyticsTags />
