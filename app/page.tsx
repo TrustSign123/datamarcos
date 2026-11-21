@@ -38,21 +38,37 @@ const organizationSchema = {
   url: site.url,
   logo: `${site.url}/apple-icon.png`,
   image: `${site.url}/apple-icon.png`,
-  description: "Datamarcos runs four live, mentor-led online courses for students and working professionals: Forward Deployed AI Engineer, Generative AI & Agentic AI Engineer, Applied Agentic AI Certification, and Advance Data Engineering with Applied GenAI & Agentic AI. It also offers technology training for teams.",
+  description: "Datamarcos is a Noida-based technology learning company that runs four live, mentor-led online courses for students and working professionals: Forward Deployed AI Engineer, Generative AI & Agentic AI Engineer, Applied Agentic AI Certification, and Advance Data Engineering with Applied GenAI & Agentic AI. Founded by Deepesh Mishra, it has trained 25,000+ professionals across 200+ organizations in 10+ countries, and also offers technology training for teams.",
   email: site.email,
   telephone: "+91-88519-30644",
   address: { "@type": "PostalAddress", streetAddress: "Noida One, 303-304, Rasoolpur Nawada, Industrial Area, Sector 62", addressLocality: "Noida", addressRegion: "Uttar Pradesh", postalCode: "201309", addressCountry: "IN" },
   openingHoursSpecification: [{ "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], opens: "09:00", closes: "21:00" }],
   areaServed: "IN",
   contactPoint: [{ "@type": "ContactPoint", contactType: "admissions", telephone: "+91-88519-30644", email: site.email, areaServed: "IN", availableLanguage: ["en", "hi"] }],
-  founder: { "@type": "Person", name: site.founder.name, jobTitle: site.founder.title, image: `${site.url}${site.founder.image}` },
+  founder: { "@id": `${site.url}/#deepesh-mishra` },
   sameAs: [
+    "https://www.linkedin.com/company/datamarcos/",
     "https://www.linkedin.com/company/90980108/",
     "https://www.instagram.com/datamarcos_official/",
     "https://www.quora.com/profile/Deepesh-Mishra-125",
     "https://www.slideshare.net/deepeshdatamarcos",
     "https://www.google.com/maps/place/Datamarcos/data=!4m2!3m1!1s0x0:0x748fc73adb2dbf52"
   ]
+};
+
+/** Founder Person entity: the same @id the course pages use as `instructor`. Only facts already published on /about. */
+const founderSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": `${site.url}/#deepesh-mishra`,
+  name: site.founder.name,
+  jobTitle: "Founder & CEO",
+  image: `${site.url}${site.founder.image}`,
+  url: `${site.url}/about`,
+  worksFor: { "@id": `${site.url}/#organization` },
+  alumniOf: { "@type": "CollegeOrUniversity", name: "BITS Pilani" },
+  knowsAbout: site.founder.teaches,
+  sameAs: [DEEPESH_LINKEDIN]
 };
 
 const HOME_TITLE = "FDE, GenAI, Agentic AI & Data Engineering Courses | Datamarcos";
@@ -324,6 +340,7 @@ export default async function Home() {
       <section className="ds-section" id="faq" aria-labelledby="home-faq-title">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchemaFor(faqsForJsonLd(faqsWithProgramFees("in", homeFaqs)))) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(founderSchema) }} />
         <div className="ds-wrap ds-faq-grid">
           <div>
             <SectionHead id="home-faq-title" eyebrow="Before you join" title={<>Questions, <em>answered.</em></>} align="left" />

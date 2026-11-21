@@ -47,14 +47,14 @@ export function courseJsonLd({ name, description, path, duration, workloadHours,
     url: `${site.url}${path}`,
     inLanguage: "en",
     ...(duration ? { timeRequired: duration } : {}),
-    provider: { "@type": "Organization", name: "Datamarcos", url: site.url },
+    provider: { "@type": "Organization", "@id": `${site.url}/#organization`, name: "Datamarcos", url: site.url },
     ...(credential ? { educationalCredentialAwarded: credential } : {}),
     hasCourseInstance: {
       "@type": "CourseInstance",
       startDate: NEXT_COHORT_ISO,
       courseMode: "online",
       ...(workloadHours ? { courseWorkload: `PT${workloadHours}H` } : {}),
-      instructor: { "@type": "Person", name: site.founder.name }
+      instructor: { "@type": "Person", "@id": `${site.url}/#deepesh-mishra`, name: site.founder.name }
     }
   };
 }
