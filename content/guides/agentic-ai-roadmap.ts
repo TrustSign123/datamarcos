@@ -147,6 +147,10 @@ export const guide: Guide = {
     },
     {
       "type": "p",
+      "text": "For the difference between writing the instructions and choosing everything the model sees at each step, see [prompt engineering vs context engineering](/guides/prompt-engineering-vs-context-engineering)."
+    },
+    {
+      "type": "p",
       "text": "**Stage project:** a classifier that tags support tickets (or job posts, or news headlines) and returns JSON your code validates. Log every failure case; you will reuse them in stage 6."
     },
     {
@@ -187,7 +191,7 @@ export const guide: Guide = {
     {
       "type": "ul",
       "items": [
-        "**RAG basics:** chunking, embeddings, a vector store (for example [pgvector](https://github.com/pgvector/pgvector) on Postgres), retrieval, and answers that cite their sources.",
+        "**[RAG basics](/guides/how-to-build-a-rag-pipeline):** chunking, embeddings, a vector store (for example [pgvector](https://github.com/pgvector/pgvector) on Postgres), retrieval, and answers that cite their sources. For a step-by-step build, see [how to build a RAG pipeline](/guides/how-to-build-a-rag-pipeline).",
         "**When not to use RAG:** if the problem is style or format rather than missing knowledge, see [RAG vs fine-tuning](/guides/rag-vs-fine-tuning).",
         "**Memory:** short-term (the conversation state) versus long-term (facts saved between sessions), and why you should store as little personal data as possible."
       ]

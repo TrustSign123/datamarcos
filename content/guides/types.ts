@@ -37,6 +37,8 @@ export type Guide = {
   authorPerson?: { name: string; jobTitle: string };
   cluster: GuideCluster;
   relatedProgram: { href: string; title: string; summary: string; cta: string };
+  /** Optional author box shown after the FAQ, with a "reviewed on" date (ISO). Use only facts published elsewhere on the site. */
+  authorBox?: { name: string; role: string; bio: string; image?: string; profileUrl?: string; reviewedOn: string };
   /** Shown in a box at the top (comparison guides must disclose that Datamarcos runs one of the programs). */
   disclosure?: string;
   body: GuideBlock[];
