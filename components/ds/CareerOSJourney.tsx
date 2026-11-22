@@ -3,7 +3,9 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { ArrowRight, ArrowUpRight, Briefcase, Check, FileText, GitBranch, MessageSquare, Send, Sparkles, Upload, Columns3 } from "lucide-react";
+import Link from "next/link";
 import { PLACEMENT_URL } from "@/config/placement";
+import { PLACEMENTS_PATH } from "@/config/placements";
 
 /**
  * CareerOS placement journey: an interactive scroll story of what a learner does on CareerOS after signing up.
@@ -34,7 +36,8 @@ function Phone({ src, alt }: { src: string; alt: string }) {
 
 const Illus = () => <span className="cos-illus">Illustration</span>;
 
-export function CareerOSJourney({ id = "careeros", variant = "full", course, ctaPrefix = "CareerOS" }: { id?: string; variant?: "full" | "compact"; course?: string; ctaPrefix?: string }) {
+/** `outcomesLink` adds a "See learner outcomes" link to /placements (off on /placements itself). */
+export function CareerOSJourney({ id = "careeros", variant = "full", course, ctaPrefix = "CareerOS", outcomesLink = true }: { id?: string; variant?: "full" | "compact"; course?: string; ctaPrefix?: string; outcomesLink?: boolean }) {
   const root = useRef<HTMLElement | null>(null);
   useEffect(() => {
     const el = root.current;
@@ -119,6 +122,7 @@ export function CareerOSJourney({ id = "careeros", variant = "full", course, cta
             <a className="ds-btn ds-btn-white" href={PLACEMENT_URL} target="_blank" rel="noopener noreferrer">Open CareerOS <ArrowUpRight size={16} aria-hidden="true" /></a>
             {careerCall("Book a free career call", "final - career call", "ds-btn ds-btn-outline-light")}
           </div>
+          {outcomesLink && <p className="cos-outcomes"><Link href={PLACEMENTS_PATH}>See learner outcomes and stories <ArrowRight size={14} aria-hidden="true" /></Link></p>}
         </div>
       </div>
       <p className="cos-disclaimer" role="note">Placement support, not a job guarantee.</p>

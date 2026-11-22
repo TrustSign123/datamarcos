@@ -9,7 +9,7 @@ import { PLACEMENT_URL } from "@/config/placement";
 // Footer redesign (Deepesh, 20 Nov 2026). Every link points at a route that exists in app/ (or the live CareerOS portal).
 const columns: { title: string; links: [string, string][] }[] = [
   { title: "Explore Programs", links: [...homePrograms.map((p) => [p.title, `/programs/${p.slug}`] as [string, string]), ["View All Programs", "/programs"]] },
-  { title: "Career Support", links: [["Placement Support (CareerOS)", PLACEMENT_URL], ["Interview Prep", "/resources/interview-prep"], ["Career Roadmaps", "/resources/roadmaps"], ["Free Guides", "/guides"], ["Resources", "/resources"]] },
+  { title: "Career Support", links: [["Placements & Outcomes", "/placements"], ["Placement Support (CareerOS)", PLACEMENT_URL], ["Interview Prep", "/resources/interview-prep"], ["Career Roadmaps", "/resources/roadmaps"], ["Free Guides", "/guides"], ["Resources", "/resources"]] },
   { title: "Company", links: [["About Us", "/about"], ["Contact Us", "/contact"], ["Become a Trainer", "/become-a-trainer"], ["7-day Refund Policy", "/refund-policy"]] },
   { title: "For Business", links: [["Corporate Training", "/corporate-training"], ["Trainer Network", "/become-a-trainer"], ["Partner With Us", "/contact"]] }
 ];
