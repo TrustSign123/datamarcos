@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { site } from "@/config/site";
 import { NEXT_COHORT_ISO } from "@/config/cohort";
+import { DEEPESH_LINKEDIN } from "@/config/home";
 
 const DEFAULT_OG = "/og/datamarcos-home.jpg";
 
@@ -56,5 +57,38 @@ export function courseJsonLd({ name, description, path, duration, workloadHours,
       ...(workloadHours ? { courseWorkload: `PT${workloadHours}H` } : {}),
       instructor: { "@type": "Person", "@id": `${site.url}/#deepesh-mishra`, name: site.founder.name }
     }
+  };
+}
+
+/** Founder Person entity, shared by / and /about. Same @id the course pages use as `instructor`; facts are the ones published on /about. */
+export function founderPersonJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": `${site.url}/#deepesh-mishra`,
+    name: "Deepesh Kumar Mishra",
+    alternateName: site.founder.name,
+    jobTitle: "Founder & CEO",
+    image: `${site.url}${site.founder.image}`,
+    url: `${site.url}/about`,
+    worksFor: { "@id": `${site.url}/#organization` },
+    alumniOf: { "@type": "CollegeOrUniversity", name: "BITS Pilani" },
+    knowsAbout: site.founder.teaches,
+    sameAs: [DEEPESH_LINKEDIN]
+  };
+}
+
+/** /about: AboutPage that points at the homepage Organization by @id instead of repeating it. */
+export function aboutPageJsonLd() {
+  const org = { "@id": `${site.url}/#organization` };
+  return {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "@id": `${site.url}/about#webpage`,
+    url: `${site.url}/about`,
+    name: "About Datamarcos",
+    about: org,
+    mainEntity: org,
+    isPartOf: { "@type": "WebSite", url: site.url, name: site.name }
   };
 }

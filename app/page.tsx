@@ -12,6 +12,7 @@ import { faqsForJsonLd, faqsForMarket, isIndiaMarket } from "@/lib/geo";
 import { brochureHrefForMarket } from "@/config/lead";
 import { getMarket } from "@/lib/geo-server";
 import { env, site } from "@/config/site";
+import { founderPersonJsonLd } from "@/lib/seo";
 import { corporateProgrammes, programmeLabel } from "@/config/corporate";
 import { NEXT_COHORT_LONG } from "@/config/cohort";
 import { PLACEMENT_LABEL, PLACEMENT_URL } from "@/config/placement";
@@ -37,6 +38,7 @@ const organizationSchema = {
   name: site.name,
   url: site.url,
   logo: `${site.url}/apple-icon.png`,
+  foundingDate: "2021",
   image: `${site.url}/apple-icon.png`,
   description: "Datamarcos is a Noida-based technology learning company that runs four live, mentor-led online courses for students and working professionals: Forward Deployed AI Engineer, Generative AI & Agentic AI Engineer, Applied Agentic AI Certification, and Advance Data Engineering with Applied GenAI & Agentic AI. Founded by Deepesh Mishra, it has trained 25,000+ professionals across 200+ organizations in 10+ countries, and also offers technology training for teams.",
   email: site.email,
@@ -60,20 +62,7 @@ const organizationSchema = {
   ]
 };
 
-/** Founder Person entity: the same @id the course pages use as `instructor`. Only facts already published on /about. */
-const founderSchema = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "@id": `${site.url}/#deepesh-mishra`,
-  name: site.founder.name,
-  jobTitle: "Founder & CEO",
-  image: `${site.url}${site.founder.image}`,
-  url: `${site.url}/about`,
-  worksFor: { "@id": `${site.url}/#organization` },
-  alumniOf: { "@type": "CollegeOrUniversity", name: "BITS Pilani" },
-  knowsAbout: site.founder.teaches,
-  sameAs: [DEEPESH_LINKEDIN]
-};
+const founderSchema = founderPersonJsonLd();
 
 const HOME_TITLE = "FDE, GenAI, Agentic AI & Data Engineering Courses | Datamarcos";
 const HOME_DESCRIPTION = "4 live online courses for students and working professionals: FDE, GenAI & Agentic AI, Applied Agentic AI and Data Engineering. Live online, learn from anywhere. Fees and EMI options shared on a counsellor call.";
