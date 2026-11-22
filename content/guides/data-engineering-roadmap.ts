@@ -229,7 +229,7 @@ export const guide: Guide = {
       "items": [
         "**Unstructured data pipelines:** extracting text from PDFs and web pages, cleaning it, and chunking it sensibly.",
         "**Embeddings and vector search:** generating embeddings and storing them in a vector index (for example [pgvector](https://github.com/pgvector/pgvector) or your platform's built-in option).",
-        "**RAG pipelines:** retrieval that cites sources and is re-indexed when documents change. See [RAG vs fine-tuning](/guides/rag-vs-fine-tuning) for when retrieval is the right tool.",
+        "**RAG pipelines:** retrieval that cites sources and is re-indexed when documents change. See [RAG vs fine-tuning](/guides/rag-vs-fine-tuning) for when retrieval is the right tool, and [how to build a RAG pipeline](/guides/how-to-build-a-rag-pipeline) for a step-by-step build.",
         "**Agents on data:** agents that query governed tables through tools or an MCP server instead of raw database access; [How to build an MCP server](/guides/how-to-build-an-mcp-server) shows the pattern.",
         "**Platform AI features:** Databricks Agent Bricks and Snowflake Cortex, if your target employers use those platforms."
       ]
