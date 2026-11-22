@@ -16,6 +16,7 @@ const pages: { path: string; priority: number; lastModified?: string }[] = [
   { path: "/programs/forward-deployed-ai-engineer", priority: 0.9, lastModified: "2026-10-31" }, // FDE best-in-class update
   { path: "/programs", priority: 0.7 },
   ...INTL_COURSE_PATHS.map((path) => ({ path, priority: 0.8, lastModified: "2026-11-10" })),
+  { path: "/placements", priority: 0.7, lastModified: "2026-11-22" },
   { path: "/resources/interview-prep", priority: 0.6 },
   { path: "/corporate-training", priority: 0.5 },
   { path: "/about", priority: 0.5 },

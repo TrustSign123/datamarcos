@@ -13,6 +13,7 @@ import { RelatedGuides } from "@/components/guides/RelatedGuides";
 import { CareerJourney } from "@/components/ds/CareerJourney";
 import { LearnerProof, RiskStrip } from "@/components/ds/CourseTrust";
 import { CareerOSJourney } from "@/components/ds/CareerOSJourney";
+import { OutcomesStrip } from "@/components/ds/OutcomesStrip";
 import type { JourneyStep } from "@/lib/journey";
 import { DEEPESH_LINKEDIN } from "@/config/home";
 import { APPLY_FEE_INTRO, type FeeSlug } from "@/config/fees";
@@ -145,6 +146,9 @@ export function CourseLanding(p: CourseLandingProps) {
       </section>
 
       <FdeSectionNav items={nav} course={p.course} brand={<>{p.name}</>} ctaPrefix={p.name} />
+
+      {/* 1b. OUTCOMES STRIP: real learners + CareerOS method, links to /placements */}
+      <OutcomesStrip course={p.course} ctaPrefix={p.name} />
 
       {/* 2. ROLES: what this unlocks */}
       {p.roles && p.roles.length > 0 && (
@@ -280,6 +284,7 @@ export function CourseLanding(p: CourseLandingProps) {
 
       {/* 10. PLACEMENT JOURNEY (CareerOS) + RISK REDUCERS + FEES */}
       <CareerOSJourney id="placement" course={p.course} ctaPrefix={`${p.name} CareerOS`} />
+      <OutcomesStrip variant="landed" course={p.course} ctaPrefix={p.name} />
       {p.feeSlug && (
         <>
           <RiskStrip course={p.course} ctaPrefix={p.name} india={p.india} />

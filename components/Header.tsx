@@ -16,7 +16,7 @@ import { useMarket } from "@/components/MarketProvider";
 
 /** Learner-first navigation. Anchors point at homepage sections so they work from any page. */
 const sectionLinks = [
-  { label: "Placements", href: "/#placement" },
+  { label: "Placements", href: "/placements" },
   { label: "Learner Stories", href: "/#learner-stories" },
   { label: "Mentors", href: "/#mentor" },
   { label: "FAQ", href: "/#faq" }

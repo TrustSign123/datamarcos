@@ -25,6 +25,7 @@ import { StoryCard } from "@/components/ds/StoryCard";
 import { Placeholder } from "@/components/ds/Placeholder";
 import { WhyDatamarcos } from "@/components/ds/WhyDatamarcos";
 import { CareerOSJourney } from "@/components/ds/CareerOSJourney";
+import { OutcomesStrip } from "@/components/ds/OutcomesStrip";
 import { LearnersNow } from "@/components/ds/LearnersNow";
 import { LearnerVideoCard } from "@/components/home/LearnerVideoCard";
 import { learnerStories, learnerVideos } from "@/config/home";
@@ -319,6 +320,9 @@ export default async function ForwardDeployedAIEngineerPage() {
 
       <FdeSectionNav items={nav} course={FDE_COURSE} />
 
+      {/* 1b. OUTCOMES STRIP: real learners + CareerOS method, links to /placements */}
+      <OutcomesStrip course={FDE_COURSE} ctaPrefix="FDE" />
+
       {/* 2. DEMAND: why now, with sources */}
       <section className="ds-section ds-section-tight" id="why" aria-labelledby="fx-why-title">
         <div className="ds-wrap">
@@ -564,6 +568,8 @@ export default async function ForwardDeployedAIEngineerPage() {
           </div>
         </div>
       </section>
+
+      <OutcomesStrip variant="landed" course={FDE_COURSE} ctaPrefix="FDE" />
 
       {/* Risk reducers sit right next to the price */}
       <div className="ds-risk" role="note" aria-label="Before you pay">
