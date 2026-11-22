@@ -12,6 +12,7 @@ import { faqsForJsonLd, faqsForMarket, isIndiaMarket } from "@/lib/geo";
 import { brochureHrefForMarket } from "@/config/lead";
 import { getMarket } from "@/lib/geo-server";
 import { env, site } from "@/config/site";
+import { founderPersonJsonLd } from "@/lib/seo";
 import { corporateProgrammes, programmeLabel } from "@/config/corporate";
 import { NEXT_COHORT_LONG } from "@/config/cohort";
 import { PLACEMENT_LABEL, PLACEMENT_URL } from "@/config/placement";
@@ -37,23 +38,31 @@ const organizationSchema = {
   name: site.name,
   url: site.url,
   logo: `${site.url}/apple-icon.png`,
+  foundingDate: "2021",
   image: `${site.url}/apple-icon.png`,
-  description: "Datamarcos runs four live, mentor-led online courses for students and working professionals: Forward Deployed AI Engineer, Generative AI & Agentic AI Engineer, Applied Agentic AI Certification, and Advance Data Engineering with Applied GenAI & Agentic AI. It also offers technology training for teams.",
+  description: "Datamarcos is a Noida-based technology learning company that runs four live, mentor-led online courses for students and working professionals: Forward Deployed AI Engineer, Generative AI & Agentic AI Engineer, Applied Agentic AI Certification, and Advance Data Engineering with Applied GenAI & Agentic AI. Founded by Deepesh Mishra, it has trained 25,000+ professionals across 200+ organizations in 10+ countries, and also offers technology training for teams.",
   email: site.email,
   telephone: "+91-88519-30644",
   address: { "@type": "PostalAddress", streetAddress: "Noida One, 303-304, Rasoolpur Nawada, Industrial Area, Sector 62", addressLocality: "Noida", addressRegion: "Uttar Pradesh", postalCode: "201309", addressCountry: "IN" },
   openingHoursSpecification: [{ "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], opens: "09:00", closes: "21:00" }],
   areaServed: "IN",
   contactPoint: [{ "@type": "ContactPoint", contactType: "admissions", telephone: "+91-88519-30644", email: site.email, areaServed: "IN", availableLanguage: ["en", "hi"] }],
-  founder: { "@type": "Person", name: site.founder.name, jobTitle: site.founder.title, image: `${site.url}${site.founder.image}` },
+  founder: { "@id": `${site.url}/#deepesh-mishra` },
   sameAs: [
+    "https://www.linkedin.com/company/datamarcos/",
     "https://www.linkedin.com/company/90980108/",
+    "https://www.youtube.com/channel/UC9THirTqqPuvaLiuYfydCXw",
+    "https://dev.to/datamarcos",
+    "https://github.com/datamarcos-official",
+    "https://huggingface.co/datamarcos",
     "https://www.instagram.com/datamarcos_official/",
     "https://www.quora.com/profile/Deepesh-Mishra-125",
     "https://www.slideshare.net/deepeshdatamarcos",
     "https://www.google.com/maps/place/Datamarcos/data=!4m2!3m1!1s0x0:0x748fc73adb2dbf52"
   ]
 };
+
+const founderSchema = founderPersonJsonLd();
 
 const HOME_TITLE = "FDE, GenAI, Agentic AI & Data Engineering Courses | Datamarcos";
 const HOME_DESCRIPTION = "4 live online courses for students and working professionals: FDE, GenAI & Agentic AI, Applied Agentic AI and Data Engineering. Live online, learn from anywhere. Fees and EMI options shared on a counsellor call.";
@@ -324,6 +333,7 @@ export default async function Home() {
       <section className="ds-section" id="faq" aria-labelledby="home-faq-title">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchemaFor(faqsForJsonLd(faqsWithProgramFees("in", homeFaqs)))) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(founderSchema) }} />
         <div className="ds-wrap ds-faq-grid">
           <div>
             <SectionHead id="home-faq-title" eyebrow="Before you join" title={<>Questions, <em>answered.</em></>} align="left" />
