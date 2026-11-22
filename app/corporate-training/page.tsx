@@ -100,7 +100,7 @@ export default function CorporateTrainingPage() {
           <div>
             <p className="eyebrow">Who delivers</p>
             <h2 className="section-title" id="founder-title">{site.founder.name}, founder and lead trainer</h2>
-            <p className="section-copy">CEO of Datamarcos since February 2022 and a corporate trainer since 2019, with more than 100 workshops and trainings delivered. <Link href="/about">More about Deepesh</Link>.</p>
+            <p className="section-copy">CEO of Datamarcos since 2021 and a corporate trainer since 2019, with more than 100 workshops and trainings delivered. <Link href="/about">More about Deepesh</Link>.</p>
           </div>
           <div className="card">
             <h3>Credentials</h3>

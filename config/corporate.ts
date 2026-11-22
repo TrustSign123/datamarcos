@@ -46,7 +46,7 @@ export const founderCredentials = [
 
 /** Founder background (profile). Past roles are Deepesh's own, not Datamarcos clients. */
 export const founderBackground = [
-  "CEO of Datamarcos since February 2022; AI/ML/IoT consultant and freelance corporate trainer since 2019.",
+  "CEO of Datamarcos since 2021; AI/ML/IoT consultant and freelance corporate trainer since 2019.",
   "Azure Consultant at eClerx (2021–24); data science trainer and consultant engagements with EY (2019–21).",
   "Freelance Data Scientist for Yahoo (2019–20) and Manager in AI at Resolute AI (2019).",
   "Data Scientist and Corporate Trainer at TechTrunk (2016–19), delivering corporate training for 10+ companies.",
