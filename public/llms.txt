@@ -25,6 +25,8 @@ Datamarcos runs live, mentor-led online programs led by founder Deepesh Mishra, 
 - [n8n vs LangGraph: Which Should You Use for AI Agents?](https://www.datamarcos.com/guides/n8n-vs-langgraph)
 - [How to Build an MCP Server: A Step-by-Step Beginner's Guide](https://www.datamarcos.com/guides/how-to-build-an-mcp-server)
 - [RAG vs Fine-Tuning: When to Use Each](https://www.datamarcos.com/guides/rag-vs-fine-tuning)
+- [How to Build a RAG Pipeline: A Step-by-Step Guide with Python Code](https://www.datamarcos.com/guides/how-to-build-a-rag-pipeline)
+- [Prompt Engineering vs Context Engineering: What's the Difference and Which Should You Learn?](https://www.datamarcos.com/guides/prompt-engineering-vs-context-engineering)
 - [Generative AI Courses in India Compared (2026)](https://www.datamarcos.com/guides/generative-ai-courses-india-compared-2026)
 - [Data Engineering Roadmap 2026: From SQL to AI-Ready Data Platforms](https://www.datamarcos.com/guides/data-engineering-roadmap)
 - [Data Engineer vs AI Engineer: Which Path Should You Choose?](https://www.datamarcos.com/guides/data-engineer-vs-ai-engineer)
