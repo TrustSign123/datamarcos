@@ -146,7 +146,7 @@ export const guide: Guide = {
     },
     {
       "type": "p",
-      "text": "**What it does:** Answers questions over a set of PDFs (college regulations, an HR policy, a product manual) with page-level citations, and says \"I don't know\" when the documents don't cover the question. **Skills shown:** chunking, embeddings, vector search, grounded answers. See our [RAG vs fine-tuning guide](/guides/rag-vs-fine-tuning) for why retrieval comes first. **Stretch goal:** a 20-question test set scored for correctness and citation accuracy."
+      "text": "**What it does:** Answers questions over a set of PDFs (college regulations, an HR policy, a product manual) with page-level citations, and says \"I don't know\" when the documents don't cover the question. **Skills shown:** chunking, embeddings, vector search, grounded answers. See our [RAG vs fine-tuning guide](/guides/rag-vs-fine-tuning) for why retrieval comes first, and [how to build a RAG pipeline](/guides/how-to-build-a-rag-pipeline) for a step-by-step build. **Stretch goal:** a 20-question test set scored for correctness and citation accuracy."
     },
     {
       "type": "h3",

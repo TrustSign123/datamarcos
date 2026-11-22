@@ -117,7 +117,7 @@ export default async function AppliedAgenticAIPage() {
         ]}
         india={india}
         apply={{ eyebrow: "Small-batch live cohorts", title: <>Build. Automate. <em>Deploy.</em></>, body: `Share a few details. A counsellor will talk through your fit, the batch starting ${NEXT_COHORT_LONG} and ${india ? "EMI options" : "fees"}.`, bullets: ["A project every module + an integrated capstone", "Datamarcos Applied Agentic AI Certification"], formTitle: "Request a call back.", submitLabel: "Request my call", trust: ["8 weeks", "Live online", "Beginner-friendly"], successBody: india ? successBodyIn : successBodyIntl }}
-        relatedGuides={["agentic-ai-courses-india-compared-2026", "rag-vs-fine-tuning", "what-is-agentic-ai", "langgraph-vs-crewai-vs-autogen", "agentic-ai-projects-for-beginners"]}
+        relatedGuides={["agentic-ai-courses-india-compared-2026", "rag-vs-fine-tuning", "how-to-build-a-rag-pipeline", "what-is-agentic-ai", "langgraph-vs-crewai-vs-autogen", "agentic-ai-projects-for-beginners", "prompt-engineering-vs-context-engineering"]}
       />
     </>
   );
