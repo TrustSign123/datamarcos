@@ -43,6 +43,7 @@ const slugToCourse: Record<string, string> = {
   "forward-deployed-ai-engineer": "Forward Deployed AI Engineer",
   "forward-deployed-engineer": "Forward Deployed AI Engineer",
   "forward-deployed-engineering": "Forward Deployed AI Engineer",
+  "fde-ai-engineer": "Forward Deployed AI Engineer",
   ...Object.fromEntries(INTL_COURSES.map((course) => [course.slug, course.course]))
 };
 
@@ -99,8 +100,11 @@ export function courseForSlug(slug?: string) {
   return slug ? slugToCourse[slug] : undefined;
 }
 
-/** Works for /programs/<slug> and the /lp/<slug> landing pages. */
+/** Works for /programs/<slug>, /lp/<slug>, and the FDE Meta-ads landing page. */
 export function courseForPath(pathname: string) {
+  if (pathname === "/fde-ai-engineer" || pathname.startsWith("/fde-ai-engineer/")) {
+    return courseForSlug("forward-deployed-ai-engineer");
+  }
   const match = pathname.match(/^\/(?:programs|lp)\/([^/?#]+)/);
   return courseForSlug(match?.[1]);
 }
