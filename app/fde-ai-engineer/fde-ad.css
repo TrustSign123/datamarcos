@@ -661,9 +661,11 @@ html[data-theme] body .fde-ad-foot a,
 html[data-theme] body .fde-ad-faq-a {
   color: #c0c0c0;
 }
-html[data-theme] body .fde-ad-fees,
-html[data-theme] body .fde-ad-fees :is(h1, h2, h3, h4, p, li, span, a, label, small, strong, em) {
-  color: unset;
+html[data-theme] body .fde-ad .fde-ad-fees :is(h1, h2, h3, h4) {
+  color: #0f1a2e !important;
+}
+html[data-theme] body .fde-ad .fde-ad-fees :is(p, li, span, a, label, small, strong, em, button) {
+  color: unset !important;
 }
 html[data-theme] body .fde-ad-facts li.is-accent,
 html[data-theme] body .fde-ad-facts li.is-accent :is(h3, p, a, span, .fde-ad-fact-value, .fde-ad-fact-label) {
