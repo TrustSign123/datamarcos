@@ -5,6 +5,7 @@ import { FeesEnrolment } from "@/components/program/FeesEnrolment";
 import { InlineLeadForm } from "@/components/lead/InlineLeadForm";
 import { Logo } from "@/components/Header";
 import { FdeAdNav } from "./FdeAdNav";
+import { FdeAdApplyNow, FdeAdStickyBar } from "./FdeAdApply";
 import { FdeAdCurriculum } from "./FdeAdCurriculum";
 import { FdeAdFaq } from "./FdeAdFaq";
 import { FdeAdTrainers } from "./FdeAdTrainers";
@@ -39,6 +40,7 @@ export async function FdeAdPage() {
   return (
     <div className="fde-ad">
       <FdeAdNav />
+      <FdeAdStickyBar brochure={brochure} />
 
       <section id="hero_sec" className="fde-ad-hero">
         <div className="fde-ad-wrap fde-ad-hero-grid">
@@ -81,6 +83,8 @@ export async function FdeAdPage() {
               alt="Engineers collaborating on a live AI deployment workshop"
               width={1600}
               height={1067}
+              sizes="(max-width: 900px) 92vw, 560px"
+              quality={75}
               priority
             />
           </div>
@@ -107,6 +111,7 @@ export async function FdeAdPage() {
               <a href={fdeMarketFacts[3].href} target="_blank" rel="noopener noreferrer">{fdeMarketFacts[3].source} · {fdeMarketFacts[3].date}</a>
             </p>
           ) : null}
+          <FdeAdApplyNow cta="FDE ad LP after program - Apply Now" />
         </div>
       </section>
 
@@ -148,6 +153,7 @@ export async function FdeAdPage() {
             One program — not separate tracks by years of experience.
           </p>
           <FdeAdCurriculum />
+          <FdeAdApplyNow cta="FDE ad LP after curriculum - Apply Now" />
         </div>
       </section>
 
@@ -168,6 +174,7 @@ export async function FdeAdPage() {
               </li>
             ))}
           </ul>
+          <FdeAdApplyNow cta="FDE ad LP after projects - Apply Now" />
         </div>
       </section>
 
@@ -215,6 +222,7 @@ export async function FdeAdPage() {
               <span className="fde-ad-ico" aria-hidden="true"><Phone size={16} /></span>
               Request a callback
             </button>
+            <FdeAdApplyNow cta="FDE ad LP after placements - Apply Now" />
           </div>
         </div>
       </section>
@@ -227,6 +235,7 @@ export async function FdeAdPage() {
             Deepesh leads the program. Additional trainers are listed only with confirmed details — more photos can be added in the trainers config.
           </p>
           <FdeAdTrainers />
+          <FdeAdApplyNow cta="FDE ad LP after mentors - Apply Now" />
         </div>
       </section>
 
@@ -299,6 +308,7 @@ export async function FdeAdPage() {
             ))}
           </ul>
           <p className="fde-ad-center"><Link href="/placements">See all learner outcomes</Link></p>
+          <FdeAdApplyNow cta="FDE ad LP after stories - Apply Now" />
         </div>
       </section>
 
@@ -313,6 +323,7 @@ export async function FdeAdPage() {
           <div className="fde-ad-fees">
             <FeesEnrolment slug="forward-deployed-ai-engineer" />
           </div>
+          <FdeAdApplyNow cta="FDE ad LP after fees - Apply Now" />
         </div>
       </section>
 
@@ -320,6 +331,7 @@ export async function FdeAdPage() {
         <div className="fde-ad-wrap">
           <h2>Frequently asked questions</h2>
           <FdeAdFaq faqs={faqs} />
+          <FdeAdApplyNow cta="FDE ad LP after FAQ - Apply Now" />
         </div>
       </section>
 
