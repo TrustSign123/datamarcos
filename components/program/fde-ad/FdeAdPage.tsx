@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight, Download, Phone } from "lucide-react";
 import { FeesEnrolment } from "@/components/program/FeesEnrolment";
 import { InlineLeadForm } from "@/components/lead/InlineLeadForm";
+import { Logo } from "@/components/Header";
 import { FdeAdNav } from "./FdeAdNav";
 import { FdeAdCurriculum } from "./FdeAdCurriculum";
 import { FdeAdFaq } from "./FdeAdFaq";
@@ -348,7 +349,7 @@ export async function FdeAdPage() {
       <footer className="fde-ad-foot">
         <div className="fde-ad-wrap fde-ad-foot-grid">
           <div>
-            <p className="fde-ad-foot-name">{site.name}</p>
+            <Logo />
             <p>{site.tagline}</p>
             <p>{site.location}</p>
             <p><a href={`mailto:${site.email}`}>{site.email}</a> · <a href={`tel:${site.phone.replace(/\s+/g, "")}`}>{site.phone}</a></p>
