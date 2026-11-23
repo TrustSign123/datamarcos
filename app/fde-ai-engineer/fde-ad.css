@@ -723,3 +723,52 @@ html[data-theme] body .fde-ad-facts li.is-accent,
 html[data-theme] body .fde-ad-facts li.is-accent :is(h3, p, a, span, .fde-ad-fact-value, .fde-ad-fact-label) {
   color: #04231A !important;
 }
+
+
+/* ----- In-section Apply Now (reference-style white primary CTA) ----- */
+.fde-ad-section-cta {
+  display: flex;
+  justify-content: center;
+  margin: 32px 0 0;
+}
+.fde-ad-apply-now {
+  height: 46px;
+  min-width: 180px;
+  padding: 0 28px !important;
+  font-size: 16px;
+  font-weight: 500;
+  background: #fff !important;
+  color: #0A0A0A !important;
+  border: 1px solid #fff !important;
+  border-radius: 12px;
+}
+.fde-ad-midcta .fde-ad-section-cta { margin-top: 16px; justify-content: flex-start; }
+
+/* ----- Mobile sticky Apply bar ----- */
+.fde-ad-sticky {
+  display: none;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 55;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px));
+  background: #0A0A0A;
+  border-top: 1px solid rgba(255,255,255,0.12);
+}
+.fde-ad-sticky.is-on { display: none; }
+@media (max-width: 1023px) {
+  .fde-ad-sticky.is-on { display: flex; }
+  .fde-ad-sticky .fde-ad-btn { flex: 1; height: 46px; }
+  .fde-ad-sticky .fde-ad-btn-ghost {
+    background: #2A2A2A;
+    color: #fff;
+    padding: 0 16px;
+  }
+  /* Lift the site WhatsApp FAB above the bar; hide it only when the final form is in view (bar off). */
+  html.fde-ad-sticky-on body .button.primary.whatsapp {
+    bottom: calc(78px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+}

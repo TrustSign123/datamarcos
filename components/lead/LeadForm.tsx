@@ -3,7 +3,7 @@
 import { FormEvent, type ReactNode, useRef, useState } from "react";
 import { ALL_LEAD_COURSES, LEAD_NOT_SURE, courseLabel, leadEndpoint } from "@/config/lead";
 import { env, site } from "@/config/site";
-import { gaEvent, readAttribution, trackEvent } from "@/lib/analytics";
+import { gaEvent, pageWithAttribution, readAttribution, trackEvent } from "@/lib/analytics";
 import { PhoneField } from "@/components/phone/PhoneField";
 import { PHONE_ERROR, isValidInternationalPhone } from "@/lib/phone";
 import { rememberLeadUnlock } from "./leadUnlock";
@@ -99,10 +99,16 @@ export function LeadForm({
         body: JSON.stringify({
           name, email, phone, course, cta: ctaLabel,
           intent: intent || "",
-          page: window.location.href,
+          page: pageWithAttribution(window.location.href, attribution),
           utm_source: attribution.utm_source || "",
           utm_medium: attribution.utm_medium || "",
           utm_campaign: attribution.utm_campaign || "",
+          utm_term: attribution.utm_term || "",
+          utm_content: attribution.utm_content || "",
+          gclid: attribution.gclid || "",
+          fbclid: attribution.fbclid || "",
+          li_fat_id: attribution.li_fat_id || "",
+          Ref: attribution.Ref || "",
           referrer: document.referrer || ""
         }),
         redirect: "follow"

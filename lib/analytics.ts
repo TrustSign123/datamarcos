@@ -68,16 +68,73 @@ export function gaEvent(name: GaEvent, params?: Record<string, string | undefine
   (function gtag(..._args: unknown[]) { w.dataLayer!.push(arguments); })("event", name, payload);
 }
 
+/** Query / storage keys persisted from the first ad landing. */
+export const ATTRIBUTION_KEYS = [
+  "utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content",
+  "gclid", "fbclid", "li_fat_id", "Ref"
+] as const;
+
+const ATTRIBUTION_STORAGE = "datamarcos_attribution";
+const ATTRIBUTION_COOKIE = "dm_attr";
+const ATTRIBUTION_MAX_AGE = 90 * 24 * 60 * 60;
+
+function readStoredAttribution(raw: string | null | undefined): Record<string, string> {
+  if (!raw) return {};
+  try {
+    const parsed = JSON.parse(raw) as Record<string, string>;
+    return parsed && typeof parsed === "object" ? parsed : {};
+  } catch {
+    return {};
+  }
+}
+
+function cookieValue(name: string): string | null {
+  if (typeof document === "undefined") return null;
+  const parts = document.cookie.split("; ");
+  const prefix = `${name}=`;
+  const hit = parts.find((part) => part.startsWith(prefix));
+  return hit ? decodeURIComponent(hit.slice(prefix.length)) : null;
+}
+
+function writeAttributionStore(attribution: Record<string, string>) {
+  const payload = JSON.stringify(attribution);
+  try { sessionStorage.setItem(ATTRIBUTION_STORAGE, payload); } catch { /* private mode */ }
+  try { localStorage.setItem(ATTRIBUTION_STORAGE, payload); } catch { /* private mode */ }
+  const secure = window.location.protocol === "https:" ? "; Secure" : "";
+  document.cookie = `${ATTRIBUTION_COOKIE}=${encodeURIComponent(payload)}; Max-Age=${ATTRIBUTION_MAX_AGE}; Path=/; SameSite=Lax${secure}`;
+}
+
+/**
+ * First-landing attribution: URL params win when present, otherwise sessionStorage,
+ * then localStorage, then the first-party cookie. Survives in-page navigation and the lead modal.
+ */
 export function readAttribution() {
   if (typeof window === "undefined") return {};
-  const keys = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "gclid", "fbclid", "li_fat_id"];
   const params = new URLSearchParams(window.location.search);
-  const saved = sessionStorage.getItem("datamarcos_attribution");
-  const attribution = saved ? JSON.parse(saved) as Record<string, string> : {};
-  keys.forEach((key) => {
-    const value = params.get(key);
+  let attribution: Record<string, string> = {
+    ...readStoredAttribution(cookieValue(ATTRIBUTION_COOKIE)),
+    ...readStoredAttribution(typeof localStorage !== "undefined" ? localStorage.getItem(ATTRIBUTION_STORAGE) : null),
+    ...readStoredAttribution(typeof sessionStorage !== "undefined" ? sessionStorage.getItem(ATTRIBUTION_STORAGE) : null)
+  };
+  ATTRIBUTION_KEYS.forEach((key) => {
+    const value = params.get(key) || (key === "Ref" ? params.get("ref") : null);
     if (value) attribution[key] = value;
   });
-  sessionStorage.setItem("datamarcos_attribution", JSON.stringify(attribution));
+  writeAttributionStore(attribution);
   return attribution;
+}
+
+/** Merge stored UTMs into the page URL so the leads sheet Source Page column keeps them. */
+export function pageWithAttribution(href: string, attribution: Record<string, string> = readAttribution()) {
+  if (typeof window === "undefined") return href;
+  try {
+    const url = new URL(href, window.location.origin);
+    for (const key of ATTRIBUTION_KEYS) {
+      const value = attribution[key];
+      if (value && !url.searchParams.get(key)) url.searchParams.set(key, value);
+    }
+    return url.toString();
+  } catch {
+    return href;
+  }
 }
