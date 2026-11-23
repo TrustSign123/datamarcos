@@ -19,10 +19,10 @@ html.fde-ad-lock, html.fde-ad-lock body { overflow: hidden; }
   --fde-green-3: #1E9E6A;
   --fde-green-4: #2E9A6A;
   --fde-grad-title: linear-gradient(90deg, #16DA9A 0%, #0C7452 100%);
-  --fde-grad-badge: linear-gradient(136deg, #16DA9A 2.04%, #01794B 89.37%);
-  --fde-grad-badge-alt: linear-gradient(90deg, #3ED598 0%, #1E9E6A 100%);
+  --fde-grad-badge: linear-gradient(136deg, #0C8560 2.04%, #01794B 89.37%);
+  --fde-grad-badge-alt: linear-gradient(90deg, #0C8560 0%, #01794B 100%);
   --fde-grad-card: linear-gradient(159deg, #5BC894 0%, #2E9A6A 100%);
-  --fde-grad-cta: linear-gradient(136deg, #01794B 2.04%, #16DA9A 89.37%);
+  --fde-grad-cta: linear-gradient(136deg, #01794B 2.04%, #0C7452 89.37%);
   --fde-muted: rgba(246, 246, 246, 0.8);
   --fde-soft: #F6F6F6;
   --fde-card: rgba(255, 255, 255, 0.08);
@@ -634,4 +634,38 @@ html[data-theme] body .fde-ad-hero h1 em {
   background-clip: text;
   -webkit-text-fill-color: transparent !important;
   color: transparent !important;
+}
+
+
+/* Default type on the dark canvas is light. Light panels opt out. */
+html[data-theme] body .fde-ad,
+html[data-theme] body .fde-ad p,
+html[data-theme] body .fde-ad li,
+html[data-theme] body .fde-ad label,
+html[data-theme] body .fde-ad small,
+html[data-theme] body .fde-ad span {
+  color: #f6f6f6;
+}
+html[data-theme] body .fde-ad :is(h1, h2, h3, h4),
+html[data-theme] body .fde-ad-hero h1 span,
+html[data-theme] body .fde-ad .fde-ad-trainer-name,
+html[data-theme] body .fde-ad .fde-ad-trainer-name span {
+  color: #fff !important;
+}
+html[data-theme] body .fde-ad .fde-ad-sub,
+html[data-theme] body .fde-ad .fde-ad-curr-meta,
+html[data-theme] body .fde-ad .fde-ad-trainer-title,
+html[data-theme] body .fde-ad .fde-ad-trainer-line,
+html[data-theme] body .fde-ad-foot,
+html[data-theme] body .fde-ad-foot a,
+html[data-theme] body .fde-ad-faq-a {
+  color: #c0c0c0;
+}
+html[data-theme] body .fde-ad-fees,
+html[data-theme] body .fde-ad-fees :is(h1, h2, h3, h4, p, li, span, a, label, small, strong, em) {
+  color: unset;
+}
+html[data-theme] body .fde-ad-facts li.is-accent,
+html[data-theme] body .fde-ad-facts li.is-accent :is(h3, p, a, span, .fde-ad-fact-value, .fde-ad-fact-label) {
+  color: #04231A !important;
 }
