@@ -75,12 +75,64 @@ html.fde-ad-lock, html.fde-ad-lock body { overflow: hidden; }
 @media (min-width: 1024px) { .fde-ad-nav-inner { padding: 18px 0; } }
 @media (min-width: 1280px) { .fde-ad-nav-inner { padding-left: 0; padding-right: 0; } }
 
-.fde-ad-nav .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: #fff; }
-.fde-ad-nav .brand-copy { display: flex; flex-direction: column; line-height: 1.1; }
-.fde-ad-nav .brand-copy strong { font-family: var(--fde-funnel); font-weight: 500; font-size: 15px; letter-spacing: 0.08em; color: #fff; }
-.fde-ad-nav .brand-copy small { font-weight: 300; font-size: 10px; letter-spacing: 0.06em; color: rgba(246,246,246,0.7); text-transform: uppercase; }
-.fde-ad-nav .brand-mark { width: 36px; height: 36px; display: grid; place-items: center; }
-.fde-ad-nav .brand-mark svg { width: 32px; height: 32px; }
+/* Official header Logo SVG + official header mark colors, on a light tile so the mark stays legible on the dark ad chrome. Wordmark is white (header wordmark is navy because the main header is light). */
+html[data-theme] body .fde-ad-nav .brand,
+html[data-theme] body .fde-ad-foot .brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 0;
+  text-decoration: none;
+  background: transparent !important;
+  color: #fff;
+}
+html[data-theme] body .fde-ad-nav .brand-mark,
+html[data-theme] body .fde-ad-foot .brand-mark {
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  border-radius: 11px;
+  display: grid;
+  place-items: center;
+  background: #eef4ff !important;
+  box-shadow: 0 0 0 1px rgba(17, 20, 28, 0.06) !important;
+}
+html[data-theme] body .fde-ad-nav .brand-mark svg,
+html[data-theme] body .fde-ad-foot .brand-mark svg {
+  width: 31px;
+  height: 31px;
+}
+html[data-theme] body .fde-ad-nav .mark-blue,
+html[data-theme] body .fde-ad-foot .mark-blue {
+  fill: #214386 !important;
+}
+html[data-theme] body .fde-ad-nav .mark-red,
+html[data-theme] body .fde-ad-foot .mark-red {
+  fill: #8d2121 !important;
+}
+html[data-theme] body .fde-ad-nav .brand-copy,
+html[data-theme] body .fde-ad-foot .brand-copy {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+html[data-theme] body .fde-ad-nav .brand-copy strong,
+html[data-theme] body .fde-ad-foot .brand-copy strong {
+  font-family: var(--fde-funnel);
+  font-weight: 500;
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  color: #fff !important;
+}
+html[data-theme] body .fde-ad-nav .brand-copy small,
+html[data-theme] body .fde-ad-foot .brand-copy small {
+  font-weight: 300;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: rgba(246, 246, 246, 0.75) !important;
+  text-transform: uppercase;
+}
+html[data-theme] body .fde-ad-foot .brand { margin: 0 0 14px; }
 
 .fde-ad-nav-apply { display: none; }
 @media (min-width: 1024px) { .fde-ad-nav-apply { display: inline-flex; } }
