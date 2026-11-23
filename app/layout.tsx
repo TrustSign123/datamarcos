@@ -8,6 +8,7 @@ import "./ds.css";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { HideOnAdLanding } from "@/components/ad/HideOnAdLanding";
 import { WhatsAppCTA } from "@/components/Integrations";
 import { AnalyticsTags } from "@/components/AnalyticsTags";
 import { AnalyticsListeners } from "@/components/AnalyticsListeners";
@@ -43,9 +44,9 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
         <MarketProvider market={market}>
           <AnalyticsTags />
           <AnalyticsListeners />
-          <Header />
+          <HideOnAdLanding><Header /></HideOnAdLanding>
           <main>{children}</main>
-          <Footer />
+          <HideOnAdLanding><Footer /></HideOnAdLanding>
           <WhatsAppCTA />
           <LeadModal />
         </MarketProvider>
