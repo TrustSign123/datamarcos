@@ -154,7 +154,7 @@ export const transformationStories: TransformationStory[] = [
     build: "Real data engineering skills through hands-on projects.",
     land: "Senior Consultant at InPhase Solutions, Norway.",
     quote: "The training helped me build real Data Engineering skills with hands-on projects, which directly added value in my current role.",
-    image: { src: "/images/learner-reels/krishna-kumar.webp", alt: "Krishna Kumar, Senior Consultant at InPhase Solutions, video story", width: 640, height: 640 },
+    image: { src: "/images/learner-reels/krishna-kumar.webp", alt: "Krishna Kumar, Senior Consultant at InPhase Solutions, video story", width: 960, height: 1200 },
     link: { href: "https://www.instagram.com/datamarcos_official/reel/DeHU1_zz5Ha/", label: "Watch on Instagram" },
     source: "config/home.ts learnerVideos (krishna-kumar)"
   },
@@ -164,7 +164,7 @@ export const transformationStories: TransformationStory[] = [
     build: "Real AI agents and automation workflows with n8n and LangChain.",
     land: "From HR recruitment to building AI agents.",
     quote: "The sessions were very practical. We built real AI agents and automation workflows using n8n, LangChain and more.",
-    image: { src: "/images/learner-reels/hema-natarajan.webp", alt: "Hema Natarajan, Sr. IT Recruitment Consultant, video story", width: 361, height: 430 },
+    image: { src: "/images/learner-reels/hema-natarajan.webp", alt: "Hema Natarajan, Sr. IT Recruitment Consultant, video story", width: 960, height: 1200 },
     link: { href: "https://www.instagram.com/datamarcos_official/reel/DeHWwlvzS2j/", label: "Watch on Instagram" },
     source: "config/home.ts learnerVideos (hema-natarajan)"
   }

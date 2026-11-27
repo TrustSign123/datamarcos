@@ -85,9 +85,9 @@ export const homePrograms: HomeProgram[] = [
 export { EMI_NOTE };
 
 /**
- * Learner video feedback. To add more (e.g. from the Drive folder), drop a poster image in
- * /public/images/learner-reels/ and add an entry. `kind: "instagram"` lazy-loads Instagram's
- * iframe only after a click; `kind: "video"` plays a self-hosted MP4 (put it in /public/videos/).
+ * Learner video feedback. Posters are 4:5 webp (plus -640 and -480 srcset sizes). Click-to-play
+ * opens a lightbox: self-hosted MP4s play inline; Instagram embeds load only after the click.
+ * To add more, drop a poster in /public/images/learner-reels/ (or learner-feedback/) and an entry here.
  */
 export type LearnerVideo = {
   id: string;

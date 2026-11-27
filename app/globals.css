@@ -4773,15 +4773,18 @@ body:has(.agentic-course-page) > .whatsapp {
 .dmh-reels { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 18px; align-items: start; }
 .dmh-reel { overflow: hidden; border-radius: 20px; border: 1px solid rgba(255,255,255,.12); background: #0d1420; }
 .dmh-reel-media { position: relative; aspect-ratio: 4 / 5; background: #0b121d; }
-.dmh-reel-media.is-vertical { aspect-ratio: 9 / 16; }
+.dmh-reel-media.is-vertical { aspect-ratio: 4 / 5; }
 .dmh-reel-media iframe, .dmh-reel-media video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: #fff; }
 .dmh-reel-media video { background: #000; object-fit: contain; }
 .dmh-reel-poster { position: absolute; inset: 0; width: 100%; padding: 0; border: 0; background: none; cursor: pointer; }
-.dmh-reel-poster img { object-fit: cover; object-position: center top; }
-.dmh-reel-poster.is-video img { object-position: center; }
-.dmh-reel-play { position: absolute; left: 50%; top: 50%; display: grid; place-items: center; width: 68px; height: 68px; border-radius: 50%; transform: translate(-50%, -50%); color: #fff; background: linear-gradient(135deg, #ff4ab8, #ff7a59); box-shadow: 0 0 0 8px rgba(255,74,184,.25), 0 18px 40px rgba(0,0,0,.45); transition: transform .2s ease; }
-.dmh-reel-poster:hover .dmh-reel-play { transform: translate(-50%, -50%) scale(1.06); }
-.dmh-reel-course { position: absolute; left: 12px; top: 12px; padding: 5px 11px; border-radius: 999px; background: rgba(5,7,12,.82); color: #fff; font-size: .7rem; font-weight: 850; letter-spacing: .05em; text-transform: uppercase; }
+.dmh-reel-poster img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.dmh-reel-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10, 27, 68, .04) 40%, rgba(10, 27, 68, .72) 100%); pointer-events: none; }
+.dmh-reel-play { position: absolute; left: 50%; top: 46%; display: grid; place-items: center; width: 64px; height: 64px; border-radius: 50%; transform: translate(-50%, -50%); color: #fff; background: linear-gradient(180deg, rgba(255,255,255,.28), rgba(21, 87, 229, .45)); border: 1.5px solid rgba(255,255,255,.8); box-shadow: 0 10px 28px rgba(10, 27, 68, .35); backdrop-filter: blur(12px) saturate(1.2); -webkit-backdrop-filter: blur(12px) saturate(1.2); transition: transform .2s ease, box-shadow .2s ease; }
+.dmh-reel-poster:hover .dmh-reel-play, .dmh-reel-poster:focus-visible .dmh-reel-play { transform: translate(-50%, -50%) scale(1.07); box-shadow: 0 14px 32px rgba(10, 27, 68, .42); }
+.dmh-reel-course { position: absolute; left: 12px; top: 12px; padding: 5px 11px; border-radius: 999px; background: rgba(10, 27, 68, .82); color: #fff; font-size: .68rem; font-weight: 750; letter-spacing: .04em; text-transform: uppercase; }
+.dmh-reel-meta { position: absolute; left: 14px; right: 14px; bottom: 14px; text-align: left; color: #fff; pointer-events: none; }
+.dmh-reel-meta b { display: block; font-size: .95rem; font-weight: 750; letter-spacing: -0.02em; line-height: 1.2; }
+.dmh-reel-meta small { display: block; margin-top: 3px; color: rgba(255,255,255,.86); font-size: .72rem; line-height: 1.35; }
 .dmh-reel-body { display: grid; gap: 8px; padding: 16px 18px 18px; }
 .dmh-reel-headline { margin: 0; color: #ffb38f; font-size: .78rem; font-weight: 850; letter-spacing: .06em; text-transform: uppercase; }
 .dmh-reel blockquote { margin: 0; color: rgba(255,255,255,.86); font-size: .9rem; line-height: 1.55; }
@@ -4789,6 +4792,23 @@ body:has(.agentic-course-page) > .whatsapp {
 .dmh-reel-person b { display: block; font-size: .95rem; }
 .dmh-reel-person small { color: rgba(255,255,255,.6); font-size: .78rem; }
 .dmh-reel-link { display: inline-flex; align-items: center; gap: 6px; min-height: 32px; color: #8fe6ff; font-size: .84rem; font-weight: 800; }
+.dmh-reel-watch { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 36px; padding: 0 14px; border: 0; border-radius: 8px; background: #1557e5; color: #fff; font-size: .84rem; font-weight: 700; cursor: pointer; }
+.dmh-reel-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
+.dmh-reel-quote-slot { display: none; }
+.dmh-vmodal { position: fixed; inset: 0; z-index: 200000; display: grid; place-items: center; padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left)); background: rgba(10, 27, 68, .78); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.dmh-vmodal-panel { position: relative; width: min(920px, 100%); max-height: calc(100dvh - 32px); display: flex; flex-direction: column; overflow: auto; border-radius: 20px; background: #0a1b44; box-shadow: 0 32px 80px rgba(0, 0, 0, .45); color: #fff; }
+.dmh-vmodal-panel.is-vertical { width: min(420px, 100%); }
+.dmh-vmodal-bar { display: flex; align-items: center; gap: 12px; padding: 12px 12px 12px 18px; }
+.dmh-vmodal-title { flex: 1; margin: 0; min-width: 0; }
+.dmh-vmodal-title b { display: block; font-size: 1rem; font-weight: 750; letter-spacing: -0.02em; }
+.dmh-vmodal-title span { display: block; margin-top: 2px; color: #c9d7f5; font-size: .78rem; }
+.dmh-vmodal-close { flex: none; display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 50%; background: rgba(255,255,255,.1); color: #fff; cursor: pointer; }
+.dmh-vmodal-close:hover, .dmh-vmodal-close:focus-visible { background: rgba(255,255,255,.2); }
+.dmh-vmodal-player { position: relative; width: 100%; aspect-ratio: 16 / 9; background: #000; }
+.dmh-vmodal-player.is-vertical { aspect-ratio: 9 / 16; max-height: min(70dvh, 720px); margin: 0 auto; width: 100%; }
+.dmh-vmodal-player iframe, .dmh-vmodal-player video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: #000; }
+.dmh-vmodal-player video { object-fit: contain; }
+.dmh-vmodal-source { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; margin: 4px 18px 14px; color: #d6e4ff; font-size: .9rem; font-weight: 700; }
 
 .dmh-split { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 48px; align-items: center; }
 .dmh-steps { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
