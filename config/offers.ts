@@ -2,6 +2,3 @@
 
 export const BLACK_FRIDAY_WHATSAPP_URL =
   "https://wa.me/919625988950?text=" + encodeURIComponent("Hey, I want to know about the Black Friday offer");
-
-export const FREE_DEMO_WHATSAPP_URL =
-  "https://wa.me/919625988950?text=" + encodeURIComponent("Hey, I want to book a free demo");

@@ -6064,12 +6064,3 @@ button.dmx-icon { padding: 0; background: none; font: inherit; cursor: pointer; 
   .bf-popup-banner{border-radius:10px;}
   .bf-popup-banner img{max-height:calc(100dvh - 56px);}
 }
-.dm-demo-banner{padding:8px 0 0;}
-.dm-demo-banner-link{display:block;line-height:0;border-radius:16px;overflow:hidden;box-shadow:0 16px 40px rgba(10,27,68,.12);border:1px solid var(--ds-line, #e1e8f4);}
-.dm-demo-banner-link:hover{box-shadow:0 20px 48px rgba(10,27,68,.16);}
-.dm-demo-banner-link:focus-visible{outline:3px solid #1557e5;outline-offset:3px;}
-.dm-demo-banner-link img{display:block;width:100%;height:auto;}
-@media (max-width:640px){
-  .dm-demo-banner{padding:4px 0 0;}
-  .dm-demo-banner-link{border-radius:12px;}
-}
