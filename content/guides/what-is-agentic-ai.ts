@@ -155,7 +155,7 @@ export const guide: Guide = {
     },
     {
       "type": "p",
-      "text": "**7. Guardrails and security.** Input and output filtering, least-privilege tool permissions, prompt-injection defences (especially when agents read external content), PII handling and human approval for irreversible actions. OWASP lists both [prompt injection](https://genai.owasp.org/llmrisk/llm01-prompt-injection/) and [excessive agency](https://genai.owasp.org/llmrisk/llm062025-excessive-agency/) in its Top 10 for LLM applications, and both matter far more once a model can act."
+      "text": "**7. Guardrails and security.** Input and output filtering, least-privilege tool permissions, prompt-injection defences (especially when agents read external content), PII handling and [human approval for irreversible actions](/guides/human-in-the-loop-ai-agents). OWASP lists both [prompt injection](https://genai.owasp.org/llmrisk/llm01-prompt-injection/) and [excessive agency](https://genai.owasp.org/llmrisk/llm062025-excessive-agency/) in its Top 10 for LLM applications, and both matter far more once a model can act."
     },
     {
       "type": "p",

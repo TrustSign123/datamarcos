@@ -10,8 +10,8 @@ export const guide: Guide = {
   "h1": "n8n vs LangGraph: Which Should You Use for AI Agents?",
   "description": "n8n vs LangGraph compared: visual workflows vs code-first agent graphs, integrations, state, observability, licensing, and when to use both together.",
   "datePublished": "2026-11-10",
-  "dateModified": "2026-11-10",
-  "lastReviewed": "2026-11-10",
+  "dateModified": "2026-11-27",
+  "lastReviewed": "2026-11-27",
   "author": "Deepesh Mishra, Founder & CEO, Datamarcos",
   "authorPerson": {
     "name": "Deepesh Mishra",
@@ -87,7 +87,7 @@ export const guide: Guide = {
         ],
         [
           "Human approval mid-run",
-          "Possible with wait/approval steps",
+          "Built in: human review on AI Agent tools (Slack, Teams, Gmail, WhatsApp and more), plus the Wait node",
           "Built-in interrupts to inspect and edit state"
         ],
         [
@@ -155,7 +155,7 @@ export const guide: Guide = {
       "items": [
         "**n8n** receives the event (webhook, schedule, new ticket), cleans and enriches the data.",
         "n8n calls a **LangGraph agent** exposed as an HTTP endpoint and waits for a structured response.",
-        "**LangGraph** does the multi-step reasoning, with state, limits and human approval where needed.",
+        "**LangGraph** does the multi-step reasoning, with state, limits and [human approval](/guides/human-in-the-loop-ai-agents) where needed.",
         "**n8n** routes the result to email, CRM, Slack or a database, and handles retries and alerts."
       ]
     },
@@ -243,6 +243,19 @@ export const guide: Guide = {
   ],
   "faqs": [
     {
+      "q": "What is n8n, in short?",
+      "a": "n8n is a fair-code workflow automation platform for building AI agents and workflows on a visual canvas, with code nodes when you need them. You can self-host it or use n8n's cloud. It is strongest when an agent's value comes from connecting triggers, apps and databases rather than from long, stateful reasoning."
+    },
+    {
+      "q": "How can I use n8n or LangGraph to build an agent that queries live ERP data?",
+      "a": "Give the agent narrow, read-only tools first: in n8n, an ERPNext or HTTP Request node used as an AI tool; in LangGraph, Python functions that run fixed, parameterised queries with a read-only ERP user. Put any tool that updates records behind a human approval step, and let the ERP's own permissions block everything else."
+    },
+    {
+      "q": "Which AI agent platforms support approval steps before updating business systems?",
+      "a": "Both tools here do. n8n can require human review before an AI Agent runs selected tools, sending the request to Slack, Teams, Gmail, WhatsApp or other channels. LangGraph pauses a run with interrupt() and resumes after a decision. CrewAI, the OpenAI Agents SDK, Microsoft Agent Framework and Google ADK also support approvals.",
+      "after": "Step-by-step guide: [human-in-the-loop AI agents](/guides/human-in-the-loop-ai-agents)."
+    },
+    {
       "q": "Is n8n better than LangGraph?",
       "a": "Neither is better in general. n8n is stronger for integrations, triggers and visual run history; LangGraph is stronger for stateful, looping, multi-agent logic written in code."
     },
@@ -279,6 +292,14 @@ export const guide: Guide = {
     {
       "label": "n8n Docs, Integrate AI (incl. MCP servers)",
       "url": "https://docs.n8n.io/build/integrate-ai"
+    },
+    {
+      "label": "n8n docs: Human-in-the-loop for tools",
+      "url": "https://docs.n8n.io/build/integrate-ai/ai-examples/human-in-the-loop-for-tools"
+    },
+    {
+      "label": "n8n docs: ERPNext node",
+      "url": "https://docs.n8n.io/integrations/builtin/app-nodes/n8n-nodes-base.erpnext"
     },
     {
       "label": "n8n, \"n8n vs LangGraph\" (vendor comparison; used for n8n-side facts only)",

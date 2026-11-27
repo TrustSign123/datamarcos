@@ -10,8 +10,8 @@ export const guide: Guide = {
   "h1": "LangGraph vs CrewAI vs AutoGen: How to Choose an Agent Framework in 2026",
   "description": "LangGraph vs CrewAI vs AutoGen in 2026: how each models agents, AutoGen's move to Microsoft Agent Framework, where n8n and vendor SDKs fit, and how to choose.",
   "datePublished": "2026-10-30",
-  "dateModified": "2026-10-30",
-  "lastReviewed": "2026-10-30",
+  "dateModified": "2026-11-27",
+  "lastReviewed": "2026-11-27",
   "author": "Deepesh Mishra, Founder & CEO, Datamarcos",
   "authorPerson": {
     "name": "Deepesh Mishra",
@@ -95,9 +95,9 @@ export const guide: Guide = {
         [
           "Human-in-the-loop",
           "Built in (interrupt and approve)",
-          "Possible, less central",
-          "Supported in workflows",
-          "Varies"
+          "Supported: @human_feedback in Flows (CrewAI 1.8.0+)",
+          "Agent Framework: tools wrapped in ApprovalRequiredAIFunction",
+          "OpenAI Agents SDK: needs_approval; Google ADK: tool confirmation"
         ],
         [
           "Maintenance status (30 Oct 2026)",
@@ -124,7 +124,7 @@ export const guide: Guide = {
     },
     {
       "type": "p",
-      "text": "(Summarised from each project's official documentation on 30 October 2026. These frameworks release often, so check the current docs.)"
+      "text": "(Summarised from each project's official documentation on 30 October 2026. Human-in-the-loop row updated 27 November 2026. These frameworks release often, so check the current docs.)"
     },
     {
       "type": "h2",
@@ -172,7 +172,7 @@ export const guide: Guide = {
       "items": [
         "**Tool design:** narrow tools with clear inputs, outputs and permission scopes.",
         "**Evaluation:** task test sets plus tracing, so you can see why an agent did what it did.",
-        "**Guardrails:** prompt-injection defences, PII handling and approval steps for risky actions.",
+        "**Guardrails:** prompt-injection defences, PII handling and [approval steps for risky actions](/guides/human-in-the-loop-ai-agents).",
         "**Interoperability:** the [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) is an open standard for connecting AI applications to tools and data, and it works across frameworks.",
         "**Cost and latency budgets:** cap loops and turns."
       ]
@@ -208,6 +208,11 @@ export const guide: Guide = {
     }
   ],
   "faqs": [
+    {
+      "q": "Which AI platforms support human approval before sensitive actions are taken?",
+      "a": "All the main options do, in different ways. LangGraph pauses a run with interrupt() and resumes from a checkpoint; CrewAI Flows use the @human_feedback decorator; Microsoft Agent Framework marks tools with ApprovalRequiredAIFunction; the OpenAI Agents SDK uses needs_approval; Google ADK uses tool confirmation; and n8n adds human review to agent tools.",
+      "after": "How to set this up: [human-in-the-loop AI agents](/guides/human-in-the-loop-ai-agents)."
+    },
     {
       "q": "Is LangGraph better than CrewAI?",
       "a": "Neither is better in general. LangGraph gives more control and suits production workflows. CrewAI is faster for role-based prototypes."
@@ -269,6 +274,22 @@ export const guide: Guide = {
     {
       "label": "n8n advanced AI docs",
       "url": "https://docs.n8n.io/advanced-ai/"
+    },
+    {
+      "label": "CrewAI docs: Human feedback in Flows",
+      "url": "https://docs.crewai.com/en/learn/human-feedback-in-flows"
+    },
+    {
+      "label": "Microsoft Learn: Using function tools with human in the loop approvals",
+      "url": "https://learn.microsoft.com/en-us/agent-framework/agents/tools/tool-approval"
+    },
+    {
+      "label": "OpenAI Agents SDK: Human-in-the-loop",
+      "url": "https://openai.github.io/openai-agents-python/human_in_the_loop/"
+    },
+    {
+      "label": "Google ADK: Action confirmations",
+      "url": "https://adk.dev/tools-custom/confirmation/"
     }
   ]
 };

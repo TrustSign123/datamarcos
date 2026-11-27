@@ -196,7 +196,7 @@ export const guide: Guide = {
     },
     {
       "type": "p",
-      "text": "**What it does:** Checks a submitted claim, invoice or application against a rules document, pulls the related record from a mock database, lists missing items and drafts a response, with a human approving before anything is \"sent\". **Skills shown:** a deterministic workflow with agentic steps only where judgement is needed, audit logs, human-in-the-loop design. **Stretch goal:** a dashboard of past runs showing which step failed most often."
+      "text": "**What it does:** Checks a submitted claim, invoice or application against a rules document, pulls the related record from a mock database, lists missing items and drafts a response, with a human approving before anything is \"sent\". **Skills shown:** a deterministic workflow with agentic steps only where judgement is needed, audit logs, human-in-the-loop design. **Stretch goal:** a dashboard of past runs showing which step failed most often. See [how to add human approval steps to an agent](/guides/human-in-the-loop-ai-agents)."
     },
     {
       "type": "h2",

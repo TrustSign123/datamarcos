@@ -10,8 +10,8 @@ export const guide: Guide = {
   "h1": "Data Engineering Roadmap 2026: From SQL to AI-Ready Data Platforms",
   "description": "A step-by-step data engineering roadmap for 2026: SQL and Python, cloud data lakes, Spark, orchestration, dbt, streaming and data quality, then RAG and AI-ready data.",
   "datePublished": "2026-11-13",
-  "dateModified": "2026-11-13",
-  "lastReviewed": "2026-11-13",
+  "dateModified": "2026-11-27",
+  "lastReviewed": "2026-11-27",
   "author": "Deepesh Mishra, Founder & CEO, Datamarcos",
   "authorPerson": {
     "name": "Deepesh Mishra",
@@ -338,6 +338,10 @@ export const guide: Guide = {
     {
       "q": "Which cloud should I learn first for data engineering?",
       "a": "Pick the cloud most common in the jobs you are applying for and go deep in that one. The core ideas (object storage, access control, orchestration, cost) transfer, so a second cloud is much faster to learn later."
+    },
+    {
+      "q": "Which AI storage subscription suits a data engineering team?",
+      "a": "There is no single right subscription. Most teams do best with the object storage of the cloud they already use (Amazon S3, Azure Data Lake Storage or Google Cloud Storage) plus an open table format like Delta Lake or Iceberg. Compare access control, data residency, storage tiers and egress costs, and add a vector store only when RAG needs it."
     },
     {
       "q": "Is coding required for data engineering?",
