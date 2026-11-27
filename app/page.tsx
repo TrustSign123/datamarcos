@@ -27,6 +27,7 @@ import { ProgramCatalog } from "@/components/ds/ProgramCatalog";
 import { catalogItems } from "@/config/catalog";
 import { CareerOSJourney } from "@/components/ds/CareerOSJourney";
 import { OutcomesStrip } from "@/components/ds/OutcomesStrip";
+import { HomeDemoBanner } from "@/components/home/HomeDemoBanner";
 
 const ogTitle = "4 Live Online AI & Data Engineering Courses with Deepesh Mishra | Datamarcos";
 const ogDescription = "Forward Deployed AI Engineer, Generative AI & Agentic AI Engineer, Applied Agentic AI Certification and Advance Data Engineering with Applied GenAI & Agentic AI. Live online courses for students and working professionals, mentor-led by Deepesh Mishra.";
@@ -183,6 +184,8 @@ export default async function Home() {
           </div>
         </div>
       </section>
+
+      <HomeDemoBanner />
 
       {/* 1b. OUTCOMES BAND: real learners, the CareerOS method and a link to /placements */}
       <OutcomesStrip ctaPrefix="Home" />
