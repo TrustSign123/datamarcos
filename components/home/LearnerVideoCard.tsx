@@ -40,7 +40,7 @@ export function LearnerVideoCard({ video }: { video: LearnerVideo }) {
           className="dmh-reel-poster"
           onClick={() => setOpen(true)}
           aria-haspopup="dialog"
-          aria-label={`${video.course ? `${video.course}: ` : ""}play ${video.name}'s feedback video`}
+          aria-label={`Play ${video.name}'s feedback video`}
         >
           <Image
             src={video.poster}
@@ -53,7 +53,6 @@ export function LearnerVideoCard({ video }: { video: LearnerVideo }) {
           <span className="dmh-reel-play" aria-hidden="true">
             <Play size={26} fill="currentColor" />
           </span>
-          {video.course ? <span className="dmh-reel-course">{video.course}</span> : null}
           <span className="dmh-reel-meta">
             <b>{video.name}</b>
             <small>{video.role}</small>
@@ -165,7 +164,6 @@ function LearnerVideoModal({
         <div className="dmh-vmodal-bar">
           <p id={titleId} className="dmh-vmodal-title">
             <b>{video.name}</b>
-            {video.course ? <span>{video.course}</span> : null}
           </p>
           <button ref={closeRef} type="button" className="dmh-vmodal-close" onClick={onClose} aria-label="Close video">
             <X size={20} strokeWidth={2.2} />

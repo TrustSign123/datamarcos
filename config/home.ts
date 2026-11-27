@@ -102,7 +102,6 @@ export type LearnerVideo = {
   role: string;
   headline?: string;
   quote?: string;
-  course?: string;
   /** 9:16 player. Leave unset for the default 4:5 reel frame. */
   vertical?: boolean;
 };
@@ -113,11 +112,10 @@ export const mikeHamataVideo: LearnerVideo = {
   source: "/videos/learner-mike-hamata.mp4",
   poster: "/images/learner-feedback/poster-mike-hamata.webp",
   name: "Mike Hamata",
-  role: "Applied Agentic AI Certification, live class",
+  role: "Live class",
   url: "https://www.linkedin.com/in/mikehamata",
   urlLabel: "View on LinkedIn",
-  course: "Applied Agentic AI",
-  // No headline or quote: the page only shows name, course and LinkedIn (no invented wording).
+  // No headline or quote: the page only shows name and LinkedIn (no invented wording).
   vertical: true
 };
 
@@ -132,8 +130,7 @@ export const learnerVideos: LearnerVideo[] = [
     name: "Hema Natarajan",
     role: "Sr. IT Recruitment Consultant, Geno Consulting Services",
     headline: "From HR recruitment to building AI agents",
-    quote: "The sessions were very practical. We built real AI agents and automation workflows using n8n, LangChain and more.",
-    course: "Agentic AI"
+    quote: "The sessions were very practical. We built real AI agents and automation workflows using n8n, LangChain and more."
   },
   {
     id: "krishna-kumar",
@@ -143,9 +140,8 @@ export const learnerVideos: LearnerVideo[] = [
     poster: "/images/learner-reels/krishna-kumar.webp",
     name: "Krishna Kumar",
     role: "Senior Consultant, InPhase Solutions (Norway)",
-    headline: "From data engineering learner to global consultant",
-    quote: "The training helped me build real Data Engineering skills with hands-on projects, which directly added value in my current role.",
-    course: "Data Engineering"
+    headline: "From learner to global consultant",
+    quote: "The training helped me build real Data Engineering skills with hands-on projects, which directly added value in my current role."
   },
   {
     id: "ayushi-soni",
@@ -153,10 +149,9 @@ export const learnerVideos: LearnerVideo[] = [
     source: "/videos/learner-ayushi-soni.mp4",
     poster: "/images/learner-feedback/poster-ayushi-soni.webp",
     name: "Ayushi Soni",
-    role: "Data Engineering learner · live class feedback",
+    role: "Learner · live class feedback",
     headline: "Azure made easy",
-    quote: "I previously worked on AWS and I found it really hard during college but you made it pretty easy for Azure and explaining everything nicely so thank you so much for that.",
-    course: "Data Engineering"
+    quote: "I previously worked on AWS and I found it really hard during college but you made it pretty easy for Azure and explaining everything nicely so thank you so much for that."
   },
   {
     id: "raghul-k",
@@ -164,10 +159,9 @@ export const learnerVideos: LearnerVideo[] = [
     source: "/videos/learner-raghul-k.mp4",
     poster: "/images/learner-feedback/poster-raghul-k.webp",
     name: "Raghul K",
-    role: "Data Engineering learner · live class feedback",
+    role: "Learner · live class feedback",
     headline: "Learnt from scratch, built real projects",
-    quote: "So we learnt many things sir so we learnt from anything from scratch so without you this much project can't be built.",
-    course: "Data Engineering"
+    quote: "So we learnt many things sir so we learnt from anything from scratch so without you this much project can't be built."
   }
 ];
 
