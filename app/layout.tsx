@@ -10,6 +10,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { HideOnAdLanding } from "@/components/ad/HideOnAdLanding";
 import { WhatsAppCTA } from "@/components/Integrations";
+import { BlackFridayPopup } from "@/components/BlackFridayPopup";
 import { AnalyticsTags } from "@/components/AnalyticsTags";
 import { AnalyticsListeners } from "@/components/AnalyticsListeners";
 import { LeadModal } from "@/components/lead/LeadModal";
@@ -48,6 +49,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
           <main>{children}</main>
           <HideOnAdLanding><Footer /></HideOnAdLanding>
           <WhatsAppCTA />
+          <BlackFridayPopup />
           <LeadModal />
         </MarketProvider>
       </body>

@@ -6048,3 +6048,19 @@ button.dmx-icon { padding: 0; background: none; font: inherit; cursor: pointer; 
   .dm-fees-grid { grid-template-columns: 1fr; }
   .dm-fees { padding: 56px 0 48px; }
 }
+
+/* Black Friday offer popup (site-wide, once per session). z-index stays below the lead modal (2147483000). */
+.bf-popup{position:fixed;inset:0;z-index:100000;display:flex;align-items:center;justify-content:center;padding:max(16px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(16px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));}
+.bf-popup-backdrop{position:absolute;inset:0;background:rgba(3,5,10,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);}
+.bf-popup-dialog{position:relative;z-index:1;width:min(1024px,calc(100vw - 32px));max-height:calc(100dvh - 32px);}
+.bf-popup-banner{display:block;line-height:0;border-radius:14px;overflow:hidden;box-shadow:0 28px 80px rgba(0,0,0,.5);outline:none;}
+.bf-popup-banner:focus-visible{box-shadow:0 0 0 3px #fff,0 0 0 6px #1557e5,0 28px 80px rgba(0,0,0,.5);}
+.bf-popup-banner img{display:block;width:100%;height:auto;max-height:calc(100dvh - 72px);object-fit:contain;background:#06101f;}
+.bf-popup-close{position:absolute;top:8px;right:8px;z-index:2;width:44px;height:44px;padding:0;border-radius:50%;border:2px solid #fff;background:#111827;color:#fff;cursor:pointer;display:grid;place-items:center;box-shadow:0 8px 20px rgba(0,0,0,.45);}
+.bf-popup-close:hover,.bf-popup-close:focus-visible{background:#000;outline:2px solid #fff;outline-offset:2px;}
+@media (max-width:640px){
+  .bf-popup{padding:12px;align-items:center;}
+  .bf-popup-dialog{width:calc(100vw - 24px);}
+  .bf-popup-banner{border-radius:10px;}
+  .bf-popup-banner img{max-height:calc(100dvh - 56px);}
+}
