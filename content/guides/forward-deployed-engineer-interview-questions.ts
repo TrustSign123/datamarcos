@@ -133,7 +133,7 @@ export const guide: Guide = {
       "type": "ol",
       "items": [
         "\"Retrieval quality is poor on tables and scanned forms. Walk through how you'd diagnose and fix it.\"",
-        "\"Design an agent that can create Jira tickets but must never close them without approval.\"",
+        "\"Design an agent that can create Jira tickets but must never close them [without approval](/guides/human-in-the-loop-ai-agents).\"",
         "\"How would you measure whether this assistant is good enough to launch?\"",
         "\"How do you defend against prompt injection coming from retrieved documents?\"",
         "\"Usage cost tripled this month. Where do you look first?\""

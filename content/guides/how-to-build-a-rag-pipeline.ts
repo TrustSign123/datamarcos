@@ -10,8 +10,8 @@ export const guide: Guide = {
   "h1": "How to Build a RAG Pipeline: A Step-by-Step Guide with Python Code",
   "description": "Build a RAG pipeline step by step: load, chunk, index, retrieve, prompt, generate and evaluate. Runnable Python code, architecture choices and common mistakes.",
   "datePublished": "2026-11-17",
-  "dateModified": "2026-11-17",
-  "lastReviewed": "2026-11-17",
+  "dateModified": "2026-11-27",
+  "lastReviewed": "2026-11-27",
   "author": "Deepesh Mishra, Founder & CEO, Datamarcos",
   "authorPerson": {
     "name": "Deepesh Mishra",
@@ -27,7 +27,7 @@ export const guide: Guide = {
   "body": [
     {
       "type": "p",
-      "text": "**Short answer:** A RAG (retrieval-augmented generation) pipeline has seven steps: **load** your documents, **chunk** them into small passages, **index** the chunks (embeddings in a vector store, keyword search, or both), **retrieve** the most relevant chunks for each question, **augment** a prompt with those chunks, **generate** an answer that cites them, and **evaluate** retrieval and answers on a fixed test set. Start with the simplest version that works end to end (the short Python script below), measure it, and only then add embeddings, hybrid search, reranking or an agent."
+      "text": "**Short answer:** To build a RAG (retrieval-augmented generation) pipeline, follow seven steps: **load** your documents, **chunk** them into small passages, **index** the chunks (embeddings in a vector store, keyword search, or both), **retrieve** the most relevant chunks for each question, **augment** a prompt with those chunks, **generate** an answer that cites them, and **evaluate** retrieval and answers on a fixed test set. Start with the simplest version that works end to end (the short Python script below), measure it, and only then add embeddings, hybrid search, reranking or an agent."
     },
     {
       "type": "p",

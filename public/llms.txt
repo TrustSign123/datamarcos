@@ -23,6 +23,7 @@ Datamarcos runs live, mentor-led online programs led by founder Deepesh Mishra, 
 - [Agentic AI Projects for Beginners: 10 Ideas You Can Actually Build](https://www.datamarcos.com/guides/agentic-ai-projects-for-beginners)
 - [LangGraph vs CrewAI vs AutoGen: How to Choose an Agent Framework in 2026](https://www.datamarcos.com/guides/langgraph-vs-crewai-vs-autogen)
 - [n8n vs LangGraph: Which Should You Use for AI Agents?](https://www.datamarcos.com/guides/n8n-vs-langgraph)
+- [Human-in-the-Loop AI Agents: How to Add Approval Steps Before Sensitive Actions](https://www.datamarcos.com/guides/human-in-the-loop-ai-agents)
 - [How to Build an MCP Server: A Step-by-Step Beginner's Guide](https://www.datamarcos.com/guides/how-to-build-an-mcp-server)
 - [RAG vs Fine-Tuning: When to Use Each](https://www.datamarcos.com/guides/rag-vs-fine-tuning)
 - [How to Build a RAG Pipeline: A Step-by-Step Guide with Python Code](https://www.datamarcos.com/guides/how-to-build-a-rag-pipeline)

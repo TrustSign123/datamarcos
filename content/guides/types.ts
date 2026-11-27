@@ -42,6 +42,6 @@ export type Guide = {
   /** Shown in a box at the top (comparison guides must disclose that Datamarcos runs one of the programs). */
   disclosure?: string;
   body: GuideBlock[];
-  faqs: { q: string; a: string }[];
+  faqs: { q: string; a: string; after?: string }[];
   sources: { label: string; url: string }[];
 };

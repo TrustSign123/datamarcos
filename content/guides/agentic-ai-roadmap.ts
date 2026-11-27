@@ -10,8 +10,8 @@ export const guide: Guide = {
   "h1": "Agentic AI Roadmap 2026: From Python Basics to Production Agents",
   "description": "A practical agentic AI roadmap for 2026: Python and APIs, LLM basics, tool calling, RAG, LangGraph and MCP, evaluation and security, with a project at every stage.",
   "datePublished": "2026-11-13",
-  "dateModified": "2026-11-13",
-  "lastReviewed": "2026-11-13",
+  "dateModified": "2026-11-27",
+  "lastReviewed": "2026-11-27",
   "author": "Deepesh Mishra, Founder & CEO, Datamarcos",
   "authorPerson": {
     "name": "Deepesh Mishra",
@@ -27,7 +27,7 @@ export const guide: Guide = {
   "body": [
     {
       "type": "p",
-      "text": "**Short answer:** Learn agentic AI in seven stages, in this order: (1) Python, APIs and JSON; (2) how LLMs behave and how to prompt them for structured output; (3) tool calling and the agent loop in plain Python; (4) retrieval (RAG) and memory; (5) an orchestration framework such as LangGraph, plus MCP for connecting tools; (6) evaluation, observability and security; (7) deployment and one end-to-end capstone. Build one small project at every stage. Most working professionals who study a few hours a week can get through stages 1–5 in a few months; stages 6–7 are what separate a demo from something a company will trust."
+      "text": "**Short answer:** The best way to learn agentic AI is to build a small working agent at every step, in seven stages, in this order: (1) Python, APIs and JSON; (2) how LLMs behave and how to prompt them for structured output; (3) tool calling and the agent loop in plain Python; (4) retrieval (RAG) and memory; (5) an orchestration framework such as LangGraph, plus MCP for connecting tools; (6) evaluation, observability and security; (7) deployment and one end-to-end capstone. Build one small project at every stage. Most working professionals who study a few hours a week can get through stages 1–5 in a few months; stages 6–7 are what separate a demo from something a company will trust."
     },
     {
       "type": "p",
@@ -241,6 +241,10 @@ export const guide: Guide = {
     },
     {
       "type": "p",
+      "text": "Learn to put [human approval steps](/guides/human-in-the-loop-ai-agents) in front of risky tool calls."
+    },
+    {
+      "type": "p",
       "text": "**Stage project:** add an eval harness and tracing to your stage 4 or 5 project, then write down three failures you found and how you fixed them."
     },
     {
@@ -360,6 +364,10 @@ export const guide: Guide = {
     {
       "q": "What is the best roadmap to learn agentic AI in 2026?",
       "a": "Learn in this order: Python and APIs, LLM fundamentals and structured output, tool calling and the agent loop without a framework, RAG and memory, an orchestration framework such as LangGraph plus MCP, then evaluation, observability and security, and finally deployment with a capstone. Build one project per stage."
+    },
+    {
+      "q": "How do I learn agentic AI from scratch?",
+      "a": "Start with Python basics and calling an LLM API, then write a tiny agent loop that calls one tool, without a framework. Add retrieval, then learn LangGraph and MCP, then evaluation, safety and human approval for risky actions. Free framework docs cover the basics; a mentor-led course helps when you want feedback on real projects."
     },
     {
       "q": "Do I need machine learning or deep learning before learning agentic AI?",

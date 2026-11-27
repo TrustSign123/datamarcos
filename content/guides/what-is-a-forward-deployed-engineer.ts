@@ -11,8 +11,8 @@ export const guide: Guide = {
   "h1": "What Is a Forward Deployed Engineer? A Practical Guide for Engineers in India",
   "description": "What a forward deployed engineer (FDE) does, how the role differs from software and AI engineers, the skills it needs, and a practical roadmap for India.",
   "datePublished": "2026-10-30",
-  "dateModified": "2026-11-21",
-  "lastReviewed": "2026-11-21",
+  "dateModified": "2026-11-27",
+  "lastReviewed": "2026-11-27",
   "author": "Deepesh Mishra, Founder & CEO, Datamarcos",
   "authorPerson": {
     "name": "Deepesh Mishra",
@@ -28,7 +28,7 @@ export const guide: Guide = {
   "body": [
     {
       "type": "p",
-      "text": "**Definition:** A forward deployed engineer (FDE, often searched as \"FDE engineer\") is a software engineer who works inside a customer's environment to make a product, usually an AI system, work with that customer's real data, systems, security rules and users. FDEs scope the problem, write and deploy production code, and stay until people actually use it."
+      "text": "**Definition:** FDE stands for forward deployed engineer. A forward deployed engineer (FDE, often searched as \"FDE engineer\") is a software engineer who works inside a customer's environment to make a product, usually an AI system, work with that customer's real data, systems, security rules and users. FDEs scope the problem, write and deploy production code, and stay until people actually use it."
     },
     {
       "type": "p",
@@ -419,6 +419,10 @@ export const guide: Guide = {
     }
   ],
   "faqs": [
+    {
+      "q": "What is FDE?",
+      "a": "In software and AI, FDE stands for forward deployed engineer: an engineer embedded with a customer to make a product, usually an AI system, work with that customer's real data, systems and security rules. FDEs scope the problem, build and deploy production code, and stay until people use it. Outside software, FDE can also mean full disk encryption."
+    },
     {
       "q": "What is an FDE engineer?",
       "a": "An FDE engineer, or forward deployed engineer, is a software engineer who works directly with a customer to make a product, usually an AI system, work with that customer's real data, systems and security rules. They scope the problem, write production code, deploy it and stay until people actually use it."

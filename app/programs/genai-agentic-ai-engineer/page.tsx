@@ -126,7 +126,7 @@ export default async function GenAIAgenticEngineerPage() {
         ]}
         india={india}
         apply={{ eyebrow: "Application-based · small cohorts", title: <>Build it. Ship it. <em>Own the outcome.</em></>, body: `Share a few details. A counsellor will talk through your fit, the ${NEXT_COHORT_LONG} cohort, ${india ? "EMI options" : "fees"} and scholarships.`, bullets: ["3 client-style projects + a capstone at Demo Day", "130+ hours of live sessions, labs and studio"], formTitle: "Request a seat.", submitLabel: "Request my seat", trust: ["Application-based", "Small cohorts", "Weekend-friendly"], successBody: india ? successBodyIn : successBodyIntl }}
-        relatedGuides={["generative-ai-courses-india-compared-2026", "agentic-ai-courses-india-compared-2026", "rag-vs-fine-tuning", "how-to-build-a-rag-pipeline", "what-is-agentic-ai", "prompt-engineering-vs-context-engineering"]}
+        relatedGuides={["generative-ai-courses-india-compared-2026", "agentic-ai-courses-india-compared-2026", "rag-vs-fine-tuning", "how-to-build-a-rag-pipeline", "what-is-agentic-ai", "prompt-engineering-vs-context-engineering", "human-in-the-loop-ai-agents"]}
       />
     </>
   );

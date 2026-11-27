@@ -10,8 +10,8 @@ export const guide: Guide = {
   "h1": "Prompt Engineering vs Context Engineering: What's the Difference and Which Should You Learn?",
   "description": "Prompt engineering vs context engineering explained: definitions from Anthropic and LangChain, a side-by-side table, worked examples, techniques and what to learn first.",
   "datePublished": "2026-11-17",
-  "dateModified": "2026-11-17",
-  "lastReviewed": "2026-11-17",
+  "dateModified": "2026-11-27",
+  "lastReviewed": "2026-11-27",
   "author": "Deepesh Mishra, Founder & CEO, Datamarcos",
   "authorPerson": {
     "name": "Deepesh Mishra",
@@ -27,7 +27,7 @@ export const guide: Guide = {
   "body": [
     {
       "type": "p",
-      "text": "**Short answer:** **Prompt engineering** is writing and organising the instructions you give a model. **Context engineering** is deciding *everything* the model sees at each step (instructions, examples, retrieved documents, tool definitions, conversation history and memory) and keeping that set small and relevant as an application or agent runs. Prompt engineering is one part of context engineering. For a single chatbot reply, a good prompt is often enough; for RAG systems and agents that run many steps, context engineering is what makes them reliable. Learn prompting first, then context engineering."
+      "text": "**Short answer:** The difference: prompt engineering is about how you word the instructions; context engineering is about what information the model sees at each step. **Prompt engineering** is writing and organising the instructions you give a model. **Context engineering** is deciding *everything* the model sees at each step (instructions, examples, retrieved documents, tool definitions, conversation history and memory) and keeping that set small and relevant as an application or agent runs. Prompt engineering is one part of context engineering. For a single chatbot reply, a good prompt is often enough; for RAG systems and agents that run many steps, context engineering is what makes them reliable. Learn prompting first, then context engineering."
     },
     {
       "type": "h2",
@@ -327,6 +327,10 @@ export const guide: Guide = {
     {
       "q": "What is the difference between prompt engineering and context engineering?",
       "a": "Prompt engineering is writing and organising the instructions you give a model. Context engineering is managing everything the model sees at each step, including instructions, examples, retrieved documents, tool definitions, history and memory. Prompt engineering is one part of context engineering."
+    },
+    {
+      "q": "Is prompt engineering a component within context engineering?",
+      "a": "Yes, that is the most accurate way to describe the relationship. Context engineering covers everything a model sees at each step, including instructions, examples, retrieved documents, tool definitions and memory, and the prompt is one of those parts. Context engineering does not replace prompt engineering, and it is not just a longer system prompt."
     },
     {
       "q": "Is context engineering replacing prompt engineering?",

@@ -11,8 +11,8 @@ export const guide: Guide = {
   "h1": "Agentic AI Courses in India Compared (2026)",
   "description": "Compare 17 agentic AI courses in India, from IIT, IIIT and BITS certificates to live bootcamps and self-paced options, by duration, live hours, projects and credential.",
   "datePublished": "2026-10-29",
-  "dateModified": "2026-11-21",
-  "lastReviewed": "2026-11-21",
+  "dateModified": "2026-11-27",
+  "lastReviewed": "2026-11-27",
   "author": "Deepesh Mishra, Founder & CEO, Datamarcos",
   "authorPerson": {
     "name": "Deepesh Mishra",
@@ -172,8 +172,8 @@ export const guide: Guide = {
           "8 projects and an end-to-end capstone",
           "RAG and context engineering, agent orchestration, MCP and A2A, evals, observability, AI security",
           "Certificate of completion",
-          "Engineers, PMs and data professionals; some Python helps but isn't mandatory",
-          "21 Nov 2026"
+          "Engineers, PMs and data scientists/analysts; no coding background or prior AI experience required (as stated)",
+          "27 Nov 2026"
         ],
         [
           "**[LogicMojo: GenAI + Agentic AI](https://logicmojo.com/generative-ai-course/)**",
@@ -318,7 +318,7 @@ export const guide: Guide = {
         ],
         [
           "Audience",
-          "Engineers, PMs and data professionals; some Python helps; global cohort on Maven",
+          "Engineers, PMs and data professionals; no coding background required (as stated); global cohort on Maven",
           "Professionals; an optional Python refresher is included"
         ]
       ]
@@ -396,6 +396,10 @@ export const guide: Guide = {
     {
       "q": "How does The Gen Academy compare with Simplilearn's agentic AI course?",
       "a": "From their own pages (checked 21 November 2026): The Gen Academy's Mastering Agentic AI on Maven is a 6-week live cohort with 16 live sessions, 8 projects and a capstone, and a framework-neutral syllabus that includes MCP, evals, observability and AI security. Simplilearn's Applied Agentic AI is a 10-week live course built on Microsoft Azure, with 7 projects, a capstone and a joint Microsoft and Simplilearn certificate."
+    },
+    {
+      "q": "What prerequisites should a data analyst consider before an agentic AI course?",
+      "a": "Check four things: working Python (functions, JSON, calling an API), solid SQL and data handling, basic LLM ideas such as prompts, tokens and embeddings, and enough weekly time for projects, not just live sessions. Then read each provider's stated prerequisites; The Gen Academy's Maven page, for example, says no coding background is required."
     },
     {
       "q": "What is the best agentic AI course in India?",

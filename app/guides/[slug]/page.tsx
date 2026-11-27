@@ -108,6 +108,7 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
               <details key={f.q}>
                 <summary>{f.q}</summary>
                 <p><Inline text={f.a} /></p>
+                {f.after && <p><Inline text={f.after} /></p>}
               </details>
             ))}
           </section>
